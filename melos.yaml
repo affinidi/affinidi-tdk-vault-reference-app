@@ -4,13 +4,13 @@ packages:
 scripts:
   test:
     name: test
-    description: "test with coverage"
-    run: echo "Unit Tests not implemented."
+    description: "unit test with coverage"
+    run: flutter test
     exec:
       concurrency: 1
   test-integration:
     name: test
-    description: "test with coverage"
+    description: "integration tests"
     run: flutter test integration_test/
     exec:
       concurrency: 1
