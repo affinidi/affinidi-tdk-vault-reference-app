@@ -1,0 +1,938 @@
+{
+  "@@locale": "en",
+  "myFiles": "My files",
+  "@myFiles": {
+    "type": "text"
+  },
+  "myCredentials": "Claimed credentials",
+  "@myCredentials": {
+    "type": "text"
+  },
+  "files": "Files",
+  "@files": {
+    "type": "text"
+  },
+  "credentials": "Credentials",
+  "@credentials": {
+    "type": "text"
+  },
+  "driveTitle": "Storage",
+  "@driveTitle": {
+    "type": "text"
+  },
+  "filesEmptyStateDescription": "You don't have any files yet.\nThe Home folder is your root directory.",
+  "@filesEmptyStateDescription": {
+    "type": "text"
+  },
+  "credentialsEmptyStateDescription": "You don't have any claimed credentials.",
+  "@credentialsEmptyStateDescription": {
+    "type": "text"
+  },
+  "retryActionText": "Retry",
+  "@retryActionText": {
+    "type": "text"
+  },
+  "loading": "loading",
+  "@loading": {
+    "type": "text"
+  },
+  "okActionText": "ok",
+  "@okActionText": {
+    "type": "text"
+  },
+  "renameFileTitle": "Rename file",
+  "@renameFileTitle": {
+    "type": "text"
+  },
+  "renameFileDescription": "Create a name for this file.",
+  "@renameFileDescription": {
+    "type": "text"
+  },
+  "cancelActionText": "Cancel",
+  "@cancelActionText": {
+    "type": "text"
+  },
+  "fileName": "File name",
+  "@fileName": {
+    "type": "text"
+  },
+  "renameActionText": "Rename",
+  "@renameActionText": {
+    "type": "text"
+  },
+  "option": "{option, select, rename{Rename} preview{Preview} delete{Delete} share{Share} other{Unknown}}",
+  "@option": {
+    "type": "text",
+    "placeholders": {
+      "option": {
+        "type": "String"
+      }
+    }
+  },
+  "errorMessage": "{errorType, select, credential_offer_expired{Credential offer is expired} credential_offer_claimed_error{Credential offer is already claimed} failed_to_load_credentialOffer{Failed to load credentials} invalid_proof{The proof in the Credential Request is invalid} unmatched_tx_code{Transaction code does not match} folderNotEmpty{We cannot delete this folder because it's not empty. Please delete the files and try again.} nameAlreadyInUse{This name is already in use. Please choose a different one.} invalidPassword{Invalid password} emptyPassword{Password cannot be empty} invalidTransferData{Invalid transfer data} emptyTransferData{Missing transfer data} missingProfileName{Please enter a valid profile name} invalidUrl{Please enter a valid URL} getCredentialFailed{Failed to get credential data}other{Something went wrong}}",
+  "@errorMessage": {
+    "type": "text",
+    "placeholders": {
+      "errorType": {
+        "type": "String"
+      }
+    }
+  },
+  "createFolderActionText": "Create folder",
+  "@createFolderActionText": {
+    "type": "text"
+  },
+  "createFolderLoadingMessage": "Creating folder...",
+  "@createFolderLoadingMessage": {
+    "type": "text"
+  },
+  "renameFileLoadingMessage": "Renaming file...",
+  "@renameFileLoadingMessage": {
+    "type": "text"
+  },
+  "createFolderTitle": "Add new folder",
+  "@createFolderTitle": {
+    "type": "text"
+  },
+  "folderName": "Folder name",
+  "@folderName": {
+    "type": "text"
+  },
+  "deleteFolderTitle": "Delete folder",
+  "@deleteFolderTitle": {
+    "type": "text"
+  },
+  "deleteFolderDescription": "Please confirm deletion. This folder will be permanently removed and cannot be restored.",
+  "@deleteFolderDescription": {
+    "type": "text"
+  },
+  "deleteFolderActionText": "Delete",
+  "@deleteFolderActionText": {
+    "type": "text"
+  },
+  "deleteFolderLoadingMessage": "Deleting folder...",
+  "@deleteFolderLoadingMessage": {
+    "type": "text"
+  },
+  "deleteFileTitle": "Delete file",
+  "@deleteFileTitle": {
+    "type": "text"
+  },
+  "deleteFileActionText": "Delete",
+  "@deleteFileActionText": {
+    "type": "text"
+  },
+  "deleteFileLoadingMessage": "Deleting file...",
+  "@deleteFileLoadingMessage": {
+    "type": "text"
+  },
+  "deleteFileDescription": "Please confirm deletion. This file will be permanently removed and cannot be restored.",
+  "@deleteFileDescription": {
+    "type": "text"
+  },
+  "uploadingFileLoadingMessage": "Uploading...",
+  "@uploadingFileLoadingMessage": {
+    "type": "text"
+  },
+  "fileUploadErrorMessage": "Uploaded {completed} {completed, plural, =1{file} other{files}} out of {total}.\n\nFiles that failed:\n{files}",
+  "@fileUploadErrorMessage": {
+    "type": "text",
+    "placeholders": {
+      "files": {
+        "type": "String"
+      },
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "loadingCredentials": "Preparing your credentials...",
+  "@loadingCredentials": {
+    "type": "text"
+  },
+  "claimCredentialsTitle": "Claim credentials",
+  "@claimCredentialsTitle": {
+    "type": "text"
+  },
+  "verifiedCredentials": "VERIFIED CREDENTIAL",
+  "@verifiedCredentials": {
+    "type": "text"
+  },
+  "issuanceDate": "Issuance date",
+  "@issuanceDate": {
+    "type": "text"
+  },
+  "expiryDate": "Expiry date",
+  "@expiryDate": {
+    "type": "text"
+  },
+  "credentialValidationLoadingMessage": "Validating...",
+  "@credentialValidationLoadingMessage": {
+    "type": "text"
+  },
+  "neverExpires": "None",
+  "@neverExpires": {
+    "type": "text"
+  },
+  "deleteCredentialActionText": "Delete",
+  "@deleteCredentialActionText": {
+    "type": "text"
+  },
+  "deleteCredentialTitle": "Delete credential",
+  "@deleteCredentialTitle": {
+    "type": "text"
+  },
+  "deleteCredentialLoadingMessage": "Deleting credential...",
+  "@deleteCredentialLoadingMessage": {
+    "type": "text"
+  },
+  "deleteCredentialDescription": "Please confirm deletion. This credential will be permanently removed and cannot be restored.",
+  "@deleteCredentialDescription": {
+    "type": "text"
+  },
+  "renameFolderDescription": "Create a name for this folder.",
+  "@renameFolderDescription": {
+    "type": "text"
+  },
+  "renameFolderTitle": "Rename folder",
+  "@renameFolderTitle": {
+    "type": "text"
+  },
+  "renameFolderLoadingMessage": "Renaming folder...",
+  "@renameFolderLoadingMessage": {
+    "type": "text"
+  },
+  "claimCredentialsValidating": "Validating...",
+  "@claimCredentialsValidating": {
+    "type": "text"
+  },
+  "claimCredentialsSaving": "Saving...",
+  "@claimCredentialsSaving": {
+    "type": "text"
+  },
+  "claimCredentialsTxCode": " Transaction code",
+  "@claimCredentialsTxCode": {
+    "type": "text"
+  },
+  "saveActionText": "Save",
+  "@saveActionText": {
+    "type": "text"
+  },
+  "fetchActionText": "Fetch",
+  "@fetchActionText": {
+    "type": "text"
+  },
+  "verifiedData": "verified data",
+  "@verifiedData": {
+    "type": "text"
+  },
+  "previewTitle": "Preview",
+  "@previewTitle": {
+    "type": "text"
+  },
+  "unsupportedPreview": "Preview is not supported for this file type",
+  "@unsupportedPreview": {
+    "type": "text"
+  },
+  "home": "Home",
+  "@home": {
+    "type": "text"
+  },
+  "createVaultTitle": "Create your Vault",
+  "@createVaultTitle": {
+    "type": "text"
+  },
+  "createVaultDescription": "Use this option to create a brand new Vault.",
+  "@createVaultDescription": {
+    "type": "text"
+  },
+  "createVaultActionLabel": "Create",
+  "@createVaultActionLabel": {
+    "type": "text"
+  },
+  "vaultExistsErrorMessage": "A vault with this seed already exists on this device",
+  "@vaultExistsErrorMessage": {
+    "type": "text"
+  },
+  "seed": "seed",
+  "@seed": {
+    "type": "text"
+  },
+  "createVaultErrorMessage": "Failed to create new vault ",
+  "@createVaultErrorMessage": {
+    "type": "text"
+  },
+  "openVaultTitle": "Open an existing Vault",
+  "@openVaultTitle": {
+    "type": "text"
+  },
+  "accessVaultTitle": "Access your Affinidi Vault",
+  "@accessVaultTitle": {
+    "type": "text"
+  },
+  "login": "Login",
+  "@login": {
+    "type": "text"
+  },
+  "openVaultDescription": "Use this option to open a Vault you have already used on this device.",
+  "@openVaultDescription": {
+    "type": "text"
+  },
+  "accessVaultActionLabel": "Access",
+  "@accessVaultActionLabel": {
+    "type": "text"
+  },
+  "transferVaultTitle": "Complete a Vault transfer",
+  "@transferVaultTitle": {
+    "type": "text"
+  },
+  "transferVaultDescription": "Use this option to start scanning the QR code you received and complete a transfer.",
+  "@transferVaultDescription": {
+    "type": "text"
+  },
+  "transferVaultActionLabel": "Start",
+  "@transferVaultActionLabel": {
+    "type": "text"
+  },
+  "scanQrCodeInstructions": "Position the QR code within the frame to scan",
+  "@scanQrCodeInstructions": {
+    "type": "text"
+  },
+  "vaultName": "Vault Name",
+  "@vaultName": {
+    "type": "text"
+  },
+  "vaultPassphrase": "Passphrase",
+  "@vaultPassphrase": {
+    "type": "text"
+  },
+  "enterPassphrase": "Enter your passphrase",
+  "@enterPassphrase": {
+    "type": "text"
+  },
+  "generateRandomSeed": "Generate Random Seed",
+  "@generateRandomSeed": {
+    "type": "text"
+  },
+  "existingSeed": "Existing Seed",
+  "@existingSeed": {
+    "type": "text"
+  },
+  "enterSeed": "Enter Seed",
+  "@enterSeed": {
+    "type": "text"
+  },
+  "transferVaultLoadingMessage": "Transferring vault...",
+  "@transferVaultLoadingMessage": {
+    "type": "text"
+  },
+  "transferVaultProceedActionLabel": "Transfer vault",
+  "@transferVaultProceedActionLabel": {
+    "type": "text"
+  },
+  "transferVaultScanActionLabel": "Start scanning",
+  "@transferVaultScanActionLabel": {
+    "type": "text"
+  },
+  "creatingNewVault": "Creating a new Vault",
+  "@creatingNewVault": {
+    "type": "text"
+  },
+  "openingVault": "Opening Vault",
+  "@openingVault": {
+    "type": "text"
+  },
+  "credentialDetails": "Credential details",
+  "@credentialDetails": {
+    "type": "text"
+  },
+  "createProfileTitle": "Create new profile",
+  "@createProfileTitle": {
+    "type": "text"
+  },
+  "createProfileActionText": "Create",
+  "@createProfileActionText": {
+    "type": "text"
+  },
+  "createProfileLoadingMessage": "Creating new profile...",
+  "@createProfileLoadingMessage": {
+    "type": "text"
+  },
+  "createProfileDescription": "Enter the details for a new profile",
+  "@createProfileDescription": {
+    "type": "text"
+  },
+  "shareProfileTitle": "Profile Sharing",
+  "@shareProfileTitle": {
+    "type": "text"
+  },
+  "shareProfileSuccessMessage": "Profile shared successfully",
+  "@shareProfileSuccessMessage": {
+    "type": "text"
+  },
+  "shareProfileErrorMessage": "Error sharing profile: {errorMessage}",
+  "@shareProfileErrorMessage": {
+    "type": "text",
+    "placeholders": {
+      "errorMessage": {}
+    }
+  },
+  "shareProfileAcceptSuccessMessage": "Shared profile accepted successfully!",
+  "@shareProfileAcceptSuccessMessage": {
+    "type": "text"
+  },
+  "shareProfileAcceptErrorMessage": "Error accepting shared profile: {errorMessage}",
+  "@shareProfileAcceptErrorMessage": {
+    "type": "text",
+    "placeholders": {
+      "errorMessage": {}
+    }
+  },
+  "shareProfileAcceptActionText": "Accept Shared Profile",
+  "@shareProfileAcceptActionText": {
+    "type": "text"
+  },
+  "profileName": "Name",
+  "@profileName": {
+    "type": "text"
+  },
+  "profileDescription": "Description",
+  "@profileDescription": {
+    "type": "text"
+  },
+  "profilesTitle": "Profiles",
+  "@profilesTitle": {
+    "type": "text"
+  },
+  "deleteProfileTitle": "Delete Profile",
+  "@deleteProfileTitle": {
+    "type": "text"
+  },
+  "deleteProfileConfirmationMessage": "Are you sure you want to delete the profile \"{profileName}\"? This action cannot be undone.",
+  "@deleteProfileConfirmationMessage": {
+    "type": "text",
+    "placeholders": {
+      "profileName": {}
+    }
+  },
+  "deleteActionText": "Delete",
+  "@deleteActionText": {
+    "type": "text"
+  },
+  "deleteProfileLoadingMessage": "Deleting profile...",
+  "@deleteProfileLoadingMessage": {
+    "type": "text"
+  },
+  "vaultsTitle": "Vaults",
+  "@vaultsTitle": {
+    "type": "text"
+  },
+  "copy": "Copy",
+  "@copy": {
+    "type": "text"
+  },
+  "copiedToClipboard": "DID copied to clipboard",
+  "@copiedToClipboard": {
+    "type": "text"
+  },
+  "shareProfile": "Share",
+  "@shareProfile": {
+    "type": "text"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "type": "text"
+  },
+  "shared": "Shared",
+  "@shared": {
+    "type": "text"
+  },
+  "openPDF": "Open PDF in new tab",
+  "@openPDF": {
+    "type": "text"
+  },
+  "back": "Back",
+  "@back": {
+    "type": "text"
+  },
+  "recipientDidLabel": "Recipient DID",
+  "@recipientDidLabel": {
+    "type": "text"
+  },
+  "pasteSharedProfileDtoJsonTitle": "Paste SharedProfileDto JSON",
+  "@pasteSharedProfileDtoJsonTitle": {
+    "type": "text"
+  },
+  "selectYourProfileLabel": "Select Your Profile",
+  "@selectYourProfileLabel": {
+    "type": "text"
+  },
+  "sharedProfileDetails": "Shared Profile Detail",
+  "@sharedProfileDetails": {
+    "type": "text"
+  },
+  "sharedProfileDtoJsonFieldLabel": "SharedProfileDto JSON",
+  "@sharedProfileDtoJsonFieldLabel": {
+    "type": "text"
+  },
+  "folderLabel": "Folder: {name}",
+  "@folderLabel": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "fileLabel": "File: {name}",
+  "@fileLabel": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "idLabel": "ID: {id}",
+  "@idLabel": {
+    "type": "text",
+    "placeholders": {
+      "id": {}
+    }
+  },
+  "unknownItemType": "Unknown item type",
+  "@unknownItemType": {
+    "type": "text"
+  },
+  "noFilesOrFoldersFound": "No files or folders found",
+  "@noFilesOrFoldersFound": {
+    "type": "text"
+  },
+  "sharedFromLabel": "Shared from: {storageId}",
+  "@sharedFromLabel": {
+    "type": "text",
+    "placeholders": {
+      "storageId": {}
+    }
+  },
+  "storageTypeLabel": "Storage Type: {storageType}",
+  "@storageTypeLabel": {
+    "type": "text",
+    "placeholders": {
+      "storageType": {}
+    }
+  },
+  "noSharedContentAvailable": "No shared content available.",
+  "@noSharedContentAvailable": {
+    "type": "text"
+  },
+  "tdkReferenceAppbarTitle": "TDK Reference",
+  "@tdkReferenceAppbarTitle": {
+    "type": "text"
+  },
+  "useQrData": "Use QR Data",
+  "@useQrData": {
+    "type": "text"
+  },
+  "unknownError": "Unknown error",
+  "@unknownError": {
+    "type": "text"
+  },
+  "error": "Error",
+  "@error": {
+    "type": "text"
+  },
+  "vaultsEmptyMessage": "No vaults found. Create a new vault to get started.",
+  "@vaultsEmptyMessage": {
+    "type": "text"
+  },
+  "incorrectPassphrase": "Wrong passphrase.",
+  "@incorrectPassphrase": {
+    "type": "text"
+  },
+  "profileTypeLabel": "Profile Type",
+  "@profileTypeLabel": {
+    "type": "text"
+  },
+  "profileDescriptionPlaceholder": "Add your profile description...",
+  "@profileDescriptionPlaceholder": {
+    "type": "text"
+  },
+  "profileNamePlaceholder": "Give your profile a name",
+  "@profileNamePlaceholder": {
+    "type": "text"
+  },
+  "profileTypeAffinidiCloud": "Store in Affinidi Cloud",
+  "@profileTypeAffinidiCloud": {
+    "type": "text"
+  },
+  "profileTypeDrift": "Store in Drift (Local Storage)",
+  "@profileTypeDrift": {
+    "type": "text"
+  },
+  "profileNotice": "Profiles created using local storage cannot be shared.",
+  "@profileNotice": {
+    "type": "text"
+  },
+  "profileTypeChooseYourOwn": "Choose your own",
+  "@profileTypeChooseYourOwn": {
+    "type": "text"
+  },
+  "paginationPreviousPage": "Previous Page",
+  "@paginationPreviousPage": {
+    "type": "text"
+  },
+  "paginationNextPage": "Next Page",
+  "@paginationNextPage": {
+    "type": "text"
+  },
+  "paginationPageLabel": "Page {pageNumber}",
+  "@paginationPageLabel": {
+    "type": "text",
+    "placeholders": {
+      "pageNumber": {}
+    }
+  },
+  "profileSettingsTitle": "Profile Settings",
+  "@profileSettingsTitle": {
+    "type": "text"
+  },
+  "profileUpdateSuccess": "Profile updated",
+  "@profileUpdateSuccess": {
+    "type": "text"
+  },
+  "profileUpdateFailure": "Failed to update profile",
+  "@profileUpdateFailure": {
+    "type": "text"
+  },
+  "url": "url",
+  "@url": {
+    "type": "text"
+  },
+  "claimInputInstruction": "Enter claim link to fetch credential",
+  "@claimInputInstruction": {
+    "type": "text"
+  },
+  "profileNotDeletedTitle": "Profile Not Deleted",
+  "@profileNotDeletedTitle": {
+    "type": "text"
+  },
+  "profileNotDeletedMessage": "This profile contains files/folders. Please delete them before trying again.",
+  "@profileNotDeletedMessage": {
+    "type": "text"
+  },
+  "gotItActionText": "Got it",
+  "@gotItActionText": {
+    "type": "text"
+  },
+  "viewCodeSnippetsActionText": "View Code Snippets",
+  "@viewCodeSnippetsActionText": {
+    "type": "text"
+  },
+  "timeoutLoadingCodeMessage": "Timeout loading code from",
+  "@timeoutLoadingCodeMessage": {
+    "type": "text"
+  },
+  "errorLoadingCodeMessage": "Error loading code from",
+  "@errorLoadingCodeMessage": {
+    "type": "text"
+  },
+  "errorLoadingCodeSnippetsMessage": "Error loading code snippets",
+  "@errorLoadingCodeSnippetsMessage": {
+    "type": "text"
+  },
+  "profilesEmptyStateDescription": "You don't have any profiles yet. Start by creating one.",
+  "@profilesEmptyStateDescription": {
+    "type": "text"
+  },
+  "folderNotDeletedTitle": "Folder Not Deleted",
+  "@folderNotDeletedTitle": {
+    "type": "text"
+  },
+  "folderNotDeletedMessage": "This folder contains files/folders. Please delete them before trying again.",
+  "@folderNotDeletedMessage": { "type": "text" },
+  "sharingProfileMessage": "Sharing your profile. Auto-accepts profile if from the same device.",
+  "accessPermissionLabel": "Access Permission",
+  "canViewOnlyLabel": "Can view only",
+  "canWriteLabel": "Can write",
+  "recipientDidHint": "Enter DID here",
+  "accessManagementLabel": "Access Management",
+  "noSharedDidsForProfile": "No shared DIDs for this profile.",
+  "didLabel": "DID: {did}",
+  "profileIdLabel": "Profile ID: {profileId}",
+  "accessLevelLabel": "Access: {accessLevel}",
+  "revokeAccessTooltip": "Revoke access",
+  "profileSharedMessage": "Profile has been shared",
+  "sharedProfileJsonGeneratedMessage": "Shared profile JSON generated",
+  "autoAcceptingMessage": "Auto-accepting the shared profile. This may take a few seconds.",
+  "genericError": "An error occurred: {error}",
+  "setFilePermissions": "Set File Permissions",
+  "filePermissions": "File Permissions",
+  "fileFormatOptions": "File Format Options",
+  "acceptAllFormats": "Accept all formats",
+  "specifyAllowedFormats": "Specify allowed formats",
+  "typeFileFormatHere": "Type file format here",
+  "fileSizeLimit": "File Size Limit",
+  "enterMaxFileSize": "Enter max file size in bytes",
+  "settingsSaved": "Settings saved!",
+  "invalidFormat": "Invalid format",
+  "fileTooLarge": "File too large",
+  "reference": "REFERENCE",
+  "@reference": {
+    "type": "text"
+  },
+  "app": "APP",
+  "@app": {
+    "type": "text"
+  },
+  "myVaults": "My Vaults",
+  "@myVaults": {
+    "type": "text"
+  },
+  "builtWithAffinidiVaultTdk": "Built with Affinidi TDK - Vault",
+  "@builtWithAffinidiVaultTdk": {
+    "type": "text"
+  },
+  "addVault": "Create Vault",
+  "@addVault": {
+    "type": "text"
+  },
+  "giveYourVaultAName": "Give your vault a name",
+  "@giveYourVaultAName": {
+    "type": "text"
+  },
+  "chooseAPassphrase": "Choose a passphrase",
+  "@chooseAPassphrase": {
+    "type": "text"
+  },
+  "createYourVault": "Create your vault",
+  "@createYourVault": {
+    "type": "text"
+  },
+  "createVault": "Create Vault",
+  "@createVault": {
+    "type": "text"
+  },
+  "createProfile": "Create Profile",
+  "@createProfile": {
+    "type": "text"
+  },
+  "seedGenerationMessage": "A secure 32-byte seed will be generated. It's needed to create your Vault.",
+  "@seedGenerationMessage": {
+    "type": "text"
+  },
+  "existingSeedMessage": "Provide an existing seed to create your Vault.",
+  "@existingSeedMessage": {
+    "type": "text"
+  },
+  "enterSeedHint": "Enter your seed",
+  "@enterSeedHint": {
+    "type": "text"
+  },
+  "profileIdHeader": "Profile ID",
+  "@profileIdHeader": {
+    "type": "text"
+  },
+  "didHeader": "DID (did:key)",
+  "@didHeader": {
+    "type": "text"
+  },
+  "permissionsHeader": "Permissions",
+  "@permissionsHeader": {
+    "type": "text"
+  },
+  "actionHeader": "Action",
+  "@actionHeader": {
+    "type": "text"
+  },
+  "editProfile": "Edit Profile",
+  "@editProfile": {
+    "type": "text"
+  },
+  "setFilePermissions": "Set File Permissions",
+  "@setFilePermissions": {
+    "type": "text"
+  },
+  "inputAllowedFileFormats": "Input allowed file formats",
+  "@inputAllowedFileFormats": {
+    "type": "text"
+  },
+  "fileSizeLimit": "File size limit",
+  "@fileSizeLimit": {
+    "type": "text"
+  },
+  "fileFormat": "File format",
+  "@fileFormat": {
+    "type": "text"
+  },
+  "inputFileSizeInMb": "Enter file size in MB",
+  "@inputFileSizeInMb": {
+    "type": "text"
+  },
+  "infoVault": "What is Vault?",
+  "@infoVault": {
+    "type": "text"
+  },
+  "infoVaultDescription": "Vault is a secure digital wallet that allows you to manage your digital identities, personal documents, and store credentials securely, such as verified identity VC and certificates. It protects the data stored in the vault with end-to-end encryption.\n\nAffinidi TDK - Vault does not track the list of vaults created, including their name and passphrase—it is handled by the app and persisted using the device's local storage (the reference app uses Drift for the local storage layer).",
+  "@infoVaultDescription": {
+    "type": "text"
+  },
+  "infoVaultAttr": "About Vault Name and Passphrase",
+  "@infoVaultAttr": {
+    "type": "text"
+  },
+  "infoVaultAttrDescription": "The reference app manages and persists the vault's name and passphrase using local storage (it uses Drift as the local storage layer) as part of its functionality.\n\nAffinidi TDK - Vault does not track or handle these attributes.",
+  "@infoVaultAttrDescription": {
+    "type": "text"
+  },
+  "infoSeed": "What is a Seed?",
+  "@infoSeed": {
+    "type": "text"
+  },
+  "infoSeedDescription": "A seed is a bit string used as an initial input to generate a sequence of pseudo-random numbers to create cryptographic keys. The Vault TDK uses a 32-byte string to create a vault.\n\nGenerate Random Seed option creates a 32-byte string as input to create and initialise a new vault.\n\nExisting Seed option allows you to create the vault with the same set of cryptographic key pairs created from another device and sync cloud profiles from the same vault.",
+  "@infoSeedDescription": {
+    "type": "text"
+  },
+  "infoProfile": "What is a Profile?",
+  "@infoProfile": {
+    "type": "text"
+  },
+  "infoProfileDescription": "A profile represents your digital identity. It allows you to manage credentials and personal files related to your profile, including sharing your profile with other users. \n\nEach profile has its own Decentralised Identifier (DID).",
+  "@infoProfileDescription": {
+    "type": "text"
+  },
+  "infoProfileStorage": "What is a Profile Storage?",
+  "@infoProfileStorage": {
+    "type": "text"
+  },
+  "infoProfileStorageDescription": "Creating a profile requires selecting a storage to store credentials, including personal files. You can create your profile using cloud storage provided by Affinidi or your device's local storage. \n\nCloud storage option enables multi-device sync and profile sharing.",
+  "@infoProfileStorageDescription": {
+    "type": "text"
+  },
+  "infoCredential": "What is a Claimed Credential?",
+  "@infoCredential": {
+    "type": "text"
+  },
+  "infoCredentialDescription": "The claimed credential is a Verifiable Credential (VC) that contains a set of claims about the subject and metadata, including the cryptographical proof of who issued it, ensuring authenticity and tamper-evident. It is a W3C (World Wide Web Consortium) standard for digitally representing and exchanging credentials in a secure, privacy-preserving, and machine-verifiable manner. \n\nAn example of a credential is a university issuing you a completion certificate, attesting that you have completed the course.",
+  "@infoVault": {
+    "type": "text"
+  },
+  "infoShareContent": "What is a Shared Content?",
+  "@infoVault": {
+    "type": "text"
+  },
+  "infoShareContentDescription": "The shared content contains data shared by another user through the profile sharing process using your Decentralised Identifier (DID). Depending on the permission set by the other user who shared it, you can write or read-only on the shared content.",
+  "infoAccessManagement": "What is Access Management?",
+  "@infoAccessManagement": {
+    "type": "text"
+  },
+  "infoAccessManagementDescription": "A reference app-specific implementation that tracks the DIDs to whom you shared your profile. It allows you to see the list of DIDs and revoke their access to your profile. It stores the list of DIDs in the device's local storage.",
+  "@infoAccessManagementDescription": {
+    "type": "text"
+  },
+  "infoShareRecipientDID": "What is Receipient DID?",
+  "@infoShareRecipientDID": {
+    "type": "text"
+  },
+  "infoShareRecipientDIDDescription": "The Recipient DID is the Decentralised Identifier (DID) of the other user's profile with whom you want to share your profile.\n\nDepending on your implementation, the DID method may be different to represent each type of user. It could be did:key or did:peer for individuals, or did:web or did:webvh for businesses and organisations.",
+  "@infoShareRecipientDIDDescription": {
+    "type": "text"
+  },
+  "infoSharePermissions": "What is Access Permission?",
+  "@infoSharePermissions": {
+    "type": "text"
+  },
+  "infoSharePermissionsDescription": "The Access Permission sets the access level of the user to whom you shared your profile. By setting the access level of the user, they can:\n\n- Read-only the content of your shared profile.\n- Read and write data (e.g., upload files) into your shared profile.",
+  "@infoSharePermissionsDescription": {
+    "type": "text"
+  },
+  "infoShareFlow": "Learn more about profile sharing",
+  "@infoShareFlow": {
+    "type": "text"
+  },
+  "infoShareFlowDescription": "If you are sharing your profile to another profile in the same device, it will auto-accept the profile sharing instead of requesting for consent to accept.\n\nThis is a reference app-specific implementation.",
+  "@infoShareFlowDescription": {
+    "type": "text"
+  },
+  "infoSetFilePermissions": "What is Set File Permissions?",
+  "@infoSetFilePermissions": {
+    "type": "text"
+  },
+  "infoSetFilePermissionsDescription": "The Set File Permissions option enables you to restrict the file formats (e.g., only accept PDF and JPG files) and sizes (e.g., only accept files up to 5MB in size) that users can upload to your profile's file system, including when you share your profile with other users.",
+  "@infoSetFilePermissionsDescription": {
+    "type": "text"
+  },
+  "lblCSCreateVault": "Create Vault Snippets",
+  "@lblCSCreateVault": {
+    "type": "text"
+  },
+  "lblCSAccessVault": "Access Vault Snippets",
+  "@lblCSAccessVault": {
+    "type": "text"
+  },
+  "lblCSViewVaultProfile": "View Vault Profile Snippets",
+  "@lblCSViewVaultProfile": {
+    "type": "text"
+  },
+  "lblCSListVaultProfiles": "List Vault Profiles Snippets",
+  "@lblCSListVaultProfiles": {
+    "type": "text"
+  },
+  "lblCSListVaults": "List Vaults Snippets",
+  "@lblCSListVaults": {
+    "type": "text"
+  },
+  "lblCSCreateProfile": "Create Vault Profile Snippets",
+  "@lblCSCreateProfile": {
+    "type": "text"
+  },
+  "infoCSCopiedToClipboard": "Code snippets copied to clipboard.",
+  "@infoCSCopiedToClipboard": {
+    "type": "text"
+  },
+  "lblCSShareProfile": "Share Profile Snippets",
+  "@lblCSShareProfile": {
+    "type": "text"
+  },
+  "infoClaimCredential": "What is Claim Credential?",
+  "@infoClaimCredential": {
+    "type": "text"
+  },
+  "infoClaimCredentialDescription": "The claim credential follows the OpenID for Verifiable Credential Issuance (OID4VCI) protocol that leverages the existing OAuth 2.0 authorisation flow to facilitate the secure claim of a credential offer from the issuer and allow users to store them in their digital wallet (e.g., Affinidi TDK - Vault).",
+  "@infoClaimCredentialDescription": {
+    "type": "text"
+  },
+  "lblCSClaimCredential": "Claim Credential Snippets",
+  "@lblCSClaimCredential": {
+    "type": "text"
+  },
+  "targetKeywordClaimedCredential": "claimed credentials",
+  "@targetKeywordClaimedCredential": {
+    "type": "text"
+  },
+  "targetKeywordProfiles": "profiles",
+  "@targetKeywordProfiles": {
+    "type": "text"
+  },
+  "targetKeywordSharedContent": "shared content",
+  "@targetKeywordSharedContent": {
+    "type": "text"
+  },
+  "snippetDescCreateVault": "Create Vault",
+  "snippetDescGenRandSeed": "Generate Random Seed",
+  "snippetDescOpenVault": "Open Vault Instance",
+  "snippetDescCreateVaultProf": "Create Profile (Abstract)",
+  "snippetDescCreateVaultProfVFS": "Create Vault Profile (Cloud)",
+  "snippetDescCreateVaultProfDrift": "Create Vault Profile (Local Storage)",
+  "snippetDescGetFilesFolders": "Get Files and Folders (Interface)",
+  "snippetDescGetSharedContents": "Get Shared Content - Retrieves the list of profiles, including the shared storages for the given profile",
+  "snippetDescGetClaimedVCs": "Get Claimed Credentials (Interface)",
+  "snippetDescListVaults": "List Vaults - Ref App-specific implementation",
+  "snippetDescListVaultsProfs": "List Vault Profiles - Retrieves list of profiles",
+  "snippetDescShareProfile": "Share Profile",
+  "snippetDescRetrieveCredOffer": "Retrieve Credential Offer via Offer URI",
+  "snippetDescClaimCredOffer": "Claim Credential Offer",
+  "snippetDescDeleteProfile": "Delete Profile (Interface)",
+  "snippetDescDeleteProfileVFS": "Delete Profile (Cloud)",
+  "snippetDescDeleteProfileDrift": "Delete Profile (Local Storage)",
+  "snippetDescRevokeAccess": "Revoked Shared Profile Access"
+}

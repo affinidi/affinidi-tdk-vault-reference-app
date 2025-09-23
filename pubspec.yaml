@@ -1,0 +1,81 @@
+name: tdk_reference_app
+description: "A reference application that demonstrates the sample usage of the Affinidi TDK - Vault package to guide you through integrating it into your projects."
+publish_to: "none"
+version: 1.0.0+27
+
+environment:
+  sdk: ^3.5.4
+dependencies:
+  affinidi_tdk_claim_verifiable_credential: ^1.4.0
+  affinidi_tdk_cryptography: ^2.4.0
+  affinidi_tdk_vault: ^1.11.2
+  affinidi_tdk_vault_data_manager: ^1.10.2
+  affinidi_tdk_vault_edge_drift_provider: ^1.1.0
+  affinidi_tdk_vault_edge_provider: ^1.1.0
+  affinidi_tdk_vault_flutter_utils: ^1.10.2
+  collection: ^1.19.0
+  cross_file: ^0.3.4+2
+  crypto: ^3.0.6
+  cupertino_icons: ^1.0.8
+  dio: ^5.8.0+1
+  drift: ^2.26.1
+  file_picker: ^8.1.7
+  flutter:
+    sdk: flutter
+  flutter_code_editor: ^0.3.4
+  flutter_driver:
+    sdk: flutter
+  flutter_fancy_tree_view: ^1.6.0
+  flutter_highlight: ^0.7.0
+  flutter_hooks: ^0.20.5
+  flutter_localizations:
+    sdk: flutter
+  flutter_riverpod: ^2.6.1
+  flutter_secure_storage: ^9.2.4
+  flutter_svg: ^2.0.17
+  freezed: ^2.5.7
+  freezed_annotation: ^2.4.4
+  go_router: ^14.6.3
+  highlight: ^0.7.0
+  hooks_riverpod: ^2.6.1
+  http: ^1.5.0
+  image_network: ^2.6.0
+  intl: any
+  json_annotation: ^4.9.0
+  mobile_scanner: ^3.5.6
+  path: ^1.9.0
+  path_provider: ^2.1.2
+  riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+  share_plus: ^7.2.1
+  sqlite3_flutter_libs: ^0.5.15
+  ssi: ^2.2.0
+  stack_trace: ^1.12.0
+  syncfusion_flutter_pdfviewer: ^28.2.12
+  universal_html: ^2.2.4
+  universal_io: ^2.2.2
+  uuid: ^4.5.1
+
+dev_dependencies:
+  build_runner: ^2.4.4
+  drift_dev: ^2.26.0
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  json_serializable: ^6.7.0
+  melos: ^6.3.2
+  mocktail: ^1.0.4
+  riverpod_generator: ^2.3.5
+
+dependency_overrides:
+  clock: 1.1.1
+  ssi: ^2.2.0
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    - assets/icons/
+    - assets/images/
+    - lib/application/services/vaults_manager/vaults_manager_service.dart
