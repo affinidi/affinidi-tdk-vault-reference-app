@@ -31,19 +31,23 @@ mixin _$OpenVaultParams {
   /// Create a copy of OpenVaultParams
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $OpenVaultParamsCopyWith<OpenVaultParams> get copyWith => throw _privateConstructorUsedError;
+  $OpenVaultParamsCopyWith<OpenVaultParams> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $OpenVaultParamsCopyWith<$Res> {
-  factory $OpenVaultParamsCopyWith(OpenVaultParams value, $Res Function(OpenVaultParams) then) =
+  factory $OpenVaultParamsCopyWith(
+          OpenVaultParams value, $Res Function(OpenVaultParams) then) =
       _$OpenVaultParamsCopyWithImpl<$Res, OpenVaultParams>;
   @useResult
-  $Res call({String vaultId, String base64Seed, String vaultName, String password});
+  $Res call(
+      {String vaultId, String base64Seed, String vaultName, String password});
 }
 
 /// @nodoc
-class _$OpenVaultParamsCopyWithImpl<$Res, $Val extends OpenVaultParams> implements $OpenVaultParamsCopyWith<$Res> {
+class _$OpenVaultParamsCopyWithImpl<$Res, $Val extends OpenVaultParams>
+    implements $OpenVaultParamsCopyWith<$Res> {
   _$OpenVaultParamsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -83,18 +87,23 @@ class _$OpenVaultParamsCopyWithImpl<$Res, $Val extends OpenVaultParams> implemen
 }
 
 /// @nodoc
-abstract class _$$OpenVaultParamsImplCopyWith<$Res> implements $OpenVaultParamsCopyWith<$Res> {
-  factory _$$OpenVaultParamsImplCopyWith(_$OpenVaultParamsImpl value, $Res Function(_$OpenVaultParamsImpl) then) =
+abstract class _$$OpenVaultParamsImplCopyWith<$Res>
+    implements $OpenVaultParamsCopyWith<$Res> {
+  factory _$$OpenVaultParamsImplCopyWith(_$OpenVaultParamsImpl value,
+          $Res Function(_$OpenVaultParamsImpl) then) =
       __$$OpenVaultParamsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String vaultId, String base64Seed, String vaultName, String password});
+  $Res call(
+      {String vaultId, String base64Seed, String vaultName, String password});
 }
 
 /// @nodoc
-class __$$OpenVaultParamsImplCopyWithImpl<$Res> extends _$OpenVaultParamsCopyWithImpl<$Res, _$OpenVaultParamsImpl>
+class __$$OpenVaultParamsImplCopyWithImpl<$Res>
+    extends _$OpenVaultParamsCopyWithImpl<$Res, _$OpenVaultParamsImpl>
     implements _$$OpenVaultParamsImplCopyWith<$Res> {
-  __$$OpenVaultParamsImplCopyWithImpl(_$OpenVaultParamsImpl _value, $Res Function(_$OpenVaultParamsImpl) _then)
+  __$$OpenVaultParamsImplCopyWithImpl(
+      _$OpenVaultParamsImpl _value, $Res Function(_$OpenVaultParamsImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of OpenVaultParams
@@ -132,9 +141,13 @@ class __$$OpenVaultParamsImplCopyWithImpl<$Res> extends _$OpenVaultParamsCopyWit
 @JsonSerializable()
 class _$OpenVaultParamsImpl implements _OpenVaultParams {
   const _$OpenVaultParamsImpl(
-      {required this.vaultId, required this.base64Seed, required this.vaultName, required this.password});
+      {required this.vaultId,
+      required this.base64Seed,
+      required this.vaultName,
+      required this.password});
 
-  factory _$OpenVaultParamsImpl.fromJson(Map<String, dynamic> json) => _$$OpenVaultParamsImplFromJson(json);
+  factory _$OpenVaultParamsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OpenVaultParamsImplFromJson(json);
 
   @override
   final String vaultId;
@@ -156,14 +169,18 @@ class _$OpenVaultParamsImpl implements _OpenVaultParams {
         (other.runtimeType == runtimeType &&
             other is _$OpenVaultParamsImpl &&
             (identical(other.vaultId, vaultId) || other.vaultId == vaultId) &&
-            (identical(other.base64Seed, base64Seed) || other.base64Seed == base64Seed) &&
-            (identical(other.vaultName, vaultName) || other.vaultName == vaultName) &&
-            (identical(other.password, password) || other.password == password));
+            (identical(other.base64Seed, base64Seed) ||
+                other.base64Seed == base64Seed) &&
+            (identical(other.vaultName, vaultName) ||
+                other.vaultName == vaultName) &&
+            (identical(other.password, password) ||
+                other.password == password));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, vaultId, base64Seed, vaultName, password);
+  int get hashCode =>
+      Object.hash(runtimeType, vaultId, base64Seed, vaultName, password);
 
   /// Create a copy of OpenVaultParams
   /// with the given fields replaced by the non-null parameter values.
@@ -171,7 +188,8 @@ class _$OpenVaultParamsImpl implements _OpenVaultParams {
   @override
   @pragma('vm:prefer-inline')
   _$$OpenVaultParamsImplCopyWith<_$OpenVaultParamsImpl> get copyWith =>
-      __$$OpenVaultParamsImplCopyWithImpl<_$OpenVaultParamsImpl>(this, _$identity);
+      __$$OpenVaultParamsImplCopyWithImpl<_$OpenVaultParamsImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -188,7 +206,8 @@ abstract class _OpenVaultParams implements OpenVaultParams {
       required final String vaultName,
       required final String password}) = _$OpenVaultParamsImpl;
 
-  factory _OpenVaultParams.fromJson(Map<String, dynamic> json) = _$OpenVaultParamsImpl.fromJson;
+  factory _OpenVaultParams.fromJson(Map<String, dynamic> json) =
+      _$OpenVaultParamsImpl.fromJson;
 
   @override
   String get vaultId;
@@ -203,5 +222,6 @@ abstract class _OpenVaultParams implements OpenVaultParams {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$OpenVaultParamsImplCopyWith<_$OpenVaultParamsImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$OpenVaultParamsImplCopyWith<_$OpenVaultParamsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

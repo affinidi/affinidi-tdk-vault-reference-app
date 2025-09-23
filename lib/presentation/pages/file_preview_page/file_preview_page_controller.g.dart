@@ -6,7 +6,8 @@ part of 'file_preview_page_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$filePreviewPageControllerHash() => r'8aed26710c26fc237c57141ebf92e92259c9922b';
+String _$filePreviewPageControllerHash() =>
+    r'8aed26710c26fc237c57141ebf92e92259c9922b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$FilePreviewPageController extends BuildlessAutoDisposeNotifier<FilePreviewPageState> {
+abstract class _$FilePreviewPageController
+    extends BuildlessAutoDisposeNotifier<FilePreviewPageState> {
   late final String nodeId;
   late final String profileId;
   late final String? parentNodeId;
@@ -87,15 +89,16 @@ class FilePreviewPageControllerFamily extends Family<FilePreviewPageState> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'filePreviewPageControllerProvider';
 }
 
 /// See also [FilePreviewPageController].
-class FilePreviewPageControllerProvider
-    extends AutoDisposeNotifierProviderImpl<FilePreviewPageController, FilePreviewPageState> {
+class FilePreviewPageControllerProvider extends AutoDisposeNotifierProviderImpl<
+    FilePreviewPageController, FilePreviewPageState> {
   /// See also [FilePreviewPageController].
   FilePreviewPageControllerProvider({
     required String nodeId,
@@ -111,9 +114,12 @@ class FilePreviewPageControllerProvider
           from: filePreviewPageControllerProvider,
           name: r'filePreviewPageControllerProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$filePreviewPageControllerHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$filePreviewPageControllerHash,
           dependencies: FilePreviewPageControllerFamily._dependencies,
-          allTransitiveDependencies: FilePreviewPageControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              FilePreviewPageControllerFamily._allTransitiveDependencies,
           nodeId: nodeId,
           profileId: profileId,
           parentNodeId: parentNodeId,
@@ -174,7 +180,8 @@ class FilePreviewPageControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<FilePreviewPageController, FilePreviewPageState> createElement() {
+  AutoDisposeNotifierProviderElement<FilePreviewPageController,
+      FilePreviewPageState> createElement() {
     return _FilePreviewPageControllerProviderElement(this);
   }
 
@@ -201,7 +208,8 @@ class FilePreviewPageControllerProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin FilePreviewPageControllerRef on AutoDisposeNotifierProviderRef<FilePreviewPageState> {
+mixin FilePreviewPageControllerRef
+    on AutoDisposeNotifierProviderRef<FilePreviewPageState> {
   /// The parameter `nodeId` of this provider.
   String get nodeId;
 
@@ -216,18 +224,21 @@ mixin FilePreviewPageControllerRef on AutoDisposeNotifierProviderRef<FilePreview
 }
 
 class _FilePreviewPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<FilePreviewPageController, FilePreviewPageState>
-    with FilePreviewPageControllerRef {
+    extends AutoDisposeNotifierProviderElement<FilePreviewPageController,
+        FilePreviewPageState> with FilePreviewPageControllerRef {
   _FilePreviewPageControllerProviderElement(super.provider);
 
   @override
   String get nodeId => (origin as FilePreviewPageControllerProvider).nodeId;
   @override
-  String get profileId => (origin as FilePreviewPageControllerProvider).profileId;
+  String get profileId =>
+      (origin as FilePreviewPageControllerProvider).profileId;
   @override
-  String? get parentNodeId => (origin as FilePreviewPageControllerProvider).parentNodeId;
+  String? get parentNodeId =>
+      (origin as FilePreviewPageControllerProvider).parentNodeId;
   @override
-  bool get isSharedProfile => (origin as FilePreviewPageControllerProvider).isSharedProfile;
+  bool get isSharedProfile =>
+      (origin as FilePreviewPageControllerProvider).isSharedProfile;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

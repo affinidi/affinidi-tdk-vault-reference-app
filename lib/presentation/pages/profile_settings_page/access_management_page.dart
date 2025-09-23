@@ -52,11 +52,13 @@ class AccessManagementPage extends ConsumerWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: AppSizing.paddingRegular),
+                    padding:
+                        const EdgeInsets.only(left: AppSizing.paddingRegular),
                     child: SimpleInfoWidget(
                       text: localizations.accessManagementLabel,
                       dialogTitle: localizations.infoAccessManagement,
-                      dialogContent: localizations.infoAccessManagementDescription,
+                      dialogContent:
+                          localizations.infoAccessManagementDescription,
                       textStyle: AppTheme.headingLarge,
                     ),
                   ),
@@ -80,7 +82,10 @@ class AccessManagementPage extends ConsumerWidget {
                   width: 80,
                   child: Text(
                     localizations.profileIdHeader,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColorScheme.textPrimary),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: AppColorScheme.textPrimary),
                   ),
                 ),
                 SizedBox(width: AppSizing.paddingSmall),
@@ -114,12 +119,14 @@ class AccessManagementPage extends ConsumerWidget {
           Expanded(
             child: Consumer(
               builder: (context, ref, child) {
-                final sharedAccessesAsync = ref.watch(sharedProfileAccessesProvider(profileId));
+                final sharedAccessesAsync =
+                    ref.watch(sharedProfileAccessesProvider(profileId));
                 return sharedAccessesAsync.when(
                   data: (sharedList) {
                     if (sharedList.isEmpty) {
                       return Padding(
-                          padding: const EdgeInsets.all(AppSizing.paddingMedium),
+                          padding:
+                              const EdgeInsets.all(AppSizing.paddingMedium),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -133,7 +140,8 @@ class AccessManagementPage extends ConsumerWidget {
                             ],
                           ));
                     }
-                    final revokingIds = ref.watch(controllerProvider.select((state) => state.revokingIds));
+                    final revokingIds = ref.watch(controllerProvider
+                        .select((state) => state.revokingIds));
                     return ListView.separated(
                       itemCount: sharedList.length,
                       separatorBuilder: (_, __) => const Divider(
@@ -144,7 +152,8 @@ class AccessManagementPage extends ConsumerWidget {
                         final entry = sharedList[index];
                         final isRevoking = revokingIds.contains(entry.id);
                         return Container(
-                          padding: const EdgeInsets.all(AppSizing.paddingMedium),
+                          padding:
+                              const EdgeInsets.all(AppSizing.paddingMedium),
                           child: Row(
                             children: [
                               SizedBox(
@@ -170,7 +179,9 @@ class AccessManagementPage extends ConsumerWidget {
                               SizedBox(
                                 width: 80,
                                 child: Text(
-                                  entry.accessLevel == 'read' ? 'View Only' : 'Can Write',
+                                  entry.accessLevel == 'read'
+                                      ? 'View Only'
+                                      : 'Can Write',
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ),
@@ -182,7 +193,8 @@ class AccessManagementPage extends ConsumerWidget {
                                         child: SizedBox(
                                           width: AppSizing.iconSmall,
                                           height: AppSizing.iconSmall,
-                                          child: CircularProgressIndicator(strokeWidth: 2),
+                                          child: CircularProgressIndicator(
+                                              strokeWidth: 2),
                                         ),
                                       )
                                     : IconButton(
@@ -191,7 +203,8 @@ class AccessManagementPage extends ConsumerWidget {
                                           color: AppColorScheme.error,
                                           size: AppSizing.iconSmall,
                                         ),
-                                        tooltip: localizations.revokeAccessTooltip,
+                                        tooltip:
+                                            localizations.revokeAccessTooltip,
                                         onPressed: () {
                                           controller.revokeAccess(
                                             entryId: entry.id,
@@ -209,11 +222,15 @@ class AccessManagementPage extends ConsumerWidget {
                       },
                     );
                   },
-                  loading: () => const Center(child: CircularProgressIndicator()),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
                   error: (error, stack) => Center(
                     child: Text(
                       localizations.genericError(error),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColorScheme.textSecondary),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: AppColorScheme.textSecondary),
                     ),
                   ),
                 );

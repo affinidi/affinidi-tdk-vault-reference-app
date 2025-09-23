@@ -72,7 +72,8 @@ class SharedStoragesFamily extends Family<AsyncValue<List<SharedStorage>>> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'sharedStoragesProvider';
@@ -81,7 +82,8 @@ class SharedStoragesFamily extends Family<AsyncValue<List<SharedStorage>>> {
 /// Provider that returns all shared storages for a given profile.
 ///
 /// Copied from [sharedStorages].
-class SharedStoragesProvider extends AutoDisposeFutureProvider<List<SharedStorage>> {
+class SharedStoragesProvider
+    extends AutoDisposeFutureProvider<List<SharedStorage>> {
   /// Provider that returns all shared storages for a given profile.
   ///
   /// Copied from [sharedStorages].
@@ -94,9 +96,13 @@ class SharedStoragesProvider extends AutoDisposeFutureProvider<List<SharedStorag
           ),
           from: sharedStoragesProvider,
           name: r'sharedStoragesProvider',
-          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$sharedStoragesHash,
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$sharedStoragesHash,
           dependencies: SharedStoragesFamily._dependencies,
-          allTransitiveDependencies: SharedStoragesFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              SharedStoragesFamily._allTransitiveDependencies,
           profileId: profileId,
         );
 
@@ -156,7 +162,8 @@ mixin SharedStoragesRef on AutoDisposeFutureProviderRef<List<SharedStorage>> {
   String get profileId;
 }
 
-class _SharedStoragesProviderElement extends AutoDisposeFutureProviderElement<List<SharedStorage>>
+class _SharedStoragesProviderElement
+    extends AutoDisposeFutureProviderElement<List<SharedStorage>>
     with SharedStoragesRef {
   _SharedStoragesProviderElement(super.provider);
 
@@ -209,7 +216,8 @@ class SharedStorageByIdFamily extends Family<AsyncValue<SharedStorage>> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'sharedStorageByIdProvider';
@@ -218,7 +226,8 @@ class SharedStorageByIdFamily extends Family<AsyncValue<SharedStorage>> {
 /// Provider that returns a specific shared storage by ID.
 ///
 /// Copied from [sharedStorageById].
-class SharedStorageByIdProvider extends AutoDisposeFutureProvider<SharedStorage> {
+class SharedStorageByIdProvider
+    extends AutoDisposeFutureProvider<SharedStorage> {
   /// Provider that returns a specific shared storage by ID.
   ///
   /// Copied from [sharedStorageById].
@@ -231,9 +240,13 @@ class SharedStorageByIdProvider extends AutoDisposeFutureProvider<SharedStorage>
           ),
           from: sharedStorageByIdProvider,
           name: r'sharedStorageByIdProvider',
-          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$sharedStorageByIdHash,
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$sharedStorageByIdHash,
           dependencies: SharedStorageByIdFamily._dependencies,
-          allTransitiveDependencies: SharedStorageByIdFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              SharedStorageByIdFamily._allTransitiveDependencies,
           storageId: storageId,
         );
 
@@ -293,7 +306,8 @@ mixin SharedStorageByIdRef on AutoDisposeFutureProviderRef<SharedStorage> {
   String get storageId;
 }
 
-class _SharedStorageByIdProviderElement extends AutoDisposeFutureProviderElement<SharedStorage>
+class _SharedStorageByIdProviderElement
+    extends AutoDisposeFutureProviderElement<SharedStorage>
     with SharedStorageByIdRef {
   _SharedStorageByIdProviderElement(super.provider);
 
@@ -301,7 +315,8 @@ class _SharedStorageByIdProviderElement extends AutoDisposeFutureProviderElement
   String get storageId => (origin as SharedStorageByIdProvider).storageId;
 }
 
-String _$sharedStorageFilesHash() => r'88462e42570227f6ccb651da6ab63448ea09f64c';
+String _$sharedStorageFilesHash() =>
+    r'88462e42570227f6ccb651da6ab63448ea09f64c';
 
 /// Provider that returns files from a shared storage.
 ///
@@ -346,7 +361,8 @@ class SharedStorageFilesFamily extends Family<AsyncValue<List<dynamic>>> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'sharedStorageFilesProvider';
@@ -355,7 +371,8 @@ class SharedStorageFilesFamily extends Family<AsyncValue<List<dynamic>>> {
 /// Provider that returns files from a shared storage.
 ///
 /// Copied from [sharedStorageFiles].
-class SharedStorageFilesProvider extends AutoDisposeFutureProvider<List<dynamic>> {
+class SharedStorageFilesProvider
+    extends AutoDisposeFutureProvider<List<dynamic>> {
   /// Provider that returns files from a shared storage.
   ///
   /// Copied from [sharedStorageFiles].
@@ -368,9 +385,13 @@ class SharedStorageFilesProvider extends AutoDisposeFutureProvider<List<dynamic>
           ),
           from: sharedStorageFilesProvider,
           name: r'sharedStorageFilesProvider',
-          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$sharedStorageFilesHash,
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$sharedStorageFilesHash,
           dependencies: SharedStorageFilesFamily._dependencies,
-          allTransitiveDependencies: SharedStorageFilesFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              SharedStorageFilesFamily._allTransitiveDependencies,
           storageId: storageId,
         );
 
@@ -430,7 +451,8 @@ mixin SharedStorageFilesRef on AutoDisposeFutureProviderRef<List<dynamic>> {
   String get storageId;
 }
 
-class _SharedStorageFilesProviderElement extends AutoDisposeFutureProviderElement<List<dynamic>>
+class _SharedStorageFilesProviderElement
+    extends AutoDisposeFutureProviderElement<List<dynamic>>
     with SharedStorageFilesRef {
   _SharedStorageFilesProviderElement(super.provider);
 
@@ -440,7 +462,8 @@ class _SharedStorageFilesProviderElement extends AutoDisposeFutureProviderElemen
 
 String _$storageServiceHash() => r'e3ca4589aeee9ef4035012369dbc575043da5366';
 
-abstract class _$StorageService extends BuildlessAutoDisposeNotifier<StorageServiceState> {
+abstract class _$StorageService
+    extends BuildlessAutoDisposeNotifier<StorageServiceState> {
   late final String? parentNodeId;
   late final String profileId;
 
@@ -536,7 +559,8 @@ class StorageServiceFamily extends Family<StorageServiceState> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'storageServiceProvider';
@@ -555,7 +579,8 @@ class StorageServiceFamily extends Family<StorageServiceState> {
 /// automatically handling the differences between storage implementations.
 ///
 /// Copied from [StorageService].
-class StorageServiceProvider extends AutoDisposeNotifierProviderImpl<StorageService, StorageServiceState> {
+class StorageServiceProvider extends AutoDisposeNotifierProviderImpl<
+    StorageService, StorageServiceState> {
   /// Service responsible for managing file storage operations within a vault profile.
   ///
   /// This service provides functionality to:
@@ -578,9 +603,13 @@ class StorageServiceProvider extends AutoDisposeNotifierProviderImpl<StorageServ
             ..profileId = profileId,
           from: storageServiceProvider,
           name: r'storageServiceProvider',
-          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$storageServiceHash,
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$storageServiceHash,
           dependencies: StorageServiceFamily._dependencies,
-          allTransitiveDependencies: StorageServiceFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              StorageServiceFamily._allTransitiveDependencies,
           parentNodeId: parentNodeId,
           profileId: profileId,
         );
@@ -629,13 +658,16 @@ class StorageServiceProvider extends AutoDisposeNotifierProviderImpl<StorageServ
   }
 
   @override
-  AutoDisposeNotifierProviderElement<StorageService, StorageServiceState> createElement() {
+  AutoDisposeNotifierProviderElement<StorageService, StorageServiceState>
+      createElement() {
     return _StorageServiceProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is StorageServiceProvider && other.parentNodeId == parentNodeId && other.profileId == profileId;
+    return other is StorageServiceProvider &&
+        other.parentNodeId == parentNodeId &&
+        other.profileId == profileId;
   }
 
   @override
@@ -658,8 +690,8 @@ mixin StorageServiceRef on AutoDisposeNotifierProviderRef<StorageServiceState> {
   String get profileId;
 }
 
-class _StorageServiceProviderElement extends AutoDisposeNotifierProviderElement<StorageService, StorageServiceState>
-    with StorageServiceRef {
+class _StorageServiceProviderElement extends AutoDisposeNotifierProviderElement<
+    StorageService, StorageServiceState> with StorageServiceRef {
   _StorageServiceProviderElement(super.provider);
 
   @override

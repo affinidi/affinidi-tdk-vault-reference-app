@@ -37,7 +37,8 @@ class MyFilesPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final currentFolderId = useState<String?>(parentNodeId);
-    final currentParentNodeId = currentFolderId.value ?? (GoRouterState.of(context).uri.queryParameters['folder']);
+    final currentParentNodeId = currentFolderId.value ??
+        (GoRouterState.of(context).uri.queryParameters['folder']);
     final provider = myFilesPageControllerProvider(
       parentNodeId: currentParentNodeId,
       profileId: profileId,
@@ -45,8 +46,10 @@ class MyFilesPage extends HookConsumerWidget {
     final nodes = ref.watch(provider.select((state) => state.items));
     final isLoading = ref.watch(provider.select((state) => state.isLoading));
 
-    final filesExplorerBreadcrumbProvider = filesExplorerBreadcrumbControllerProvider(screenKey);
-    final breadcrumbController = ref.read(filesExplorerBreadcrumbProvider.notifier);
+    final filesExplorerBreadcrumbProvider =
+        filesExplorerBreadcrumbControllerProvider(screenKey);
+    final breadcrumbController =
+        ref.read(filesExplorerBreadcrumbProvider.notifier);
     final navigation = ref.read(navigationServiceProvider);
 
     useEffect(() {
@@ -67,7 +70,9 @@ class MyFilesPage extends HookConsumerWidget {
         if (items != null) {
           Folder? folder;
           try {
-            folder = items.whereType<Folder>().firstWhere((f) => f.id == currentFolderId.value);
+            folder = items
+                .whereType<Folder>()
+                .firstWhere((f) => f.id == currentFolderId.value);
           } catch (_) {
             folder = null;
           }
@@ -76,7 +81,8 @@ class MyFilesPage extends HookConsumerWidget {
 
         folderName ??= 'Folder';
 
-        breadcrumbController.push(title: folderName, id: currentFolderId.value!);
+        breadcrumbController.push(
+            title: folderName, id: currentFolderId.value!);
       }
       return null;
     }, [currentFolderId.value]);
@@ -91,7 +97,10 @@ class MyFilesPage extends HookConsumerWidget {
     void showCreateFolderDialog() {
       if (!context.mounted) return;
 
-      CreateFolderForm.show(context: context, parentNodeId: currentFolderId.value, profileId: profileId);
+      CreateFolderForm.show(
+          context: context,
+          parentNodeId: currentFolderId.value,
+          profileId: profileId);
     }
 
     void showFilePicker() async {
@@ -119,7 +128,10 @@ class MyFilesPage extends HookConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(
-                  AppSizing.paddingSmall, AppSizing.paddingMedium, AppSizing.paddingSmall, AppSizing.paddingSmall),
+                  AppSizing.paddingSmall,
+                  AppSizing.paddingMedium,
+                  AppSizing.paddingSmall,
+                  AppSizing.paddingSmall),
               child: FilesExplorerNavigation(
                 onCreateFolderPressed: showCreateFolderDialog,
                 onUploadFilePressed: showFilePicker,
@@ -138,21 +150,24 @@ class MyFilesPage extends HookConsumerWidget {
                     // }
                   } else {
                     breadcrumbController.clear();
-                    navigation.push(ProfilesRoutePath.profileMyFiles(profileId));
+                    navigation
+                        .push(ProfilesRoutePath.profileMyFiles(profileId));
                   }
                 },
               ),
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizing.paddingRegular),
+                padding:
+                    EdgeInsets.symmetric(horizontal: AppSizing.paddingRegular),
                 child: AsyncLoadingStatus(
                   controller.loadingController,
                   child: FilesExplorer(
                     parentNodeId: currentFolderId.value,
                     profileId: profileId,
                     onFolderTap: ({required folderName, required folderId}) {
-                      breadcrumbController.push(title: folderName, id: folderId);
+                      breadcrumbController.push(
+                          title: folderName, id: folderId);
                       currentFolderId.value = folderId;
                     },
                     onPreviewFile: ref.read(provider.notifier).previewFile,

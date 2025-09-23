@@ -31,7 +31,9 @@ enum ProfileType {
       case ProfileType.affinidiCloud:
         return 'Cloud Storage';
       case ProfileType.edge:
-        return kIsWeb ? 'Local Storage (WASM/IndexedDB)' : 'Local Storage (Drift)';
+        return kIsWeb
+            ? 'Local Storage (WASM/IndexedDB)'
+            : 'Local Storage (Drift)';
     }
   }
 }

@@ -74,20 +74,25 @@ class _CredentialTreeViewState extends State<CredentialTreeView> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: AppSizing.paddingMedium, top: 0, bottom: AppSizing.paddingMedium),
+          padding: const EdgeInsets.only(
+              left: AppSizing.paddingMedium,
+              top: 0,
+              bottom: AppSizing.paddingMedium),
           child: Text(widget.verifiableCredential.type.toList()[1]),
         ),
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizing.paddingRegular),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingRegular),
               child: LayoutBuilder(builder: (context, constrainedBox) {
                 return TreeView<ClaimedCredentialNode>(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   treeController: treeController,
-                  nodeBuilder: (BuildContext context, TreeEntry<ClaimedCredentialNode> entry) {
+                  nodeBuilder: (BuildContext context,
+                      TreeEntry<ClaimedCredentialNode> entry) {
                     return TreeTile(
                       key: ValueKey(entry.node),
                       entry: entry,

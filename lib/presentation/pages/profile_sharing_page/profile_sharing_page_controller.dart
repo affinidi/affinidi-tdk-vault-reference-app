@@ -75,7 +75,8 @@ class ProfileSharingController extends _$ProfileSharingController {
         bool accepted = false;
         for (final entry in vaultRegistry.entries) {
           final vaultId = entry.key;
-          await vaultService.open(vaultId: vaultId, password: entry.value.password);
+          await vaultService.open(
+              vaultId: vaultId, password: entry.value.password);
           final vault = ref.read(vaultServiceProvider).currentVault;
           if (vault != null) {
             final profiles = await vault.listProfiles();

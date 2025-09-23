@@ -12,12 +12,15 @@ class GitHubUtils {
   static String convertToRawUrl(String githubUrl) {
     // Use configured URLs for replacement
     if (AppConfig.githubRawUrl.isNotEmpty && AppConfig.githubUrl.isNotEmpty) {
-      return githubUrl.replaceFirst(AppConfig.githubUrl, AppConfig.githubRawUrl);
+      return githubUrl.replaceFirst(
+          AppConfig.githubUrl, AppConfig.githubRawUrl);
     }
 
     // Fallback: Convert GitHub web URLs to raw URLs
     if (githubUrl.contains('github.com') && githubUrl.contains('/blob/')) {
-      return githubUrl.replaceFirst('github.com', 'raw.githubusercontent.com').replaceFirst('/blob/', '/');
+      return githubUrl
+          .replaceFirst('github.com', 'raw.githubusercontent.com')
+          .replaceFirst('/blob/', '/');
     }
 
     return githubUrl;
@@ -74,7 +77,8 @@ class GitHubUtils {
 
   /// Checks if a URL is a GitHub URL
   static bool isGitHubUrl(String url) {
-    return url.startsWith('https://github.com/') || url.startsWith('https://raw.githubusercontent.com/');
+    return url.startsWith('https://github.com/') ||
+        url.startsWith('https://raw.githubusercontent.com/');
   }
 }
 

@@ -22,19 +22,22 @@ mixin _$FilePreviewPageState {
   /// Create a copy of FilePreviewPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $FilePreviewPageStateCopyWith<FilePreviewPageState> get copyWith => throw _privateConstructorUsedError;
+  $FilePreviewPageStateCopyWith<FilePreviewPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $FilePreviewPageStateCopyWith<$Res> {
-  factory $FilePreviewPageStateCopyWith(FilePreviewPageState value, $Res Function(FilePreviewPageState) then) =
+  factory $FilePreviewPageStateCopyWith(FilePreviewPageState value,
+          $Res Function(FilePreviewPageState) then) =
       _$FilePreviewPageStateCopyWithImpl<$Res, FilePreviewPageState>;
   @useResult
   $Res call({Uint8List? data, DocumentType? documentType});
 }
 
 /// @nodoc
-class _$FilePreviewPageStateCopyWithImpl<$Res, $Val extends FilePreviewPageState>
+class _$FilePreviewPageStateCopyWithImpl<$Res,
+        $Val extends FilePreviewPageState>
     implements $FilePreviewPageStateCopyWith<$Res> {
   _$FilePreviewPageStateCopyWithImpl(this._value, this._then);
 
@@ -65,9 +68,10 @@ class _$FilePreviewPageStateCopyWithImpl<$Res, $Val extends FilePreviewPageState
 }
 
 /// @nodoc
-abstract class _$$FilePreviewPageStateImplCopyWith<$Res> implements $FilePreviewPageStateCopyWith<$Res> {
-  factory _$$FilePreviewPageStateImplCopyWith(
-          _$FilePreviewPageStateImpl value, $Res Function(_$FilePreviewPageStateImpl) then) =
+abstract class _$$FilePreviewPageStateImplCopyWith<$Res>
+    implements $FilePreviewPageStateCopyWith<$Res> {
+  factory _$$FilePreviewPageStateImplCopyWith(_$FilePreviewPageStateImpl value,
+          $Res Function(_$FilePreviewPageStateImpl) then) =
       __$$FilePreviewPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -78,8 +82,8 @@ abstract class _$$FilePreviewPageStateImplCopyWith<$Res> implements $FilePreview
 class __$$FilePreviewPageStateImplCopyWithImpl<$Res>
     extends _$FilePreviewPageStateCopyWithImpl<$Res, _$FilePreviewPageStateImpl>
     implements _$$FilePreviewPageStateImplCopyWith<$Res> {
-  __$$FilePreviewPageStateImplCopyWithImpl(
-      _$FilePreviewPageStateImpl _value, $Res Function(_$FilePreviewPageStateImpl) _then)
+  __$$FilePreviewPageStateImplCopyWithImpl(_$FilePreviewPageStateImpl _value,
+      $Res Function(_$FilePreviewPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of FilePreviewPageState
@@ -105,7 +109,9 @@ class __$$FilePreviewPageStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$FilePreviewPageStateImpl with DiagnosticableTreeMixin implements _FilePreviewPageState {
+class _$FilePreviewPageStateImpl
+    with DiagnosticableTreeMixin
+    implements _FilePreviewPageState {
   _$FilePreviewPageStateImpl({this.data, this.documentType});
 
   @override
@@ -133,23 +139,29 @@ class _$FilePreviewPageStateImpl with DiagnosticableTreeMixin implements _FilePr
         (other.runtimeType == runtimeType &&
             other is _$FilePreviewPageStateImpl &&
             const DeepCollectionEquality().equals(other.data, data) &&
-            (identical(other.documentType, documentType) || other.documentType == documentType));
+            (identical(other.documentType, documentType) ||
+                other.documentType == documentType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(data), documentType);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(data), documentType);
 
   /// Create a copy of FilePreviewPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$FilePreviewPageStateImplCopyWith<_$FilePreviewPageStateImpl> get copyWith =>
-      __$$FilePreviewPageStateImplCopyWithImpl<_$FilePreviewPageStateImpl>(this, _$identity);
+  _$$FilePreviewPageStateImplCopyWith<_$FilePreviewPageStateImpl>
+      get copyWith =>
+          __$$FilePreviewPageStateImplCopyWithImpl<_$FilePreviewPageStateImpl>(
+              this, _$identity);
 }
 
 abstract class _FilePreviewPageState implements FilePreviewPageState {
-  factory _FilePreviewPageState({final Uint8List? data, final DocumentType? documentType}) = _$FilePreviewPageStateImpl;
+  factory _FilePreviewPageState(
+      {final Uint8List? data,
+      final DocumentType? documentType}) = _$FilePreviewPageStateImpl;
 
   @override
   Uint8List? get data;
@@ -160,5 +172,6 @@ abstract class _FilePreviewPageState implements FilePreviewPageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FilePreviewPageStateImplCopyWith<_$FilePreviewPageStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$FilePreviewPageStateImplCopyWith<_$FilePreviewPageStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

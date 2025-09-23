@@ -6,7 +6,8 @@ part of 'profile_settings_page_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sharedProfileAccessesHash() => r'f44f891b95d6ce563c42e3ab71e689fffa7ede54';
+String _$sharedProfileAccessesHash() =>
+    r'f44f891b95d6ce563c42e3ab71e689fffa7ede54';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -34,7 +35,8 @@ class _SystemHash {
 const sharedProfileAccessesProvider = SharedProfileAccessesFamily();
 
 /// See also [sharedProfileAccesses].
-class SharedProfileAccessesFamily extends Family<AsyncValue<List<SharedProfileAccessData>>> {
+class SharedProfileAccessesFamily
+    extends Family<AsyncValue<List<SharedProfileAccessData>>> {
   /// See also [sharedProfileAccesses].
   const SharedProfileAccessesFamily();
 
@@ -64,14 +66,16 @@ class SharedProfileAccessesFamily extends Family<AsyncValue<List<SharedProfileAc
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'sharedProfileAccessesProvider';
 }
 
 /// See also [sharedProfileAccesses].
-class SharedProfileAccessesProvider extends AutoDisposeStreamProvider<List<SharedProfileAccessData>> {
+class SharedProfileAccessesProvider
+    extends AutoDisposeStreamProvider<List<SharedProfileAccessData>> {
   /// See also [sharedProfileAccesses].
   SharedProfileAccessesProvider(
     String profileId,
@@ -82,9 +86,13 @@ class SharedProfileAccessesProvider extends AutoDisposeStreamProvider<List<Share
           ),
           from: sharedProfileAccessesProvider,
           name: r'sharedProfileAccessesProvider',
-          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$sharedProfileAccessesHash,
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$sharedProfileAccessesHash,
           dependencies: SharedProfileAccessesFamily._dependencies,
-          allTransitiveDependencies: SharedProfileAccessesFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              SharedProfileAccessesFamily._allTransitiveDependencies,
           profileId: profileId,
         );
 
@@ -102,7 +110,9 @@ class SharedProfileAccessesProvider extends AutoDisposeStreamProvider<List<Share
 
   @override
   Override overrideWith(
-    Stream<List<SharedProfileAccessData>> Function(SharedProfileAccessesRef provider) create,
+    Stream<List<SharedProfileAccessData>> Function(
+            SharedProfileAccessesRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -119,13 +129,15 @@ class SharedProfileAccessesProvider extends AutoDisposeStreamProvider<List<Share
   }
 
   @override
-  AutoDisposeStreamProviderElement<List<SharedProfileAccessData>> createElement() {
+  AutoDisposeStreamProviderElement<List<SharedProfileAccessData>>
+      createElement() {
     return _SharedProfileAccessesProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SharedProfileAccessesProvider && other.profileId == profileId;
+    return other is SharedProfileAccessesProvider &&
+        other.profileId == profileId;
   }
 
   @override
@@ -139,12 +151,14 @@ class SharedProfileAccessesProvider extends AutoDisposeStreamProvider<List<Share
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin SharedProfileAccessesRef on AutoDisposeStreamProviderRef<List<SharedProfileAccessData>> {
+mixin SharedProfileAccessesRef
+    on AutoDisposeStreamProviderRef<List<SharedProfileAccessData>> {
   /// The parameter `profileId` of this provider.
   String get profileId;
 }
 
-class _SharedProfileAccessesProviderElement extends AutoDisposeStreamProviderElement<List<SharedProfileAccessData>>
+class _SharedProfileAccessesProviderElement
+    extends AutoDisposeStreamProviderElement<List<SharedProfileAccessData>>
     with SharedProfileAccessesRef {
   _SharedProfileAccessesProviderElement(super.provider);
 
@@ -152,9 +166,11 @@ class _SharedProfileAccessesProviderElement extends AutoDisposeStreamProviderEle
   String get profileId => (origin as SharedProfileAccessesProvider).profileId;
 }
 
-String _$profileSettingsPageControllerHash() => r'0f790677400017ccbd97dee539bd3489f9dff620';
+String _$profileSettingsPageControllerHash() =>
+    r'0f790677400017ccbd97dee539bd3489f9dff620';
 
-abstract class _$ProfileSettingsPageController extends BuildlessAutoDisposeNotifier<ProfileSettingsPageState> {
+abstract class _$ProfileSettingsPageController
+    extends BuildlessAutoDisposeNotifier<ProfileSettingsPageState> {
   late final String profileId;
 
   ProfileSettingsPageState build(
@@ -164,10 +180,12 @@ abstract class _$ProfileSettingsPageController extends BuildlessAutoDisposeNotif
 
 /// See also [ProfileSettingsPageController].
 @ProviderFor(ProfileSettingsPageController)
-const profileSettingsPageControllerProvider = ProfileSettingsPageControllerFamily();
+const profileSettingsPageControllerProvider =
+    ProfileSettingsPageControllerFamily();
 
 /// See also [ProfileSettingsPageController].
-class ProfileSettingsPageControllerFamily extends Family<ProfileSettingsPageState> {
+class ProfileSettingsPageControllerFamily
+    extends Family<ProfileSettingsPageState> {
   /// See also [ProfileSettingsPageController].
   const ProfileSettingsPageControllerFamily();
 
@@ -197,7 +215,8 @@ class ProfileSettingsPageControllerFamily extends Family<ProfileSettingsPageStat
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'profileSettingsPageControllerProvider';
@@ -205,7 +224,8 @@ class ProfileSettingsPageControllerFamily extends Family<ProfileSettingsPageStat
 
 /// See also [ProfileSettingsPageController].
 class ProfileSettingsPageControllerProvider
-    extends AutoDisposeNotifierProviderImpl<ProfileSettingsPageController, ProfileSettingsPageState> {
+    extends AutoDisposeNotifierProviderImpl<ProfileSettingsPageController,
+        ProfileSettingsPageState> {
   /// See also [ProfileSettingsPageController].
   ProfileSettingsPageControllerProvider(
     String profileId,
@@ -214,9 +234,12 @@ class ProfileSettingsPageControllerProvider
           from: profileSettingsPageControllerProvider,
           name: r'profileSettingsPageControllerProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$profileSettingsPageControllerHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$profileSettingsPageControllerHash,
           dependencies: ProfileSettingsPageControllerFamily._dependencies,
-          allTransitiveDependencies: ProfileSettingsPageControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              ProfileSettingsPageControllerFamily._allTransitiveDependencies,
           profileId: profileId,
         );
 
@@ -258,13 +281,15 @@ class ProfileSettingsPageControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<ProfileSettingsPageController, ProfileSettingsPageState> createElement() {
+  AutoDisposeNotifierProviderElement<ProfileSettingsPageController,
+      ProfileSettingsPageState> createElement() {
     return _ProfileSettingsPageControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ProfileSettingsPageControllerProvider && other.profileId == profileId;
+    return other is ProfileSettingsPageControllerProvider &&
+        other.profileId == profileId;
   }
 
   @override
@@ -278,18 +303,20 @@ class ProfileSettingsPageControllerProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin ProfileSettingsPageControllerRef on AutoDisposeNotifierProviderRef<ProfileSettingsPageState> {
+mixin ProfileSettingsPageControllerRef
+    on AutoDisposeNotifierProviderRef<ProfileSettingsPageState> {
   /// The parameter `profileId` of this provider.
   String get profileId;
 }
 
 class _ProfileSettingsPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<ProfileSettingsPageController, ProfileSettingsPageState>
-    with ProfileSettingsPageControllerRef {
+    extends AutoDisposeNotifierProviderElement<ProfileSettingsPageController,
+        ProfileSettingsPageState> with ProfileSettingsPageControllerRef {
   _ProfileSettingsPageControllerProviderElement(super.provider);
 
   @override
-  String get profileId => (origin as ProfileSettingsPageControllerProvider).profileId;
+  String get profileId =>
+      (origin as ProfileSettingsPageControllerProvider).profileId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -17,21 +17,27 @@ class SharedStorageAdapter implements BaseStorageRepository {
       storage.renameFile(fileId: fileId, newName: newName);
 
   @override
-  Future<void> renameFolder({required String folderId, required String newName}) =>
+  Future<void> renameFolder(
+          {required String folderId, required String newName}) =>
       storage.renameFolder(folderId: folderId, newName: newName);
 
   @override
-  Future<void> deleteFile({required String fileId}) => storage.deleteFile(fileId: fileId);
+  Future<void> deleteFile({required String fileId}) =>
+      storage.deleteFile(fileId: fileId);
 
   @override
-  Future<void> deleteFolder({required String folderId}) => storage.deleteFolder(folderId: folderId);
+  Future<void> deleteFolder({required String folderId}) =>
+      storage.deleteFolder(folderId: folderId);
 
   @override
-  Future<void> createFolder({required String parentFolderId, required String folderName}) =>
-      storage.createFolder(parentFolderId: parentFolderId, folderName: folderName);
+  Future<void> createFolder(
+          {required String parentFolderId, required String folderName}) =>
+      storage.createFolder(
+          parentFolderId: parentFolderId, folderName: folderName);
 
   @override
-  Future<List<int>> getFileContent({required String fileId}) => storage.getFileContent(fileId: fileId);
+  Future<List<int>> getFileContent({required String fileId}) =>
+      storage.getFileContent(fileId: fileId);
 
   @override
   Future<void> createFile({

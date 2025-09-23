@@ -25,8 +25,8 @@ class PaginationControls extends ConsumerWidget {
     final localizations = AppLocalizations.of(context)!;
 
     final isFirstPage = currentPageIndex == 0;
-    final isLastPage =
-        lastEvaluatedItemIdStack.length <= currentPageIndex || lastEvaluatedItemIdStack[currentPageIndex] == null;
+    final isLastPage = lastEvaluatedItemIdStack.length <= currentPageIndex ||
+        lastEvaluatedItemIdStack[currentPageIndex] == null;
 
     if (isLoading) {
       return Padding(

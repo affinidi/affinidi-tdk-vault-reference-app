@@ -3,7 +3,8 @@ import '../../../infrastructure/utils/github_utils.dart';
 import '../../../l10n/app_localizations.dart';
 
 class CodeSnippetReader {
-  static Future<String> readLines(String filePath, int startLine, int endLine, AppLocalizations localizations) async {
+  static Future<String> readLines(String filePath, int startLine, int endLine,
+      AppLocalizations localizations) async {
     try {
       final content = isRemoteContent(filePath)
           ? await GitHubUtils.fetchRawContent(filePath)
@@ -56,6 +57,7 @@ class CodeSnippetLocation {
   final String description;
 
   Future<String> getCode(AppLocalizations localizations) async {
-    return CodeSnippetReader.readLines(filePath, startLine, endLine, localizations);
+    return CodeSnippetReader.readLines(
+        filePath, startLine, endLine, localizations);
   }
 }

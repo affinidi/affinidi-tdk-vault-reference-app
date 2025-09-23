@@ -28,7 +28,8 @@ class CredentialOfferDetails extends HookConsumerWidget {
       return const SizedBox.shrink();
     }
 
-    final provider = claimCredentialsPageControllerProvider(profileId: profileId);
+    final provider =
+        claimCredentialsPageControllerProvider(profileId: profileId);
     final fetchStatus = ref.watch(provider.select((s) => s.fetchStatus));
 
     final controller = ref.read(provider.notifier);

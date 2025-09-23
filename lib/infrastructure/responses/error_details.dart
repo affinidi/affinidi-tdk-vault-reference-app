@@ -11,5 +11,6 @@ class ErrorDetails with _$ErrorDetails {
     String? value,
   }) = _ErrorDetails;
 
-  factory ErrorDetails.fromJson(Map<String, dynamic> json) => _$ErrorDetailsFromJson(json);
+  factory ErrorDetails.fromJson(Map<String, dynamic> json) =>
+      _$ErrorDetailsFromJson(json);
 }

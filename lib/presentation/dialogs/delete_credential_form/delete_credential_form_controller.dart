@@ -10,10 +10,12 @@ part 'delete_credential_form_controller.g.dart';
 class DeleteCredentialFormController extends _$DeleteCredentialFormController {
   DeleteCredentialFormController() : super();
 
-  final loadingController = AsyncLoadingController.provider('deleteCredentialFormLoadingController');
+  final loadingController =
+      AsyncLoadingController.provider('deleteCredentialFormLoadingController');
 
   @override
-  void build(DigitalCredential digitalCredential, {required String profileId}) {}
+  void build(DigitalCredential digitalCredential,
+      {required String profileId}) {}
 
   Future<void> delete({required void Function() onSuccess}) async {
     await ref.read(loadingController.notifier).start(() async {

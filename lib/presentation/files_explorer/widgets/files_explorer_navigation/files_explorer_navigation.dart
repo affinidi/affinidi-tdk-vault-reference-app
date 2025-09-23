@@ -26,7 +26,8 @@ class FilesExplorerNavigation extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final filesExplorerBreadcrumbrovider = filesExplorerBreadcrumbControllerProvider(screenKey);
+    final filesExplorerBreadcrumbrovider =
+        filesExplorerBreadcrumbControllerProvider(screenKey);
     final folderStack = ref.watch(
       filesExplorerBreadcrumbrovider,
     );
@@ -39,7 +40,8 @@ class FilesExplorerNavigation extends ConsumerWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: PopupMenuButton(
-              padding: EdgeInsets.symmetric(horizontal: AppSizing.paddingRegular),
+              padding:
+                  EdgeInsets.symmetric(horizontal: AppSizing.paddingRegular),
               icon: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,17 +68,24 @@ class FilesExplorerNavigation extends ConsumerWidget {
               ),
               onSelected: onSelected,
               itemBuilder: (context) => [
-                ...folderStack.keys.toList().reversed.map((key) => PopupMenuItem(
-                    value: key,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      spacing: AppSizing.paddingSmall,
-                      children: [
-                        Expanded(child: Text(folderStack[key] ?? '', overflow: TextOverflow.ellipsis, maxLines: 1)),
-                        SvgPicture.asset('assets/icons/documents-2.svg',
-                            width: AppSizing.iconMedium, height: AppSizing.iconMedium),
-                      ],
-                    ))),
+                ...folderStack.keys
+                    .toList()
+                    .reversed
+                    .map((key) => PopupMenuItem(
+                        value: key,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          spacing: AppSizing.paddingSmall,
+                          children: [
+                            Expanded(
+                                child: Text(folderStack[key] ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1)),
+                            SvgPicture.asset('assets/icons/documents-2.svg',
+                                width: AppSizing.iconMedium,
+                                height: AppSizing.iconMedium),
+                          ],
+                        ))),
                 PopupMenuItem(
                     value: '',
                     child: Row(
@@ -85,7 +94,8 @@ class FilesExplorerNavigation extends ConsumerWidget {
                       children: [
                         Text(localizations.home),
                         SvgPicture.asset('assets/icons/documents-2.svg',
-                            width: AppSizing.iconMedium, height: AppSizing.iconMedium),
+                            width: AppSizing.iconMedium,
+                            height: AppSizing.iconMedium),
                       ],
                     )),
               ],

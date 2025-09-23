@@ -30,28 +30,34 @@ class SharedPage extends ConsumerWidget {
           ? const Center(child: CircularProgressIndicator())
           : state.sharedStorages.isEmpty
               ? Center(
-                  child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text(
-                    localizations.noSharedContentAvailable.substring(
-                        0, localizations.noSharedContentAvailable.indexOf(localizations.targetKeywordSharedContent)),
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  SimpleInfoWidget(
-                    text: localizations.targetKeywordSharedContent,
-                    dialogTitle: localizations.infoShareContent,
-                    dialogContent: localizations.infoShareContentDescription,
-                    textStyle: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  Text(
-                    localizations.noSharedContentAvailable.substring(
-                        localizations.noSharedContentAvailable.lastIndexOf(localizations.targetKeywordSharedContent) +
-                            localizations.targetKeywordSharedContent.length,
-                        localizations.noSharedContentAvailable.length),
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ]))
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                      Text(
+                        localizations.noSharedContentAvailable.substring(
+                            0,
+                            localizations.noSharedContentAvailable.indexOf(
+                                localizations.targetKeywordSharedContent)),
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      SimpleInfoWidget(
+                        text: localizations.targetKeywordSharedContent,
+                        dialogTitle: localizations.infoShareContent,
+                        dialogContent:
+                            localizations.infoShareContentDescription,
+                        textStyle: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      Text(
+                        localizations.noSharedContentAvailable.substring(
+                            localizations.noSharedContentAvailable.lastIndexOf(
+                                    localizations.targetKeywordSharedContent) +
+                                localizations.targetKeywordSharedContent.length,
+                            localizations.noSharedContentAvailable.length),
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ]))
               : ListView.builder(
                   padding: const EdgeInsets.all(AppSizing.paddingMedium),
                   itemCount: state.sharedStorages.length,
@@ -59,7 +65,8 @@ class SharedPage extends ConsumerWidget {
                     final storage = state.sharedStorages[index];
                     return SharedProfileCard(
                       title: localizations.sharedFromLabel(storage.id),
-                      subtitle: localizations.storageTypeLabel(storage.runtimeType.toString()),
+                      subtitle: localizations
+                          .storageTypeLabel(storage.runtimeType.toString()),
                       onPressed: () {
                         navigation.push(
                           ProfilesRoutePath.profileSharedProfileDetailsFiles(

@@ -6,7 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../infrastructure/extensions/veryfiable_credential_extensions.dart';
 
 class ClaimedCredentialSmallWidget extends StatelessWidget {
-  const ClaimedCredentialSmallWidget({super.key, required this.verifiableCredential});
+  const ClaimedCredentialSmallWidget(
+      {super.key, required this.verifiableCredential});
 
   final VerifiableCredential verifiableCredential;
 
@@ -19,7 +20,10 @@ class ClaimedCredentialSmallWidget extends StatelessWidget {
     return Card(
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-        leading: SvgPicture.asset('assets/icons/icons-navigation-verifiable-dark.svg', width: 32, height: 32),
+        leading: SvgPicture.asset(
+            'assets/icons/icons-navigation-verifiable-dark.svg',
+            width: 32,
+            height: 32),
         title: Text(displayName ?? localizations.verifiedData),
         subtitle: Text('${localizations.issuanceDate} : $issuanceDate'),
         trailing: Icon(Icons.chevron_right),

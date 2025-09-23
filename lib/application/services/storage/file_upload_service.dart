@@ -57,13 +57,16 @@ class FileUploadService extends _$FileUploadService {
       localizations,
     );
 
-    if (validationResult.invalidFiles.isNotEmpty || validationResult.oversizedFiles.isNotEmpty) {
+    if (validationResult.invalidFiles.isNotEmpty ||
+        validationResult.oversizedFiles.isNotEmpty) {
       String msg = '';
       if (validationResult.invalidFiles.isNotEmpty) {
-        msg += '${localizations.invalidFormat}: ${validationResult.invalidFiles.join(', ')}. ';
+        msg +=
+            '${localizations.invalidFormat}: ${validationResult.invalidFiles.join(', ')}. ';
       }
       if (validationResult.oversizedFiles.isNotEmpty) {
-        msg += '${localizations.fileTooLarge}: ${validationResult.oversizedFiles.join(', ')}.';
+        msg +=
+            '${localizations.fileTooLarge}: ${validationResult.oversizedFiles.join(', ')}.';
       }
       throw Exception(msg);
     }
@@ -78,7 +81,9 @@ class FileUploadService extends _$FileUploadService {
     required String profileId,
     bool isSharedProfile = false,
   }) async {
-    final storageService = ref.read(storageServiceProvider(parentNodeId: parentNodeId, profileId: profileId).notifier);
+    final storageService = ref.read(
+        storageServiceProvider(parentNodeId: parentNodeId, profileId: profileId)
+            .notifier);
     await storageService.uploadFiles(
       files: files,
       isSharedProfile: isSharedProfile,
@@ -87,8 +92,12 @@ class FileUploadService extends _$FileUploadService {
 
   /// Gets the allowed file extensions from settings or TDK defaults.
   List<String> _getAllowedExtensions(FileSetting? settings) {
-    if (settings?.allowedExtensions != null && settings!.allowedExtensions!.isNotEmpty) {
-      return settings.allowedExtensions!.split(',').map((e) => e.trim().toLowerCase()).toList();
+    if (settings?.allowedExtensions != null &&
+        settings!.allowedExtensions!.isNotEmpty) {
+      return settings.allowedExtensions!
+          .split(',')
+          .map((e) => e.trim().toLowerCase())
+          .toList();
     }
 
     // Fall back to TDK defaults
@@ -131,7 +140,8 @@ class FileUploadService extends _$FileUploadService {
         continue;
       }
 
-      if (settings?.maxFileSize != null && await file.length() > settings!.maxFileSize!) {
+      if (settings?.maxFileSize != null &&
+          await file.length() > settings!.maxFileSize!) {
         oversizedFiles.add(file.name);
         continue;
       }

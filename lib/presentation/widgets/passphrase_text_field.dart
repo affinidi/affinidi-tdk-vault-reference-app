@@ -36,7 +36,9 @@ class PassphraseTextField extends HookWidget {
       suffix: InkWell(
         onTap: () => shouldObscureText.value = !shouldObscureText.value,
         child: Icon(
-          shouldObscureText.value ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+          shouldObscureText.value
+              ? Icons.visibility_outlined
+              : Icons.visibility_off_outlined,
         ),
       ),
       autofocus: true,

@@ -6,7 +6,8 @@ part of 'shared_profile_details_page_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sharedProfileDetailsPageControllerHash() => r'1af9f65dba3c56a6024f6337ae8fa128975152f1';
+String _$sharedProfileDetailsPageControllerHash() =>
+    r'1af9f65dba3c56a6024f6337ae8fa128975152f1';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -42,10 +43,12 @@ abstract class _$SharedProfileDetailsPageController
 
 /// See also [SharedProfileDetailsPageController].
 @ProviderFor(SharedProfileDetailsPageController)
-const sharedProfileDetailsPageControllerProvider = SharedProfileDetailsPageControllerFamily();
+const sharedProfileDetailsPageControllerProvider =
+    SharedProfileDetailsPageControllerFamily();
 
 /// See also [SharedProfileDetailsPageController].
-class SharedProfileDetailsPageControllerFamily extends Family<SharedProfileDetailsPageState> {
+class SharedProfileDetailsPageControllerFamily
+    extends Family<SharedProfileDetailsPageState> {
   /// See also [SharedProfileDetailsPageController].
   const SharedProfileDetailsPageControllerFamily();
 
@@ -78,7 +81,8 @@ class SharedProfileDetailsPageControllerFamily extends Family<SharedProfileDetai
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'sharedProfileDetailsPageControllerProvider';
@@ -86,7 +90,8 @@ class SharedProfileDetailsPageControllerFamily extends Family<SharedProfileDetai
 
 /// See also [SharedProfileDetailsPageController].
 class SharedProfileDetailsPageControllerProvider
-    extends AutoDisposeNotifierProviderImpl<SharedProfileDetailsPageController, SharedProfileDetailsPageState> {
+    extends AutoDisposeNotifierProviderImpl<SharedProfileDetailsPageController,
+        SharedProfileDetailsPageState> {
   /// See also [SharedProfileDetailsPageController].
   SharedProfileDetailsPageControllerProvider({
     required String? parentNodeId,
@@ -98,9 +103,12 @@ class SharedProfileDetailsPageControllerProvider
           from: sharedProfileDetailsPageControllerProvider,
           name: r'sharedProfileDetailsPageControllerProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$sharedProfileDetailsPageControllerHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$sharedProfileDetailsPageControllerHash,
           dependencies: SharedProfileDetailsPageControllerFamily._dependencies,
-          allTransitiveDependencies: SharedProfileDetailsPageControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies: SharedProfileDetailsPageControllerFamily
+              ._allTransitiveDependencies,
           parentNodeId: parentNodeId,
           profileId: profileId,
         );
@@ -149,8 +157,8 @@ class SharedProfileDetailsPageControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<SharedProfileDetailsPageController, SharedProfileDetailsPageState>
-      createElement() {
+  AutoDisposeNotifierProviderElement<SharedProfileDetailsPageController,
+      SharedProfileDetailsPageState> createElement() {
     return _SharedProfileDetailsPageControllerProviderElement(this);
   }
 
@@ -173,7 +181,8 @@ class SharedProfileDetailsPageControllerProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin SharedProfileDetailsPageControllerRef on AutoDisposeNotifierProviderRef<SharedProfileDetailsPageState> {
+mixin SharedProfileDetailsPageControllerRef
+    on AutoDisposeNotifierProviderRef<SharedProfileDetailsPageState> {
   /// The parameter `parentNodeId` of this provider.
   String? get parentNodeId;
 
@@ -182,14 +191,17 @@ mixin SharedProfileDetailsPageControllerRef on AutoDisposeNotifierProviderRef<Sh
 }
 
 class _SharedProfileDetailsPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<SharedProfileDetailsPageController, SharedProfileDetailsPageState>
+    extends AutoDisposeNotifierProviderElement<
+        SharedProfileDetailsPageController, SharedProfileDetailsPageState>
     with SharedProfileDetailsPageControllerRef {
   _SharedProfileDetailsPageControllerProviderElement(super.provider);
 
   @override
-  String? get parentNodeId => (origin as SharedProfileDetailsPageControllerProvider).parentNodeId;
+  String? get parentNodeId =>
+      (origin as SharedProfileDetailsPageControllerProvider).parentNodeId;
   @override
-  String get profileId => (origin as SharedProfileDetailsPageControllerProvider).profileId;
+  String get profileId =>
+      (origin as SharedProfileDetailsPageControllerProvider).profileId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

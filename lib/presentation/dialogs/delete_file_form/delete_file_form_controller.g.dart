@@ -6,7 +6,8 @@ part of 'delete_file_form_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$deleteFileFormControllerHash() => r'9073a2639f364bd84cd81de864f46b7c93b4056c';
+String _$deleteFileFormControllerHash() =>
+    r'9073a2639f364bd84cd81de864f46b7c93b4056c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$DeleteFileFormController extends BuildlessAutoDisposeNotifier<void> {
+abstract class _$DeleteFileFormController
+    extends BuildlessAutoDisposeNotifier<void> {
   late final Item file;
   late final String? parentNodeId;
   late final String profileId;
@@ -82,14 +84,16 @@ class DeleteFileFormControllerFamily extends Family<void> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'deleteFileFormControllerProvider';
 }
 
 /// See also [DeleteFileFormController].
-class DeleteFileFormControllerProvider extends AutoDisposeNotifierProviderImpl<DeleteFileFormController, void> {
+class DeleteFileFormControllerProvider
+    extends AutoDisposeNotifierProviderImpl<DeleteFileFormController, void> {
   /// See also [DeleteFileFormController].
   DeleteFileFormControllerProvider({
     required Item file,
@@ -103,9 +107,12 @@ class DeleteFileFormControllerProvider extends AutoDisposeNotifierProviderImpl<D
           from: deleteFileFormControllerProvider,
           name: r'deleteFileFormControllerProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$deleteFileFormControllerHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$deleteFileFormControllerHash,
           dependencies: DeleteFileFormControllerFamily._dependencies,
-          allTransitiveDependencies: DeleteFileFormControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              DeleteFileFormControllerFamily._allTransitiveDependencies,
           file: file,
           parentNodeId: parentNodeId,
           profileId: profileId,
@@ -160,7 +167,8 @@ class DeleteFileFormControllerProvider extends AutoDisposeNotifierProviderImpl<D
   }
 
   @override
-  AutoDisposeNotifierProviderElement<DeleteFileFormController, void> createElement() {
+  AutoDisposeNotifierProviderElement<DeleteFileFormController, void>
+      createElement() {
     return _DeleteFileFormControllerProviderElement(this);
   }
 
@@ -197,15 +205,18 @@ mixin DeleteFileFormControllerRef on AutoDisposeNotifierProviderRef<void> {
 }
 
 class _DeleteFileFormControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<DeleteFileFormController, void> with DeleteFileFormControllerRef {
+    extends AutoDisposeNotifierProviderElement<DeleteFileFormController, void>
+    with DeleteFileFormControllerRef {
   _DeleteFileFormControllerProviderElement(super.provider);
 
   @override
   Item get file => (origin as DeleteFileFormControllerProvider).file;
   @override
-  String? get parentNodeId => (origin as DeleteFileFormControllerProvider).parentNodeId;
+  String? get parentNodeId =>
+      (origin as DeleteFileFormControllerProvider).parentNodeId;
   @override
-  String get profileId => (origin as DeleteFileFormControllerProvider).profileId;
+  String get profileId =>
+      (origin as DeleteFileFormControllerProvider).profileId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

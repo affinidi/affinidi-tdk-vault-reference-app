@@ -3,7 +3,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'shared_profile_details_page_breadcrumb_controller.g.dart';
 
 @riverpod
-class SharedProfileDetailsPageBreadcrumbController extends _$SharedProfileDetailsPageBreadcrumbController {
+class SharedProfileDetailsPageBreadcrumbController
+    extends _$SharedProfileDetailsPageBreadcrumbController {
   SharedProfileDetailsPageBreadcrumbController() : super();
 
   @override

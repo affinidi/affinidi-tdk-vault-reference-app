@@ -18,8 +18,10 @@ class VerifiableCredential extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = claimCredentialsPageControllerProvider(profileId: profileId);
-    final verifiableCredential = ref.watch(provider.select((state) => state.verifiableCredential));
+    final provider =
+        claimCredentialsPageControllerProvider(profileId: profileId);
+    final verifiableCredential =
+        ref.watch(provider.select((state) => state.verifiableCredential));
 
     if (verifiableCredential == null) {
       return SizedBox.shrink();
@@ -30,7 +32,8 @@ class VerifiableCredential extends ConsumerWidget {
         context: context,
         verifiableCredential: verifiableCredential,
       ),
-      child: ClaimedCredentialSmallWidget(verifiableCredential: verifiableCredential),
+      child: ClaimedCredentialSmallWidget(
+          verifiableCredential: verifiableCredential),
     );
   }
 }

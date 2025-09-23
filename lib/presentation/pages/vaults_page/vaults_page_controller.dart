@@ -22,7 +22,8 @@ class VaultsPageController extends _$VaultsPageController {
     state = state.copyWith(isLoading: true, errorMessage: null);
 
     // Load available vaults
-    final vaultsManagerService = ref.read(vaultsManagerServiceProvider.notifier);
+    final vaultsManagerService =
+        ref.read(vaultsManagerServiceProvider.notifier);
     await vaultsManagerService.loadVaults();
 
     final vaultService = ref.read(vaultServiceProvider.notifier);

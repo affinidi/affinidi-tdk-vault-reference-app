@@ -6,7 +6,8 @@ part of 'profile_page_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$profilePageControllerHash() => r'72af115ad0d5d3bb356c6ab3be68de9032a209b7';
+String _$profilePageControllerHash() =>
+    r'72af115ad0d5d3bb356c6ab3be68de9032a209b7';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$ProfilePageController extends BuildlessAutoDisposeNotifier<ProfilePageState> {
+abstract class _$ProfilePageController
+    extends BuildlessAutoDisposeNotifier<ProfilePageState> {
   late final String profileId;
 
   ProfilePageState build({
@@ -72,14 +74,16 @@ class ProfilePageControllerFamily extends Family<ProfilePageState> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'profilePageControllerProvider';
 }
 
 /// See also [ProfilePageController].
-class ProfilePageControllerProvider extends AutoDisposeNotifierProviderImpl<ProfilePageController, ProfilePageState> {
+class ProfilePageControllerProvider extends AutoDisposeNotifierProviderImpl<
+    ProfilePageController, ProfilePageState> {
   /// See also [ProfilePageController].
   ProfilePageControllerProvider({
     required String profileId,
@@ -87,9 +91,13 @@ class ProfilePageControllerProvider extends AutoDisposeNotifierProviderImpl<Prof
           () => ProfilePageController()..profileId = profileId,
           from: profilePageControllerProvider,
           name: r'profilePageControllerProvider',
-          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$profilePageControllerHash,
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$profilePageControllerHash,
           dependencies: ProfilePageControllerFamily._dependencies,
-          allTransitiveDependencies: ProfilePageControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              ProfilePageControllerFamily._allTransitiveDependencies,
           profileId: profileId,
         );
 
@@ -131,13 +139,15 @@ class ProfilePageControllerProvider extends AutoDisposeNotifierProviderImpl<Prof
   }
 
   @override
-  AutoDisposeNotifierProviderElement<ProfilePageController, ProfilePageState> createElement() {
+  AutoDisposeNotifierProviderElement<ProfilePageController, ProfilePageState>
+      createElement() {
     return _ProfilePageControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ProfilePageControllerProvider && other.profileId == profileId;
+    return other is ProfilePageControllerProvider &&
+        other.profileId == profileId;
   }
 
   @override
@@ -151,13 +161,15 @@ class ProfilePageControllerProvider extends AutoDisposeNotifierProviderImpl<Prof
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin ProfilePageControllerRef on AutoDisposeNotifierProviderRef<ProfilePageState> {
+mixin ProfilePageControllerRef
+    on AutoDisposeNotifierProviderRef<ProfilePageState> {
   /// The parameter `profileId` of this provider.
   String get profileId;
 }
 
 class _ProfilePageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<ProfilePageController, ProfilePageState> with ProfilePageControllerRef {
+    extends AutoDisposeNotifierProviderElement<ProfilePageController,
+        ProfilePageState> with ProfilePageControllerRef {
   _ProfilePageControllerProviderElement(super.provider);
 
   @override

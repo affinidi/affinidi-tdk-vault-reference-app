@@ -11,7 +11,8 @@ mixin AsyncLoadingStatusErrorLocalizer {
     StackTrace stackTrace,
     String Function(Object exception) errorLocalizer,
   ) {
-    if (!((exception is AppException && exception.type != AppExceptionType.other) ||
+    if (!((exception is AppException &&
+            exception.type != AppExceptionType.other) ||
         (exception is TdkException && exception.code != 'other') ||
         (exception is FileUploadException))) {
       // If the exception is of an unexpected type log an error
@@ -27,7 +28,9 @@ mixin AsyncLoadingStatusErrorLocalizer {
     }
 
     if (exception is AppException) {
-      return (exception.message.isNotEmpty) ? exception.message : localizations.errorMessage(exception.type.name);
+      return (exception.message.isNotEmpty)
+          ? exception.message
+          : localizations.errorMessage(exception.type.name);
     }
 
     if (exception is FileUploadException) {

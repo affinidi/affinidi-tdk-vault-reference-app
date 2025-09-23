@@ -36,7 +36,8 @@ class DeleteCredentialForm extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final provider = deleteCredentialFormControllerProvider(digitalCredential, profileId: profileId);
+    final provider = deleteCredentialFormControllerProvider(digitalCredential,
+        profileId: profileId);
     final controller = ref.read(provider.notifier);
     final navigation = ref.read(navigationServiceProvider);
 

@@ -6,7 +6,8 @@ part of 'rename_folder_form_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$renameFolderFormControllerHash() => r'a17d6037eadcb741fbd575a016143ee0e885785d';
+String _$renameFolderFormControllerHash() =>
+    r'a17d6037eadcb741fbd575a016143ee0e885785d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$RenameFolderFormController extends BuildlessAutoDisposeNotifier<RenameFolderFormState> {
+abstract class _$RenameFolderFormController
+    extends BuildlessAutoDisposeNotifier<RenameFolderFormState> {
   late final Item item;
   late final String? parentNodeId;
   late final String profileId;
@@ -82,7 +84,8 @@ class RenameFolderFormControllerFamily extends Family<RenameFolderFormState> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'renameFolderFormControllerProvider';
@@ -90,7 +93,8 @@ class RenameFolderFormControllerFamily extends Family<RenameFolderFormState> {
 
 /// See also [RenameFolderFormController].
 class RenameFolderFormControllerProvider
-    extends AutoDisposeNotifierProviderImpl<RenameFolderFormController, RenameFolderFormState> {
+    extends AutoDisposeNotifierProviderImpl<RenameFolderFormController,
+        RenameFolderFormState> {
   /// See also [RenameFolderFormController].
   RenameFolderFormControllerProvider({
     required Item item,
@@ -104,9 +108,12 @@ class RenameFolderFormControllerProvider
           from: renameFolderFormControllerProvider,
           name: r'renameFolderFormControllerProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$renameFolderFormControllerHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$renameFolderFormControllerHash,
           dependencies: RenameFolderFormControllerFamily._dependencies,
-          allTransitiveDependencies: RenameFolderFormControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              RenameFolderFormControllerFamily._allTransitiveDependencies,
           item: item,
           parentNodeId: parentNodeId,
           profileId: profileId,
@@ -161,7 +168,8 @@ class RenameFolderFormControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<RenameFolderFormController, RenameFolderFormState> createElement() {
+  AutoDisposeNotifierProviderElement<RenameFolderFormController,
+      RenameFolderFormState> createElement() {
     return _RenameFolderFormControllerProviderElement(this);
   }
 
@@ -186,7 +194,8 @@ class RenameFolderFormControllerProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin RenameFolderFormControllerRef on AutoDisposeNotifierProviderRef<RenameFolderFormState> {
+mixin RenameFolderFormControllerRef
+    on AutoDisposeNotifierProviderRef<RenameFolderFormState> {
   /// The parameter `item` of this provider.
   Item get item;
 
@@ -198,16 +207,18 @@ mixin RenameFolderFormControllerRef on AutoDisposeNotifierProviderRef<RenameFold
 }
 
 class _RenameFolderFormControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<RenameFolderFormController, RenameFolderFormState>
-    with RenameFolderFormControllerRef {
+    extends AutoDisposeNotifierProviderElement<RenameFolderFormController,
+        RenameFolderFormState> with RenameFolderFormControllerRef {
   _RenameFolderFormControllerProviderElement(super.provider);
 
   @override
   Item get item => (origin as RenameFolderFormControllerProvider).item;
   @override
-  String? get parentNodeId => (origin as RenameFolderFormControllerProvider).parentNodeId;
+  String? get parentNodeId =>
+      (origin as RenameFolderFormControllerProvider).parentNodeId;
   @override
-  String get profileId => (origin as RenameFolderFormControllerProvider).profileId;
+  String get profileId =>
+      (origin as RenameFolderFormControllerProvider).profileId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

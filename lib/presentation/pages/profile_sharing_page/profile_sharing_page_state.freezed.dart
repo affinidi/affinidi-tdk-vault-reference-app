@@ -23,19 +23,23 @@ mixin _$ProfileSharingPageState {
   /// Create a copy of ProfileSharingPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProfileSharingPageStateCopyWith<ProfileSharingPageState> get copyWith => throw _privateConstructorUsedError;
+  $ProfileSharingPageStateCopyWith<ProfileSharingPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ProfileSharingPageStateCopyWith<$Res> {
-  factory $ProfileSharingPageStateCopyWith(ProfileSharingPageState value, $Res Function(ProfileSharingPageState) then) =
+  factory $ProfileSharingPageStateCopyWith(ProfileSharingPageState value,
+          $Res Function(ProfileSharingPageState) then) =
       _$ProfileSharingPageStateCopyWithImpl<$Res, ProfileSharingPageState>;
   @useResult
-  $Res call({List<Profile> profiles, String? selectedProfileId, bool isLoading});
+  $Res call(
+      {List<Profile> profiles, String? selectedProfileId, bool isLoading});
 }
 
 /// @nodoc
-class _$ProfileSharingPageStateCopyWithImpl<$Res, $Val extends ProfileSharingPageState>
+class _$ProfileSharingPageStateCopyWithImpl<$Res,
+        $Val extends ProfileSharingPageState>
     implements $ProfileSharingPageStateCopyWith<$Res> {
   _$ProfileSharingPageStateCopyWithImpl(this._value, this._then);
 
@@ -71,21 +75,26 @@ class _$ProfileSharingPageStateCopyWithImpl<$Res, $Val extends ProfileSharingPag
 }
 
 /// @nodoc
-abstract class _$$ProfileSharingPageStateImplCopyWith<$Res> implements $ProfileSharingPageStateCopyWith<$Res> {
+abstract class _$$ProfileSharingPageStateImplCopyWith<$Res>
+    implements $ProfileSharingPageStateCopyWith<$Res> {
   factory _$$ProfileSharingPageStateImplCopyWith(
-          _$ProfileSharingPageStateImpl value, $Res Function(_$ProfileSharingPageStateImpl) then) =
+          _$ProfileSharingPageStateImpl value,
+          $Res Function(_$ProfileSharingPageStateImpl) then) =
       __$$ProfileSharingPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Profile> profiles, String? selectedProfileId, bool isLoading});
+  $Res call(
+      {List<Profile> profiles, String? selectedProfileId, bool isLoading});
 }
 
 /// @nodoc
 class __$$ProfileSharingPageStateImplCopyWithImpl<$Res>
-    extends _$ProfileSharingPageStateCopyWithImpl<$Res, _$ProfileSharingPageStateImpl>
+    extends _$ProfileSharingPageStateCopyWithImpl<$Res,
+        _$ProfileSharingPageStateImpl>
     implements _$$ProfileSharingPageStateImplCopyWith<$Res> {
   __$$ProfileSharingPageStateImplCopyWithImpl(
-      _$ProfileSharingPageStateImpl _value, $Res Function(_$ProfileSharingPageStateImpl) _then)
+      _$ProfileSharingPageStateImpl _value,
+      $Res Function(_$ProfileSharingPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of ProfileSharingPageState
@@ -118,7 +127,9 @@ class __$$ProfileSharingPageStateImplCopyWithImpl<$Res>
 
 class _$ProfileSharingPageStateImpl implements _ProfileSharingPageState {
   const _$ProfileSharingPageStateImpl(
-      {final List<Profile> profiles = const [], this.selectedProfileId, this.isLoading = false})
+      {final List<Profile> profiles = const [],
+      this.selectedProfileId,
+      this.isLoading = false})
       : _profiles = profiles;
 
   final List<Profile> _profiles;
@@ -147,21 +158,27 @@ class _$ProfileSharingPageStateImpl implements _ProfileSharingPageState {
         (other.runtimeType == runtimeType &&
             other is _$ProfileSharingPageStateImpl &&
             const DeepCollectionEquality().equals(other._profiles, _profiles) &&
-            (identical(other.selectedProfileId, selectedProfileId) || other.selectedProfileId == selectedProfileId) &&
-            (identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+            (identical(other.selectedProfileId, selectedProfileId) ||
+                other.selectedProfileId == selectedProfileId) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_profiles), selectedProfileId, isLoading);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_profiles),
+      selectedProfileId,
+      isLoading);
 
   /// Create a copy of ProfileSharingPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ProfileSharingPageStateImplCopyWith<_$ProfileSharingPageStateImpl> get copyWith =>
-      __$$ProfileSharingPageStateImplCopyWithImpl<_$ProfileSharingPageStateImpl>(this, _$identity);
+  _$$ProfileSharingPageStateImplCopyWith<_$ProfileSharingPageStateImpl>
+      get copyWith => __$$ProfileSharingPageStateImplCopyWithImpl<
+          _$ProfileSharingPageStateImpl>(this, _$identity);
 }
 
 abstract class _ProfileSharingPageState implements ProfileSharingPageState {
@@ -181,6 +198,6 @@ abstract class _ProfileSharingPageState implements ProfileSharingPageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProfileSharingPageStateImplCopyWith<_$ProfileSharingPageStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ProfileSharingPageStateImplCopyWith<_$ProfileSharingPageStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

@@ -26,7 +26,8 @@ class ClaimedCredentialDetailsPage extends StatelessWidget {
       builder: (context) => BottomSheetDialog(
         title: localizations.credentialDetails,
         actions: [],
-        body: ClaimedCredentialDetailsPage(verifiableCredential: verifiableCredential),
+        body: ClaimedCredentialDetailsPage(
+            verifiableCredential: verifiableCredential),
         onCancel: () {
           if (!context.mounted) return;
 

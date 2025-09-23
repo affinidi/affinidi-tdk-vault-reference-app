@@ -44,13 +44,18 @@ class CreateVaultPage extends HookConsumerWidget {
     final navigation = ref.read(navigationServiceProvider);
 
     void proceed() async {
-      if (passwordController.text.trim().isNotEmpty && vaultNameController.text.trim().isNotEmpty) {
+      if (passwordController.text.trim().isNotEmpty &&
+          vaultNameController.text.trim().isNotEmpty) {
         await controller.createVault(
           vaultName: vaultNameController.text,
           password: passwordController.text,
-          seed: state.seedMode == SeedMode.useExisting ? seedController.text : null,
+          seed: state.seedMode == SeedMode.useExisting
+              ? seedController.text
+              : null,
           onSuccess: (vault, vaultId) {
-            ref.read(vaultsPageControllerProvider.notifier).addVault(vaultId, vault);
+            ref
+                .read(vaultsPageControllerProvider.notifier)
+                .addVault(vaultId, vault);
             if (!context.mounted) return;
             navigation.go(ProfilesRoutePath.base);
           },
@@ -58,7 +63,8 @@ class CreateVaultPage extends HookConsumerWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  errorType != null && errorType == AppExceptionType.vaultAlreadyExists
+                  errorType != null &&
+                          errorType == AppExceptionType.vaultAlreadyExists
                       ? localizations.vaultExistsErrorMessage
                       : localizations.createVaultErrorMessage,
                 ),
@@ -97,16 +103,23 @@ class CreateVaultPage extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: AppSizing.paddingXXLarge, left: AppSizing.paddingSmall),
+                    padding: const EdgeInsets.only(
+                        top: AppSizing.paddingXXLarge,
+                        left: AppSizing.paddingSmall),
                     child: Text(
-                      localizations.createYourVault.substring(0, localizations.createYourVault.lastIndexOf(' ')),
+                      localizations.createYourVault.substring(
+                          0, localizations.createYourVault.lastIndexOf(' ')),
                       style: AppTheme.headingXLarge,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: AppSizing.paddingSmall),
+                    padding:
+                        const EdgeInsets.only(left: AppSizing.paddingSmall),
                     child: SimpleInfoWidget(
-                      text: localizations.createYourVault.split(' ').skip(2).join(' '),
+                      text: localizations.createYourVault
+                          .split(' ')
+                          .skip(2)
+                          .join(' '),
                       dialogTitle: localizations.infoVaultAttr,
                       dialogContent: localizations.infoVaultAttrDescription,
                       textStyle: AppTheme.headingXLarge,
@@ -154,9 +167,11 @@ class CreateVaultPage extends HookConsumerWidget {
                                   border: Border.all(
                                     color: isVaultNameFocused.value
                                         ? AppColorScheme.formFieldBorderFocused
-                                        : AppColorScheme.formFieldBorderUnfocused,
+                                        : AppColorScheme
+                                            .formFieldBorderUnfocused,
                                   ),
-                                  borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
+                                  borderRadius: BorderRadius.circular(
+                                      AppSizing.paddingSmall),
                                 ),
                                 child: Focus(
                                   onFocusChange: (hasFocus) {
@@ -168,10 +183,13 @@ class CreateVaultPage extends HookConsumerWidget {
                                       vaultNameController.text,
                                     ),
                                     decoration: InputDecoration(
-                                      hintText: localizations.giveYourVaultAName,
-                                      hintStyle: TextStyle(color: Colors.grey.shade400),
+                                      hintText:
+                                          localizations.giveYourVaultAName,
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey.shade400),
                                       border: InputBorder.none,
-                                      contentPadding: const EdgeInsets.all(AppSizing.paddingRegular),
+                                      contentPadding: const EdgeInsets.all(
+                                          AppSizing.paddingRegular),
                                     ),
                                   ),
                                 ),
@@ -192,9 +210,11 @@ class CreateVaultPage extends HookConsumerWidget {
                                   border: Border.all(
                                     color: isPassphraseFocused.value
                                         ? AppColorScheme.formFieldBorderFocused
-                                        : AppColorScheme.formFieldBorderUnfocused,
+                                        : AppColorScheme
+                                            .formFieldBorderUnfocused,
                                   ),
-                                  borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
+                                  borderRadius: BorderRadius.circular(
+                                      AppSizing.paddingSmall),
                                 ),
                                 child: Focus(
                                   onFocusChange: (hasFocus) {
@@ -208,9 +228,11 @@ class CreateVaultPage extends HookConsumerWidget {
                                     ),
                                     decoration: InputDecoration(
                                       hintText: localizations.chooseAPassphrase,
-                                      hintStyle: TextStyle(color: Colors.grey.shade400),
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey.shade400),
                                       border: InputBorder.none,
-                                      contentPadding: const EdgeInsets.all(AppSizing.paddingRegular),
+                                      contentPadding: const EdgeInsets.all(
+                                          AppSizing.paddingRegular),
                                       suffixIcon: IconButton(
                                         icon: Icon(
                                           isPasswordVisible.value
@@ -219,7 +241,8 @@ class CreateVaultPage extends HookConsumerWidget {
                                           color: Colors.grey.shade600,
                                         ),
                                         onPressed: () {
-                                          isPasswordVisible.value = !isPasswordVisible.value;
+                                          isPasswordVisible.value =
+                                              !isPasswordVisible.value;
                                         },
                                       ),
                                     ),
@@ -283,8 +306,10 @@ class CreateVaultPage extends HookConsumerWidget {
                                 onTap: () {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(localizations.existingSeedMessage),
-                                      backgroundColor: AppColorScheme.backgroundDark,
+                                      content: Text(
+                                          localizations.existingSeedMessage),
+                                      backgroundColor:
+                                          AppColorScheme.backgroundDark,
                                     ),
                                   );
                                 },
@@ -319,10 +344,13 @@ class CreateVaultPage extends HookConsumerWidget {
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: isSeedFocused.value
-                                          ? AppColorScheme.formFieldBorderFocused
-                                          : AppColorScheme.formFieldBorderUnfocused,
+                                          ? AppColorScheme
+                                              .formFieldBorderFocused
+                                          : AppColorScheme
+                                              .formFieldBorderUnfocused,
                                     ),
-                                    borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
+                                    borderRadius: BorderRadius.circular(
+                                        AppSizing.paddingSmall),
                                   ),
                                   child: Focus(
                                     onFocusChange: (hasFocus) {
@@ -336,9 +364,11 @@ class CreateVaultPage extends HookConsumerWidget {
                                       ),
                                       decoration: InputDecoration(
                                         hintText: localizations.enterSeedHint,
-                                        hintStyle: TextStyle(color: Colors.grey.shade400),
+                                        hintStyle: TextStyle(
+                                            color: Colors.grey.shade400),
                                         border: InputBorder.none,
-                                        contentPadding: const EdgeInsets.all(AppSizing.paddingRegular),
+                                        contentPadding: const EdgeInsets.all(
+                                            AppSizing.paddingRegular),
                                         suffixIcon: IconButton(
                                           icon: Icon(
                                             isSeedVisible.value
@@ -347,7 +377,8 @@ class CreateVaultPage extends HookConsumerWidget {
                                             color: Colors.grey.shade600,
                                           ),
                                           onPressed: () {
-                                            isSeedVisible.value = !isSeedVisible.value;
+                                            isSeedVisible.value =
+                                                !isSeedVisible.value;
                                           },
                                         ),
                                       ),
@@ -362,14 +393,18 @@ class CreateVaultPage extends HookConsumerWidget {
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              onPressed: state.isFormValid ? () => proceed() : null,
+                              onPressed:
+                                  state.isFormValid ? () => proceed() : null,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    state.isFormValid ? AppTheme.colorScheme.primary : Colors.grey.shade300,
+                                backgroundColor: state.isFormValid
+                                    ? AppTheme.colorScheme.primary
+                                    : Colors.grey.shade300,
                                 foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingMedium),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: AppSizing.paddingMedium),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
+                                  borderRadius: BorderRadius.circular(
+                                      AppSizing.paddingXXLarge),
                                 ),
                               ),
                               child: Text(
@@ -377,7 +412,8 @@ class CreateVaultPage extends HookConsumerWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
-                                    ?.copyWith(color: AppColorScheme.backgroundWhite),
+                                    ?.copyWith(
+                                        color: AppColorScheme.backgroundWhite),
                               ),
                             ),
                           ),

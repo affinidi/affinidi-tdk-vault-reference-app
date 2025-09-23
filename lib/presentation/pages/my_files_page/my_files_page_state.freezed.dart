@@ -22,19 +22,22 @@ mixin _$MyFilesPageState {
   /// Create a copy of MyFilesPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $MyFilesPageStateCopyWith<MyFilesPageState> get copyWith => throw _privateConstructorUsedError;
+  $MyFilesPageStateCopyWith<MyFilesPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $MyFilesPageStateCopyWith<$Res> {
-  factory $MyFilesPageStateCopyWith(MyFilesPageState value, $Res Function(MyFilesPageState) then) =
+  factory $MyFilesPageStateCopyWith(
+          MyFilesPageState value, $Res Function(MyFilesPageState) then) =
       _$MyFilesPageStateCopyWithImpl<$Res, MyFilesPageState>;
   @useResult
   $Res call({bool isLoading, List<Item>? items});
 }
 
 /// @nodoc
-class _$MyFilesPageStateCopyWithImpl<$Res, $Val extends MyFilesPageState> implements $MyFilesPageStateCopyWith<$Res> {
+class _$MyFilesPageStateCopyWithImpl<$Res, $Val extends MyFilesPageState>
+    implements $MyFilesPageStateCopyWith<$Res> {
   _$MyFilesPageStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -64,8 +67,10 @@ class _$MyFilesPageStateCopyWithImpl<$Res, $Val extends MyFilesPageState> implem
 }
 
 /// @nodoc
-abstract class _$$MyFilesPageStateImplCopyWith<$Res> implements $MyFilesPageStateCopyWith<$Res> {
-  factory _$$MyFilesPageStateImplCopyWith(_$MyFilesPageStateImpl value, $Res Function(_$MyFilesPageStateImpl) then) =
+abstract class _$$MyFilesPageStateImplCopyWith<$Res>
+    implements $MyFilesPageStateCopyWith<$Res> {
+  factory _$$MyFilesPageStateImplCopyWith(_$MyFilesPageStateImpl value,
+          $Res Function(_$MyFilesPageStateImpl) then) =
       __$$MyFilesPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -73,9 +78,11 @@ abstract class _$$MyFilesPageStateImplCopyWith<$Res> implements $MyFilesPageStat
 }
 
 /// @nodoc
-class __$$MyFilesPageStateImplCopyWithImpl<$Res> extends _$MyFilesPageStateCopyWithImpl<$Res, _$MyFilesPageStateImpl>
+class __$$MyFilesPageStateImplCopyWithImpl<$Res>
+    extends _$MyFilesPageStateCopyWithImpl<$Res, _$MyFilesPageStateImpl>
     implements _$$MyFilesPageStateImplCopyWith<$Res> {
-  __$$MyFilesPageStateImplCopyWithImpl(_$MyFilesPageStateImpl _value, $Res Function(_$MyFilesPageStateImpl) _then)
+  __$$MyFilesPageStateImplCopyWithImpl(_$MyFilesPageStateImpl _value,
+      $Res Function(_$MyFilesPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of MyFilesPageState
@@ -102,7 +109,8 @@ class __$$MyFilesPageStateImplCopyWithImpl<$Res> extends _$MyFilesPageStateCopyW
 /// @nodoc
 
 class _$MyFilesPageStateImpl implements _MyFilesPageState {
-  _$MyFilesPageStateImpl({this.isLoading = false, final List<Item>? items}) : _items = items;
+  _$MyFilesPageStateImpl({this.isLoading = false, final List<Item>? items})
+      : _items = items;
 
   @override
   @JsonKey()
@@ -127,12 +135,14 @@ class _$MyFilesPageStateImpl implements _MyFilesPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MyFilesPageStateImpl &&
-            (identical(other.isLoading, isLoading) || other.isLoading == isLoading) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             const DeepCollectionEquality().equals(other._items, _items));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, const DeepCollectionEquality().hash(_items));
+  int get hashCode => Object.hash(
+      runtimeType, isLoading, const DeepCollectionEquality().hash(_items));
 
   /// Create a copy of MyFilesPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -140,11 +150,13 @@ class _$MyFilesPageStateImpl implements _MyFilesPageState {
   @override
   @pragma('vm:prefer-inline')
   _$$MyFilesPageStateImplCopyWith<_$MyFilesPageStateImpl> get copyWith =>
-      __$$MyFilesPageStateImplCopyWithImpl<_$MyFilesPageStateImpl>(this, _$identity);
+      __$$MyFilesPageStateImplCopyWithImpl<_$MyFilesPageStateImpl>(
+          this, _$identity);
 }
 
 abstract class _MyFilesPageState implements MyFilesPageState {
-  factory _MyFilesPageState({final bool isLoading, final List<Item>? items}) = _$MyFilesPageStateImpl;
+  factory _MyFilesPageState({final bool isLoading, final List<Item>? items}) =
+      _$MyFilesPageStateImpl;
 
   @override
   bool get isLoading;
@@ -155,5 +167,6 @@ abstract class _MyFilesPageState implements MyFilesPageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MyFilesPageStateImplCopyWith<_$MyFilesPageStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$MyFilesPageStateImplCopyWith<_$MyFilesPageStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

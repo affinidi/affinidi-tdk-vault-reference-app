@@ -24,7 +24,8 @@ Stream<List<SharedProfileAccessData>> sharedProfileAccesses(
 
 @riverpod
 class ProfileSettingsPageController extends _$ProfileSettingsPageController {
-  ProfileSettingsActionStatus _lastActionStatus = ProfileSettingsActionStatus.none;
+  ProfileSettingsActionStatus _lastActionStatus =
+      ProfileSettingsActionStatus.none;
   ProfileSettingsActionStatus get lastActionStatus => _lastActionStatus;
 
   @override
@@ -76,13 +77,15 @@ class ProfileSettingsPageController extends _$ProfileSettingsPageController {
     final vaultService = ref.read(vaultServiceProvider.notifier);
     final sharedAccessService = ref.read(sharedProfileAccessServiceProvider);
     try {
-      await vaultService.revokeProfileAccess(profileId: profileId, granteeDid: receiverDid);
+      await vaultService.revokeProfileAccess(
+          profileId: profileId, granteeDid: receiverDid);
       await sharedAccessService.removeSharedAccess(entryId);
       _lastActionStatus = ProfileSettingsActionStatus.revokeSuccess;
     } catch (e) {
       _lastActionStatus = ProfileSettingsActionStatus.revokeFailure;
     } finally {
-      state = state.copyWith(revokingIds: state.revokingIds.difference({entryId}));
+      state =
+          state.copyWith(revokingIds: state.revokingIds.difference({entryId}));
     }
   }
 }

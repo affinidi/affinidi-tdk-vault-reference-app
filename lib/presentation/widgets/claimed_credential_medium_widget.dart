@@ -23,22 +23,28 @@ class ClaimedCredentialMediumWidget extends ConsumerWidget {
     final localName = localizations.localeName;
     final credential = digitalCredential.verifiableCredential;
     final displayName = credential.displayName;
-    final expiryDate = credential.formattedExpiryDate(localName) ?? localizations.neverExpires;
+    final expiryDate =
+        credential.formattedExpiryDate(localName) ?? localizations.neverExpires;
     final issuanceDate = credential.formattedIssuanceDate(localName);
     final theme = Theme.of(context);
 
     return Card(
       child: Padding(
         padding: EdgeInsets.fromLTRB(
-            AppSizing.paddingMedium, AppSizing.paddingXSmall, AppSizing.paddingMedium, AppSizing.paddingMedium),
+            AppSizing.paddingMedium,
+            AppSizing.paddingXSmall,
+            AppSizing.paddingMedium,
+            AppSizing.paddingMedium),
         child: Column(
           spacing: AppSizing.paddingSmall,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
               contentPadding: EdgeInsets.zero,
-              leading: SvgPicture.asset('assets/icons/icons-navigation-verifiable-dark.svg',
-                  width: AppSizing.iconLarge, height: AppSizing.iconLarge),
+              leading: SvgPicture.asset(
+                  'assets/icons/icons-navigation-verifiable-dark.svg',
+                  width: AppSizing.iconLarge,
+                  height: AppSizing.iconLarge),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -50,9 +56,12 @@ class ClaimedCredentialMediumWidget extends ConsumerWidget {
               ),
             ),
             Text(localizations.verifiedCredentials,
-                style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
+                style: theme.textTheme.bodyMedium
+                    ?.copyWith(fontWeight: FontWeight.w600)),
             if (displayName != null)
-              Text(displayName, style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w800)),
+              Text(displayName,
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(fontWeight: FontWeight.w800)),
             Text(
               digitalCredential.verifiableCredential.issuer.id.toString(),
               style: theme.textTheme.bodyMedium,
@@ -66,8 +75,10 @@ class ClaimedCredentialMediumWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: AppSizing.paddingXSmall,
                     children: [
-                      Text(localizations.issuanceDate, style: theme.textTheme.bodySmall),
-                      Text(issuanceDate.toString(), style: theme.textTheme.bodySmall),
+                      Text(localizations.issuanceDate,
+                          style: theme.textTheme.bodySmall),
+                      Text(issuanceDate.toString(),
+                          style: theme.textTheme.bodySmall),
                     ],
                   ),
                 ),
@@ -76,8 +87,10 @@ class ClaimedCredentialMediumWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     spacing: AppSizing.paddingXSmall,
                     children: [
-                      Text(localizations.expiryDate, style: theme.textTheme.bodySmall),
-                      Text(expiryDate.toString(), style: theme.textTheme.bodySmall),
+                      Text(localizations.expiryDate,
+                          style: theme.textTheme.bodySmall),
+                      Text(expiryDate.toString(),
+                          style: theme.textTheme.bodySmall),
                     ],
                   ),
                 ),

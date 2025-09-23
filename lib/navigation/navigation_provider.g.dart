@@ -13,7 +13,8 @@ String _$navigationHash() => r'd49b03885a91e3538c78167e33971908dda30bf2';
 final navigationProvider = Provider<GoRouter>.internal(
   navigation,
   name: r'navigationProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$navigationHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$navigationHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

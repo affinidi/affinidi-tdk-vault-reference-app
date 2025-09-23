@@ -11,49 +11,67 @@ class $SharedProfileAccessTable extends SharedProfileAccess
   $SharedProfileAccessTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>('id', aliasedName, false,
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _receiverDidMeta = const VerificationMeta('receiverDid');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _receiverDidMeta =
+      const VerificationMeta('receiverDid');
   @override
-  late final GeneratedColumn<String> receiverDid = GeneratedColumn<String>('receiver_did', aliasedName, false,
+  late final GeneratedColumn<String> receiverDid = GeneratedColumn<String>(
+      'receiver_did', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _profileIdMeta = const VerificationMeta('profileId');
+  static const VerificationMeta _profileIdMeta =
+      const VerificationMeta('profileId');
   @override
-  late final GeneratedColumn<String> profileId =
-      GeneratedColumn<String>('profile_id', aliasedName, false, type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _accessLevelMeta = const VerificationMeta('accessLevel');
+  late final GeneratedColumn<String> profileId = GeneratedColumn<String>(
+      'profile_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _accessLevelMeta =
+      const VerificationMeta('accessLevel');
   @override
-  late final GeneratedColumn<String> accessLevel = GeneratedColumn<String>('access_level', aliasedName, false,
+  late final GeneratedColumn<String> accessLevel = GeneratedColumn<String>(
+      'access_level', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, receiverDid, profileId, accessLevel];
+  List<GeneratedColumn> get $columns =>
+      [id, receiverDid, profileId, accessLevel];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'shared_profile_access';
   @override
-  VerificationContext validateIntegrity(Insertable<SharedProfileAccessData> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+      Insertable<SharedProfileAccessData> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('receiver_did')) {
-      context.handle(_receiverDidMeta, receiverDid.isAcceptableOrUnknown(data['receiver_did']!, _receiverDidMeta));
+      context.handle(
+          _receiverDidMeta,
+          receiverDid.isAcceptableOrUnknown(
+              data['receiver_did']!, _receiverDidMeta));
     } else if (isInserting) {
       context.missing(_receiverDidMeta);
     }
     if (data.containsKey('profile_id')) {
-      context.handle(_profileIdMeta, profileId.isAcceptableOrUnknown(data['profile_id']!, _profileIdMeta));
+      context.handle(_profileIdMeta,
+          profileId.isAcceptableOrUnknown(data['profile_id']!, _profileIdMeta));
     } else if (isInserting) {
       context.missing(_profileIdMeta);
     }
     if (data.containsKey('access_level')) {
-      context.handle(_accessLevelMeta, accessLevel.isAcceptableOrUnknown(data['access_level']!, _accessLevelMeta));
+      context.handle(
+          _accessLevelMeta,
+          accessLevel.isAcceptableOrUnknown(
+              data['access_level']!, _accessLevelMeta));
     } else if (isInserting) {
       context.missing(_accessLevelMeta);
     }
@@ -63,13 +81,18 @@ class $SharedProfileAccessTable extends SharedProfileAccess
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  SharedProfileAccessData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  SharedProfileAccessData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return SharedProfileAccessData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      receiverDid: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}receiver_did'])!,
-      profileId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}profile_id'])!,
-      accessLevel: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}access_level'])!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      receiverDid: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}receiver_did'])!,
+      profileId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}profile_id'])!,
+      accessLevel: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}access_level'])!,
     );
   }
 
@@ -79,13 +102,17 @@ class $SharedProfileAccessTable extends SharedProfileAccess
   }
 }
 
-class SharedProfileAccessData extends DataClass implements Insertable<SharedProfileAccessData> {
+class SharedProfileAccessData extends DataClass
+    implements Insertable<SharedProfileAccessData> {
   final int id;
   final String receiverDid;
   final String profileId;
   final String accessLevel;
   const SharedProfileAccessData(
-      {required this.id, required this.receiverDid, required this.profileId, required this.accessLevel});
+      {required this.id,
+      required this.receiverDid,
+      required this.profileId,
+      required this.accessLevel});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -105,7 +132,8 @@ class SharedProfileAccessData extends DataClass implements Insertable<SharedProf
     );
   }
 
-  factory SharedProfileAccessData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory SharedProfileAccessData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return SharedProfileAccessData(
       id: serializer.fromJson<int>(json['id']),
@@ -125,7 +153,11 @@ class SharedProfileAccessData extends DataClass implements Insertable<SharedProf
     };
   }
 
-  SharedProfileAccessData copyWith({int? id, String? receiverDid, String? profileId, String? accessLevel}) =>
+  SharedProfileAccessData copyWith(
+          {int? id,
+          String? receiverDid,
+          String? profileId,
+          String? accessLevel}) =>
       SharedProfileAccessData(
         id: id ?? this.id,
         receiverDid: receiverDid ?? this.receiverDid,
@@ -135,9 +167,11 @@ class SharedProfileAccessData extends DataClass implements Insertable<SharedProf
   SharedProfileAccessData copyWithCompanion(SharedProfileAccessCompanion data) {
     return SharedProfileAccessData(
       id: data.id.present ? data.id.value : this.id,
-      receiverDid: data.receiverDid.present ? data.receiverDid.value : this.receiverDid,
+      receiverDid:
+          data.receiverDid.present ? data.receiverDid.value : this.receiverDid,
       profileId: data.profileId.present ? data.profileId.value : this.profileId,
-      accessLevel: data.accessLevel.present ? data.accessLevel.value : this.accessLevel,
+      accessLevel:
+          data.accessLevel.present ? data.accessLevel.value : this.accessLevel,
     );
   }
 
@@ -164,7 +198,8 @@ class SharedProfileAccessData extends DataClass implements Insertable<SharedProf
           other.accessLevel == this.accessLevel);
 }
 
-class SharedProfileAccessCompanion extends UpdateCompanion<SharedProfileAccessData> {
+class SharedProfileAccessCompanion
+    extends UpdateCompanion<SharedProfileAccessData> {
   final Value<int> id;
   final Value<String> receiverDid;
   final Value<String> profileId;
@@ -198,7 +233,10 @@ class SharedProfileAccessCompanion extends UpdateCompanion<SharedProfileAccessDa
   }
 
   SharedProfileAccessCompanion copyWith(
-      {Value<int>? id, Value<String>? receiverDid, Value<String>? profileId, Value<String>? accessLevel}) {
+      {Value<int>? id,
+      Value<String>? receiverDid,
+      Value<String>? profileId,
+      Value<String>? accessLevel}) {
     return SharedProfileAccessCompanion(
       id: id ?? this.id,
       receiverDid: receiverDid ?? this.receiverDid,
@@ -237,26 +275,31 @@ class SharedProfileAccessCompanion extends UpdateCompanion<SharedProfileAccessDa
   }
 }
 
-class $FileSettingsTable extends FileSettings with TableInfo<$FileSettingsTable, FileSetting> {
+class $FileSettingsTable extends FileSettings
+    with TableInfo<$FileSettingsTable, FileSetting> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $FileSettingsTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>('id', aliasedName, false,
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: Constant(DatabaseConstants.globalFileSettingsId));
-  static const VerificationMeta _maxFileSizeMeta = const VerificationMeta('maxFileSize');
+  static const VerificationMeta _maxFileSizeMeta =
+      const VerificationMeta('maxFileSize');
   @override
-  late final GeneratedColumn<int> maxFileSize =
-      GeneratedColumn<int>('max_file_size', aliasedName, true, type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _allowedExtensionsMeta = const VerificationMeta('allowedExtensions');
+  late final GeneratedColumn<int> maxFileSize = GeneratedColumn<int>(
+      'max_file_size', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _allowedExtensionsMeta =
+      const VerificationMeta('allowedExtensions');
   @override
-  late final GeneratedColumn<String> allowedExtensions = GeneratedColumn<String>(
-      'allowed_extensions', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+  late final GeneratedColumn<String> allowedExtensions =
+      GeneratedColumn<String>('allowed_extensions', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [id, maxFileSize, allowedExtensions];
   @override
@@ -265,18 +308,24 @@ class $FileSettingsTable extends FileSettings with TableInfo<$FileSettingsTable,
   String get actualTableName => $name;
   static const String $name = 'file_settings';
   @override
-  VerificationContext validateIntegrity(Insertable<FileSetting> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(Insertable<FileSetting> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('max_file_size')) {
-      context.handle(_maxFileSizeMeta, maxFileSize.isAcceptableOrUnknown(data['max_file_size']!, _maxFileSizeMeta));
+      context.handle(
+          _maxFileSizeMeta,
+          maxFileSize.isAcceptableOrUnknown(
+              data['max_file_size']!, _maxFileSizeMeta));
     }
     if (data.containsKey('allowed_extensions')) {
-      context.handle(_allowedExtensionsMeta,
-          allowedExtensions.isAcceptableOrUnknown(data['allowed_extensions']!, _allowedExtensionsMeta));
+      context.handle(
+          _allowedExtensionsMeta,
+          allowedExtensions.isAcceptableOrUnknown(
+              data['allowed_extensions']!, _allowedExtensionsMeta));
     }
     return context;
   }
@@ -287,10 +336,12 @@ class $FileSettingsTable extends FileSettings with TableInfo<$FileSettingsTable,
   FileSetting map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return FileSetting(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      maxFileSize: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}max_file_size']),
-      allowedExtensions:
-          attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}allowed_extensions']),
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      maxFileSize: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}max_file_size']),
+      allowedExtensions: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}allowed_extensions']),
     );
   }
 
@@ -304,7 +355,8 @@ class FileSetting extends DataClass implements Insertable<FileSetting> {
   final int id;
   final int? maxFileSize;
   final String? allowedExtensions;
-  const FileSetting({required this.id, this.maxFileSize, this.allowedExtensions});
+  const FileSetting(
+      {required this.id, this.maxFileSize, this.allowedExtensions});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -321,17 +373,23 @@ class FileSetting extends DataClass implements Insertable<FileSetting> {
   FileSettingsCompanion toCompanion(bool nullToAbsent) {
     return FileSettingsCompanion(
       id: Value(id),
-      maxFileSize: maxFileSize == null && nullToAbsent ? const Value.absent() : Value(maxFileSize),
-      allowedExtensions: allowedExtensions == null && nullToAbsent ? const Value.absent() : Value(allowedExtensions),
+      maxFileSize: maxFileSize == null && nullToAbsent
+          ? const Value.absent()
+          : Value(maxFileSize),
+      allowedExtensions: allowedExtensions == null && nullToAbsent
+          ? const Value.absent()
+          : Value(allowedExtensions),
     );
   }
 
-  factory FileSetting.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory FileSetting.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return FileSetting(
       id: serializer.fromJson<int>(json['id']),
       maxFileSize: serializer.fromJson<int?>(json['maxFileSize']),
-      allowedExtensions: serializer.fromJson<String?>(json['allowedExtensions']),
+      allowedExtensions:
+          serializer.fromJson<String?>(json['allowedExtensions']),
     );
   }
   @override
@@ -351,13 +409,18 @@ class FileSetting extends DataClass implements Insertable<FileSetting> {
       FileSetting(
         id: id ?? this.id,
         maxFileSize: maxFileSize.present ? maxFileSize.value : this.maxFileSize,
-        allowedExtensions: allowedExtensions.present ? allowedExtensions.value : this.allowedExtensions,
+        allowedExtensions: allowedExtensions.present
+            ? allowedExtensions.value
+            : this.allowedExtensions,
       );
   FileSetting copyWithCompanion(FileSettingsCompanion data) {
     return FileSetting(
       id: data.id.present ? data.id.value : this.id,
-      maxFileSize: data.maxFileSize.present ? data.maxFileSize.value : this.maxFileSize,
-      allowedExtensions: data.allowedExtensions.present ? data.allowedExtensions.value : this.allowedExtensions,
+      maxFileSize:
+          data.maxFileSize.present ? data.maxFileSize.value : this.maxFileSize,
+      allowedExtensions: data.allowedExtensions.present
+          ? data.allowedExtensions.value
+          : this.allowedExtensions,
     );
   }
 
@@ -408,7 +471,10 @@ class FileSettingsCompanion extends UpdateCompanion<FileSetting> {
     });
   }
 
-  FileSettingsCompanion copyWith({Value<int>? id, Value<int?>? maxFileSize, Value<String?>? allowedExtensions}) {
+  FileSettingsCompanion copyWith(
+      {Value<int>? id,
+      Value<int?>? maxFileSize,
+      Value<String?>? allowedExtensions}) {
     return FileSettingsCompanion(
       id: id ?? this.id,
       maxFileSize: maxFileSize ?? this.maxFileSize,
@@ -445,28 +511,34 @@ class FileSettingsCompanion extends UpdateCompanion<FileSetting> {
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
-  late final $SharedProfileAccessTable sharedProfileAccess = $SharedProfileAccessTable(this);
+  late final $SharedProfileAccessTable sharedProfileAccess =
+      $SharedProfileAccessTable(this);
   late final $FileSettingsTable fileSettings = $FileSettingsTable(this);
   @override
-  Iterable<TableInfo<Table, Object?>> get allTables => allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+  Iterable<TableInfo<Table, Object?>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [sharedProfileAccess, fileSettings];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [sharedProfileAccess, fileSettings];
 }
 
-typedef $$SharedProfileAccessTableCreateCompanionBuilder = SharedProfileAccessCompanion Function({
+typedef $$SharedProfileAccessTableCreateCompanionBuilder
+    = SharedProfileAccessCompanion Function({
   Value<int> id,
   required String receiverDid,
   required String profileId,
   required String accessLevel,
 });
-typedef $$SharedProfileAccessTableUpdateCompanionBuilder = SharedProfileAccessCompanion Function({
+typedef $$SharedProfileAccessTableUpdateCompanionBuilder
+    = SharedProfileAccessCompanion Function({
   Value<int> id,
   Value<String> receiverDid,
   Value<String> profileId,
   Value<String> accessLevel,
 });
 
-class $$SharedProfileAccessTableFilterComposer extends Composer<_$AppDatabase, $SharedProfileAccessTable> {
+class $$SharedProfileAccessTableFilterComposer
+    extends Composer<_$AppDatabase, $SharedProfileAccessTable> {
   $$SharedProfileAccessTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -474,19 +546,21 @@ class $$SharedProfileAccessTableFilterComposer extends Composer<_$AppDatabase, $
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get receiverDid =>
-      $composableBuilder(column: $table.receiverDid, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get receiverDid => $composableBuilder(
+      column: $table.receiverDid, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get profileId =>
-      $composableBuilder(column: $table.profileId, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get profileId => $composableBuilder(
+      column: $table.profileId, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get accessLevel =>
-      $composableBuilder(column: $table.accessLevel, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get accessLevel => $composableBuilder(
+      column: $table.accessLevel, builder: (column) => ColumnFilters(column));
 }
 
-class $$SharedProfileAccessTableOrderingComposer extends Composer<_$AppDatabase, $SharedProfileAccessTable> {
+class $$SharedProfileAccessTableOrderingComposer
+    extends Composer<_$AppDatabase, $SharedProfileAccessTable> {
   $$SharedProfileAccessTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -494,19 +568,21 @@ class $$SharedProfileAccessTableOrderingComposer extends Composer<_$AppDatabase,
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get receiverDid =>
-      $composableBuilder(column: $table.receiverDid, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get receiverDid => $composableBuilder(
+      column: $table.receiverDid, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get profileId =>
-      $composableBuilder(column: $table.profileId, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get profileId => $composableBuilder(
+      column: $table.profileId, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get accessLevel =>
-      $composableBuilder(column: $table.accessLevel, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get accessLevel => $composableBuilder(
+      column: $table.accessLevel, builder: (column) => ColumnOrderings(column));
 }
 
-class $$SharedProfileAccessTableAnnotationComposer extends Composer<_$AppDatabase, $SharedProfileAccessTable> {
+class $$SharedProfileAccessTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SharedProfileAccessTable> {
   $$SharedProfileAccessTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -514,15 +590,17 @@ class $$SharedProfileAccessTableAnnotationComposer extends Composer<_$AppDatabas
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get receiverDid =>
-      $composableBuilder(column: $table.receiverDid, builder: (column) => column);
+  GeneratedColumn<String> get receiverDid => $composableBuilder(
+      column: $table.receiverDid, builder: (column) => column);
 
-  GeneratedColumn<String> get profileId => $composableBuilder(column: $table.profileId, builder: (column) => column);
+  GeneratedColumn<String> get profileId =>
+      $composableBuilder(column: $table.profileId, builder: (column) => column);
 
-  GeneratedColumn<String> get accessLevel =>
-      $composableBuilder(column: $table.accessLevel, builder: (column) => column);
+  GeneratedColumn<String> get accessLevel => $composableBuilder(
+      column: $table.accessLevel, builder: (column) => column);
 }
 
 class $$SharedProfileAccessTableTableManager extends RootTableManager<
@@ -534,16 +612,26 @@ class $$SharedProfileAccessTableTableManager extends RootTableManager<
     $$SharedProfileAccessTableAnnotationComposer,
     $$SharedProfileAccessTableCreateCompanionBuilder,
     $$SharedProfileAccessTableUpdateCompanionBuilder,
-    (SharedProfileAccessData, BaseReferences<_$AppDatabase, $SharedProfileAccessTable, SharedProfileAccessData>),
+    (
+      SharedProfileAccessData,
+      BaseReferences<_$AppDatabase, $SharedProfileAccessTable,
+          SharedProfileAccessData>
+    ),
     SharedProfileAccessData,
     PrefetchHooks Function()> {
-  $$SharedProfileAccessTableTableManager(_$AppDatabase db, $SharedProfileAccessTable table)
+  $$SharedProfileAccessTableTableManager(
+      _$AppDatabase db, $SharedProfileAccessTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$SharedProfileAccessTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$SharedProfileAccessTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$SharedProfileAccessTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$SharedProfileAccessTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SharedProfileAccessTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SharedProfileAccessTableAnnotationComposer(
+                  $db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> receiverDid = const Value.absent(),
@@ -568,7 +656,9 @@ class $$SharedProfileAccessTableTableManager extends RootTableManager<
             profileId: profileId,
             accessLevel: accessLevel,
           ),
-          withReferenceMapper: (p0) => p0.map((e) => (e.readTable(table), BaseReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ));
 }
@@ -582,21 +672,28 @@ typedef $$SharedProfileAccessTableProcessedTableManager = ProcessedTableManager<
     $$SharedProfileAccessTableAnnotationComposer,
     $$SharedProfileAccessTableCreateCompanionBuilder,
     $$SharedProfileAccessTableUpdateCompanionBuilder,
-    (SharedProfileAccessData, BaseReferences<_$AppDatabase, $SharedProfileAccessTable, SharedProfileAccessData>),
+    (
+      SharedProfileAccessData,
+      BaseReferences<_$AppDatabase, $SharedProfileAccessTable,
+          SharedProfileAccessData>
+    ),
     SharedProfileAccessData,
     PrefetchHooks Function()>;
-typedef $$FileSettingsTableCreateCompanionBuilder = FileSettingsCompanion Function({
+typedef $$FileSettingsTableCreateCompanionBuilder = FileSettingsCompanion
+    Function({
   Value<int> id,
   Value<int?> maxFileSize,
   Value<String?> allowedExtensions,
 });
-typedef $$FileSettingsTableUpdateCompanionBuilder = FileSettingsCompanion Function({
+typedef $$FileSettingsTableUpdateCompanionBuilder = FileSettingsCompanion
+    Function({
   Value<int> id,
   Value<int?> maxFileSize,
   Value<String?> allowedExtensions,
 });
 
-class $$FileSettingsTableFilterComposer extends Composer<_$AppDatabase, $FileSettingsTable> {
+class $$FileSettingsTableFilterComposer
+    extends Composer<_$AppDatabase, $FileSettingsTable> {
   $$FileSettingsTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -604,16 +701,19 @@ class $$FileSettingsTableFilterComposer extends Composer<_$AppDatabase, $FileSet
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get maxFileSize =>
-      $composableBuilder(column: $table.maxFileSize, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get maxFileSize => $composableBuilder(
+      column: $table.maxFileSize, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get allowedExtensions =>
-      $composableBuilder(column: $table.allowedExtensions, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get allowedExtensions => $composableBuilder(
+      column: $table.allowedExtensions,
+      builder: (column) => ColumnFilters(column));
 }
 
-class $$FileSettingsTableOrderingComposer extends Composer<_$AppDatabase, $FileSettingsTable> {
+class $$FileSettingsTableOrderingComposer
+    extends Composer<_$AppDatabase, $FileSettingsTable> {
   $$FileSettingsTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -621,16 +721,19 @@ class $$FileSettingsTableOrderingComposer extends Composer<_$AppDatabase, $FileS
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get maxFileSize =>
-      $composableBuilder(column: $table.maxFileSize, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get maxFileSize => $composableBuilder(
+      column: $table.maxFileSize, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get allowedExtensions =>
-      $composableBuilder(column: $table.allowedExtensions, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get allowedExtensions => $composableBuilder(
+      column: $table.allowedExtensions,
+      builder: (column) => ColumnOrderings(column));
 }
 
-class $$FileSettingsTableAnnotationComposer extends Composer<_$AppDatabase, $FileSettingsTable> {
+class $$FileSettingsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FileSettingsTable> {
   $$FileSettingsTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -638,12 +741,14 @@ class $$FileSettingsTableAnnotationComposer extends Composer<_$AppDatabase, $Fil
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get maxFileSize => $composableBuilder(column: $table.maxFileSize, builder: (column) => column);
+  GeneratedColumn<int> get maxFileSize => $composableBuilder(
+      column: $table.maxFileSize, builder: (column) => column);
 
-  GeneratedColumn<String> get allowedExtensions =>
-      $composableBuilder(column: $table.allowedExtensions, builder: (column) => column);
+  GeneratedColumn<String> get allowedExtensions => $composableBuilder(
+      column: $table.allowedExtensions, builder: (column) => column);
 }
 
 class $$FileSettingsTableTableManager extends RootTableManager<
@@ -655,16 +760,22 @@ class $$FileSettingsTableTableManager extends RootTableManager<
     $$FileSettingsTableAnnotationComposer,
     $$FileSettingsTableCreateCompanionBuilder,
     $$FileSettingsTableUpdateCompanionBuilder,
-    (FileSetting, BaseReferences<_$AppDatabase, $FileSettingsTable, FileSetting>),
+    (
+      FileSetting,
+      BaseReferences<_$AppDatabase, $FileSettingsTable, FileSetting>
+    ),
     FileSetting,
     PrefetchHooks Function()> {
   $$FileSettingsTableTableManager(_$AppDatabase db, $FileSettingsTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$FileSettingsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$FileSettingsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$FileSettingsTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$FileSettingsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FileSettingsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FileSettingsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int?> maxFileSize = const Value.absent(),
@@ -685,7 +796,9 @@ class $$FileSettingsTableTableManager extends RootTableManager<
             maxFileSize: maxFileSize,
             allowedExtensions: allowedExtensions,
           ),
-          withReferenceMapper: (p0) => p0.map((e) => (e.readTable(table), BaseReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ));
 }
@@ -699,7 +812,10 @@ typedef $$FileSettingsTableProcessedTableManager = ProcessedTableManager<
     $$FileSettingsTableAnnotationComposer,
     $$FileSettingsTableCreateCompanionBuilder,
     $$FileSettingsTableUpdateCompanionBuilder,
-    (FileSetting, BaseReferences<_$AppDatabase, $FileSettingsTable, FileSetting>),
+    (
+      FileSetting,
+      BaseReferences<_$AppDatabase, $FileSettingsTable, FileSetting>
+    ),
     FileSetting,
     PrefetchHooks Function()>;
 
@@ -708,5 +824,6 @@ class $AppDatabaseManager {
   $AppDatabaseManager(this._db);
   $$SharedProfileAccessTableTableManager get sharedProfileAccess =>
       $$SharedProfileAccessTableTableManager(_db, _db.sharedProfileAccess);
-  $$FileSettingsTableTableManager get fileSettings => $$FileSettingsTableTableManager(_db, _db.fileSettings);
+  $$FileSettingsTableTableManager get fileSettings =>
+      $$FileSettingsTableTableManager(_db, _db.fileSettings);
 }

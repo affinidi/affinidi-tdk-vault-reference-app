@@ -11,7 +11,8 @@ part 'profile_page_controller.g.dart';
 class ProfilePageController extends _$ProfilePageController {
   ProfilePageController() : super();
 
-  final loadingController = AsyncLoadingController.provider('profilePageLoadingController');
+  final loadingController =
+      AsyncLoadingController.provider('profilePageLoadingController');
 
   @override
   ProfilePageState build({
@@ -21,7 +22,8 @@ class ProfilePageController extends _$ProfilePageController {
       profileServiceProvider.select((state) => state.profiles),
       (previous, next) {
         Future(() {
-          final profile = next?.firstWhereOrNull((element) => element.id == profileId);
+          final profile =
+              next?.firstWhereOrNull((element) => element.id == profileId);
 
           state = state.copyWith(profile: profile);
         });

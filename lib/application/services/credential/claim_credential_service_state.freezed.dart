@@ -17,25 +17,32 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ClaimCredentialServiceState {
   OID4VCIClaimContext? get claimContext => throw _privateConstructorUsedError;
-  VerifiableCredential? get verifiableCredential => throw _privateConstructorUsedError;
+  VerifiableCredential? get verifiableCredential =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of ClaimCredentialServiceState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ClaimCredentialServiceStateCopyWith<ClaimCredentialServiceState> get copyWith => throw _privateConstructorUsedError;
+  $ClaimCredentialServiceStateCopyWith<ClaimCredentialServiceState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ClaimCredentialServiceStateCopyWith<$Res> {
   factory $ClaimCredentialServiceStateCopyWith(
-          ClaimCredentialServiceState value, $Res Function(ClaimCredentialServiceState) then) =
-      _$ClaimCredentialServiceStateCopyWithImpl<$Res, ClaimCredentialServiceState>;
+          ClaimCredentialServiceState value,
+          $Res Function(ClaimCredentialServiceState) then) =
+      _$ClaimCredentialServiceStateCopyWithImpl<$Res,
+          ClaimCredentialServiceState>;
   @useResult
-  $Res call({OID4VCIClaimContext? claimContext, VerifiableCredential? verifiableCredential});
+  $Res call(
+      {OID4VCIClaimContext? claimContext,
+      VerifiableCredential? verifiableCredential});
 }
 
 /// @nodoc
-class _$ClaimCredentialServiceStateCopyWithImpl<$Res, $Val extends ClaimCredentialServiceState>
+class _$ClaimCredentialServiceStateCopyWithImpl<$Res,
+        $Val extends ClaimCredentialServiceState>
     implements $ClaimCredentialServiceStateCopyWith<$Res> {
   _$ClaimCredentialServiceStateCopyWithImpl(this._value, this._then);
 
@@ -66,21 +73,27 @@ class _$ClaimCredentialServiceStateCopyWithImpl<$Res, $Val extends ClaimCredenti
 }
 
 /// @nodoc
-abstract class _$$ClaimCredentialServiceStateImplCopyWith<$Res> implements $ClaimCredentialServiceStateCopyWith<$Res> {
+abstract class _$$ClaimCredentialServiceStateImplCopyWith<$Res>
+    implements $ClaimCredentialServiceStateCopyWith<$Res> {
   factory _$$ClaimCredentialServiceStateImplCopyWith(
-          _$ClaimCredentialServiceStateImpl value, $Res Function(_$ClaimCredentialServiceStateImpl) then) =
+          _$ClaimCredentialServiceStateImpl value,
+          $Res Function(_$ClaimCredentialServiceStateImpl) then) =
       __$$ClaimCredentialServiceStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({OID4VCIClaimContext? claimContext, VerifiableCredential? verifiableCredential});
+  $Res call(
+      {OID4VCIClaimContext? claimContext,
+      VerifiableCredential? verifiableCredential});
 }
 
 /// @nodoc
 class __$$ClaimCredentialServiceStateImplCopyWithImpl<$Res>
-    extends _$ClaimCredentialServiceStateCopyWithImpl<$Res, _$ClaimCredentialServiceStateImpl>
+    extends _$ClaimCredentialServiceStateCopyWithImpl<$Res,
+        _$ClaimCredentialServiceStateImpl>
     implements _$$ClaimCredentialServiceStateImplCopyWith<$Res> {
   __$$ClaimCredentialServiceStateImplCopyWithImpl(
-      _$ClaimCredentialServiceStateImpl _value, $Res Function(_$ClaimCredentialServiceStateImpl) _then)
+      _$ClaimCredentialServiceStateImpl _value,
+      $Res Function(_$ClaimCredentialServiceStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of ClaimCredentialServiceState
@@ -106,8 +119,10 @@ class __$$ClaimCredentialServiceStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ClaimCredentialServiceStateImpl implements _ClaimCredentialServiceState {
-  _$ClaimCredentialServiceStateImpl({this.claimContext, this.verifiableCredential});
+class _$ClaimCredentialServiceStateImpl
+    implements _ClaimCredentialServiceState {
+  _$ClaimCredentialServiceStateImpl(
+      {this.claimContext, this.verifiableCredential});
 
   @override
   final OID4VCIClaimContext? claimContext;
@@ -124,27 +139,32 @@ class _$ClaimCredentialServiceStateImpl implements _ClaimCredentialServiceState 
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ClaimCredentialServiceStateImpl &&
-            (identical(other.claimContext, claimContext) || other.claimContext == claimContext) &&
+            (identical(other.claimContext, claimContext) ||
+                other.claimContext == claimContext) &&
             (identical(other.verifiableCredential, verifiableCredential) ||
                 other.verifiableCredential == verifiableCredential));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, claimContext, verifiableCredential);
+  int get hashCode =>
+      Object.hash(runtimeType, claimContext, verifiableCredential);
 
   /// Create a copy of ClaimCredentialServiceState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ClaimCredentialServiceStateImplCopyWith<_$ClaimCredentialServiceStateImpl> get copyWith =>
-      __$$ClaimCredentialServiceStateImplCopyWithImpl<_$ClaimCredentialServiceStateImpl>(this, _$identity);
+  _$$ClaimCredentialServiceStateImplCopyWith<_$ClaimCredentialServiceStateImpl>
+      get copyWith => __$$ClaimCredentialServiceStateImplCopyWithImpl<
+          _$ClaimCredentialServiceStateImpl>(this, _$identity);
 }
 
-abstract class _ClaimCredentialServiceState implements ClaimCredentialServiceState {
+abstract class _ClaimCredentialServiceState
+    implements ClaimCredentialServiceState {
   factory _ClaimCredentialServiceState(
-      {final OID4VCIClaimContext? claimContext,
-      final VerifiableCredential? verifiableCredential}) = _$ClaimCredentialServiceStateImpl;
+          {final OID4VCIClaimContext? claimContext,
+          final VerifiableCredential? verifiableCredential}) =
+      _$ClaimCredentialServiceStateImpl;
 
   @override
   OID4VCIClaimContext? get claimContext;
@@ -155,6 +175,6 @@ abstract class _ClaimCredentialServiceState implements ClaimCredentialServiceSta
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ClaimCredentialServiceStateImplCopyWith<_$ClaimCredentialServiceStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ClaimCredentialServiceStateImplCopyWith<_$ClaimCredentialServiceStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

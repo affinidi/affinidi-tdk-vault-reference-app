@@ -6,7 +6,8 @@ part of 'my_files_page_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$myFilesPageControllerHash() => r'6441fdc5a690700713d9adcbb9e04b37ca9a89ee';
+String _$myFilesPageControllerHash() =>
+    r'6441fdc5a690700713d9adcbb9e04b37ca9a89ee';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$MyFilesPageController extends BuildlessAutoDisposeNotifier<MyFilesPageState> {
+abstract class _$MyFilesPageController
+    extends BuildlessAutoDisposeNotifier<MyFilesPageState> {
   late final String? parentNodeId;
   late final String profileId;
 
@@ -77,14 +79,16 @@ class MyFilesPageControllerFamily extends Family<MyFilesPageState> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'myFilesPageControllerProvider';
 }
 
 /// See also [MyFilesPageController].
-class MyFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<MyFilesPageController, MyFilesPageState> {
+class MyFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<
+    MyFilesPageController, MyFilesPageState> {
   /// See also [MyFilesPageController].
   MyFilesPageControllerProvider({
     required String? parentNodeId,
@@ -95,9 +99,13 @@ class MyFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<MyFi
             ..profileId = profileId,
           from: myFilesPageControllerProvider,
           name: r'myFilesPageControllerProvider',
-          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$myFilesPageControllerHash,
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$myFilesPageControllerHash,
           dependencies: MyFilesPageControllerFamily._dependencies,
-          allTransitiveDependencies: MyFilesPageControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              MyFilesPageControllerFamily._allTransitiveDependencies,
           parentNodeId: parentNodeId,
           profileId: profileId,
         );
@@ -146,13 +154,16 @@ class MyFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<MyFi
   }
 
   @override
-  AutoDisposeNotifierProviderElement<MyFilesPageController, MyFilesPageState> createElement() {
+  AutoDisposeNotifierProviderElement<MyFilesPageController, MyFilesPageState>
+      createElement() {
     return _MyFilesPageControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is MyFilesPageControllerProvider && other.parentNodeId == parentNodeId && other.profileId == profileId;
+    return other is MyFilesPageControllerProvider &&
+        other.parentNodeId == parentNodeId &&
+        other.profileId == profileId;
   }
 
   @override
@@ -167,7 +178,8 @@ class MyFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<MyFi
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin MyFilesPageControllerRef on AutoDisposeNotifierProviderRef<MyFilesPageState> {
+mixin MyFilesPageControllerRef
+    on AutoDisposeNotifierProviderRef<MyFilesPageState> {
   /// The parameter `parentNodeId` of this provider.
   String? get parentNodeId;
 
@@ -176,11 +188,13 @@ mixin MyFilesPageControllerRef on AutoDisposeNotifierProviderRef<MyFilesPageStat
 }
 
 class _MyFilesPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<MyFilesPageController, MyFilesPageState> with MyFilesPageControllerRef {
+    extends AutoDisposeNotifierProviderElement<MyFilesPageController,
+        MyFilesPageState> with MyFilesPageControllerRef {
   _MyFilesPageControllerProviderElement(super.provider);
 
   @override
-  String? get parentNodeId => (origin as MyFilesPageControllerProvider).parentNodeId;
+  String? get parentNodeId =>
+      (origin as MyFilesPageControllerProvider).parentNodeId;
   @override
   String get profileId => (origin as MyFilesPageControllerProvider).profileId;
 }

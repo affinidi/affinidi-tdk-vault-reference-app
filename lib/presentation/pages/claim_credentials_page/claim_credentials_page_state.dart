@@ -19,7 +19,8 @@ class ClaimCredentialsPageState with _$ClaimCredentialsPageState {
     VerifiableCredential? verifiableCredential,
     Uri? offerUri,
     required String profileId,
-    @Default(CredentialOfferFetchStatus.initial) CredentialOfferFetchStatus fetchStatus,
+    @Default(CredentialOfferFetchStatus.initial)
+    CredentialOfferFetchStatus fetchStatus,
     String? fetchErrorMessage,
   }) = _ClaimCredentialsPageState;
 

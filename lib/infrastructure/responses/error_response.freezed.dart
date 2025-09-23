@@ -28,22 +28,26 @@ mixin _$ErrorResponse {
   /// Create a copy of ErrorResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ErrorResponseCopyWith<ErrorResponse> get copyWith => throw _privateConstructorUsedError;
+  $ErrorResponseCopyWith<ErrorResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ErrorResponseCopyWith<$Res> {
-  factory $ErrorResponseCopyWith(ErrorResponse value, $Res Function(ErrorResponse) then) =
+  factory $ErrorResponseCopyWith(
+          ErrorResponse value, $Res Function(ErrorResponse) then) =
       _$ErrorResponseCopyWithImpl<$Res, ErrorResponse>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other) ErrorResponseType type,
+      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
+      ErrorResponseType type,
       String message,
       List<ErrorDetails> details});
 }
 
 /// @nodoc
-class _$ErrorResponseCopyWithImpl<$Res, $Val extends ErrorResponse> implements $ErrorResponseCopyWith<$Res> {
+class _$ErrorResponseCopyWithImpl<$Res, $Val extends ErrorResponse>
+    implements $ErrorResponseCopyWith<$Res> {
   _$ErrorResponseCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -78,21 +82,26 @@ class _$ErrorResponseCopyWithImpl<$Res, $Val extends ErrorResponse> implements $
 }
 
 /// @nodoc
-abstract class _$$ErrorResponseImplCopyWith<$Res> implements $ErrorResponseCopyWith<$Res> {
-  factory _$$ErrorResponseImplCopyWith(_$ErrorResponseImpl value, $Res Function(_$ErrorResponseImpl) then) =
+abstract class _$$ErrorResponseImplCopyWith<$Res>
+    implements $ErrorResponseCopyWith<$Res> {
+  factory _$$ErrorResponseImplCopyWith(
+          _$ErrorResponseImpl value, $Res Function(_$ErrorResponseImpl) then) =
       __$$ErrorResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other) ErrorResponseType type,
+      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
+      ErrorResponseType type,
       String message,
       List<ErrorDetails> details});
 }
 
 /// @nodoc
-class __$$ErrorResponseImplCopyWithImpl<$Res> extends _$ErrorResponseCopyWithImpl<$Res, _$ErrorResponseImpl>
+class __$$ErrorResponseImplCopyWithImpl<$Res>
+    extends _$ErrorResponseCopyWithImpl<$Res, _$ErrorResponseImpl>
     implements _$$ErrorResponseImplCopyWith<$Res> {
-  __$$ErrorResponseImplCopyWithImpl(_$ErrorResponseImpl _value, $Res Function(_$ErrorResponseImpl) _then)
+  __$$ErrorResponseImplCopyWithImpl(
+      _$ErrorResponseImpl _value, $Res Function(_$ErrorResponseImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of ErrorResponse
@@ -125,12 +134,14 @@ class __$$ErrorResponseImplCopyWithImpl<$Res> extends _$ErrorResponseCopyWithImp
 @JsonSerializable(createToJson: false)
 class _$ErrorResponseImpl implements _ErrorResponse {
   _$ErrorResponseImpl(
-      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other) this.type = ErrorResponseType.other,
+      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
+      this.type = ErrorResponseType.other,
       required this.message,
       final List<ErrorDetails> details = const []})
       : _details = details;
 
-  factory _$ErrorResponseImpl.fromJson(Map<String, dynamic> json) => _$$ErrorResponseImplFromJson(json);
+  factory _$ErrorResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ErrorResponseImplFromJson(json);
 
   @override
   @JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
@@ -163,7 +174,8 @@ class _$ErrorResponseImpl implements _ErrorResponse {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, type, message, const DeepCollectionEquality().hash(_details));
+  int get hashCode => Object.hash(runtimeType, type, message,
+      const DeepCollectionEquality().hash(_details));
 
   /// Create a copy of ErrorResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -176,11 +188,13 @@ class _$ErrorResponseImpl implements _ErrorResponse {
 
 abstract class _ErrorResponse implements ErrorResponse {
   factory _ErrorResponse(
-      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other) final ErrorResponseType type,
+      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
+      final ErrorResponseType type,
       required final String message,
       final List<ErrorDetails> details}) = _$ErrorResponseImpl;
 
-  factory _ErrorResponse.fromJson(Map<String, dynamic> json) = _$ErrorResponseImpl.fromJson;
+  factory _ErrorResponse.fromJson(Map<String, dynamic> json) =
+      _$ErrorResponseImpl.fromJson;
 
   @override
   @JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
@@ -194,5 +208,6 @@ abstract class _ErrorResponse implements ErrorResponse {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ErrorResponseImplCopyWith<_$ErrorResponseImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$ErrorResponseImplCopyWith<_$ErrorResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

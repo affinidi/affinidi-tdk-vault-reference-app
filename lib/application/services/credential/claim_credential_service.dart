@@ -31,7 +31,8 @@ class ClaimCredentialService extends _$ClaimCredentialService {
     final currentVaultId = vaultProvider.currentVaultId;
     if (currentVaultId == null) {
       throw AppException(
-          message: 'No vault is currently open. Please open a vault first.', type: AppExceptionType.missingVaultId);
+          message: 'No vault is currently open. Please open a vault first.',
+          type: AppExceptionType.missingVaultId);
     }
 
     final claimCredentialRepository = await ref.read(
@@ -41,7 +42,8 @@ class ClaimCredentialService extends _$ClaimCredentialService {
       ).future,
     );
     try {
-      final claimContext = await claimCredentialRepository.getOID4VCIClaimContext(
+      final claimContext =
+          await claimCredentialRepository.getOID4VCIClaimContext(
         offerUri,
       );
 
@@ -65,10 +67,12 @@ class ClaimCredentialService extends _$ClaimCredentialService {
       final currentVaultId = vaultProvider.currentVaultId;
       if (currentVaultId == null) {
         throw AppException(
-            message: 'No vault is currently open. Please open a vault first.', type: AppExceptionType.missingVaultId);
+            message: 'No vault is currently open. Please open a vault first.',
+            type: AppExceptionType.missingVaultId);
       }
 
-      final credentialRepository = await ref.read(claimCredentialRepositoryProvider(
+      final credentialRepository =
+          await ref.read(claimCredentialRepositoryProvider(
         currentVaultId,
         accountIndex,
       ).future);

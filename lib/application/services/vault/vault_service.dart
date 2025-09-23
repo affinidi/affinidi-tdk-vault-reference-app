@@ -49,10 +49,13 @@ class VaultService extends _$VaultService {
     final vaultId = uuid.v4();
 
     // Use provided seed or generate a random one
-    final Uint8List seed = existingSeed != null ? _deriveSeedFromString(existingSeed) : _generateRandomSeed();
+    final Uint8List seed = existingSeed != null
+        ? _deriveSeedFromString(existingSeed)
+        : _generateRandomSeed();
     final base64Seed = base64Encode(seed);
 
-    final isVaultAlreadyExisting = _doesVaultWithSeedExist(base64Seed: base64Seed);
+    final isVaultAlreadyExisting =
+        _doesVaultWithSeedExist(base64Seed: base64Seed);
     if (isVaultAlreadyExisting) {
       throw AppException(
         message: 'Vault already exists on this device.',
@@ -78,7 +81,8 @@ class VaultService extends _$VaultService {
       currentVaultId: vaultId,
     );
 
-    final vaultsManagerService = ref.read(vaultsManagerServiceProvider.notifier);
+    final vaultsManagerService =
+        ref.read(vaultsManagerServiceProvider.notifier);
     await vaultsManagerService.loadVaultAvailability();
 
     final profiles = await vault.listProfiles();
@@ -103,11 +107,15 @@ class VaultService extends _$VaultService {
 
     final vaultEntry = vaultRegistry[vaultId];
     if (vaultEntry == null) {
-      throw AppException(message: 'No vault entry found for the given vaultId', type: AppExceptionType.invalidVaultId);
+      throw AppException(
+          message: 'No vault entry found for the given vaultId',
+          type: AppExceptionType.invalidVaultId);
     }
 
     if (vaultEntry.password != password) {
-      throw AppException(message: 'Incorrect password for the selected vault', type: AppExceptionType.invalidPassword);
+      throw AppException(
+          message: 'Incorrect password for the selected vault',
+          type: AppExceptionType.invalidPassword);
     }
 
     state = state.copyWith(
@@ -152,7 +160,8 @@ class VaultService extends _$VaultService {
     await keyStore.setSeed(seed);
 
     // Create both VFS and Edge repositories
-    final profileRepositories = await _createProfileRepositories(vaultStorageKey, keyStore);
+    final profileRepositories =
+        await _createProfileRepositories(vaultStorageKey, keyStore);
 
     // Set default to VFS
     final vfsRepositoryId = '${vaultStorageKey}_affinidi_cloud_repository';
@@ -235,7 +244,10 @@ class VaultService extends _$VaultService {
       return 0;
     }
     // Find the highest account index used
-    final highestIndex = profiles.fold(0, (previousValue, element) => math.max(previousValue, element.accountIndex));
+    final highestIndex = profiles.fold(
+        0,
+        (previousValue, element) =>
+            math.max(previousValue, element.accountIndex));
     // Return the next available index
     return highestIndex + 1;
   }
@@ -254,7 +266,8 @@ class VaultService extends _$VaultService {
 
   /// Creates a platform-specific database
   static Future<Database> _createPlatformDatabase(String repositoryId) async {
-    final cleanRepositoryId = repositoryId.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
+    final cleanRepositoryId =
+        repositoryId.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
     final databaseName = 'edge_profiles_$cleanRepositoryId.db';
 
     log('Database not found in cache, creating new one', name: 'VaultService');
@@ -291,16 +304,20 @@ Future<Map<String, ProfileRepository>> _createProfileRepositories(
   try {
     // Always create VFS repository (cloud-based, no local storage)
     final vfsRepositoryId = '${vaultId}_affinidi_cloud_repository';
-    log('Creating VFS repository with ID: $vfsRepositoryId', name: 'VaultService');
-    profileRepositories[vfsRepositoryId] = VfsProfileRepository(vfsRepositoryId);
+    log('Creating VFS repository with ID: $vfsRepositoryId',
+        name: 'VaultService');
+    profileRepositories[vfsRepositoryId] =
+        VfsProfileRepository(vfsRepositoryId);
     log('VFS repository created', name: 'VaultService');
 
     // Create Edge repository with shared database for all Edge profiles
     final edgeRepositoryId = '${vaultId}_edge_repository';
-    log('Creating Edge repository with ID: $edgeRepositoryId', name: 'VaultService');
+    log('Creating Edge repository with ID: $edgeRepositoryId',
+        name: 'VaultService');
 
     // Create database using platform-specific method
-    final database = await VaultService._createPlatformDatabase(edgeRepositoryId);
+    final database =
+        await VaultService._createPlatformDatabase(edgeRepositoryId);
 
     // Create encryption service
     final encryptionService = EdgeEncryptionService(vaultStore: keyStore);
@@ -318,7 +335,8 @@ Future<Map<String, ProfileRepository>> _createProfileRepositories(
     profileRepositories[edgeRepositoryId] = edgeRepository;
     log('Edge repository created', name: 'VaultService');
 
-    log('Final repositories: ${profileRepositories.keys}', name: 'VaultService');
+    log('Final repositories: ${profileRepositories.keys}',
+        name: 'VaultService');
     return profileRepositories;
   } catch (e, stackTrace) {
     log('Error in _createProfileRepositories: $e', name: 'VaultService');
@@ -366,7 +384,8 @@ final _createVaultProvider = FutureProvider.family<Vault, OpenVaultParams>(
       await keyStore.setSeed(base64Decode(vaultSeed));
 
       // Content key will be created automatically by EdgeEncryptionService when needed
-      final profileRepositories = await _createProfileRepositories(vaultId, keyStore);
+      final profileRepositories =
+          await _createProfileRepositories(vaultId, keyStore);
 
       await ref.read(vaultsManagerServiceProvider.notifier).addVault(param);
 
@@ -396,7 +415,8 @@ final _createVaultProvider = FutureProvider.family<Vault, OpenVaultParams>(
 final _openVaultProvider = FutureProvider.family<Vault, String>(
   (ref, vaultId) async {
     try {
-      final vaultRegistry = ref.read(vaultsManagerServiceProvider).vaultRegistry;
+      final vaultRegistry =
+          ref.read(vaultsManagerServiceProvider).vaultRegistry;
 
       final vaultEntry = vaultRegistry[vaultId];
       if (vaultEntry == null) {
@@ -417,7 +437,8 @@ final _openVaultProvider = FutureProvider.family<Vault, String>(
         );
       }
 
-      final profileRepositories = await _createProfileRepositories(vaultId, keyStore);
+      final profileRepositories =
+          await _createProfileRepositories(vaultId, keyStore);
 
       return Vault.fromVaultStore(
         keyStore,

@@ -46,7 +46,8 @@ class RenameFolderForm extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final provider = renameFolderFormControllerProvider(item: folder, parentNodeId: parentNodeId, profileId: profileId);
+    final provider = renameFolderFormControllerProvider(
+        item: folder, parentNodeId: parentNodeId, profileId: profileId);
     final controller = ref.read(provider.notifier);
     final textController = controller.folderNameController;
     final navigation = ref.read(navigationServiceProvider);
@@ -105,7 +106,10 @@ class RenameFolderForm extends ConsumerWidget {
                   constraints: BoxConstraints(minHeight: 72),
                   labelText: localizations.folderName,
                   hintText: localizations.folderName,
-                  suffix: _ClearButton(folder: folder, parentNodeId: parentNodeId, profileId: profileId),
+                  suffix: _ClearButton(
+                      folder: folder,
+                      parentNodeId: parentNodeId,
+                      profileId: profileId),
                 ),
                 onSubmitted: (value) {
                   if (value.trim().isNotEmpty) {
@@ -135,15 +139,18 @@ class _ClearButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = renameFolderFormControllerProvider(item: folder, parentNodeId: parentNodeId, profileId: profileId);
+    final provider = renameFolderFormControllerProvider(
+        item: folder, parentNodeId: parentNodeId, profileId: profileId);
     final controller = ref.read(provider.notifier);
-    final isRenameButtonEnabled = ref.watch(provider.select((state) => state.isRenameButtonEnabled));
+    final isRenameButtonEnabled =
+        ref.watch(provider.select((state) => state.isRenameButtonEnabled));
 
     return isRenameButtonEnabled
         ? GestureDetector(
             onTap: () => controller.clearName(),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizing.paddingSmall),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingSmall),
               child: Icon(
                 Icons.cancel_rounded,
                 size: 16,
@@ -170,9 +177,11 @@ class _RenameButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final provider = renameFolderFormControllerProvider(item: folder, parentNodeId: parentNodeId, profileId: profileId);
+    final provider = renameFolderFormControllerProvider(
+        item: folder, parentNodeId: parentNodeId, profileId: profileId);
 
-    final isRenameButtonEnabled = ref.watch(provider.select((state) => state.isRenameButtonEnabled));
+    final isRenameButtonEnabled =
+        ref.watch(provider.select((state) => state.isRenameButtonEnabled));
 
     return FilledButton(
       onPressed: isRenameButtonEnabled ? () => onRenameFolder() : null,

@@ -30,13 +30,15 @@ class DeleteFileForm extends ConsumerWidget {
         useRootNavigator: true,
         isScrollControlled: true,
         context: context,
-        builder: (context) => DeleteFileForm(file: item, parentNodeId: parentNodeId, profileId: profileId),
+        builder: (context) => DeleteFileForm(
+            file: item, parentNodeId: parentNodeId, profileId: profileId),
       );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final provider = deleteFileFormControllerProvider(file: file, parentNodeId: parentNodeId, profileId: profileId);
+    final provider = deleteFileFormControllerProvider(
+        file: file, parentNodeId: parentNodeId, profileId: profileId);
     final controller = ref.read(provider.notifier);
     final navigation = ref.read(navigationServiceProvider);
 

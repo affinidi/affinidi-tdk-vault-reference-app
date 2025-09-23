@@ -80,7 +80,8 @@ class NavigationService {
   /// [path]: The target path or route name.
   /// [error]: The thrown error object.
   /// [stackTrace]: The stack trace associated with the error.
-  void _handleNavigationError(String method, String path, Object error, StackTrace stackTrace) {
+  void _handleNavigationError(
+      String method, String path, Object error, StackTrace stackTrace) {
     log('[NavigationService] Error using $method to "$path": $error');
     log('$stackTrace');
   }

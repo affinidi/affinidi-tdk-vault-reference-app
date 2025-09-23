@@ -16,12 +16,17 @@ part 'file_preview_page_controller.g.dart';
 class FilePreviewPageController extends _$FilePreviewPageController {
   FilePreviewPageController() : super();
 
-  final loadingController = AsyncLoadingController.provider('filePreviewPageController');
+  final loadingController =
+      AsyncLoadingController.provider('filePreviewPageController');
 
   @override
   FilePreviewPageState build(
-      {required String nodeId, required String profileId, String? parentNodeId, bool isSharedProfile = false}) {
-    final provider = storageServiceProvider(parentNodeId: parentNodeId, profileId: profileId);
+      {required String nodeId,
+      required String profileId,
+      String? parentNodeId,
+      bool isSharedProfile = false}) {
+    final provider = storageServiceProvider(
+        parentNodeId: parentNodeId, profileId: profileId);
     Future(() {
       ref.read(loadingController.notifier).start(() async {
         await ref.read(provider.notifier).getFileContent(
@@ -36,7 +41,8 @@ class FilePreviewPageController extends _$FilePreviewPageController {
       (previous, next) {
         Future(() {
           if (next != null) {
-            state = state.copyWith(data: next, documentType: DocumentType.fromData(next));
+            state = state.copyWith(
+                data: next, documentType: DocumentType.fromData(next));
           } else {
             state = state.copyWith(data: null, documentType: null);
           }
@@ -52,7 +58,8 @@ class FilePreviewPageController extends _$FilePreviewPageController {
     final fileData = state.data;
 
     if (fileData == null) {
-      Error.throwWithStackTrace('A file must be selected to be shared', StackTrace.current);
+      Error.throwWithStackTrace(
+          'A file must be selected to be shared', StackTrace.current);
     }
 
     final documentType = DocumentType.fromData(fileData);

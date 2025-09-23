@@ -22,19 +22,22 @@ mixin _$SharedFilesPageState {
   /// Create a copy of SharedFilesPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $SharedFilesPageStateCopyWith<SharedFilesPageState> get copyWith => throw _privateConstructorUsedError;
+  $SharedFilesPageStateCopyWith<SharedFilesPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SharedFilesPageStateCopyWith<$Res> {
-  factory $SharedFilesPageStateCopyWith(SharedFilesPageState value, $Res Function(SharedFilesPageState) then) =
+  factory $SharedFilesPageStateCopyWith(SharedFilesPageState value,
+          $Res Function(SharedFilesPageState) then) =
       _$SharedFilesPageStateCopyWithImpl<$Res, SharedFilesPageState>;
   @useResult
   $Res call({bool isLoading, List<Item>? items});
 }
 
 /// @nodoc
-class _$SharedFilesPageStateCopyWithImpl<$Res, $Val extends SharedFilesPageState>
+class _$SharedFilesPageStateCopyWithImpl<$Res,
+        $Val extends SharedFilesPageState>
     implements $SharedFilesPageStateCopyWith<$Res> {
   _$SharedFilesPageStateCopyWithImpl(this._value, this._then);
 
@@ -65,9 +68,10 @@ class _$SharedFilesPageStateCopyWithImpl<$Res, $Val extends SharedFilesPageState
 }
 
 /// @nodoc
-abstract class _$$SharedFilesPageStateImplCopyWith<$Res> implements $SharedFilesPageStateCopyWith<$Res> {
-  factory _$$SharedFilesPageStateImplCopyWith(
-          _$SharedFilesPageStateImpl value, $Res Function(_$SharedFilesPageStateImpl) then) =
+abstract class _$$SharedFilesPageStateImplCopyWith<$Res>
+    implements $SharedFilesPageStateCopyWith<$Res> {
+  factory _$$SharedFilesPageStateImplCopyWith(_$SharedFilesPageStateImpl value,
+          $Res Function(_$SharedFilesPageStateImpl) then) =
       __$$SharedFilesPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -78,8 +82,8 @@ abstract class _$$SharedFilesPageStateImplCopyWith<$Res> implements $SharedFiles
 class __$$SharedFilesPageStateImplCopyWithImpl<$Res>
     extends _$SharedFilesPageStateCopyWithImpl<$Res, _$SharedFilesPageStateImpl>
     implements _$$SharedFilesPageStateImplCopyWith<$Res> {
-  __$$SharedFilesPageStateImplCopyWithImpl(
-      _$SharedFilesPageStateImpl _value, $Res Function(_$SharedFilesPageStateImpl) _then)
+  __$$SharedFilesPageStateImplCopyWithImpl(_$SharedFilesPageStateImpl _value,
+      $Res Function(_$SharedFilesPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of SharedFilesPageState
@@ -106,7 +110,8 @@ class __$$SharedFilesPageStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SharedFilesPageStateImpl implements _SharedFilesPageState {
-  _$SharedFilesPageStateImpl({this.isLoading = false, final List<Item>? items}) : _items = items;
+  _$SharedFilesPageStateImpl({this.isLoading = false, final List<Item>? items})
+      : _items = items;
 
   @override
   @JsonKey()
@@ -131,24 +136,30 @@ class _$SharedFilesPageStateImpl implements _SharedFilesPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SharedFilesPageStateImpl &&
-            (identical(other.isLoading, isLoading) || other.isLoading == isLoading) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             const DeepCollectionEquality().equals(other._items, _items));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, const DeepCollectionEquality().hash(_items));
+  int get hashCode => Object.hash(
+      runtimeType, isLoading, const DeepCollectionEquality().hash(_items));
 
   /// Create a copy of SharedFilesPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$SharedFilesPageStateImplCopyWith<_$SharedFilesPageStateImpl> get copyWith =>
-      __$$SharedFilesPageStateImplCopyWithImpl<_$SharedFilesPageStateImpl>(this, _$identity);
+  _$$SharedFilesPageStateImplCopyWith<_$SharedFilesPageStateImpl>
+      get copyWith =>
+          __$$SharedFilesPageStateImplCopyWithImpl<_$SharedFilesPageStateImpl>(
+              this, _$identity);
 }
 
 abstract class _SharedFilesPageState implements SharedFilesPageState {
-  factory _SharedFilesPageState({final bool isLoading, final List<Item>? items}) = _$SharedFilesPageStateImpl;
+  factory _SharedFilesPageState(
+      {final bool isLoading,
+      final List<Item>? items}) = _$SharedFilesPageStateImpl;
 
   @override
   bool get isLoading;
@@ -159,5 +170,6 @@ abstract class _SharedFilesPageState implements SharedFilesPageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SharedFilesPageStateImplCopyWith<_$SharedFilesPageStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$SharedFilesPageStateImplCopyWith<_$SharedFilesPageStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

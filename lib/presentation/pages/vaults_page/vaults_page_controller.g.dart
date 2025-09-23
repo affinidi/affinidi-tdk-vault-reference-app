@@ -6,14 +6,18 @@ part of 'vaults_page_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$vaultsPageControllerHash() => r'013411b7af367873c0b56c3854fb532adc68e1fe';
+String _$vaultsPageControllerHash() =>
+    r'013411b7af367873c0b56c3854fb532adc68e1fe';
 
 /// See also [VaultsPageController].
 @ProviderFor(VaultsPageController)
-final vaultsPageControllerProvider = AutoDisposeNotifierProvider<VaultsPageController, VaultsPageState>.internal(
+final vaultsPageControllerProvider =
+    AutoDisposeNotifierProvider<VaultsPageController, VaultsPageState>.internal(
   VaultsPageController.new,
   name: r'vaultsPageControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$vaultsPageControllerHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$vaultsPageControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

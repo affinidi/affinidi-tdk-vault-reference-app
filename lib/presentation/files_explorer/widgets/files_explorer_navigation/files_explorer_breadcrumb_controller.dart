@@ -3,7 +3,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'files_explorer_breadcrumb_controller.g.dart';
 
 @riverpod
-class FilesExplorerBreadcrumbController extends _$FilesExplorerBreadcrumbController {
+class FilesExplorerBreadcrumbController
+    extends _$FilesExplorerBreadcrumbController {
   FilesExplorerBreadcrumbController() : super();
 
   @override

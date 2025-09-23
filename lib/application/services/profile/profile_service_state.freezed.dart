@@ -17,17 +17,20 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ProfileServiceState {
   List<Profile>? get profiles => throw _privateConstructorUsedError;
-  Map<String, bool> get profileEmptyStatus => throw _privateConstructorUsedError;
+  Map<String, bool> get profileEmptyStatus =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of ProfileServiceState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProfileServiceStateCopyWith<ProfileServiceState> get copyWith => throw _privateConstructorUsedError;
+  $ProfileServiceStateCopyWith<ProfileServiceState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ProfileServiceStateCopyWith<$Res> {
-  factory $ProfileServiceStateCopyWith(ProfileServiceState value, $Res Function(ProfileServiceState) then) =
+  factory $ProfileServiceStateCopyWith(
+          ProfileServiceState value, $Res Function(ProfileServiceState) then) =
       _$ProfileServiceStateCopyWithImpl<$Res, ProfileServiceState>;
   @useResult
   $Res call({List<Profile>? profiles, Map<String, bool> profileEmptyStatus});
@@ -65,9 +68,10 @@ class _$ProfileServiceStateCopyWithImpl<$Res, $Val extends ProfileServiceState>
 }
 
 /// @nodoc
-abstract class _$$ProfileServiceStateImplCopyWith<$Res> implements $ProfileServiceStateCopyWith<$Res> {
-  factory _$$ProfileServiceStateImplCopyWith(
-          _$ProfileServiceStateImpl value, $Res Function(_$ProfileServiceStateImpl) then) =
+abstract class _$$ProfileServiceStateImplCopyWith<$Res>
+    implements $ProfileServiceStateCopyWith<$Res> {
+  factory _$$ProfileServiceStateImplCopyWith(_$ProfileServiceStateImpl value,
+          $Res Function(_$ProfileServiceStateImpl) then) =
       __$$ProfileServiceStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -78,8 +82,8 @@ abstract class _$$ProfileServiceStateImplCopyWith<$Res> implements $ProfileServi
 class __$$ProfileServiceStateImplCopyWithImpl<$Res>
     extends _$ProfileServiceStateCopyWithImpl<$Res, _$ProfileServiceStateImpl>
     implements _$$ProfileServiceStateImplCopyWith<$Res> {
-  __$$ProfileServiceStateImplCopyWithImpl(
-      _$ProfileServiceStateImpl _value, $Res Function(_$ProfileServiceStateImpl) _then)
+  __$$ProfileServiceStateImplCopyWithImpl(_$ProfileServiceStateImpl _value,
+      $Res Function(_$ProfileServiceStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of ProfileServiceState
@@ -106,7 +110,9 @@ class __$$ProfileServiceStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ProfileServiceStateImpl implements _ProfileServiceState {
-  _$ProfileServiceStateImpl({final List<Profile>? profiles, final Map<String, bool> profileEmptyStatus = const {}})
+  _$ProfileServiceStateImpl(
+      {final List<Profile>? profiles,
+      final Map<String, bool> profileEmptyStatus = const {}})
       : _profiles = profiles,
         _profileEmptyStatus = profileEmptyStatus;
 
@@ -124,7 +130,8 @@ class _$ProfileServiceStateImpl implements _ProfileServiceState {
   @override
   @JsonKey()
   Map<String, bool> get profileEmptyStatus {
-    if (_profileEmptyStatus is EqualUnmodifiableMapView) return _profileEmptyStatus;
+    if (_profileEmptyStatus is EqualUnmodifiableMapView)
+      return _profileEmptyStatus;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_profileEmptyStatus);
   }
@@ -140,11 +147,14 @@ class _$ProfileServiceStateImpl implements _ProfileServiceState {
         (other.runtimeType == runtimeType &&
             other is _$ProfileServiceStateImpl &&
             const DeepCollectionEquality().equals(other._profiles, _profiles) &&
-            const DeepCollectionEquality().equals(other._profileEmptyStatus, _profileEmptyStatus));
+            const DeepCollectionEquality()
+                .equals(other._profileEmptyStatus, _profileEmptyStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(_profiles),
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_profiles),
       const DeepCollectionEquality().hash(_profileEmptyStatus));
 
   /// Create a copy of ProfileServiceState
@@ -153,12 +163,14 @@ class _$ProfileServiceStateImpl implements _ProfileServiceState {
   @override
   @pragma('vm:prefer-inline')
   _$$ProfileServiceStateImplCopyWith<_$ProfileServiceStateImpl> get copyWith =>
-      __$$ProfileServiceStateImplCopyWithImpl<_$ProfileServiceStateImpl>(this, _$identity);
+      __$$ProfileServiceStateImplCopyWithImpl<_$ProfileServiceStateImpl>(
+          this, _$identity);
 }
 
 abstract class _ProfileServiceState implements ProfileServiceState {
-  factory _ProfileServiceState({final List<Profile>? profiles, final Map<String, bool> profileEmptyStatus}) =
-      _$ProfileServiceStateImpl;
+  factory _ProfileServiceState(
+      {final List<Profile>? profiles,
+      final Map<String, bool> profileEmptyStatus}) = _$ProfileServiceStateImpl;
 
   @override
   List<Profile>? get profiles;
@@ -169,5 +181,6 @@ abstract class _ProfileServiceState implements ProfileServiceState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProfileServiceStateImplCopyWith<_$ProfileServiceStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$ProfileServiceStateImplCopyWith<_$ProfileServiceStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

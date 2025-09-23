@@ -26,7 +26,8 @@ class CredentialService extends _$CredentialService {
   /// Lazily initializes and returns the [CredentialStorage] repository
   /// for the current profile by reading from the [_vaultCredentialServiceProvider].
   Future<CredentialStorage> _getCredentialsRepository() async {
-    _credentialsRepository ??= await ref.read(_vaultCredentialServiceProvider(profileId).future);
+    _credentialsRepository ??=
+        await ref.read(_vaultCredentialServiceProvider(profileId).future);
     return _credentialsRepository!;
   }
 
@@ -46,7 +47,8 @@ class CredentialService extends _$CredentialService {
 
     for (final profile in profiles) {
       try {
-        final sharedStorage = profile.sharedStorages.firstWhere((s) => s.id == profileId);
+        final sharedStorage =
+            profile.sharedStorages.firstWhere((s) => s.id == profileId);
         return sharedStorage;
       } catch (e) {
         // Continue to next profile if shared storage not found
@@ -70,12 +72,15 @@ class CredentialService extends _$CredentialService {
     bool isSharedProfile = false,
     int limit = 3,
   }) async {
-    final credentialRepository =
-        isSharedProfile ? await _getSharedCredentialsRepository() : await _getCredentialsRepository();
+    final credentialRepository = isSharedProfile
+        ? await _getSharedCredentialsRepository()
+        : await _getCredentialsRepository();
 
     // Determine the starting point for the requested page
-    final validIndex = pageIndex > 0 && pageIndex - 1 < state.lastEvaluatedItemIdStack.length;
-    final startItemId = validIndex ? state.lastEvaluatedItemIdStack[pageIndex - 1] : null;
+    final validIndex =
+        pageIndex > 0 && pageIndex - 1 < state.lastEvaluatedItemIdStack.length;
+    final startItemId =
+        validIndex ? state.lastEvaluatedItemIdStack[pageIndex - 1] : null;
 
     final result = await credentialRepository.listCredentials(
       limit: limit,
@@ -106,9 +111,11 @@ class CredentialService extends _$CredentialService {
   /// Saves a new [VerifiableCredential] and refreshes the list of credentials.
   ///
   /// [verifiableCredential] the crential to be saved
-  Future<void> saveCredential({required VerifiableCredential verifiableCredential}) async {
+  Future<void> saveCredential(
+      {required VerifiableCredential verifiableCredential}) async {
     final credentialRepository = await _getCredentialsRepository();
-    await credentialRepository.saveCredential(verifiableCredential: verifiableCredential);
+    await credentialRepository.saveCredential(
+        verifiableCredential: verifiableCredential);
     await Future.delayed(const Duration(seconds: 2)); // Allow backend to sync
     await getClaimedCredentials();
   }
@@ -133,7 +140,8 @@ class CredentialService extends _$CredentialService {
 
     if (isOnlyItemOnPage && !isFirstPage) {
       // If it's the only item on a non-first page, go back one page
-      final updatedStack = List<String?>.from(state.lastEvaluatedItemIdStack)..removeAt(state.currentPageIndex);
+      final updatedStack = List<String?>.from(state.lastEvaluatedItemIdStack)
+        ..removeAt(state.currentPageIndex);
 
       final previousPage = state.currentPageIndex - 1;
 
@@ -151,7 +159,8 @@ class CredentialService extends _$CredentialService {
 
 /// Provides the [CredentialStorage] instance for a given [profileId]
 /// by resolving the correct Vault profile.
-final _vaultCredentialServiceProvider = FutureProvider.family<CredentialStorage, String>((
+final _vaultCredentialServiceProvider =
+    FutureProvider.family<CredentialStorage, String>((
   ref,
   profileId,
 ) async {
@@ -159,11 +168,14 @@ final _vaultCredentialServiceProvider = FutureProvider.family<CredentialStorage,
   final vault = vaultServiceState.currentVault;
 
   if (vault == null) {
-    throw AppException(message: 'You must open a Vault to retrieve profiles', type: AppExceptionType.other);
+    throw AppException(
+        message: 'You must open a Vault to retrieve profiles',
+        type: AppExceptionType.other);
   }
 
   final profiles = await vault.listProfiles();
-  final defaultProfile = profiles.firstWhereOrNull((profile) => profile.id == profileId);
+  final defaultProfile =
+      profiles.firstWhereOrNull((profile) => profile.id == profileId);
   return defaultProfile!.defaultCredentialStorage!;
 }, name: 'vaultCredentialServiceProvider');
 

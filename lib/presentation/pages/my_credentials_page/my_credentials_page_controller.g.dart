@@ -6,7 +6,8 @@ part of 'my_credentials_page_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$myCredentialsPageControllerHash() => r'474e78674cb063d8179f9a0782a97d85f8ab9865';
+String _$myCredentialsPageControllerHash() =>
+    r'474e78674cb063d8179f9a0782a97d85f8ab9865';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$MyCredentialsPageController extends BuildlessAutoDisposeNotifier<MyCredentialsPageState> {
+abstract class _$MyCredentialsPageController
+    extends BuildlessAutoDisposeNotifier<MyCredentialsPageState> {
   late final String profileId;
 
   MyCredentialsPageState build({
@@ -72,7 +74,8 @@ class MyCredentialsPageControllerFamily extends Family<MyCredentialsPageState> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'myCredentialsPageControllerProvider';
@@ -80,7 +83,8 @@ class MyCredentialsPageControllerFamily extends Family<MyCredentialsPageState> {
 
 /// See also [MyCredentialsPageController].
 class MyCredentialsPageControllerProvider
-    extends AutoDisposeNotifierProviderImpl<MyCredentialsPageController, MyCredentialsPageState> {
+    extends AutoDisposeNotifierProviderImpl<MyCredentialsPageController,
+        MyCredentialsPageState> {
   /// See also [MyCredentialsPageController].
   MyCredentialsPageControllerProvider({
     required String profileId,
@@ -89,9 +93,12 @@ class MyCredentialsPageControllerProvider
           from: myCredentialsPageControllerProvider,
           name: r'myCredentialsPageControllerProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$myCredentialsPageControllerHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$myCredentialsPageControllerHash,
           dependencies: MyCredentialsPageControllerFamily._dependencies,
-          allTransitiveDependencies: MyCredentialsPageControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              MyCredentialsPageControllerFamily._allTransitiveDependencies,
           profileId: profileId,
         );
 
@@ -133,13 +140,15 @@ class MyCredentialsPageControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<MyCredentialsPageController, MyCredentialsPageState> createElement() {
+  AutoDisposeNotifierProviderElement<MyCredentialsPageController,
+      MyCredentialsPageState> createElement() {
     return _MyCredentialsPageControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is MyCredentialsPageControllerProvider && other.profileId == profileId;
+    return other is MyCredentialsPageControllerProvider &&
+        other.profileId == profileId;
   }
 
   @override
@@ -153,18 +162,20 @@ class MyCredentialsPageControllerProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin MyCredentialsPageControllerRef on AutoDisposeNotifierProviderRef<MyCredentialsPageState> {
+mixin MyCredentialsPageControllerRef
+    on AutoDisposeNotifierProviderRef<MyCredentialsPageState> {
   /// The parameter `profileId` of this provider.
   String get profileId;
 }
 
 class _MyCredentialsPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<MyCredentialsPageController, MyCredentialsPageState>
-    with MyCredentialsPageControllerRef {
+    extends AutoDisposeNotifierProviderElement<MyCredentialsPageController,
+        MyCredentialsPageState> with MyCredentialsPageControllerRef {
   _MyCredentialsPageControllerProviderElement(super.provider);
 
   @override
-  String get profileId => (origin as MyCredentialsPageControllerProvider).profileId;
+  String get profileId =>
+      (origin as MyCredentialsPageControllerProvider).profileId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

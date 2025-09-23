@@ -6,7 +6,8 @@ part of 'shared_files_page_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sharedFilesPageControllerHash() => r'b6d4dab4989e5eff4ec798360845f50024e214fe';
+String _$sharedFilesPageControllerHash() =>
+    r'b6d4dab4989e5eff4ec798360845f50024e214fe';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$SharedFilesPageController extends BuildlessAutoDisposeNotifier<SharedFilesPageState> {
+abstract class _$SharedFilesPageController
+    extends BuildlessAutoDisposeNotifier<SharedFilesPageState> {
   late final String? parentNodeId;
   late final String profileId;
 
@@ -77,15 +79,16 @@ class SharedFilesPageControllerFamily extends Family<SharedFilesPageState> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'sharedFilesPageControllerProvider';
 }
 
 /// See also [SharedFilesPageController].
-class SharedFilesPageControllerProvider
-    extends AutoDisposeNotifierProviderImpl<SharedFilesPageController, SharedFilesPageState> {
+class SharedFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<
+    SharedFilesPageController, SharedFilesPageState> {
   /// See also [SharedFilesPageController].
   SharedFilesPageControllerProvider({
     required String? parentNodeId,
@@ -97,9 +100,12 @@ class SharedFilesPageControllerProvider
           from: sharedFilesPageControllerProvider,
           name: r'sharedFilesPageControllerProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$sharedFilesPageControllerHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$sharedFilesPageControllerHash,
           dependencies: SharedFilesPageControllerFamily._dependencies,
-          allTransitiveDependencies: SharedFilesPageControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              SharedFilesPageControllerFamily._allTransitiveDependencies,
           parentNodeId: parentNodeId,
           profileId: profileId,
         );
@@ -148,7 +154,8 @@ class SharedFilesPageControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<SharedFilesPageController, SharedFilesPageState> createElement() {
+  AutoDisposeNotifierProviderElement<SharedFilesPageController,
+      SharedFilesPageState> createElement() {
     return _SharedFilesPageControllerProviderElement(this);
   }
 
@@ -171,7 +178,8 @@ class SharedFilesPageControllerProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin SharedFilesPageControllerRef on AutoDisposeNotifierProviderRef<SharedFilesPageState> {
+mixin SharedFilesPageControllerRef
+    on AutoDisposeNotifierProviderRef<SharedFilesPageState> {
   /// The parameter `parentNodeId` of this provider.
   String? get parentNodeId;
 
@@ -180,14 +188,16 @@ mixin SharedFilesPageControllerRef on AutoDisposeNotifierProviderRef<SharedFiles
 }
 
 class _SharedFilesPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<SharedFilesPageController, SharedFilesPageState>
-    with SharedFilesPageControllerRef {
+    extends AutoDisposeNotifierProviderElement<SharedFilesPageController,
+        SharedFilesPageState> with SharedFilesPageControllerRef {
   _SharedFilesPageControllerProviderElement(super.provider);
 
   @override
-  String? get parentNodeId => (origin as SharedFilesPageControllerProvider).parentNodeId;
+  String? get parentNodeId =>
+      (origin as SharedFilesPageControllerProvider).parentNodeId;
   @override
-  String get profileId => (origin as SharedFilesPageControllerProvider).profileId;
+  String get profileId =>
+      (origin as SharedFilesPageControllerProvider).profileId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

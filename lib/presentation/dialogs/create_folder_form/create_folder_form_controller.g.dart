@@ -6,7 +6,8 @@ part of 'create_folder_form_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$createFolderFormControllerHash() => r'd3f1fbe07f07e3456242e17233a53205c6efc77b';
+String _$createFolderFormControllerHash() =>
+    r'd3f1fbe07f07e3456242e17233a53205c6efc77b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$CreateFolderFormController extends BuildlessAutoDisposeNotifier<CreateFolderFormState> {
+abstract class _$CreateFolderFormController
+    extends BuildlessAutoDisposeNotifier<CreateFolderFormState> {
   late final String? parentNodeId;
   late final String profileId;
 
@@ -77,7 +79,8 @@ class CreateFolderFormControllerFamily extends Family<CreateFolderFormState> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'createFolderFormControllerProvider';
@@ -85,7 +88,8 @@ class CreateFolderFormControllerFamily extends Family<CreateFolderFormState> {
 
 /// See also [CreateFolderFormController].
 class CreateFolderFormControllerProvider
-    extends AutoDisposeNotifierProviderImpl<CreateFolderFormController, CreateFolderFormState> {
+    extends AutoDisposeNotifierProviderImpl<CreateFolderFormController,
+        CreateFolderFormState> {
   /// See also [CreateFolderFormController].
   CreateFolderFormControllerProvider({
     String? parentNodeId,
@@ -97,9 +101,12 @@ class CreateFolderFormControllerProvider
           from: createFolderFormControllerProvider,
           name: r'createFolderFormControllerProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$createFolderFormControllerHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$createFolderFormControllerHash,
           dependencies: CreateFolderFormControllerFamily._dependencies,
-          allTransitiveDependencies: CreateFolderFormControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              CreateFolderFormControllerFamily._allTransitiveDependencies,
           parentNodeId: parentNodeId,
           profileId: profileId,
         );
@@ -148,7 +155,8 @@ class CreateFolderFormControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<CreateFolderFormController, CreateFolderFormState> createElement() {
+  AutoDisposeNotifierProviderElement<CreateFolderFormController,
+      CreateFolderFormState> createElement() {
     return _CreateFolderFormControllerProviderElement(this);
   }
 
@@ -171,7 +179,8 @@ class CreateFolderFormControllerProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CreateFolderFormControllerRef on AutoDisposeNotifierProviderRef<CreateFolderFormState> {
+mixin CreateFolderFormControllerRef
+    on AutoDisposeNotifierProviderRef<CreateFolderFormState> {
   /// The parameter `parentNodeId` of this provider.
   String? get parentNodeId;
 
@@ -180,14 +189,16 @@ mixin CreateFolderFormControllerRef on AutoDisposeNotifierProviderRef<CreateFold
 }
 
 class _CreateFolderFormControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<CreateFolderFormController, CreateFolderFormState>
-    with CreateFolderFormControllerRef {
+    extends AutoDisposeNotifierProviderElement<CreateFolderFormController,
+        CreateFolderFormState> with CreateFolderFormControllerRef {
   _CreateFolderFormControllerProviderElement(super.provider);
 
   @override
-  String? get parentNodeId => (origin as CreateFolderFormControllerProvider).parentNodeId;
+  String? get parentNodeId =>
+      (origin as CreateFolderFormControllerProvider).parentNodeId;
   @override
-  String get profileId => (origin as CreateFolderFormControllerProvider).profileId;
+  String get profileId =>
+      (origin as CreateFolderFormControllerProvider).profileId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

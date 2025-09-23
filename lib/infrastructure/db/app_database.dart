@@ -18,7 +18,8 @@ class SharedProfileAccess extends Table {
 }
 
 class FileSettings extends Table {
-  IntColumn get id => integer().withDefault(Constant(DatabaseConstants.globalFileSettingsId))();
+  IntColumn get id =>
+      integer().withDefault(Constant(DatabaseConstants.globalFileSettingsId))();
   IntColumn get maxFileSize => integer().nullable()();
   TextColumn get allowedExtensions => text().nullable()();
   @override
@@ -34,19 +35,24 @@ class AppDatabase extends _$AppDatabase {
   @override
   int get schemaVersion => 1;
 
-  Future<List<SharedProfileAccessData>> getAllAccesses() => select(sharedProfileAccess).get();
-  Future<int> addAccess(SharedProfileAccessCompanion entry) => into(sharedProfileAccess).insert(entry);
-  Future<int> deleteAccess(int id) => (delete(sharedProfileAccess)..where((tbl) => tbl.id.equals(id))).go();
+  Future<List<SharedProfileAccessData>> getAllAccesses() =>
+      select(sharedProfileAccess).get();
+  Future<int> addAccess(SharedProfileAccessCompanion entry) =>
+      into(sharedProfileAccess).insert(entry);
+  Future<int> deleteAccess(int id) =>
+      (delete(sharedProfileAccess)..where((tbl) => tbl.id.equals(id))).go();
   Future<void> clearAll() => delete(sharedProfileAccess).go();
 
-  Stream<List<SharedProfileAccessData>> watchAllAccesses() => select(sharedProfileAccess).watch();
+  Stream<List<SharedProfileAccessData>> watchAllAccesses() =>
+      select(sharedProfileAccess).watch();
 
   Future<FileSetting?> getFileSettings(String profileId) async {
     final globalSettings = await select(fileSettings).getSingleOrNull();
     if (globalSettings?.allowedExtensions == null) return null;
 
     try {
-      final profileSettingsMap = jsonDecode(globalSettings!.allowedExtensions!) as Map<String, dynamic>;
+      final profileSettingsMap = jsonDecode(globalSettings!.allowedExtensions!)
+          as Map<String, dynamic>;
       final profileSettings = profileSettingsMap[profileId];
 
       if (profileSettings != null) {
@@ -57,7 +63,8 @@ class AppDatabase extends _$AppDatabase {
         );
       }
     } catch (e) {
-      debugPrint('FileSettings: JSON parsing failed for profile $profileId: $e');
+      debugPrint(
+          'FileSettings: JSON parsing failed for profile $profileId: $e');
     }
 
     return null;
@@ -73,7 +80,8 @@ class AppDatabase extends _$AppDatabase {
 
     if (existingSettings?.allowedExtensions != null) {
       try {
-        profileSettingsMap = jsonDecode(existingSettings!.allowedExtensions!) as Map<String, dynamic>;
+        profileSettingsMap = jsonDecode(existingSettings!.allowedExtensions!)
+            as Map<String, dynamic>;
       } catch (e) {
         profileSettingsMap = {};
       }
@@ -87,7 +95,10 @@ class AppDatabase extends _$AppDatabase {
     final newAllowedExtensions = jsonEncode(profileSettingsMap);
 
     if (existingSettings != null) {
-      await (update(fileSettings)..where((tbl) => tbl.id.equals(DatabaseConstants.globalFileSettingsId))).write(
+      await (update(fileSettings)
+            ..where(
+                (tbl) => tbl.id.equals(DatabaseConstants.globalFileSettingsId)))
+          .write(
         FileSettingsCompanion(
           maxFileSize: Value(existingSettings.maxFileSize),
           allowedExtensions: Value(newAllowedExtensions),
@@ -109,19 +120,26 @@ class AppDatabase extends _$AppDatabase {
     if (existingSettings?.allowedExtensions == null) return;
 
     try {
-      final profileSettingsMap = jsonDecode(existingSettings!.allowedExtensions!) as Map<String, dynamic>;
+      final profileSettingsMap =
+          jsonDecode(existingSettings!.allowedExtensions!)
+              as Map<String, dynamic>;
       profileSettingsMap.remove(profileId);
 
-      final newAllowedExtensions = profileSettingsMap.isEmpty ? null : jsonEncode(profileSettingsMap);
+      final newAllowedExtensions =
+          profileSettingsMap.isEmpty ? null : jsonEncode(profileSettingsMap);
 
-      await (update(fileSettings)..where((tbl) => tbl.id.equals(DatabaseConstants.globalFileSettingsId))).write(
+      await (update(fileSettings)
+            ..where(
+                (tbl) => tbl.id.equals(DatabaseConstants.globalFileSettingsId)))
+          .write(
         FileSettingsCompanion(
           maxFileSize: Value(existingSettings.maxFileSize),
           allowedExtensions: Value(newAllowedExtensions),
         ),
       );
     } catch (e) {
-      debugPrint('FileSettings: JSON parsing failed for profile $profileId: $e');
+      debugPrint(
+          'FileSettings: JSON parsing failed for profile $profileId: $e');
     }
   }
 

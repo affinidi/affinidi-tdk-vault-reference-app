@@ -19,7 +19,8 @@ import 'async_loading_status_error_localizer.dart';
 /// See also:
 ///
 /// * [AsyncLoadingController] which is used as a provider
-class AsyncLoadingStatus extends HookConsumerWidget with AsyncLoadingStatusErrorLocalizer {
+class AsyncLoadingStatus extends HookConsumerWidget
+    with AsyncLoadingStatusErrorLocalizer {
   const AsyncLoadingStatus(
     this.provider, {
     super.key,
@@ -64,14 +65,16 @@ class AsyncLoadingStatus extends HookConsumerWidget with AsyncLoadingStatusError
     }
 
     void showErrorWidgetIfNeeded(Object exception, StackTrace stackTrace) {
-      String? localizedErrorMessage =
-          makeLocalizedErrorMessage(exception, stackTrace, (error) => errorLocalizer(localizations, error));
-      if (localizedErrorMessage == null || errorText.value == localizedErrorMessage) {
+      String? localizedErrorMessage = makeLocalizedErrorMessage(exception,
+          stackTrace, (error) => errorLocalizer(localizations, error));
+      if (localizedErrorMessage == null ||
+          errorText.value == localizedErrorMessage) {
         return;
       }
 
-      shouldShowRetryButton.value =
-          ((offlineRetry != null) && (exception is AppException) && exception.type == AppExceptionType.offline);
+      shouldShowRetryButton.value = ((offlineRetry != null) &&
+          (exception is AppException) &&
+          exception.type == AppExceptionType.offline);
       errorText.value = localizedErrorMessage;
     }
 
@@ -101,7 +104,9 @@ class AsyncLoadingStatus extends HookConsumerWidget with AsyncLoadingStatusError
               spacing: 16,
               children: [
                 CircularProgressIndicator(),
-                if (loadingDescription != null && loadingDescription!.isNotEmpty) Text(loadingDescription!),
+                if (loadingDescription != null &&
+                    loadingDescription!.isNotEmpty)
+                  Text(loadingDescription!),
               ],
             ),
           ))
@@ -118,7 +123,9 @@ class AsyncLoadingStatus extends HookConsumerWidget with AsyncLoadingStatusError
                         textAlign: TextAlign.center,
                       ),
                       if (shouldShowRetryButton.value)
-                        _RetryButton(onPressed: offlineRetry!, text: localizations.retryActionText),
+                        _RetryButton(
+                            onPressed: offlineRetry!,
+                            text: localizations.retryActionText),
                     ],
                   ),
                 ),

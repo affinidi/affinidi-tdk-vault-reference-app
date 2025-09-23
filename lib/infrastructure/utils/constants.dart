@@ -25,6 +25,8 @@ class AppConfig {
   static const String appName = 'TDK Reference App';
 
   // GitHub Configuration
-  static const String githubUrl = 'https://github.com/affinidi/affinidi-tdk/blob/main';
-  static const String githubRawUrl = 'https://raw.githubusercontent.com/affinidi/affinidi-tdk/refs/heads/main';
+  static const String githubUrl =
+      'https://github.com/affinidi/affinidi-tdk/blob/main';
+  static const String githubRawUrl =
+      'https://raw.githubusercontent.com/affinidi/affinidi-tdk/refs/heads/main';
 }

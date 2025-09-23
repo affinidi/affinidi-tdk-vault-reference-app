@@ -13,7 +13,8 @@ class ConsoleLogger implements ErrorLogger {
   }
 
   @override
-  void logError(Object error, StackTrace stack, {dynamic reason, Iterable<Object> information = const []}) {
+  void logError(Object error, StackTrace stack,
+      {dynamic reason, Iterable<Object> information = const []}) {
     log('logError $error\n$stack', name: _logKey);
   }
 

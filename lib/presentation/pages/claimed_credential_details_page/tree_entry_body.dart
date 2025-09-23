@@ -24,7 +24,9 @@ class TreeEntryBody extends StatelessWidget {
         ? Container()
         : Padding(
             padding: const EdgeInsets.only(
-                left: AppSizing.paddingXSmall, top: AppSizing.paddingRegular, bottom: AppSizing.paddingRegular),
+                left: AppSizing.paddingXSmall,
+                top: AppSizing.paddingRegular,
+                bottom: AppSizing.paddingRegular),
             child: Row(
               children: [
                 Expanded(
@@ -32,7 +34,9 @@ class TreeEntryBody extends StatelessWidget {
                 ),
                 SizedBox(
                   width: rightColumnWidth,
-                  child: fieldValue is String ? RightColumnText(fieldValue: fieldValue) : fieldValue,
+                  child: fieldValue is String
+                      ? RightColumnText(fieldValue: fieldValue)
+                      : fieldValue,
                 ),
               ],
             ),

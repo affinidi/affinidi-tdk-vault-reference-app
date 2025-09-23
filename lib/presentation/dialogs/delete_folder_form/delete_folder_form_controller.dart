@@ -27,11 +27,15 @@ class DeleteFolderFormController extends _$DeleteFolderFormController {
     state = state.copyWith(isLoading: true, errorMessage: null, success: false);
     try {
       await ref
-          .read(storageServiceProvider(parentNodeId: parentNodeId, profileId: profileId).notifier)
+          .read(storageServiceProvider(
+                  parentNodeId: parentNodeId, profileId: profileId)
+              .notifier)
           .deleteFolder(folderId: folder.id);
-      state = state.copyWith(isLoading: false, errorMessage: null, success: true);
+      state =
+          state.copyWith(isLoading: false, errorMessage: null, success: true);
     } catch (e) {
-      state = state.copyWith(isLoading: false, errorMessage: 'Folder Not Deleted', success: false);
+      state = state.copyWith(
+          isLoading: false, errorMessage: 'Folder Not Deleted', success: false);
     }
   }
 }

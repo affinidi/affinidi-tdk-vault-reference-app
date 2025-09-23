@@ -51,7 +51,10 @@ class ClaimUriForm extends HookConsumerWidget {
               padding: const EdgeInsets.only(bottom: 4),
               child: Text(
                 errorText.value!,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.error),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: Theme.of(context).colorScheme.error),
               ),
             ),
           FilledButton(

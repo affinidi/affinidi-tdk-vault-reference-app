@@ -12,5 +12,6 @@ class OpenVaultParams with _$OpenVaultParams {
     required String password,
   }) = _OpenVaultParams;
 
-  factory OpenVaultParams.fromJson(Map<String, dynamic> json) => _$OpenVaultParamsFromJson(json);
+  factory OpenVaultParams.fromJson(Map<String, dynamic> json) =>
+      _$OpenVaultParamsFromJson(json);
 }

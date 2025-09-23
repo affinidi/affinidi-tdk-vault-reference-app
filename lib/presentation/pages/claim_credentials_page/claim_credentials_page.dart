@@ -57,20 +57,26 @@ class ClaimCredentialsPage extends HookConsumerWidget {
         actions: [
           CodeSnippetWidget(
             title: localizations.lblCSClaimCredential,
-            codeLocations: CodeSnippetLocations.claimCredentialSnippets(context),
+            codeLocations:
+                CodeSnippetLocations.claimCredentialSnippets(context),
           ),
         ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 480), // Keep content centered & readable
+          constraints: const BoxConstraints(
+              maxWidth: 480), // Keep content centered & readable
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 1.0, left: 1.0, right: 1.0, bottom: AppSizing.paddingRegular),
+                padding: const EdgeInsets.only(
+                    top: 1.0,
+                    left: 1.0,
+                    right: 1.0,
+                    bottom: AppSizing.paddingRegular),
                 child: Text(
                   localizations.claimCredentialsTitle,
                   style: AppTheme.headingXLarge,

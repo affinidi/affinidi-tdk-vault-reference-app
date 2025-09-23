@@ -27,19 +27,22 @@ mixin _$ErrorDetails {
   /// Create a copy of ErrorDetails
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ErrorDetailsCopyWith<ErrorDetails> get copyWith => throw _privateConstructorUsedError;
+  $ErrorDetailsCopyWith<ErrorDetails> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ErrorDetailsCopyWith<$Res> {
-  factory $ErrorDetailsCopyWith(ErrorDetails value, $Res Function(ErrorDetails) then) =
+  factory $ErrorDetailsCopyWith(
+          ErrorDetails value, $Res Function(ErrorDetails) then) =
       _$ErrorDetailsCopyWithImpl<$Res, ErrorDetails>;
   @useResult
   $Res call({String? issue, String? field, String? value});
 }
 
 /// @nodoc
-class _$ErrorDetailsCopyWithImpl<$Res, $Val extends ErrorDetails> implements $ErrorDetailsCopyWith<$Res> {
+class _$ErrorDetailsCopyWithImpl<$Res, $Val extends ErrorDetails>
+    implements $ErrorDetailsCopyWith<$Res> {
   _$ErrorDetailsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -74,8 +77,10 @@ class _$ErrorDetailsCopyWithImpl<$Res, $Val extends ErrorDetails> implements $Er
 }
 
 /// @nodoc
-abstract class _$$ErrorDetailsImplCopyWith<$Res> implements $ErrorDetailsCopyWith<$Res> {
-  factory _$$ErrorDetailsImplCopyWith(_$ErrorDetailsImpl value, $Res Function(_$ErrorDetailsImpl) then) =
+abstract class _$$ErrorDetailsImplCopyWith<$Res>
+    implements $ErrorDetailsCopyWith<$Res> {
+  factory _$$ErrorDetailsImplCopyWith(
+          _$ErrorDetailsImpl value, $Res Function(_$ErrorDetailsImpl) then) =
       __$$ErrorDetailsImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -83,9 +88,11 @@ abstract class _$$ErrorDetailsImplCopyWith<$Res> implements $ErrorDetailsCopyWit
 }
 
 /// @nodoc
-class __$$ErrorDetailsImplCopyWithImpl<$Res> extends _$ErrorDetailsCopyWithImpl<$Res, _$ErrorDetailsImpl>
+class __$$ErrorDetailsImplCopyWithImpl<$Res>
+    extends _$ErrorDetailsCopyWithImpl<$Res, _$ErrorDetailsImpl>
     implements _$$ErrorDetailsImplCopyWith<$Res> {
-  __$$ErrorDetailsImplCopyWithImpl(_$ErrorDetailsImpl _value, $Res Function(_$ErrorDetailsImpl) _then)
+  __$$ErrorDetailsImplCopyWithImpl(
+      _$ErrorDetailsImpl _value, $Res Function(_$ErrorDetailsImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of ErrorDetails
@@ -119,7 +126,8 @@ class __$$ErrorDetailsImplCopyWithImpl<$Res> extends _$ErrorDetailsCopyWithImpl<
 class _$ErrorDetailsImpl implements _ErrorDetails {
   _$ErrorDetailsImpl({this.issue, this.field, this.value});
 
-  factory _$ErrorDetailsImpl.fromJson(Map<String, dynamic> json) => _$$ErrorDetailsImplFromJson(json);
+  factory _$ErrorDetailsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ErrorDetailsImplFromJson(json);
 
   @override
   final String? issue;
@@ -157,9 +165,13 @@ class _$ErrorDetailsImpl implements _ErrorDetails {
 }
 
 abstract class _ErrorDetails implements ErrorDetails {
-  factory _ErrorDetails({final String? issue, final String? field, final String? value}) = _$ErrorDetailsImpl;
+  factory _ErrorDetails(
+      {final String? issue,
+      final String? field,
+      final String? value}) = _$ErrorDetailsImpl;
 
-  factory _ErrorDetails.fromJson(Map<String, dynamic> json) = _$ErrorDetailsImpl.fromJson;
+  factory _ErrorDetails.fromJson(Map<String, dynamic> json) =
+      _$ErrorDetailsImpl.fromJson;
 
   @override
   String? get issue;
@@ -172,5 +184,6 @@ abstract class _ErrorDetails implements ErrorDetails {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ErrorDetailsImplCopyWith<_$ErrorDetailsImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$ErrorDetailsImplCopyWith<_$ErrorDetailsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

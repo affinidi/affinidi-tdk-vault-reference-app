@@ -18,7 +18,8 @@ import 'async_loading_status_error_localizer.dart';
 /// See also:
 ///
 /// * [AsyncLoadingController] which is used as a provider
-class ModalAsyncLoadingStatus extends HookConsumerWidget with AsyncLoadingStatusErrorLocalizer {
+class ModalAsyncLoadingStatus extends HookConsumerWidget
+    with AsyncLoadingStatusErrorLocalizer {
   const ModalAsyncLoadingStatus(
     this.provider, {
     super.key,
@@ -43,7 +44,8 @@ class ModalAsyncLoadingStatus extends HookConsumerWidget with AsyncLoadingStatus
               children: [
                 const CircularProgressIndicator(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizing.paddingRegular),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizing.paddingRegular),
                   child: Text(loadingMessage ?? localizations.loading),
                 ),
               ],
@@ -54,10 +56,11 @@ class ModalAsyncLoadingStatus extends HookConsumerWidget with AsyncLoadingStatus
     );
   }
 
-  void _showErrorDialog(BuildContext context, Object exception, StackTrace stackTrace) {
+  void _showErrorDialog(
+      BuildContext context, Object exception, StackTrace stackTrace) {
     final localizations = AppLocalizations.of(context)!;
-    String? localizedErrorMessage =
-        makeLocalizedErrorMessage(exception, stackTrace, (error) => errorLocalizer(localizations, error));
+    String? localizedErrorMessage = makeLocalizedErrorMessage(
+        exception, stackTrace, (error) => errorLocalizer(localizations, error));
     if (localizedErrorMessage == null) return;
 
     showDialog<void>(
@@ -66,7 +69,8 @@ class ModalAsyncLoadingStatus extends HookConsumerWidget with AsyncLoadingStatus
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           content: Text(localizedErrorMessage),
-          actionsPadding: const EdgeInsets.only(right: AppSizing.paddingSmall, bottom: AppSizing.paddingSmall),
+          actionsPadding: const EdgeInsets.only(
+              right: AppSizing.paddingSmall, bottom: AppSizing.paddingSmall),
           contentPadding: const EdgeInsets.all(AppSizing.paddingLarge),
           actions: <Widget>[
             TextButton(

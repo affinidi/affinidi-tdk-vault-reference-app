@@ -69,10 +69,12 @@ class DeleteProfileConfirmation extends ConsumerStatefulWidget {
   }
 
   @override
-  ConsumerState<DeleteProfileConfirmation> createState() => _DeleteProfileConfirmationState();
+  ConsumerState<DeleteProfileConfirmation> createState() =>
+      _DeleteProfileConfirmationState();
 }
 
-class _DeleteProfileConfirmationState extends ConsumerState<DeleteProfileConfirmation> {
+class _DeleteProfileConfirmationState
+    extends ConsumerState<DeleteProfileConfirmation> {
   void cancel() {
     if (!mounted) return;
     final navigation = ref.read(navigationServiceProvider);
@@ -80,7 +82,8 @@ class _DeleteProfileConfirmationState extends ConsumerState<DeleteProfileConfirm
   }
 
   Future<void> delete() async {
-    final controller = ref.read(deleteProfileConfirmationControllerProvider.notifier);
+    final controller =
+        ref.read(deleteProfileConfirmationControllerProvider.notifier);
     controller.profileId = widget.profileId;
     await controller.delete();
     final state = ref.read(deleteProfileConfirmationControllerProvider);
@@ -100,7 +103,8 @@ class _DeleteProfileConfirmationState extends ConsumerState<DeleteProfileConfirm
     return Container(
       decoration: const BoxDecoration(
         color: AppColorScheme.backgroundWhite,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(AppSizing.paddingMedium)),
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppSizing.paddingMedium)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -111,12 +115,15 @@ class _DeleteProfileConfirmationState extends ConsumerState<DeleteProfileConfirm
             child: Row(
               children: [
                 Text(
-                  isError ? localizations.profileNotDeletedTitle : localizations.deleteProfileTitle,
+                  isError
+                      ? localizations.profileNotDeletedTitle
+                      : localizations.deleteProfileTitle,
                   style: AppTheme.headingMedium,
                 ),
                 const Spacer(),
                 IconButton(
-                  icon: const Icon(Icons.close, color: AppColorScheme.textPrimary),
+                  icon: const Icon(Icons.close,
+                      color: AppColorScheme.textPrimary),
                   onPressed: cancel,
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
@@ -132,7 +139,8 @@ class _DeleteProfileConfirmationState extends ConsumerState<DeleteProfileConfirm
             child: Text(
               isError
                   ? localizations.profileNotDeletedMessage
-                  : localizations.deleteProfileConfirmationMessage(widget.profileName),
+                  : localizations
+                      .deleteProfileConfirmationMessage(widget.profileName),
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
@@ -148,11 +156,15 @@ class _DeleteProfileConfirmationState extends ConsumerState<DeleteProfileConfirm
                     onPressed: isLoading || isError ? null : cancel,
                     style: TextButton.styleFrom(
                       foregroundColor: AppColorScheme.textPrimary,
-                      padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingRegular),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: AppSizing.paddingRegular),
                     ),
                     child: Text(
                       isError ? '' : localizations.cancelActionText,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
@@ -160,7 +172,8 @@ class _DeleteProfileConfirmationState extends ConsumerState<DeleteProfileConfirm
                 Expanded(
                   child: CodeSnippetWidget(
                     title: localizations.lblCSCreateProfile,
-                    codeLocations: CodeSnippetLocations.deleteProfileSnippets(context),
+                    codeLocations:
+                        CodeSnippetLocations.deleteProfileSnippets(context),
                   ),
                 ),
                 const SizedBox(width: AppSizing.paddingRegular),
@@ -169,7 +182,8 @@ class _DeleteProfileConfirmationState extends ConsumerState<DeleteProfileConfirm
                     height: AppSizing.iconXLarge,
                     decoration: BoxDecoration(
                       color: AppColorScheme.error,
-                      borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
+                      borderRadius:
+                          BorderRadius.circular(AppSizing.paddingSmall),
                     ),
                     child: TextButton(
                       onPressed: isLoading
@@ -179,7 +193,8 @@ class _DeleteProfileConfirmationState extends ConsumerState<DeleteProfileConfirm
                             },
                       style: TextButton.styleFrom(
                         foregroundColor: AppColorScheme.backgroundWhite,
-                        padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingRegular),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: AppSizing.paddingRegular),
                       ),
                       child: isLoading
                           ? const SizedBox(
@@ -187,15 +202,20 @@ class _DeleteProfileConfirmationState extends ConsumerState<DeleteProfileConfirm
                               height: AppSizing.iconXSmall,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(AppColorScheme.backgroundWhite),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    AppColorScheme.backgroundWhite),
                               ),
                             )
                           : Text(
-                              isError ? localizations.gotItActionText : localizations.deleteActionText,
+                              isError
+                                  ? localizations.gotItActionText
+                                  : localizations.deleteActionText,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall
-                                  ?.copyWith(fontWeight: FontWeight.w600, color: AppColorScheme.backgroundWhite),
+                                  ?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColorScheme.backgroundWhite),
                             ),
                     ),
                   ),

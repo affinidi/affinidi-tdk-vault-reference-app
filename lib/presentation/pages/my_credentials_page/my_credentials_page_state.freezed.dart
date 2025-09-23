@@ -16,25 +16,29 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MyCredentialsPageState {
-  List<DigitalCredential>? get digitalCredentials => throw _privateConstructorUsedError;
+  List<DigitalCredential>? get digitalCredentials =>
+      throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
   /// Create a copy of MyCredentialsPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $MyCredentialsPageStateCopyWith<MyCredentialsPageState> get copyWith => throw _privateConstructorUsedError;
+  $MyCredentialsPageStateCopyWith<MyCredentialsPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $MyCredentialsPageStateCopyWith<$Res> {
-  factory $MyCredentialsPageStateCopyWith(MyCredentialsPageState value, $Res Function(MyCredentialsPageState) then) =
+  factory $MyCredentialsPageStateCopyWith(MyCredentialsPageState value,
+          $Res Function(MyCredentialsPageState) then) =
       _$MyCredentialsPageStateCopyWithImpl<$Res, MyCredentialsPageState>;
   @useResult
   $Res call({List<DigitalCredential>? digitalCredentials, bool isLoading});
 }
 
 /// @nodoc
-class _$MyCredentialsPageStateCopyWithImpl<$Res, $Val extends MyCredentialsPageState>
+class _$MyCredentialsPageStateCopyWithImpl<$Res,
+        $Val extends MyCredentialsPageState>
     implements $MyCredentialsPageStateCopyWith<$Res> {
   _$MyCredentialsPageStateCopyWithImpl(this._value, this._then);
 
@@ -65,9 +69,11 @@ class _$MyCredentialsPageStateCopyWithImpl<$Res, $Val extends MyCredentialsPageS
 }
 
 /// @nodoc
-abstract class _$$MyCredentialsPageStateImplCopyWith<$Res> implements $MyCredentialsPageStateCopyWith<$Res> {
+abstract class _$$MyCredentialsPageStateImplCopyWith<$Res>
+    implements $MyCredentialsPageStateCopyWith<$Res> {
   factory _$$MyCredentialsPageStateImplCopyWith(
-          _$MyCredentialsPageStateImpl value, $Res Function(_$MyCredentialsPageStateImpl) then) =
+          _$MyCredentialsPageStateImpl value,
+          $Res Function(_$MyCredentialsPageStateImpl) then) =
       __$$MyCredentialsPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -76,10 +82,12 @@ abstract class _$$MyCredentialsPageStateImplCopyWith<$Res> implements $MyCredent
 
 /// @nodoc
 class __$$MyCredentialsPageStateImplCopyWithImpl<$Res>
-    extends _$MyCredentialsPageStateCopyWithImpl<$Res, _$MyCredentialsPageStateImpl>
+    extends _$MyCredentialsPageStateCopyWithImpl<$Res,
+        _$MyCredentialsPageStateImpl>
     implements _$$MyCredentialsPageStateImplCopyWith<$Res> {
   __$$MyCredentialsPageStateImplCopyWithImpl(
-      _$MyCredentialsPageStateImpl _value, $Res Function(_$MyCredentialsPageStateImpl) _then)
+      _$MyCredentialsPageStateImpl _value,
+      $Res Function(_$MyCredentialsPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of MyCredentialsPageState
@@ -106,7 +114,9 @@ class __$$MyCredentialsPageStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$MyCredentialsPageStateImpl implements _MyCredentialsPageState {
-  _$MyCredentialsPageStateImpl({final List<DigitalCredential>? digitalCredentials, this.isLoading = false})
+  _$MyCredentialsPageStateImpl(
+      {final List<DigitalCredential>? digitalCredentials,
+      this.isLoading = false})
       : _digitalCredentials = digitalCredentials;
 
   final List<DigitalCredential>? _digitalCredentials;
@@ -114,7 +124,8 @@ class _$MyCredentialsPageStateImpl implements _MyCredentialsPageState {
   List<DigitalCredential>? get digitalCredentials {
     final value = _digitalCredentials;
     if (value == null) return null;
-    if (_digitalCredentials is EqualUnmodifiableListView) return _digitalCredentials;
+    if (_digitalCredentials is EqualUnmodifiableListView)
+      return _digitalCredentials;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -133,25 +144,30 @@ class _$MyCredentialsPageStateImpl implements _MyCredentialsPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MyCredentialsPageStateImpl &&
-            const DeepCollectionEquality().equals(other._digitalCredentials, _digitalCredentials) &&
-            (identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+            const DeepCollectionEquality()
+                .equals(other._digitalCredentials, _digitalCredentials) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(_digitalCredentials), isLoading);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_digitalCredentials), isLoading);
 
   /// Create a copy of MyCredentialsPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$MyCredentialsPageStateImplCopyWith<_$MyCredentialsPageStateImpl> get copyWith =>
-      __$$MyCredentialsPageStateImplCopyWithImpl<_$MyCredentialsPageStateImpl>(this, _$identity);
+  _$$MyCredentialsPageStateImplCopyWith<_$MyCredentialsPageStateImpl>
+      get copyWith => __$$MyCredentialsPageStateImplCopyWithImpl<
+          _$MyCredentialsPageStateImpl>(this, _$identity);
 }
 
 abstract class _MyCredentialsPageState implements MyCredentialsPageState {
-  factory _MyCredentialsPageState({final List<DigitalCredential>? digitalCredentials, final bool isLoading}) =
-      _$MyCredentialsPageStateImpl;
+  factory _MyCredentialsPageState(
+      {final List<DigitalCredential>? digitalCredentials,
+      final bool isLoading}) = _$MyCredentialsPageStateImpl;
 
   @override
   List<DigitalCredential>? get digitalCredentials;
@@ -162,6 +178,6 @@ abstract class _MyCredentialsPageState implements MyCredentialsPageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MyCredentialsPageStateImplCopyWith<_$MyCredentialsPageStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$MyCredentialsPageStateImplCopyWith<_$MyCredentialsPageStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

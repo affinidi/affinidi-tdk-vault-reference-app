@@ -6,7 +6,8 @@ part of 'shared_credentials_page_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sharedCredentialsPageControllerHash() => r'04e67950cbfe543f4cf809b6fb8ad9c46269edde';
+String _$sharedCredentialsPageControllerHash() =>
+    r'04e67950cbfe543f4cf809b6fb8ad9c46269edde';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$SharedCredentialsPageController extends BuildlessAutoDisposeNotifier<SharedCredentialsPageState> {
+abstract class _$SharedCredentialsPageController
+    extends BuildlessAutoDisposeNotifier<SharedCredentialsPageState> {
   late final String profileId;
 
   SharedCredentialsPageState build({
@@ -39,10 +41,12 @@ abstract class _$SharedCredentialsPageController extends BuildlessAutoDisposeNot
 
 /// See also [SharedCredentialsPageController].
 @ProviderFor(SharedCredentialsPageController)
-const sharedCredentialsPageControllerProvider = SharedCredentialsPageControllerFamily();
+const sharedCredentialsPageControllerProvider =
+    SharedCredentialsPageControllerFamily();
 
 /// See also [SharedCredentialsPageController].
-class SharedCredentialsPageControllerFamily extends Family<SharedCredentialsPageState> {
+class SharedCredentialsPageControllerFamily
+    extends Family<SharedCredentialsPageState> {
   /// See also [SharedCredentialsPageController].
   const SharedCredentialsPageControllerFamily();
 
@@ -72,7 +76,8 @@ class SharedCredentialsPageControllerFamily extends Family<SharedCredentialsPage
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'sharedCredentialsPageControllerProvider';
@@ -80,7 +85,8 @@ class SharedCredentialsPageControllerFamily extends Family<SharedCredentialsPage
 
 /// See also [SharedCredentialsPageController].
 class SharedCredentialsPageControllerProvider
-    extends AutoDisposeNotifierProviderImpl<SharedCredentialsPageController, SharedCredentialsPageState> {
+    extends AutoDisposeNotifierProviderImpl<SharedCredentialsPageController,
+        SharedCredentialsPageState> {
   /// See also [SharedCredentialsPageController].
   SharedCredentialsPageControllerProvider({
     required String profileId,
@@ -89,9 +95,12 @@ class SharedCredentialsPageControllerProvider
           from: sharedCredentialsPageControllerProvider,
           name: r'sharedCredentialsPageControllerProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$sharedCredentialsPageControllerHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$sharedCredentialsPageControllerHash,
           dependencies: SharedCredentialsPageControllerFamily._dependencies,
-          allTransitiveDependencies: SharedCredentialsPageControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              SharedCredentialsPageControllerFamily._allTransitiveDependencies,
           profileId: profileId,
         );
 
@@ -133,13 +142,15 @@ class SharedCredentialsPageControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<SharedCredentialsPageController, SharedCredentialsPageState> createElement() {
+  AutoDisposeNotifierProviderElement<SharedCredentialsPageController,
+      SharedCredentialsPageState> createElement() {
     return _SharedCredentialsPageControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SharedCredentialsPageControllerProvider && other.profileId == profileId;
+    return other is SharedCredentialsPageControllerProvider &&
+        other.profileId == profileId;
   }
 
   @override
@@ -153,18 +164,20 @@ class SharedCredentialsPageControllerProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin SharedCredentialsPageControllerRef on AutoDisposeNotifierProviderRef<SharedCredentialsPageState> {
+mixin SharedCredentialsPageControllerRef
+    on AutoDisposeNotifierProviderRef<SharedCredentialsPageState> {
   /// The parameter `profileId` of this provider.
   String get profileId;
 }
 
 class _SharedCredentialsPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<SharedCredentialsPageController, SharedCredentialsPageState>
-    with SharedCredentialsPageControllerRef {
+    extends AutoDisposeNotifierProviderElement<SharedCredentialsPageController,
+        SharedCredentialsPageState> with SharedCredentialsPageControllerRef {
   _SharedCredentialsPageControllerProviderElement(super.provider);
 
   @override
-  String get profileId => (origin as SharedCredentialsPageControllerProvider).profileId;
+  String get profileId =>
+      (origin as SharedCredentialsPageControllerProvider).profileId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

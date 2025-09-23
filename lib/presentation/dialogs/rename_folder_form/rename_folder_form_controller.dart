@@ -13,7 +13,8 @@ class RenameFolderFormController extends _$RenameFolderFormController {
   RenameFolderFormController() : super();
 
   late TextEditingController folderNameController;
-  final loadingController = AsyncLoadingController.provider('renameFolderFormLoadingController');
+  final loadingController =
+      AsyncLoadingController.provider('renameFolderFormLoadingController');
 
   @override
   RenameFolderFormState build({
@@ -25,7 +26,8 @@ class RenameFolderFormController extends _$RenameFolderFormController {
 
     void folderNameListener() {
       Future(() {
-        state = state.copyWith(isRenameButtonEnabled: folderNameController.text.trim().isNotEmpty);
+        state = state.copyWith(
+            isRenameButtonEnabled: folderNameController.text.trim().isNotEmpty);
       });
     }
 
@@ -36,7 +38,8 @@ class RenameFolderFormController extends _$RenameFolderFormController {
       folderNameController.dispose();
     });
 
-    return RenameFolderFormState(isRenameButtonEnabled: item.name.trim().isNotEmpty);
+    return RenameFolderFormState(
+        isRenameButtonEnabled: item.name.trim().isNotEmpty);
   }
 
   Future<void> rename({
@@ -44,7 +47,11 @@ class RenameFolderFormController extends _$RenameFolderFormController {
     bool isSharedProfile = false,
   }) async {
     await ref.read(loadingController.notifier).start(() async {
-      await ref.read(storageServiceProvider(parentNodeId: parentNodeId, profileId: profileId).notifier).renameFolder(
+      await ref
+          .read(storageServiceProvider(
+                  parentNodeId: parentNodeId, profileId: profileId)
+              .notifier)
+          .renameFolder(
             folderId: item.id,
             newName: folderNameController.text,
             isSharedProfile: isSharedProfile,

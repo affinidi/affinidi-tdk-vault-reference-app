@@ -23,19 +23,23 @@ mixin _$VaultsPageState {
   /// Create a copy of VaultsPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $VaultsPageStateCopyWith<VaultsPageState> get copyWith => throw _privateConstructorUsedError;
+  $VaultsPageStateCopyWith<VaultsPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $VaultsPageStateCopyWith<$Res> {
-  factory $VaultsPageStateCopyWith(VaultsPageState value, $Res Function(VaultsPageState) then) =
+  factory $VaultsPageStateCopyWith(
+          VaultsPageState value, $Res Function(VaultsPageState) then) =
       _$VaultsPageStateCopyWithImpl<$Res, VaultsPageState>;
   @useResult
-  $Res call({Map<String, Vault> vaultsById, bool isLoading, String? errorMessage});
+  $Res call(
+      {Map<String, Vault> vaultsById, bool isLoading, String? errorMessage});
 }
 
 /// @nodoc
-class _$VaultsPageStateCopyWithImpl<$Res, $Val extends VaultsPageState> implements $VaultsPageStateCopyWith<$Res> {
+class _$VaultsPageStateCopyWithImpl<$Res, $Val extends VaultsPageState>
+    implements $VaultsPageStateCopyWith<$Res> {
   _$VaultsPageStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -70,18 +74,23 @@ class _$VaultsPageStateCopyWithImpl<$Res, $Val extends VaultsPageState> implemen
 }
 
 /// @nodoc
-abstract class _$$VaultsPageStateImplCopyWith<$Res> implements $VaultsPageStateCopyWith<$Res> {
-  factory _$$VaultsPageStateImplCopyWith(_$VaultsPageStateImpl value, $Res Function(_$VaultsPageStateImpl) then) =
+abstract class _$$VaultsPageStateImplCopyWith<$Res>
+    implements $VaultsPageStateCopyWith<$Res> {
+  factory _$$VaultsPageStateImplCopyWith(_$VaultsPageStateImpl value,
+          $Res Function(_$VaultsPageStateImpl) then) =
       __$$VaultsPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<String, Vault> vaultsById, bool isLoading, String? errorMessage});
+  $Res call(
+      {Map<String, Vault> vaultsById, bool isLoading, String? errorMessage});
 }
 
 /// @nodoc
-class __$$VaultsPageStateImplCopyWithImpl<$Res> extends _$VaultsPageStateCopyWithImpl<$Res, _$VaultsPageStateImpl>
+class __$$VaultsPageStateImplCopyWithImpl<$Res>
+    extends _$VaultsPageStateCopyWithImpl<$Res, _$VaultsPageStateImpl>
     implements _$$VaultsPageStateImplCopyWith<$Res> {
-  __$$VaultsPageStateImplCopyWithImpl(_$VaultsPageStateImpl _value, $Res Function(_$VaultsPageStateImpl) _then)
+  __$$VaultsPageStateImplCopyWithImpl(
+      _$VaultsPageStateImpl _value, $Res Function(_$VaultsPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of VaultsPageState
@@ -114,7 +123,9 @@ class __$$VaultsPageStateImplCopyWithImpl<$Res> extends _$VaultsPageStateCopyWit
 
 class _$VaultsPageStateImpl implements _VaultsPageState {
   const _$VaultsPageStateImpl(
-      {final Map<String, Vault> vaultsById = const {}, this.isLoading = false, this.errorMessage})
+      {final Map<String, Vault> vaultsById = const {},
+      this.isLoading = false,
+      this.errorMessage})
       : _vaultsById = vaultsById;
 
   final Map<String, Vault> _vaultsById;
@@ -142,14 +153,20 @@ class _$VaultsPageStateImpl implements _VaultsPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$VaultsPageStateImpl &&
-            const DeepCollectionEquality().equals(other._vaultsById, _vaultsById) &&
-            (identical(other.isLoading, isLoading) || other.isLoading == isLoading) &&
-            (identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+            const DeepCollectionEquality()
+                .equals(other._vaultsById, _vaultsById) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_vaultsById), isLoading, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_vaultsById),
+      isLoading,
+      errorMessage);
 
   /// Create a copy of VaultsPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -157,12 +174,15 @@ class _$VaultsPageStateImpl implements _VaultsPageState {
   @override
   @pragma('vm:prefer-inline')
   _$$VaultsPageStateImplCopyWith<_$VaultsPageStateImpl> get copyWith =>
-      __$$VaultsPageStateImplCopyWithImpl<_$VaultsPageStateImpl>(this, _$identity);
+      __$$VaultsPageStateImplCopyWithImpl<_$VaultsPageStateImpl>(
+          this, _$identity);
 }
 
 abstract class _VaultsPageState implements VaultsPageState {
   const factory _VaultsPageState(
-      {final Map<String, Vault> vaultsById, final bool isLoading, final String? errorMessage}) = _$VaultsPageStateImpl;
+      {final Map<String, Vault> vaultsById,
+      final bool isLoading,
+      final String? errorMessage}) = _$VaultsPageStateImpl;
 
   @override
   Map<String, Vault> get vaultsById;
@@ -175,5 +195,6 @@ abstract class _VaultsPageState implements VaultsPageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$VaultsPageStateImplCopyWith<_$VaultsPageStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$VaultsPageStateImplCopyWith<_$VaultsPageStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

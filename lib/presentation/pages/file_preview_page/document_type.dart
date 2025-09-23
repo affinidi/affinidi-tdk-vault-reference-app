@@ -21,7 +21,8 @@ enum DocumentType {
 
     log('FileSignature: $candidateSignatures', name: 'DocumentType');
 
-    final key = fileSignatures.keys.firstWhereOrNull((item) => candidateSignatures.contains(item));
+    final key = fileSignatures.keys
+        .firstWhereOrNull((item) => candidateSignatures.contains(item));
 
     if (key == null || fileSignatures[key] == null) {
       return DocumentType.other;
@@ -32,5 +33,8 @@ enum DocumentType {
 }
 
 extension _FileSignature on Uint8List {
-  String fileSignature(int bytes) => take(bytes).map((b) => b.toRadixString(16).padLeft(2, '0')).join().toUpperCase();
+  String fileSignature(int bytes) => take(bytes)
+      .map((b) => b.toRadixString(16).padLeft(2, '0'))
+      .join()
+      .toUpperCase();
 }

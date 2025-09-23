@@ -8,7 +8,8 @@ class CodeSnippetLocations {
 
     return [
       CodeSnippetLocation(
-        filePath: 'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
+        filePath:
+            'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
         startLine: 118,
         endLine: 162,
         description: localizations.snippetDescCreateVault,
@@ -21,7 +22,8 @@ class CodeSnippetLocations {
 
     return [
       CodeSnippetLocation(
-        filePath: 'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
+        filePath:
+            'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
         startLine: 118,
         endLine: 162,
         description: localizations.snippetDescOpenVault,
@@ -57,12 +59,14 @@ class CodeSnippetLocations {
     ];
   }
 
-  static List<CodeSnippetLocation> viewVaultProfileSnippets(BuildContext context) {
+  static List<CodeSnippetLocation> viewVaultProfileSnippets(
+      BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
 
     return [
       CodeSnippetLocation(
-        filePath: 'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
+        filePath:
+            'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
         startLine: 181,
         endLine: 201,
         description: localizations.snippetDescGetSharedContents,
@@ -89,7 +93,8 @@ class CodeSnippetLocations {
 
     return [
       CodeSnippetLocation(
-        filePath: 'lib/application/services/vaults_manager/vaults_manager_service.dart',
+        filePath:
+            'lib/application/services/vaults_manager/vaults_manager_service.dart',
         startLine: 25,
         endLine: 50,
         description: localizations.snippetDescListVaults,
@@ -97,12 +102,14 @@ class CodeSnippetLocations {
     ];
   }
 
-  static List<CodeSnippetLocation> listVaultProfilesSnippets(BuildContext context) {
+  static List<CodeSnippetLocation> listVaultProfilesSnippets(
+      BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
 
     return [
       CodeSnippetLocation(
-        filePath: 'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
+        filePath:
+            'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
         startLine: 181,
         endLine: 201,
         description: localizations.snippetDescListVaultsProfs,
@@ -115,7 +122,8 @@ class CodeSnippetLocations {
 
     return [
       CodeSnippetLocation(
-        filePath: 'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
+        filePath:
+            'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
         startLine: 203,
         endLine: 265,
         description: localizations.snippetDescShareProfile,
@@ -123,7 +131,8 @@ class CodeSnippetLocations {
     ];
   }
 
-  static List<CodeSnippetLocation> claimCredentialSnippets(BuildContext context) {
+  static List<CodeSnippetLocation> claimCredentialSnippets(
+      BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
 
     return [
@@ -177,7 +186,8 @@ class CodeSnippetLocations {
 
     return [
       CodeSnippetLocation(
-        filePath: 'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
+        filePath:
+            'https://github.com/affinidi/affinidi-tdk/blob/main/libs/dart/vault/lib/src/vault.dart',
         startLine: 321,
         endLine: 375,
         description: localizations.snippetDescRevokeAccess,

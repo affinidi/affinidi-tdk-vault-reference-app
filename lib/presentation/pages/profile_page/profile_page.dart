@@ -15,7 +15,8 @@ import '../../widgets/code_snippet/code_snippet_locations.dart';
 import '../../../l10n/app_localizations.dart';
 
 class ProfilePage extends HookConsumerWidget {
-  const ProfilePage({super.key, required this.navigationShell, required this.profileId});
+  const ProfilePage(
+      {super.key, required this.navigationShell, required this.profileId});
 
   final StatefulNavigationShell navigationShell;
   final String profileId;
@@ -56,7 +57,8 @@ class ProfilePage extends HookConsumerWidget {
         actions: [
           CodeSnippetWidget(
             title: localizations.lblCSViewVaultProfile,
-            codeLocations: CodeSnippetLocations.viewVaultProfileSnippets(context),
+            codeLocations:
+                CodeSnippetLocations.viewVaultProfileSnippets(context),
           ),
         ],
       ),

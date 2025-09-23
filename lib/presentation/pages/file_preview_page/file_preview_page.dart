@@ -59,7 +59,11 @@ class FilePreviewPage extends ConsumerWidget {
                   icon: SvgPicture.asset('assets/icons/icon-share.svg'))
               : SizedBox.shrink(),
           title: Text(localizations.previewTitle),
-          actions: [IconButton(onPressed: onCancel, icon: SvgPicture.asset('assets/icons/icon-close.svg'))],
+          actions: [
+            IconButton(
+                onPressed: onCancel,
+                icon: SvgPicture.asset('assets/icons/icon-close.svg'))
+          ],
         ),
         body: AsyncLoadingStatus(
           controller.loadingController,

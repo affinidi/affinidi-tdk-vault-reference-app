@@ -58,6 +58,7 @@ class ErrorLoggingHandler {
   }
 }
 
-AutoDisposeProvider<ErrorLoggingHandler> errorLoggingProvider = Provider.autoDispose<ErrorLoggingHandler>((ref) {
+AutoDisposeProvider<ErrorLoggingHandler> errorLoggingProvider =
+    Provider.autoDispose<ErrorLoggingHandler>((ref) {
   return ErrorLoggingHandler.instance;
 }, name: 'errorLoggingProvider');

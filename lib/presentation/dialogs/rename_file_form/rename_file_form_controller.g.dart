@@ -6,7 +6,8 @@ part of 'rename_file_form_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$renameFileFormControllerHash() => r'8e712dc9583a5b417f8333beb1542a290790340e';
+String _$renameFileFormControllerHash() =>
+    r'8e712dc9583a5b417f8333beb1542a290790340e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$RenameFileFormController extends BuildlessAutoDisposeNotifier<RenameFileFormState> {
+abstract class _$RenameFileFormController
+    extends BuildlessAutoDisposeNotifier<RenameFileFormState> {
   late final Item item;
   late final String? parentNodeId;
   late final String profileId;
@@ -82,15 +84,16 @@ class RenameFileFormControllerFamily extends Family<RenameFileFormState> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'renameFileFormControllerProvider';
 }
 
 /// See also [RenameFileFormController].
-class RenameFileFormControllerProvider
-    extends AutoDisposeNotifierProviderImpl<RenameFileFormController, RenameFileFormState> {
+class RenameFileFormControllerProvider extends AutoDisposeNotifierProviderImpl<
+    RenameFileFormController, RenameFileFormState> {
   /// See also [RenameFileFormController].
   RenameFileFormControllerProvider({
     required Item item,
@@ -104,9 +107,12 @@ class RenameFileFormControllerProvider
           from: renameFileFormControllerProvider,
           name: r'renameFileFormControllerProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$renameFileFormControllerHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$renameFileFormControllerHash,
           dependencies: RenameFileFormControllerFamily._dependencies,
-          allTransitiveDependencies: RenameFileFormControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              RenameFileFormControllerFamily._allTransitiveDependencies,
           item: item,
           parentNodeId: parentNodeId,
           profileId: profileId,
@@ -161,7 +167,8 @@ class RenameFileFormControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<RenameFileFormController, RenameFileFormState> createElement() {
+  AutoDisposeNotifierProviderElement<RenameFileFormController,
+      RenameFileFormState> createElement() {
     return _RenameFileFormControllerProviderElement(this);
   }
 
@@ -186,7 +193,8 @@ class RenameFileFormControllerProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin RenameFileFormControllerRef on AutoDisposeNotifierProviderRef<RenameFileFormState> {
+mixin RenameFileFormControllerRef
+    on AutoDisposeNotifierProviderRef<RenameFileFormState> {
   /// The parameter `item` of this provider.
   Item get item;
 
@@ -198,16 +206,18 @@ mixin RenameFileFormControllerRef on AutoDisposeNotifierProviderRef<RenameFileFo
 }
 
 class _RenameFileFormControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<RenameFileFormController, RenameFileFormState>
-    with RenameFileFormControllerRef {
+    extends AutoDisposeNotifierProviderElement<RenameFileFormController,
+        RenameFileFormState> with RenameFileFormControllerRef {
   _RenameFileFormControllerProviderElement(super.provider);
 
   @override
   Item get item => (origin as RenameFileFormControllerProvider).item;
   @override
-  String? get parentNodeId => (origin as RenameFileFormControllerProvider).parentNodeId;
+  String? get parentNodeId =>
+      (origin as RenameFileFormControllerProvider).parentNodeId;
   @override
-  String get profileId => (origin as RenameFileFormControllerProvider).profileId;
+  String get profileId =>
+      (origin as RenameFileFormControllerProvider).profileId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -22,21 +22,24 @@ mixin _$SharedProfileDetailsPageState {
   /// Create a copy of SharedProfileDetailsPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $SharedProfileDetailsPageStateCopyWith<SharedProfileDetailsPageState> get copyWith =>
-      throw _privateConstructorUsedError;
+  $SharedProfileDetailsPageStateCopyWith<SharedProfileDetailsPageState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SharedProfileDetailsPageStateCopyWith<$Res> {
   factory $SharedProfileDetailsPageStateCopyWith(
-          SharedProfileDetailsPageState value, $Res Function(SharedProfileDetailsPageState) then) =
-      _$SharedProfileDetailsPageStateCopyWithImpl<$Res, SharedProfileDetailsPageState>;
+          SharedProfileDetailsPageState value,
+          $Res Function(SharedProfileDetailsPageState) then) =
+      _$SharedProfileDetailsPageStateCopyWithImpl<$Res,
+          SharedProfileDetailsPageState>;
   @useResult
   $Res call({bool isLoading, List<Item>? items});
 }
 
 /// @nodoc
-class _$SharedProfileDetailsPageStateCopyWithImpl<$Res, $Val extends SharedProfileDetailsPageState>
+class _$SharedProfileDetailsPageStateCopyWithImpl<$Res,
+        $Val extends SharedProfileDetailsPageState>
     implements $SharedProfileDetailsPageStateCopyWith<$Res> {
   _$SharedProfileDetailsPageStateCopyWithImpl(this._value, this._then);
 
@@ -70,7 +73,8 @@ class _$SharedProfileDetailsPageStateCopyWithImpl<$Res, $Val extends SharedProfi
 abstract class _$$SharedProfileDetailsPageStateImplCopyWith<$Res>
     implements $SharedProfileDetailsPageStateCopyWith<$Res> {
   factory _$$SharedProfileDetailsPageStateImplCopyWith(
-          _$SharedProfileDetailsPageStateImpl value, $Res Function(_$SharedProfileDetailsPageStateImpl) then) =
+          _$SharedProfileDetailsPageStateImpl value,
+          $Res Function(_$SharedProfileDetailsPageStateImpl) then) =
       __$$SharedProfileDetailsPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -79,10 +83,12 @@ abstract class _$$SharedProfileDetailsPageStateImplCopyWith<$Res>
 
 /// @nodoc
 class __$$SharedProfileDetailsPageStateImplCopyWithImpl<$Res>
-    extends _$SharedProfileDetailsPageStateCopyWithImpl<$Res, _$SharedProfileDetailsPageStateImpl>
+    extends _$SharedProfileDetailsPageStateCopyWithImpl<$Res,
+        _$SharedProfileDetailsPageStateImpl>
     implements _$$SharedProfileDetailsPageStateImplCopyWith<$Res> {
   __$$SharedProfileDetailsPageStateImplCopyWithImpl(
-      _$SharedProfileDetailsPageStateImpl _value, $Res Function(_$SharedProfileDetailsPageStateImpl) _then)
+      _$SharedProfileDetailsPageStateImpl _value,
+      $Res Function(_$SharedProfileDetailsPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of SharedProfileDetailsPageState
@@ -108,8 +114,11 @@ class __$$SharedProfileDetailsPageStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SharedProfileDetailsPageStateImpl implements _SharedProfileDetailsPageState {
-  _$SharedProfileDetailsPageStateImpl({this.isLoading = false, final List<Item>? items}) : _items = items;
+class _$SharedProfileDetailsPageStateImpl
+    implements _SharedProfileDetailsPageState {
+  _$SharedProfileDetailsPageStateImpl(
+      {this.isLoading = false, final List<Item>? items})
+      : _items = items;
 
   @override
   @JsonKey()
@@ -134,25 +143,31 @@ class _$SharedProfileDetailsPageStateImpl implements _SharedProfileDetailsPageSt
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SharedProfileDetailsPageStateImpl &&
-            (identical(other.isLoading, isLoading) || other.isLoading == isLoading) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             const DeepCollectionEquality().equals(other._items, _items));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, const DeepCollectionEquality().hash(_items));
+  int get hashCode => Object.hash(
+      runtimeType, isLoading, const DeepCollectionEquality().hash(_items));
 
   /// Create a copy of SharedProfileDetailsPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$SharedProfileDetailsPageStateImplCopyWith<_$SharedProfileDetailsPageStateImpl> get copyWith =>
-      __$$SharedProfileDetailsPageStateImplCopyWithImpl<_$SharedProfileDetailsPageStateImpl>(this, _$identity);
+  _$$SharedProfileDetailsPageStateImplCopyWith<
+          _$SharedProfileDetailsPageStateImpl>
+      get copyWith => __$$SharedProfileDetailsPageStateImplCopyWithImpl<
+          _$SharedProfileDetailsPageStateImpl>(this, _$identity);
 }
 
-abstract class _SharedProfileDetailsPageState implements SharedProfileDetailsPageState {
-  factory _SharedProfileDetailsPageState({final bool isLoading, final List<Item>? items}) =
-      _$SharedProfileDetailsPageStateImpl;
+abstract class _SharedProfileDetailsPageState
+    implements SharedProfileDetailsPageState {
+  factory _SharedProfileDetailsPageState(
+      {final bool isLoading,
+      final List<Item>? items}) = _$SharedProfileDetailsPageStateImpl;
 
   @override
   bool get isLoading;
@@ -163,6 +178,7 @@ abstract class _SharedProfileDetailsPageState implements SharedProfileDetailsPag
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SharedProfileDetailsPageStateImplCopyWith<_$SharedProfileDetailsPageStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SharedProfileDetailsPageStateImplCopyWith<
+          _$SharedProfileDetailsPageStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

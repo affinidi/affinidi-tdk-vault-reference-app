@@ -31,14 +31,15 @@ class DeleteFolderForm extends ConsumerWidget {
         useRootNavigator: true,
         isScrollControlled: true,
         context: context,
-        builder: (context) => DeleteFolderForm(folder: folder, parentNodeId: parentNodeId, profileId: profileId),
+        builder: (context) => DeleteFolderForm(
+            folder: folder, parentNodeId: parentNodeId, profileId: profileId),
       );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final provider =
-        deleteFolderFormControllerProvider(folder: folder, parentNodeId: parentNodeId, profileId: profileId);
+    final provider = deleteFolderFormControllerProvider(
+        folder: folder, parentNodeId: parentNodeId, profileId: profileId);
     final state = ref.watch(provider);
     final controller = ref.read(provider.notifier);
     final navigation = ref.read(navigationServiceProvider);
@@ -55,7 +56,8 @@ class DeleteFolderForm extends ConsumerWidget {
     }
 
     Future<void> delete() async {
-      await controller.delete(folder: folder, parentNodeId: parentNodeId, profileId: profileId);
+      await controller.delete(
+          folder: folder, parentNodeId: parentNodeId, profileId: profileId);
     }
 
     final isError = state.errorMessage != null;
@@ -64,7 +66,8 @@ class DeleteFolderForm extends ConsumerWidget {
     return Container(
       decoration: const BoxDecoration(
         color: AppColorScheme.backgroundWhite,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(AppSizing.paddingMedium)),
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppSizing.paddingMedium)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -75,12 +78,15 @@ class DeleteFolderForm extends ConsumerWidget {
             child: Row(
               children: [
                 Text(
-                  isError ? localizations.folderNotDeletedTitle : localizations.deleteFolderTitle,
+                  isError
+                      ? localizations.folderNotDeletedTitle
+                      : localizations.deleteFolderTitle,
                   style: AppTheme.headingMedium,
                 ),
                 const Spacer(),
                 IconButton(
-                  icon: const Icon(Icons.close, color: AppColorScheme.textPrimary),
+                  icon: const Icon(Icons.close,
+                      color: AppColorScheme.textPrimary),
                   onPressed: cancel,
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
@@ -94,7 +100,9 @@ class DeleteFolderForm extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.all(AppSizing.paddingMedium),
             child: Text(
-              isError ? localizations.folderNotDeletedMessage : localizations.deleteFolderDescription,
+              isError
+                  ? localizations.folderNotDeletedMessage
+                  : localizations.deleteFolderDescription,
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
@@ -110,11 +118,15 @@ class DeleteFolderForm extends ConsumerWidget {
                     onPressed: isLoading ? null : cancel,
                     style: TextButton.styleFrom(
                       foregroundColor: AppColorScheme.textPrimary,
-                      padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingRegular),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: AppSizing.paddingRegular),
                     ),
                     child: Text(
                       localizations.cancelActionText,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
@@ -124,7 +136,8 @@ class DeleteFolderForm extends ConsumerWidget {
                     height: AppSizing.iconXLarge,
                     decoration: BoxDecoration(
                       color: AppColorScheme.error,
-                      borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
+                      borderRadius:
+                          BorderRadius.circular(AppSizing.paddingSmall),
                     ),
                     child: TextButton(
                       onPressed: isLoading
@@ -134,7 +147,8 @@ class DeleteFolderForm extends ConsumerWidget {
                             },
                       style: TextButton.styleFrom(
                         foregroundColor: AppColorScheme.backgroundWhite,
-                        padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingRegular),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: AppSizing.paddingRegular),
                       ),
                       child: isLoading
                           ? const SizedBox(
@@ -142,15 +156,20 @@ class DeleteFolderForm extends ConsumerWidget {
                               height: AppSizing.iconXSmall,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(AppColorScheme.backgroundWhite),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    AppColorScheme.backgroundWhite),
                               ),
                             )
                           : Text(
-                              isError ? localizations.gotItActionText : localizations.deleteFolderActionText,
+                              isError
+                                  ? localizations.gotItActionText
+                                  : localizations.deleteFolderActionText,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall
-                                  ?.copyWith(fontWeight: FontWeight.w600, color: AppColorScheme.backgroundWhite),
+                                  ?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColorScheme.backgroundWhite),
                             ),
                     ),
                   ),

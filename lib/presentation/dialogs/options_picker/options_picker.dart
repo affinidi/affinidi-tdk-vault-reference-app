@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../widgets/bottom_options_picker.dart';
 
 class OptionsPicker<T> extends StatelessWidget {
-  const OptionsPicker(this.options, {super.key, this.itemTitleBuilder, this.itemLeadingBuilder});
+  const OptionsPicker(this.options,
+      {super.key, this.itemTitleBuilder, this.itemLeadingBuilder});
   final List<T> options;
   final Widget Function(T)? itemTitleBuilder;
   final Widget Function(T)? itemLeadingBuilder;

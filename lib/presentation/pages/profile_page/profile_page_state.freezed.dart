@@ -21,19 +21,22 @@ mixin _$ProfilePageState {
   /// Create a copy of ProfilePageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProfilePageStateCopyWith<ProfilePageState> get copyWith => throw _privateConstructorUsedError;
+  $ProfilePageStateCopyWith<ProfilePageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ProfilePageStateCopyWith<$Res> {
-  factory $ProfilePageStateCopyWith(ProfilePageState value, $Res Function(ProfilePageState) then) =
+  factory $ProfilePageStateCopyWith(
+          ProfilePageState value, $Res Function(ProfilePageState) then) =
       _$ProfilePageStateCopyWithImpl<$Res, ProfilePageState>;
   @useResult
   $Res call({Profile? profile});
 }
 
 /// @nodoc
-class _$ProfilePageStateCopyWithImpl<$Res, $Val extends ProfilePageState> implements $ProfilePageStateCopyWith<$Res> {
+class _$ProfilePageStateCopyWithImpl<$Res, $Val extends ProfilePageState>
+    implements $ProfilePageStateCopyWith<$Res> {
   _$ProfilePageStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -58,8 +61,10 @@ class _$ProfilePageStateCopyWithImpl<$Res, $Val extends ProfilePageState> implem
 }
 
 /// @nodoc
-abstract class _$$ProfilePageStateImplCopyWith<$Res> implements $ProfilePageStateCopyWith<$Res> {
-  factory _$$ProfilePageStateImplCopyWith(_$ProfilePageStateImpl value, $Res Function(_$ProfilePageStateImpl) then) =
+abstract class _$$ProfilePageStateImplCopyWith<$Res>
+    implements $ProfilePageStateCopyWith<$Res> {
+  factory _$$ProfilePageStateImplCopyWith(_$ProfilePageStateImpl value,
+          $Res Function(_$ProfilePageStateImpl) then) =
       __$$ProfilePageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -67,9 +72,11 @@ abstract class _$$ProfilePageStateImplCopyWith<$Res> implements $ProfilePageStat
 }
 
 /// @nodoc
-class __$$ProfilePageStateImplCopyWithImpl<$Res> extends _$ProfilePageStateCopyWithImpl<$Res, _$ProfilePageStateImpl>
+class __$$ProfilePageStateImplCopyWithImpl<$Res>
+    extends _$ProfilePageStateCopyWithImpl<$Res, _$ProfilePageStateImpl>
     implements _$$ProfilePageStateImplCopyWith<$Res> {
-  __$$ProfilePageStateImplCopyWithImpl(_$ProfilePageStateImpl _value, $Res Function(_$ProfilePageStateImpl) _then)
+  __$$ProfilePageStateImplCopyWithImpl(_$ProfilePageStateImpl _value,
+      $Res Function(_$ProfilePageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of ProfilePageState
@@ -118,7 +125,8 @@ class _$ProfilePageStateImpl implements _ProfilePageState {
   @override
   @pragma('vm:prefer-inline')
   _$$ProfilePageStateImplCopyWith<_$ProfilePageStateImpl> get copyWith =>
-      __$$ProfilePageStateImplCopyWithImpl<_$ProfilePageStateImpl>(this, _$identity);
+      __$$ProfilePageStateImplCopyWithImpl<_$ProfilePageStateImpl>(
+          this, _$identity);
 }
 
 abstract class _ProfilePageState implements ProfilePageState {
@@ -131,5 +139,6 @@ abstract class _ProfilePageState implements ProfilePageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProfilePageStateImplCopyWith<_$ProfilePageStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$ProfilePageStateImplCopyWith<_$ProfilePageStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

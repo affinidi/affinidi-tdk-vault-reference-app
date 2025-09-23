@@ -23,19 +23,23 @@ mixin _$CreateProfileFormState {
   /// Create a copy of CreateProfileFormState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CreateProfileFormStateCopyWith<CreateProfileFormState> get copyWith => throw _privateConstructorUsedError;
+  $CreateProfileFormStateCopyWith<CreateProfileFormState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CreateProfileFormStateCopyWith<$Res> {
-  factory $CreateProfileFormStateCopyWith(CreateProfileFormState value, $Res Function(CreateProfileFormState) then) =
+  factory $CreateProfileFormStateCopyWith(CreateProfileFormState value,
+          $Res Function(CreateProfileFormState) then) =
       _$CreateProfileFormStateCopyWithImpl<$Res, CreateProfileFormState>;
   @useResult
-  $Res call({bool hasName, bool hasDescription, ProfileType selectedProfileType});
+  $Res call(
+      {bool hasName, bool hasDescription, ProfileType selectedProfileType});
 }
 
 /// @nodoc
-class _$CreateProfileFormStateCopyWithImpl<$Res, $Val extends CreateProfileFormState>
+class _$CreateProfileFormStateCopyWithImpl<$Res,
+        $Val extends CreateProfileFormState>
     implements $CreateProfileFormStateCopyWith<$Res> {
   _$CreateProfileFormStateCopyWithImpl(this._value, this._then);
 
@@ -71,21 +75,26 @@ class _$CreateProfileFormStateCopyWithImpl<$Res, $Val extends CreateProfileFormS
 }
 
 /// @nodoc
-abstract class _$$CreateProfileFormStateImplCopyWith<$Res> implements $CreateProfileFormStateCopyWith<$Res> {
+abstract class _$$CreateProfileFormStateImplCopyWith<$Res>
+    implements $CreateProfileFormStateCopyWith<$Res> {
   factory _$$CreateProfileFormStateImplCopyWith(
-          _$CreateProfileFormStateImpl value, $Res Function(_$CreateProfileFormStateImpl) then) =
+          _$CreateProfileFormStateImpl value,
+          $Res Function(_$CreateProfileFormStateImpl) then) =
       __$$CreateProfileFormStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool hasName, bool hasDescription, ProfileType selectedProfileType});
+  $Res call(
+      {bool hasName, bool hasDescription, ProfileType selectedProfileType});
 }
 
 /// @nodoc
 class __$$CreateProfileFormStateImplCopyWithImpl<$Res>
-    extends _$CreateProfileFormStateCopyWithImpl<$Res, _$CreateProfileFormStateImpl>
+    extends _$CreateProfileFormStateCopyWithImpl<$Res,
+        _$CreateProfileFormStateImpl>
     implements _$$CreateProfileFormStateImplCopyWith<$Res> {
   __$$CreateProfileFormStateImplCopyWithImpl(
-      _$CreateProfileFormStateImpl _value, $Res Function(_$CreateProfileFormStateImpl) _then)
+      _$CreateProfileFormStateImpl _value,
+      $Res Function(_$CreateProfileFormStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of CreateProfileFormState
@@ -116,9 +125,12 @@ class __$$CreateProfileFormStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CreateProfileFormStateImpl extends _CreateProfileFormState with DiagnosticableTreeMixin {
+class _$CreateProfileFormStateImpl extends _CreateProfileFormState
+    with DiagnosticableTreeMixin {
   _$CreateProfileFormStateImpl(
-      {this.hasName = false, this.hasDescription = false, this.selectedProfileType = ProfileType.affinidiCloud})
+      {this.hasName = false,
+      this.hasDescription = false,
+      this.selectedProfileType = ProfileType.affinidiCloud})
       : super._();
 
   @override
@@ -152,21 +164,24 @@ class _$CreateProfileFormStateImpl extends _CreateProfileFormState with Diagnost
         (other.runtimeType == runtimeType &&
             other is _$CreateProfileFormStateImpl &&
             (identical(other.hasName, hasName) || other.hasName == hasName) &&
-            (identical(other.hasDescription, hasDescription) || other.hasDescription == hasDescription) &&
+            (identical(other.hasDescription, hasDescription) ||
+                other.hasDescription == hasDescription) &&
             (identical(other.selectedProfileType, selectedProfileType) ||
                 other.selectedProfileType == selectedProfileType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, hasName, hasDescription, selectedProfileType);
+  int get hashCode =>
+      Object.hash(runtimeType, hasName, hasDescription, selectedProfileType);
 
   /// Create a copy of CreateProfileFormState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CreateProfileFormStateImplCopyWith<_$CreateProfileFormStateImpl> get copyWith =>
-      __$$CreateProfileFormStateImplCopyWithImpl<_$CreateProfileFormStateImpl>(this, _$identity);
+  _$$CreateProfileFormStateImplCopyWith<_$CreateProfileFormStateImpl>
+      get copyWith => __$$CreateProfileFormStateImplCopyWithImpl<
+          _$CreateProfileFormStateImpl>(this, _$identity);
 }
 
 abstract class _CreateProfileFormState extends CreateProfileFormState {
@@ -187,6 +202,6 @@ abstract class _CreateProfileFormState extends CreateProfileFormState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CreateProfileFormStateImplCopyWith<_$CreateProfileFormStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CreateProfileFormStateImplCopyWith<_$CreateProfileFormStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

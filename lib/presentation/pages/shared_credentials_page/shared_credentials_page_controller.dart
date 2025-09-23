@@ -8,11 +8,13 @@ import 'shared_credentials_page_state.dart';
 part 'shared_credentials_page_controller.g.dart';
 
 @riverpod
-class SharedCredentialsPageController extends _$SharedCredentialsPageController {
+class SharedCredentialsPageController
+    extends _$SharedCredentialsPageController {
   SharedCredentialsPageController() : super();
 
   /// Provides access to a loading controller used for async status indication
-  final loadingController = AsyncLoadingController.provider('sharedCredentialsPageLoadingController');
+  final loadingController =
+      AsyncLoadingController.provider('sharedCredentialsPageLoadingController');
 
   /// Initializes the state and triggers the initial fetch of claimed credentials.
   /// Also listens to credential state changes from the credential service and updates UI state accordingly.

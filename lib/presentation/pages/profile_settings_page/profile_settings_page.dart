@@ -73,7 +73,9 @@ class ProfileSettingsPage extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: AppSizing.paddingMedium, top: AppSizing.paddingLarge),
+                  padding: const EdgeInsets.only(
+                      left: AppSizing.paddingMedium,
+                      top: AppSizing.paddingLarge),
                   child: Text(
                     localizations.profileSettingsTitle,
                     style: AppTheme.headingMedium,
@@ -90,14 +92,16 @@ class ProfileSettingsPage extends HookConsumerWidget {
           // Settings options
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizing.paddingMedium),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingMedium),
               children: [
                 // Edit Profile Section
                 _SettingsTile(
                   icon: Icons.person,
                   title: localizations.editProfile,
                   onTap: () {
-                    _showEditProfileDialog(context, ref, settingsState.profile!);
+                    _showEditProfileDialog(
+                        context, ref, settingsState.profile!);
                   },
                 ),
                 const SizedBox(height: AppSizing.paddingSmall),
@@ -111,9 +115,11 @@ class ProfileSettingsPage extends HookConsumerWidget {
                       context: context,
                       isScrollControlled: true,
                       shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(AppSizing.paddingLarge)),
+                        borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(AppSizing.paddingLarge)),
                       ),
-                      builder: (context) => FileSettingsBottomSheet(profileId: profileId),
+                      builder: (context) =>
+                          FileSettingsBottomSheet(profileId: profileId),
                     );
                   },
                 ),
@@ -126,7 +132,8 @@ class ProfileSettingsPage extends HookConsumerWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => AccessManagementPage(profileId: profileId),
+                        builder: (context) =>
+                            AccessManagementPage(profileId: profileId),
                       ),
                     );
                   },
@@ -150,9 +157,11 @@ class ProfileSettingsPage extends HookConsumerWidget {
     );
   }
 
-  void _showEditProfileDialog(BuildContext context, WidgetRef ref, dynamic profile) {
+  void _showEditProfileDialog(
+      BuildContext context, WidgetRef ref, dynamic profile) {
     final nameController = TextEditingController(text: profile.name);
-    final descriptionController = TextEditingController(text: profile.description);
+    final descriptionController =
+        TextEditingController(text: profile.description);
     final localizations = AppLocalizations.of(context)!;
     final controllerProvider = profileSettingsPageControllerProvider(profileId);
     final controller = ref.read(controllerProvider.notifier);
@@ -174,11 +183,13 @@ class ProfileSettingsPage extends HookConsumerWidget {
                 labelStyle: Theme.of(context).textTheme.labelLarge,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
-                  borderSide: BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
+                  borderSide: BorderSide(
+                      color: AppColorScheme.formFieldBorderUnfocused),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
-                  borderSide: BorderSide(color: AppColorScheme.formFieldBorderFocused),
+                  borderSide:
+                      BorderSide(color: AppColorScheme.formFieldBorderFocused),
                 ),
               ),
             ),
@@ -190,11 +201,13 @@ class ProfileSettingsPage extends HookConsumerWidget {
                 labelStyle: Theme.of(context).textTheme.labelLarge,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
-                  borderSide: BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
+                  borderSide: BorderSide(
+                      color: AppColorScheme.formFieldBorderUnfocused),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
-                  borderSide: BorderSide(color: AppColorScheme.formFieldBorderFocused),
+                  borderSide:
+                      BorderSide(color: AppColorScheme.formFieldBorderFocused),
                 ),
               ),
             ),
@@ -245,7 +258,10 @@ class ProfileSettingsPage extends HookConsumerWidget {
             ),
             child: Text(
               localizations.saveActionText,
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColorScheme.backgroundWhite),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelLarge
+                  ?.copyWith(color: AppColorScheme.backgroundWhite),
             ),
           ),
         ],

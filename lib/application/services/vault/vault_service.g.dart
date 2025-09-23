@@ -10,10 +10,12 @@ String _$vaultServiceHash() => r'84753f357b6bba11fc87b214e13e5fd0eec814f6';
 
 /// See also [VaultService].
 @ProviderFor(VaultService)
-final vaultServiceProvider = NotifierProvider<VaultService, VaultServiceState>.internal(
+final vaultServiceProvider =
+    NotifierProvider<VaultService, VaultServiceState>.internal(
   VaultService.new,
   name: r'vaultServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$vaultServiceHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$vaultServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

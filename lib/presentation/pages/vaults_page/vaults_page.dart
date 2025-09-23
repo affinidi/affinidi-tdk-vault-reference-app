@@ -58,7 +58,11 @@ class VaultsPage extends ConsumerWidget {
                 children: [
                   Text(
                     localizations.myVaults.substring(
-                        0, localizations.myVaults.indexOf(localizations.myVaults.split(' ').skip(1).join(' '))),
+                        0,
+                        localizations.myVaults.indexOf(localizations.myVaults
+                            .split(' ')
+                            .skip(1)
+                            .join(' '))),
                     style: AppTheme.headingXLarge,
                   ),
                   SimpleInfoWidget(
@@ -83,10 +87,13 @@ class VaultsPage extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.lock_outline, size: AppSizing.iconXXLarge, color: theme.colorScheme.primary),
+                              Icon(Icons.lock_outline,
+                                  size: AppSizing.iconXXLarge,
+                                  color: theme.colorScheme.primary),
                               const SizedBox(height: AppSizing.paddingMedium),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: AppSizing.paddingXXLarge),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: AppSizing.paddingXXLarge),
                                 child: Text(
                                   localizations.vaultsEmptyMessage,
                                   textAlign: TextAlign.center,
@@ -101,12 +108,14 @@ class VaultsPage extends ConsumerWidget {
                           itemCount: vaultEntries.length,
                           itemBuilder: (context, index) {
                             final entry = vaultEntries[index];
-                            final vaultName = vaultRegistry[entry.key]?.vaultName;
+                            final vaultName =
+                                vaultRegistry[entry.key]?.vaultName;
                             final vault = entry.value;
                             final seed = entry.key;
 
                             return Padding(
-                              padding: const EdgeInsets.only(bottom: AppSizing.paddingRegular),
+                              padding: const EdgeInsets.only(
+                                  bottom: AppSizing.paddingRegular),
                               child: Dismissible(
                                 key: ValueKey(entry.key),
                                 direction: DismissDirection.endToStart,
@@ -115,18 +124,28 @@ class VaultsPage extends ConsumerWidget {
                                 },
                                 background: SwipeToDeleteBackground(),
                                 confirmDismiss: (_) async {
-                                  final currentVaultId = ref.read(vaultServiceProvider).currentVaultId;
+                                  final currentVaultId = ref
+                                      .read(vaultServiceProvider)
+                                      .currentVaultId;
                                   if (currentVaultId == seed) {
-                                    ref.read(vaultServiceProvider.notifier).resetCurrentVault();
+                                    ref
+                                        .read(vaultServiceProvider.notifier)
+                                        .resetCurrentVault();
                                   }
-                                  await ref.read(vaultsPageControllerProvider.notifier).deleteVault(seed);
+                                  await ref
+                                      .read(
+                                          vaultsPageControllerProvider.notifier)
+                                      .deleteVault(seed);
                                   return true;
                                 },
                                 child: _VaultCard(
                                   vaultName: vaultName ?? '',
                                   vault: vault,
                                   onSelected: (vault) async {
-                                    await ref.read(vaultsPageControllerProvider.notifier).selectVault(seed);
+                                    await ref
+                                        .read(vaultsPageControllerProvider
+                                            .notifier)
+                                        .selectVault(seed);
                                     if (!context.mounted) return;
                                     navigation.push(
                                       VaultsRoutePath.openVaultWithId(seed),
@@ -150,8 +169,9 @@ class VaultsPage extends ConsumerWidget {
           borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
         ),
         elevation: 0,
-        extendedPadding:
-            const EdgeInsets.symmetric(horizontal: AppSizing.paddingMedium, vertical: AppSizing.paddingMedium),
+        extendedPadding: const EdgeInsets.symmetric(
+            horizontal: AppSizing.paddingMedium,
+            vertical: AppSizing.paddingMedium),
         icon: Icon(
           Icons.add,
           color: AppColorScheme.backgroundWhite,
@@ -159,7 +179,10 @@ class VaultsPage extends ConsumerWidget {
         ),
         label: Text(
           localizations.addVault,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColorScheme.backgroundWhite),
+          style: Theme.of(context)
+              .textTheme
+              .labelLarge
+              ?.copyWith(color: AppColorScheme.backgroundWhite),
         ),
       ),
     );
@@ -203,7 +226,10 @@ class _VaultCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   vaultName,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(letterSpacing: 0.2),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(letterSpacing: 0.2),
                 ),
               ),
 
@@ -237,7 +263,8 @@ class SwipeToDeleteBackground extends StatelessWidget {
           builder: (context, size, _) {
             return Container(
               alignment: Alignment.centerRight,
-              padding: const EdgeInsets.symmetric(horizontal: AppSizing.paddingLarge),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingLarge),
               decoration: BoxDecoration(
                 color: AppColorScheme.error,
                 borderRadius: BorderRadius.circular(AppSizing.paddingSmall),

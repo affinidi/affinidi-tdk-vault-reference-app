@@ -16,27 +16,34 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CredentialServiceState {
-  List<DigitalCredential>? get claimedCredentials => throw _privateConstructorUsedError;
-  List<String?> get lastEvaluatedItemIdStack => throw _privateConstructorUsedError; // for pagination
+  List<DigitalCredential>? get claimedCredentials =>
+      throw _privateConstructorUsedError;
+  List<String?> get lastEvaluatedItemIdStack =>
+      throw _privateConstructorUsedError; // for pagination
   int get currentPageIndex => throw _privateConstructorUsedError;
 
   /// Create a copy of CredentialServiceState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CredentialServiceStateCopyWith<CredentialServiceState> get copyWith => throw _privateConstructorUsedError;
+  $CredentialServiceStateCopyWith<CredentialServiceState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CredentialServiceStateCopyWith<$Res> {
-  factory $CredentialServiceStateCopyWith(CredentialServiceState value, $Res Function(CredentialServiceState) then) =
+  factory $CredentialServiceStateCopyWith(CredentialServiceState value,
+          $Res Function(CredentialServiceState) then) =
       _$CredentialServiceStateCopyWithImpl<$Res, CredentialServiceState>;
   @useResult
   $Res call(
-      {List<DigitalCredential>? claimedCredentials, List<String?> lastEvaluatedItemIdStack, int currentPageIndex});
+      {List<DigitalCredential>? claimedCredentials,
+      List<String?> lastEvaluatedItemIdStack,
+      int currentPageIndex});
 }
 
 /// @nodoc
-class _$CredentialServiceStateCopyWithImpl<$Res, $Val extends CredentialServiceState>
+class _$CredentialServiceStateCopyWithImpl<$Res,
+        $Val extends CredentialServiceState>
     implements $CredentialServiceStateCopyWith<$Res> {
   _$CredentialServiceStateCopyWithImpl(this._value, this._then);
 
@@ -72,22 +79,28 @@ class _$CredentialServiceStateCopyWithImpl<$Res, $Val extends CredentialServiceS
 }
 
 /// @nodoc
-abstract class _$$CredentialServiceStateImplCopyWith<$Res> implements $CredentialServiceStateCopyWith<$Res> {
+abstract class _$$CredentialServiceStateImplCopyWith<$Res>
+    implements $CredentialServiceStateCopyWith<$Res> {
   factory _$$CredentialServiceStateImplCopyWith(
-          _$CredentialServiceStateImpl value, $Res Function(_$CredentialServiceStateImpl) then) =
+          _$CredentialServiceStateImpl value,
+          $Res Function(_$CredentialServiceStateImpl) then) =
       __$$CredentialServiceStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {List<DigitalCredential>? claimedCredentials, List<String?> lastEvaluatedItemIdStack, int currentPageIndex});
+      {List<DigitalCredential>? claimedCredentials,
+      List<String?> lastEvaluatedItemIdStack,
+      int currentPageIndex});
 }
 
 /// @nodoc
 class __$$CredentialServiceStateImplCopyWithImpl<$Res>
-    extends _$CredentialServiceStateCopyWithImpl<$Res, _$CredentialServiceStateImpl>
+    extends _$CredentialServiceStateCopyWithImpl<$Res,
+        _$CredentialServiceStateImpl>
     implements _$$CredentialServiceStateImplCopyWith<$Res> {
   __$$CredentialServiceStateImplCopyWithImpl(
-      _$CredentialServiceStateImpl _value, $Res Function(_$CredentialServiceStateImpl) _then)
+      _$CredentialServiceStateImpl _value,
+      $Res Function(_$CredentialServiceStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of CredentialServiceState
@@ -131,7 +144,8 @@ class _$CredentialServiceStateImpl implements _CredentialServiceState {
   List<DigitalCredential>? get claimedCredentials {
     final value = _claimedCredentials;
     if (value == null) return null;
-    if (_claimedCredentials is EqualUnmodifiableListView) return _claimedCredentials;
+    if (_claimedCredentials is EqualUnmodifiableListView)
+      return _claimedCredentials;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -140,7 +154,8 @@ class _$CredentialServiceStateImpl implements _CredentialServiceState {
   @override
   @JsonKey()
   List<String?> get lastEvaluatedItemIdStack {
-    if (_lastEvaluatedItemIdStack is EqualUnmodifiableListView) return _lastEvaluatedItemIdStack;
+    if (_lastEvaluatedItemIdStack is EqualUnmodifiableListView)
+      return _lastEvaluatedItemIdStack;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_lastEvaluatedItemIdStack);
   }
@@ -160,22 +175,29 @@ class _$CredentialServiceStateImpl implements _CredentialServiceState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CredentialServiceStateImpl &&
-            const DeepCollectionEquality().equals(other._claimedCredentials, _claimedCredentials) &&
-            const DeepCollectionEquality().equals(other._lastEvaluatedItemIdStack, _lastEvaluatedItemIdStack) &&
-            (identical(other.currentPageIndex, currentPageIndex) || other.currentPageIndex == currentPageIndex));
+            const DeepCollectionEquality()
+                .equals(other._claimedCredentials, _claimedCredentials) &&
+            const DeepCollectionEquality().equals(
+                other._lastEvaluatedItemIdStack, _lastEvaluatedItemIdStack) &&
+            (identical(other.currentPageIndex, currentPageIndex) ||
+                other.currentPageIndex == currentPageIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(_claimedCredentials),
-      const DeepCollectionEquality().hash(_lastEvaluatedItemIdStack), currentPageIndex);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_claimedCredentials),
+      const DeepCollectionEquality().hash(_lastEvaluatedItemIdStack),
+      currentPageIndex);
 
   /// Create a copy of CredentialServiceState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CredentialServiceStateImplCopyWith<_$CredentialServiceStateImpl> get copyWith =>
-      __$$CredentialServiceStateImplCopyWithImpl<_$CredentialServiceStateImpl>(this, _$identity);
+  _$$CredentialServiceStateImplCopyWith<_$CredentialServiceStateImpl>
+      get copyWith => __$$CredentialServiceStateImplCopyWithImpl<
+          _$CredentialServiceStateImpl>(this, _$identity);
 }
 
 abstract class _CredentialServiceState implements CredentialServiceState {
@@ -195,6 +217,6 @@ abstract class _CredentialServiceState implements CredentialServiceState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CredentialServiceStateImplCopyWith<_$CredentialServiceStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CredentialServiceStateImplCopyWith<_$CredentialServiceStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

@@ -4,7 +4,8 @@ import '../db/app_database.dart';
 final databaseProvider = Provider<AppDatabase>((ref) => AppDatabase());
 
 class FileSettingsNotifier extends StateNotifier<AsyncValue<FileSetting?>> {
-  FileSettingsNotifier({required this.profileId, required this.database}) : super(const AsyncValue.loading()) {
+  FileSettingsNotifier({required this.profileId, required this.database})
+      : super(const AsyncValue.loading()) {
     _load();
   }
 
@@ -35,7 +36,8 @@ class FileSettingsNotifier extends StateNotifier<AsyncValue<FileSetting?>> {
   }
 }
 
-final fileSettingsProvider = StateNotifierProvider.family<FileSettingsNotifier, AsyncValue<FileSetting?>, String>(
+final fileSettingsProvider = StateNotifierProvider.family<FileSettingsNotifier,
+    AsyncValue<FileSetting?>, String>(
   (ref, profileId) => FileSettingsNotifier(
     profileId: profileId,
     database: ref.read(databaseProvider),

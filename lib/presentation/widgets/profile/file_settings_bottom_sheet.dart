@@ -50,7 +50,8 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
         color: AppColorScheme.backgroundWhite,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(AppSizing.paddingMedium)),
+        borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(AppSizing.paddingMedium)),
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -64,7 +65,8 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                   SimpleInfoWidget(
                     text: localizations.setFilePermissions,
                     dialogTitle: localizations.infoSetFilePermissions,
-                    dialogContent: localizations.infoSetFilePermissionsDescription,
+                    dialogContent:
+                        localizations.infoSetFilePermissionsDescription,
                     textStyle: AppTheme.headingMedium,
                   ),
                   const Spacer(),
@@ -77,7 +79,8 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
             ),
             // Content
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizing.paddingLarge),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingLarge),
               child: Form(
                 key: formKey,
                 child: Column(
@@ -138,18 +141,22 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                 border: Border.all(
                                   color: AppColorScheme.formFieldBorderFocused,
                                 ),
-                                borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+                                borderRadius: BorderRadius.circular(
+                                    AppSizing.paddingXSmall),
                               ),
                               child: TextFormField(
                                 controller: formatInputController,
                                 decoration: InputDecoration(
-                                  hintText: localizations.inputAllowedFileFormats,
+                                  hintText:
+                                      localizations.inputAllowedFileFormats,
                                   hintStyle: Theme.of(context)
                                       .textTheme
                                       .bodySmall
-                                      ?.copyWith(color: AppColorScheme.backgroundDark),
+                                      ?.copyWith(
+                                          color: AppColorScheme.backgroundDark),
                                   border: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(AppSizing.paddingMedium),
+                                  contentPadding:
+                                      EdgeInsets.all(AppSizing.paddingMedium),
                                 ),
                               ),
                             ),
@@ -158,14 +165,19 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                           Container(
                             decoration: BoxDecoration(
                               color: AppColorScheme.formFieldBorderFocused,
-                              borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+                              borderRadius: BorderRadius.circular(
+                                  AppSizing.paddingXSmall),
                             ),
                             child: IconButton(
                               icon: const Icon(Icons.add,
-                                  color: AppColorScheme.backgroundWhite, size: AppSizing.iconSmall),
+                                  color: AppColorScheme.backgroundWhite,
+                                  size: AppSizing.iconSmall),
                               onPressed: () {
-                                final value = formatInputController.text.trim().toLowerCase();
-                                if (value.isNotEmpty && !formats.value.contains(value)) {
+                                final value = formatInputController.text
+                                    .trim()
+                                    .toLowerCase();
+                                if (value.isNotEmpty &&
+                                    !formats.value.contains(value)) {
                                   formats.value = [...formats.value, value];
                                   formatInputController.clear();
                                 }
@@ -182,7 +194,9 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                               .map((format) => Chip(
                                     label: Text(format),
                                     onDeleted: () {
-                                      formats.value = formats.value.where((f) => f != format).toList();
+                                      formats.value = formats.value
+                                          .where((f) => f != format)
+                                          .toList();
                                     },
                                   ))
                               .toList(),
@@ -201,19 +215,27 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                       controller: maxFileSizeController,
                       decoration: InputDecoration(
                         hintText: localizations.inputFileSizeInMb,
-                        hintStyle:
-                            Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColorScheme.backgroundDark),
+                        hintStyle: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(color: AppColorScheme.backgroundDark),
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
-                          borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+                          borderSide: BorderSide(
+                              color: AppColorScheme.formFieldBorderUnfocused),
+                          borderRadius:
+                              BorderRadius.circular(AppSizing.paddingXSmall),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
-                          borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+                          borderSide: BorderSide(
+                              color: AppColorScheme.formFieldBorderUnfocused),
+                          borderRadius:
+                              BorderRadius.circular(AppSizing.paddingXSmall),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
-                          borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+                          borderSide: BorderSide(
+                              color: AppColorScheme.formFieldBorderUnfocused),
+                          borderRadius:
+                              BorderRadius.circular(AppSizing.paddingXSmall),
                         ),
                         contentPadding: EdgeInsets.all(AppSizing.paddingMedium),
                       ),
@@ -230,8 +252,11 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                             style: FilledButton.styleFrom(
                               backgroundColor: AppColorScheme.backgroundWhite,
                               foregroundColor: AppColorScheme.textPrimary,
-                              side: const BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
-                              minimumSize: const Size.fromHeight(AppSizing.paddingXXLarge),
+                              side: const BorderSide(
+                                  color:
+                                      AppColorScheme.formFieldBorderUnfocused),
+                              minimumSize: const Size.fromHeight(
+                                  AppSizing.paddingXXLarge),
                             ),
                             child: Text(
                               localizations.cancelActionText,
@@ -245,24 +270,38 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                             onPressed: fileSettingsAsync.isLoading
                                 ? null
                                 : () async {
-                                    final maxFileSize = int.tryParse(maxFileSizeController.text);
-                                    final allowedExtensions = formatOption.value == 1 ? formats.value.join(',') : null;
-                                    await ref.read(fileSettingsProvider(profileId).notifier).update(
+                                    final maxFileSize = int.tryParse(
+                                        maxFileSizeController.text);
+                                    final allowedExtensions =
+                                        formatOption.value == 1
+                                            ? formats.value.join(',')
+                                            : null;
+                                    await ref
+                                        .read(fileSettingsProvider(profileId)
+                                            .notifier)
+                                        .update(
                                           maxFileSize: maxFileSize,
                                           allowedExtensions:
-                                              allowedExtensions?.isEmpty ?? true ? null : allowedExtensions,
+                                              allowedExtensions?.isEmpty ?? true
+                                                  ? null
+                                                  : allowedExtensions,
                                         );
                                     if (context.mounted) {
                                       Navigator.of(context).pop();
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(localizations.settingsSaved)),
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                localizations.settingsSaved)),
                                       );
                                     }
                                   },
                             style: FilledButton.styleFrom(
-                              backgroundColor: Theme.of(context).colorScheme.primary,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
                               foregroundColor: AppColorScheme.backgroundWhite,
-                              minimumSize: const Size.fromHeight(AppSizing.paddingXXLarge),
+                              minimumSize: const Size.fromHeight(
+                                  AppSizing.paddingXXLarge),
                             ),
                             child: fileSettingsAsync.isLoading
                                 ? const SizedBox(
@@ -270,7 +309,8 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                     height: AppSizing.iconSmall,
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation<Color>(AppColorScheme.backgroundWhite),
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          AppColorScheme.backgroundWhite),
                                     ),
                                   )
                                 : Text(
@@ -278,7 +318,10 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall
-                                        ?.copyWith(fontWeight: FontWeight.w600, color: AppColorScheme.backgroundWhite),
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            color:
+                                                AppColorScheme.backgroundWhite),
                                   ),
                           ),
                         ),

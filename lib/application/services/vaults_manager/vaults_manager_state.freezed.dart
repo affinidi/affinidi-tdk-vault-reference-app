@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$VaultsManagerState {
-  Map<String, OpenVaultParams> get vaultRegistry => throw _privateConstructorUsedError;
+  Map<String, OpenVaultParams> get vaultRegistry =>
+      throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isVaultAvailable => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
@@ -24,15 +25,21 @@ mixin _$VaultsManagerState {
   /// Create a copy of VaultsManagerState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $VaultsManagerStateCopyWith<VaultsManagerState> get copyWith => throw _privateConstructorUsedError;
+  $VaultsManagerStateCopyWith<VaultsManagerState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $VaultsManagerStateCopyWith<$Res> {
-  factory $VaultsManagerStateCopyWith(VaultsManagerState value, $Res Function(VaultsManagerState) then) =
+  factory $VaultsManagerStateCopyWith(
+          VaultsManagerState value, $Res Function(VaultsManagerState) then) =
       _$VaultsManagerStateCopyWithImpl<$Res, VaultsManagerState>;
   @useResult
-  $Res call({Map<String, OpenVaultParams> vaultRegistry, bool isLoading, bool isVaultAvailable, String? errorMessage});
+  $Res call(
+      {Map<String, OpenVaultParams> vaultRegistry,
+      bool isLoading,
+      bool isVaultAvailable,
+      String? errorMessage});
 }
 
 /// @nodoc
@@ -77,20 +84,26 @@ class _$VaultsManagerStateCopyWithImpl<$Res, $Val extends VaultsManagerState>
 }
 
 /// @nodoc
-abstract class _$$VaultsManagerStateImplCopyWith<$Res> implements $VaultsManagerStateCopyWith<$Res> {
-  factory _$$VaultsManagerStateImplCopyWith(
-          _$VaultsManagerStateImpl value, $Res Function(_$VaultsManagerStateImpl) then) =
+abstract class _$$VaultsManagerStateImplCopyWith<$Res>
+    implements $VaultsManagerStateCopyWith<$Res> {
+  factory _$$VaultsManagerStateImplCopyWith(_$VaultsManagerStateImpl value,
+          $Res Function(_$VaultsManagerStateImpl) then) =
       __$$VaultsManagerStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<String, OpenVaultParams> vaultRegistry, bool isLoading, bool isVaultAvailable, String? errorMessage});
+  $Res call(
+      {Map<String, OpenVaultParams> vaultRegistry,
+      bool isLoading,
+      bool isVaultAvailable,
+      String? errorMessage});
 }
 
 /// @nodoc
 class __$$VaultsManagerStateImplCopyWithImpl<$Res>
     extends _$VaultsManagerStateCopyWithImpl<$Res, _$VaultsManagerStateImpl>
     implements _$$VaultsManagerStateImplCopyWith<$Res> {
-  __$$VaultsManagerStateImplCopyWithImpl(_$VaultsManagerStateImpl _value, $Res Function(_$VaultsManagerStateImpl) _then)
+  __$$VaultsManagerStateImplCopyWithImpl(_$VaultsManagerStateImpl _value,
+      $Res Function(_$VaultsManagerStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of VaultsManagerState
@@ -162,15 +175,23 @@ class _$VaultsManagerStateImpl implements _VaultsManagerState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$VaultsManagerStateImpl &&
-            const DeepCollectionEquality().equals(other._vaultRegistry, _vaultRegistry) &&
-            (identical(other.isLoading, isLoading) || other.isLoading == isLoading) &&
-            (identical(other.isVaultAvailable, isVaultAvailable) || other.isVaultAvailable == isVaultAvailable) &&
-            (identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+            const DeepCollectionEquality()
+                .equals(other._vaultRegistry, _vaultRegistry) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.isVaultAvailable, isVaultAvailable) ||
+                other.isVaultAvailable == isVaultAvailable) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_vaultRegistry), isLoading, isVaultAvailable, errorMessage);
+      runtimeType,
+      const DeepCollectionEquality().hash(_vaultRegistry),
+      isLoading,
+      isVaultAvailable,
+      errorMessage);
 
   /// Create a copy of VaultsManagerState
   /// with the given fields replaced by the non-null parameter values.
@@ -178,7 +199,8 @@ class _$VaultsManagerStateImpl implements _VaultsManagerState {
   @override
   @pragma('vm:prefer-inline')
   _$$VaultsManagerStateImplCopyWith<_$VaultsManagerStateImpl> get copyWith =>
-      __$$VaultsManagerStateImplCopyWithImpl<_$VaultsManagerStateImpl>(this, _$identity);
+      __$$VaultsManagerStateImplCopyWithImpl<_$VaultsManagerStateImpl>(
+          this, _$identity);
 }
 
 abstract class _VaultsManagerState implements VaultsManagerState {
@@ -201,5 +223,6 @@ abstract class _VaultsManagerState implements VaultsManagerState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$VaultsManagerStateImplCopyWith<_$VaultsManagerStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$VaultsManagerStateImplCopyWith<_$VaultsManagerStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

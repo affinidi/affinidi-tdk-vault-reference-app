@@ -85,17 +85,20 @@ class CreateProfileForm extends ConsumerWidget {
       body: Column(
         children: [
           ModalAsyncLoadingStatus(
-              loadingMessage: localizations.createProfileLoadingMessage, controller.loadingController),
+              loadingMessage: localizations.createProfileLoadingMessage,
+              controller.loadingController),
           Column(
             spacing: AppSizing.paddingLarge,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _ProfileNameField(nameController: nameController),
-              _ProfileDescriptionField(descriptionController: descriptionController),
+              _ProfileDescriptionField(
+                  descriptionController: descriptionController),
               Consumer(
                 builder: (context, ref, child) {
                   final state = ref.watch(createProfileFormControllerProvider);
-                  final controller = ref.read(createProfileFormControllerProvider.notifier);
+                  final controller =
+                      ref.read(createProfileFormControllerProvider.notifier);
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,17 +127,20 @@ class CreateProfileForm extends ConsumerWidget {
                         child: SimpleInfoWidget(
                           text: localizations.infoProfileStorage,
                           dialogTitle: localizations.infoProfileStorage,
-                          dialogContent: localizations.infoProfileStorageDescription,
+                          dialogContent:
+                              localizations.infoProfileStorageDescription,
                           textStyle: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
                       if (state.selectedProfileType == ProfileType.edge) ...[
                         const SizedBox(height: AppSizing.paddingSmall),
                         Container(
-                          padding: const EdgeInsets.all(AppSizing.paddingRegular),
+                          padding:
+                              const EdgeInsets.all(AppSizing.paddingRegular),
                           decoration: BoxDecoration(
                             color: AppColorScheme.backgroundLight,
-                            borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
+                            borderRadius:
+                                BorderRadius.circular(AppSizing.paddingSmall),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +159,9 @@ class CreateProfileForm extends ConsumerWidget {
                                         .textTheme
                                         .bodySmall
                                         ?.copyWith(fontWeight: FontWeight.w600)
-                                        .copyWith(color: AppColorScheme.backgroundWhite),
+                                        .copyWith(
+                                            color:
+                                                AppColorScheme.backgroundWhite),
                                   ),
                                 ),
                               ),
@@ -191,7 +199,8 @@ class _ProfileNameField extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final isNameFocused = useState(false);
-    final hasName = ref.watch(createProfileFormControllerProvider.select((state) => state.hasName));
+    final hasName = ref.watch(
+        createProfileFormControllerProvider.select((state) => state.hasName));
     final controller = ref.read(createProfileFormControllerProvider.notifier);
 
     return Column(
@@ -224,7 +233,8 @@ class _ProfileNameField extends HookConsumerWidget {
                     hintText: localizations.profileNamePlaceholder,
                     hintStyle: TextStyle(color: Colors.grey.shade400),
                     border: InputBorder.none,
-                    contentPadding: const EdgeInsets.all(AppSizing.paddingRegular),
+                    contentPadding:
+                        const EdgeInsets.all(AppSizing.paddingRegular),
                     suffixIcon: hasName
                         ? IconButton(
                             icon: const Icon(Icons.cancel_rounded),
@@ -251,7 +261,8 @@ class _ProfileDescriptionField extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final isDescriptionFocused = useState(false);
-    final hasDescription = ref.watch(createProfileFormControllerProvider.select((state) => state.hasDescription));
+    final hasDescription = ref.watch(createProfileFormControllerProvider
+        .select((state) => state.hasDescription));
     final controller = ref.read(createProfileFormControllerProvider.notifier);
 
     return Column(
@@ -267,7 +278,9 @@ class _ProfileDescriptionField extends HookConsumerWidget {
             return Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: isDescriptionFocused.value ? const Color(0xff0467f1) : const Color(0xffcdced3),
+                  color: isDescriptionFocused.value
+                      ? const Color(0xff0467f1)
+                      : const Color(0xffcdced3),
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
@@ -283,7 +296,8 @@ class _ProfileDescriptionField extends HookConsumerWidget {
                     hintText: localizations.profileDescriptionPlaceholder,
                     hintStyle: TextStyle(color: Colors.grey.shade400),
                     border: InputBorder.none,
-                    contentPadding: const EdgeInsets.all(AppSizing.paddingRegular),
+                    contentPadding:
+                        const EdgeInsets.all(AppSizing.paddingRegular),
                     suffixIcon: hasDescription
                         ? IconButton(
                             icon: const Icon(Icons.cancel_rounded),
@@ -369,7 +383,8 @@ class _CreateProfileButton extends ConsumerWidget {
     final localizations = AppLocalizations.of(context)!;
     final provider = createProfileFormControllerProvider;
 
-    final isCreateProfileButtonEnabled = ref.watch(provider.select((state) => state.isCreateProfileButtonEnabled));
+    final isCreateProfileButtonEnabled = ref
+        .watch(provider.select((state) => state.isCreateProfileButtonEnabled));
 
     return FilledButton(
       onPressed: isCreateProfileButtonEnabled ? () => onCreateProfile() : null,

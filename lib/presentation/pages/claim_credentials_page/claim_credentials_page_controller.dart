@@ -20,9 +20,11 @@ part 'claim_credentials_page_controller.g.dart';
 class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
   ClaimCredentialsPageController() : super();
 
-  final loadingController = AsyncLoadingController.provider('loadingController');
+  final loadingController =
+      AsyncLoadingController.provider('loadingController');
   final savingController = AsyncLoadingController.provider('savingController');
-  final validatingController = AsyncLoadingController.provider('validatingController');
+  final validatingController =
+      AsyncLoadingController.provider('validatingController');
 
   @override
   ClaimCredentialsPageState build({required String profileId}) {
@@ -30,13 +32,15 @@ class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
 
     final provider = claimCredentialServiceProvider;
 
-    ref.listen(provider.select((state) => state.claimContext), (previous, next) {
+    ref.listen(provider.select((state) => state.claimContext),
+        (previous, next) {
       Future(() {
         state = state.copyWith(claimContext: next);
       });
     }, fireImmediately: true);
 
-    ref.listen(provider.select((state) => state.verifiableCredential), (previous, next) {
+    ref.listen(provider.select((state) => state.verifiableCredential),
+        (previous, next) {
       Future(() {
         state = state.copyWith(verifiableCredential: next);
       });
@@ -56,7 +60,9 @@ class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
       fetchStatus: CredentialOfferFetchStatus.loading,
     );
     try {
-      await ref.read(claimCredentialServiceProvider.notifier).getCredentialOffer(
+      await ref
+          .read(claimCredentialServiceProvider.notifier)
+          .getCredentialOffer(
             uri,
             profileIndex + 1,
           );

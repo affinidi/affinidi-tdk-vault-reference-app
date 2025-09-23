@@ -41,7 +41,8 @@ class CreateFolderForm extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final provider = createFolderFormControllerProvider(parentNodeId: parentNodeId, profileId: profileId);
+    final provider = createFolderFormControllerProvider(
+        parentNodeId: parentNodeId, profileId: profileId);
     final controller = ref.read(provider.notifier);
     final textController = controller.folderNameController;
     final navigation = ref.read(navigationServiceProvider);
@@ -73,7 +74,10 @@ class CreateFolderForm extends ConsumerWidget {
           onPressed: onCancel,
           child: Text(localizations.cancelActionText),
         ),
-        _CreateFolderButton(parentNodeId: parentNodeId, profileId: profileId, onCreateFolder: onCreateFolder),
+        _CreateFolderButton(
+            parentNodeId: parentNodeId,
+            profileId: profileId,
+            onCreateFolder: onCreateFolder),
       ],
       body: Column(
         children: [
@@ -92,7 +96,8 @@ class CreateFolderForm extends ConsumerWidget {
                   constraints: BoxConstraints(minHeight: 72),
                   labelText: localizations.folderName,
                   hintText: localizations.folderName,
-                  suffix: _ClearButton(parentNodeId: parentNodeId, profileId: profileId),
+                  suffix: _ClearButton(
+                      parentNodeId: parentNodeId, profileId: profileId),
                 ),
                 onSubmitted: (value) {
                   if (value.trim().isNotEmpty) {
@@ -117,15 +122,18 @@ class _ClearButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = createFolderFormControllerProvider(parentNodeId: parentNodeId, profileId: profileId);
+    final provider = createFolderFormControllerProvider(
+        parentNodeId: parentNodeId, profileId: profileId);
     final controller = ref.read(provider.notifier);
-    final isCreateFolderButtonEnabled = ref.watch(provider.select((state) => state.isCreateFolderButtonEnabled));
+    final isCreateFolderButtonEnabled = ref
+        .watch(provider.select((state) => state.isCreateFolderButtonEnabled));
 
     return isCreateFolderButtonEnabled
         ? GestureDetector(
             onTap: () => controller.clearName(),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizing.paddingSmall),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingSmall),
               child: Icon(
                 Icons.cancel_rounded,
                 size: AppSizing.iconXSmall,
@@ -150,9 +158,11 @@ class _CreateFolderButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final provider = createFolderFormControllerProvider(parentNodeId: parentNodeId, profileId: profileId);
+    final provider = createFolderFormControllerProvider(
+        parentNodeId: parentNodeId, profileId: profileId);
 
-    final isCreateFolderButtonEnabled = ref.watch(provider.select((state) => state.isCreateFolderButtonEnabled));
+    final isCreateFolderButtonEnabled = ref
+        .watch(provider.select((state) => state.isCreateFolderButtonEnabled));
 
     return FilledButton(
       key: Key(KeyConstants.keyCreateFolderSubmitButton),

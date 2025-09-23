@@ -83,7 +83,9 @@ class OpenVaultPage extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: AppSizing.paddingRegular, top: AppSizing.paddingLarge),
+                    padding: const EdgeInsets.only(
+                        left: AppSizing.paddingRegular,
+                        top: AppSizing.paddingLarge),
                     child: Text(
                       localizations.login,
                       style: AppTheme.headingXLarge,
@@ -104,7 +106,10 @@ class OpenVaultPage extends HookConsumerWidget {
                   children: [
                     Text(
                       '${localizations.vaultPassphrase}*',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: AppSizing.paddingSmall),
                     FormField<String>(
@@ -116,7 +121,8 @@ class OpenVaultPage extends HookConsumerWidget {
                                   ? AppColorScheme.formFieldBorderFocused
                                   : AppColorScheme.formFieldBorderUnfocused,
                             ),
-                            borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
+                            borderRadius:
+                                BorderRadius.circular(AppSizing.paddingSmall),
                           ),
                           child: Focus(
                             onFocusChange: (hasFocus) {
@@ -136,16 +142,21 @@ class OpenVaultPage extends HookConsumerWidget {
                               },
                               decoration: InputDecoration(
                                 hintText: localizations.enterPassphrase,
-                                hintStyle: TextStyle(color: Colors.grey.shade400),
+                                hintStyle:
+                                    TextStyle(color: Colors.grey.shade400),
                                 border: InputBorder.none,
-                                contentPadding: const EdgeInsets.all(AppSizing.paddingRegular),
+                                contentPadding: const EdgeInsets.all(
+                                    AppSizing.paddingRegular),
                                 suffixIcon: IconButton(
                                   icon: Icon(
-                                    isPasswordVisible.value ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                                    isPasswordVisible.value
+                                        ? Icons.visibility_off_outlined
+                                        : Icons.visibility_outlined,
                                     color: Colors.grey.shade600,
                                   ),
                                   onPressed: () {
-                                    isPasswordVisible.value = !isPasswordVisible.value;
+                                    isPasswordVisible.value =
+                                        !isPasswordVisible.value;
                                   },
                                 ),
                               ),
@@ -168,17 +179,23 @@ class OpenVaultPage extends HookConsumerWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: (isPassphraseEntered.value && !isLoading) ? proceed : null,
+                        onPressed: (isPassphraseEntered.value && !isLoading)
+                            ? proceed
+                            : null,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: (isPassphraseEntered.value && !isLoading)
-                              ? AppTheme.colorScheme.primary
-                              : Colors.grey.shade300,
-                          foregroundColor: (isPassphraseEntered.value && !isLoading)
-                              ? AppColorScheme.backgroundWhite
-                              : const Color(0xFF9CA3AF),
-                          padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingMedium),
+                          backgroundColor:
+                              (isPassphraseEntered.value && !isLoading)
+                                  ? AppTheme.colorScheme.primary
+                                  : Colors.grey.shade300,
+                          foregroundColor:
+                              (isPassphraseEntered.value && !isLoading)
+                                  ? AppColorScheme.backgroundWhite
+                                  : const Color(0xFF9CA3AF),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: AppSizing.paddingMedium),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
+                            borderRadius:
+                                BorderRadius.circular(AppSizing.paddingXXLarge),
                           ),
                           splashFactory: InkRipple.splashFactory,
                         ),
@@ -191,19 +208,26 @@ class OpenVaultPage extends HookConsumerWidget {
                                     height: 16,
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.white),
                                     ),
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
                                     localizations.openingVault,
-                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(color: Colors.white),
                                   ),
                                 ],
                               )
                             : Text(
                                 localizations.accessVaultActionLabel,
-                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(color: Colors.white),
                               ),
                       ),
                     ),

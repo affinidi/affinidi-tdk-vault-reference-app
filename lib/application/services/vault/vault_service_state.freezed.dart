@@ -22,12 +22,14 @@ mixin _$VaultServiceState {
   /// Create a copy of VaultServiceState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $VaultServiceStateCopyWith<VaultServiceState> get copyWith => throw _privateConstructorUsedError;
+  $VaultServiceStateCopyWith<VaultServiceState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $VaultServiceStateCopyWith<$Res> {
-  factory $VaultServiceStateCopyWith(VaultServiceState value, $Res Function(VaultServiceState) then) =
+  factory $VaultServiceStateCopyWith(
+          VaultServiceState value, $Res Function(VaultServiceState) then) =
       _$VaultServiceStateCopyWithImpl<$Res, VaultServiceState>;
   @useResult
   $Res call({Vault? currentVault, String? currentVaultId});
@@ -65,8 +67,10 @@ class _$VaultServiceStateCopyWithImpl<$Res, $Val extends VaultServiceState>
 }
 
 /// @nodoc
-abstract class _$$VaultServiceStateImplCopyWith<$Res> implements $VaultServiceStateCopyWith<$Res> {
-  factory _$$VaultServiceStateImplCopyWith(_$VaultServiceStateImpl value, $Res Function(_$VaultServiceStateImpl) then) =
+abstract class _$$VaultServiceStateImplCopyWith<$Res>
+    implements $VaultServiceStateCopyWith<$Res> {
+  factory _$$VaultServiceStateImplCopyWith(_$VaultServiceStateImpl value,
+          $Res Function(_$VaultServiceStateImpl) then) =
       __$$VaultServiceStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -74,9 +78,11 @@ abstract class _$$VaultServiceStateImplCopyWith<$Res> implements $VaultServiceSt
 }
 
 /// @nodoc
-class __$$VaultServiceStateImplCopyWithImpl<$Res> extends _$VaultServiceStateCopyWithImpl<$Res, _$VaultServiceStateImpl>
+class __$$VaultServiceStateImplCopyWithImpl<$Res>
+    extends _$VaultServiceStateCopyWithImpl<$Res, _$VaultServiceStateImpl>
     implements _$$VaultServiceStateImplCopyWith<$Res> {
-  __$$VaultServiceStateImplCopyWithImpl(_$VaultServiceStateImpl _value, $Res Function(_$VaultServiceStateImpl) _then)
+  __$$VaultServiceStateImplCopyWithImpl(_$VaultServiceStateImpl _value,
+      $Res Function(_$VaultServiceStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of VaultServiceState
@@ -120,8 +126,10 @@ class _$VaultServiceStateImpl implements _VaultServiceState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$VaultServiceStateImpl &&
-            (identical(other.currentVault, currentVault) || other.currentVault == currentVault) &&
-            (identical(other.currentVaultId, currentVaultId) || other.currentVaultId == currentVaultId));
+            (identical(other.currentVault, currentVault) ||
+                other.currentVault == currentVault) &&
+            (identical(other.currentVaultId, currentVaultId) ||
+                other.currentVaultId == currentVaultId));
   }
 
   @override
@@ -133,11 +141,14 @@ class _$VaultServiceStateImpl implements _VaultServiceState {
   @override
   @pragma('vm:prefer-inline')
   _$$VaultServiceStateImplCopyWith<_$VaultServiceStateImpl> get copyWith =>
-      __$$VaultServiceStateImplCopyWithImpl<_$VaultServiceStateImpl>(this, _$identity);
+      __$$VaultServiceStateImplCopyWithImpl<_$VaultServiceStateImpl>(
+          this, _$identity);
 }
 
 abstract class _VaultServiceState implements VaultServiceState {
-  factory _VaultServiceState({final Vault? currentVault, final String? currentVaultId}) = _$VaultServiceStateImpl;
+  factory _VaultServiceState(
+      {final Vault? currentVault,
+      final String? currentVaultId}) = _$VaultServiceStateImpl;
 
   @override
   Vault? get currentVault;
@@ -148,5 +159,6 @@ abstract class _VaultServiceState implements VaultServiceState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$VaultServiceStateImplCopyWith<_$VaultServiceStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$VaultServiceStateImplCopyWith<_$VaultServiceStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -41,7 +41,8 @@ class VaultsManagerService extends _$VaultsManagerService {
         isLoading: false,
       );
     } catch (e, stack) {
-      log('Failed to load vaults: $e', name: 'VaultsManagerService', error: e, stackTrace: stack);
+      log('Failed to load vaults: $e',
+          name: 'VaultsManagerService', error: e, stackTrace: stack);
       state = state.copyWith(
         isLoading: false,
         errorMessage: 'Failed to load vaults: $e',
@@ -76,7 +77,8 @@ class VaultsManagerService extends _$VaultsManagerService {
       state = state.copyWith(isVaultAvailable: true);
       log('Added vault (vaultId: $vaultId)', name: 'VaultsManagerService');
     } else {
-      log('Vault already exists for vaultId: $vaultId', name: 'VaultsManagerService');
+      log('Vault already exists for vaultId: $vaultId',
+          name: 'VaultsManagerService');
     }
   }
 
@@ -89,7 +91,9 @@ class VaultsManagerService extends _$VaultsManagerService {
       await _storage.write(key: _vaultSeedMapKey, value: jsonEncode(vaultMap));
       log('Removed vault with vaultId: $vaultId', name: 'VaultsManagerService');
 
-      final updatedRegistry = Map<String, OpenVaultParams>.from(state.vaultRegistry)..remove(vaultId);
+      final updatedRegistry =
+          Map<String, OpenVaultParams>.from(state.vaultRegistry)
+            ..remove(vaultId);
       state = state.copyWith(vaultRegistry: updatedRegistry);
     } else {
       log('No vault found for vaultId: $vaultId', name: 'VaultsManagerService');

@@ -32,11 +32,14 @@ class BottomSheetDialog extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(AppSizing.paddingMedium),
         child: Container(
-          constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
+          constraints: BoxConstraints(
+              maxHeight: MediaQuery.sizeOf(context).height * 0.9),
           child: Stack(
             children: [
               SingleChildScrollView(
-                padding: (title != null && title!.isNotEmpty) ? EdgeInsets.only(top: 56) : EdgeInsets.zero,
+                padding: (title != null && title!.isNotEmpty)
+                    ? EdgeInsets.only(top: 56)
+                    : EdgeInsets.zero,
                 child: Container(
                   color: theme.colorScheme.surface,
                   child: Column(
@@ -45,14 +48,16 @@ class BottomSheetDialog extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: AppSizing.paddingLarge, vertical: AppSizing.paddingXLarge),
+                            horizontal: AppSizing.paddingLarge,
+                            vertical: AppSizing.paddingXLarge),
                         child: body,
                       ),
                       if (actions.isNotEmpty) ...[
                         Divider(height: 1),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: AppSizing.paddingLarge, vertical: AppSizing.paddingMedium),
+                              horizontal: AppSizing.paddingLarge,
+                              vertical: AppSizing.paddingMedium),
                           child: Row(
                             mainAxisAlignment: actionsAlignment,
                             children: actions,
@@ -73,13 +78,23 @@ class BottomSheetDialog extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(AppSizing.paddingLarge, AppSizing.paddingSmall,
-                              AppSizing.paddingSmall, AppSizing.paddingXSmall),
+                          padding: const EdgeInsets.fromLTRB(
+                              AppSizing.paddingLarge,
+                              AppSizing.paddingSmall,
+                              AppSizing.paddingSmall,
+                              AppSizing.paddingXSmall),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(title!, style: titleStyle ?? Theme.of(context).textTheme.headlineSmall),
-                              IconButton(onPressed: onCancel, icon: SvgPicture.asset('assets/icons/icon-close.svg'))
+                              Text(title!,
+                                  style: titleStyle ??
+                                      Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall),
+                              IconButton(
+                                  onPressed: onCancel,
+                                  icon: SvgPicture.asset(
+                                      'assets/icons/icon-close.svg'))
                             ],
                           ),
                         ),

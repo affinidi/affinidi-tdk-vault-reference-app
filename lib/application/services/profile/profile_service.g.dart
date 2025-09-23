@@ -72,7 +72,8 @@ class ProfileTypeFamily extends Family<ProfileType> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'profileTypeProvider';
@@ -94,9 +95,13 @@ class ProfileTypeProvider extends AutoDisposeProvider<ProfileType> {
           ),
           from: profileTypeProvider,
           name: r'profileTypeProvider',
-          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$profileTypeHash,
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$profileTypeHash,
           dependencies: ProfileTypeFamily._dependencies,
-          allTransitiveDependencies: ProfileTypeFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              ProfileTypeFamily._allTransitiveDependencies,
           profileId: profileId,
         );
 
@@ -156,7 +161,8 @@ mixin ProfileTypeRef on AutoDisposeProviderRef<ProfileType> {
   String get profileId;
 }
 
-class _ProfileTypeProviderElement extends AutoDisposeProviderElement<ProfileType> with ProfileTypeRef {
+class _ProfileTypeProviderElement
+    extends AutoDisposeProviderElement<ProfileType> with ProfileTypeRef {
   _ProfileTypeProviderElement(super.provider);
 
   @override
@@ -178,10 +184,13 @@ String _$profileServiceHash() => r'0b37908f5ef500b0424a579db02b525ad9da021f';
 ///
 /// Copied from [ProfileService].
 @ProviderFor(ProfileService)
-final profileServiceProvider = AutoDisposeNotifierProvider<ProfileService, ProfileServiceState>.internal(
+final profileServiceProvider =
+    AutoDisposeNotifierProvider<ProfileService, ProfileServiceState>.internal(
   ProfileService.new,
   name: r'profileServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$profileServiceHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$profileServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

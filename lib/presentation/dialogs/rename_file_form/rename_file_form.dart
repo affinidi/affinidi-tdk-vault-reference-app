@@ -109,7 +109,10 @@ class RenameFileForm extends ConsumerWidget {
                   constraints: BoxConstraints(minHeight: 72),
                   labelText: localizations.fileName,
                   hintText: localizations.fileName,
-                  suffix: _ClearButton(file: file, parentNodeId: parentNodeId, profileId: profileId),
+                  suffix: _ClearButton(
+                      file: file,
+                      parentNodeId: parentNodeId,
+                      profileId: profileId),
                 ),
                 onSubmitted: (value) {
                   if (value.trim().isNotEmpty) {
@@ -139,15 +142,18 @@ class _ClearButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = renameFileFormControllerProvider(item: file, parentNodeId: parentNodeId, profileId: profileId);
+    final provider = renameFileFormControllerProvider(
+        item: file, parentNodeId: parentNodeId, profileId: profileId);
     final controller = ref.read(provider.notifier);
-    final isRenameButtonEnabled = ref.watch(provider.select((state) => state.isRenameButtonEnabled));
+    final isRenameButtonEnabled =
+        ref.watch(provider.select((state) => state.isRenameButtonEnabled));
 
     return isRenameButtonEnabled
         ? GestureDetector(
             onTap: () => controller.clearName(),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizing.paddingSmall),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingSmall),
               child: Icon(
                 Icons.cancel_rounded,
                 size: AppSizing.iconXSmall,
@@ -174,9 +180,11 @@ class _RenameButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final provider = renameFileFormControllerProvider(item: file, parentNodeId: parentNodeId, profileId: profileId);
+    final provider = renameFileFormControllerProvider(
+        item: file, parentNodeId: parentNodeId, profileId: profileId);
 
-    final isRenameButtonEnabled = ref.watch(provider.select((state) => state.isRenameButtonEnabled));
+    final isRenameButtonEnabled =
+        ref.watch(provider.select((state) => state.isRenameButtonEnabled));
 
     return FilledButton(
       onPressed: isRenameButtonEnabled ? () => onRenameFile() : null,

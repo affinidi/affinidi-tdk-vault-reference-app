@@ -20,25 +20,29 @@ PaginationState _$PaginationStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PaginationState {
-  List<String?> get lastEvaluatedItemIdStack => throw _privateConstructorUsedError;
+  List<String?> get lastEvaluatedItemIdStack =>
+      throw _privateConstructorUsedError;
   int get currentPageIndex => throw _privateConstructorUsedError;
 
   /// Create a copy of PaginationState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $PaginationStateCopyWith<PaginationState> get copyWith => throw _privateConstructorUsedError;
+  $PaginationStateCopyWith<PaginationState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $PaginationStateCopyWith<$Res> {
-  factory $PaginationStateCopyWith(PaginationState value, $Res Function(PaginationState) then) =
+  factory $PaginationStateCopyWith(
+          PaginationState value, $Res Function(PaginationState) then) =
       _$PaginationStateCopyWithImpl<$Res, PaginationState>;
   @useResult
   $Res call({List<String?> lastEvaluatedItemIdStack, int currentPageIndex});
 }
 
 /// @nodoc
-class _$PaginationStateCopyWithImpl<$Res, $Val extends PaginationState> implements $PaginationStateCopyWith<$Res> {
+class _$PaginationStateCopyWithImpl<$Res, $Val extends PaginationState>
+    implements $PaginationStateCopyWith<$Res> {
   _$PaginationStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -68,8 +72,10 @@ class _$PaginationStateCopyWithImpl<$Res, $Val extends PaginationState> implemen
 }
 
 /// @nodoc
-abstract class _$$PaginationStateImplCopyWith<$Res> implements $PaginationStateCopyWith<$Res> {
-  factory _$$PaginationStateImplCopyWith(_$PaginationStateImpl value, $Res Function(_$PaginationStateImpl) then) =
+abstract class _$$PaginationStateImplCopyWith<$Res>
+    implements $PaginationStateCopyWith<$Res> {
+  factory _$$PaginationStateImplCopyWith(_$PaginationStateImpl value,
+          $Res Function(_$PaginationStateImpl) then) =
       __$$PaginationStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -77,9 +83,11 @@ abstract class _$$PaginationStateImplCopyWith<$Res> implements $PaginationStateC
 }
 
 /// @nodoc
-class __$$PaginationStateImplCopyWithImpl<$Res> extends _$PaginationStateCopyWithImpl<$Res, _$PaginationStateImpl>
+class __$$PaginationStateImplCopyWithImpl<$Res>
+    extends _$PaginationStateCopyWithImpl<$Res, _$PaginationStateImpl>
     implements _$$PaginationStateImplCopyWith<$Res> {
-  __$$PaginationStateImplCopyWithImpl(_$PaginationStateImpl _value, $Res Function(_$PaginationStateImpl) _then)
+  __$$PaginationStateImplCopyWithImpl(
+      _$PaginationStateImpl _value, $Res Function(_$PaginationStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of PaginationState
@@ -106,16 +114,20 @@ class __$$PaginationStateImplCopyWithImpl<$Res> extends _$PaginationStateCopyWit
 /// @nodoc
 @JsonSerializable(createToJson: false)
 class _$PaginationStateImpl implements _PaginationState {
-  const _$PaginationStateImpl({final List<String?> lastEvaluatedItemIdStack = const [], this.currentPageIndex = 0})
+  const _$PaginationStateImpl(
+      {final List<String?> lastEvaluatedItemIdStack = const [],
+      this.currentPageIndex = 0})
       : _lastEvaluatedItemIdStack = lastEvaluatedItemIdStack;
 
-  factory _$PaginationStateImpl.fromJson(Map<String, dynamic> json) => _$$PaginationStateImplFromJson(json);
+  factory _$PaginationStateImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PaginationStateImplFromJson(json);
 
   final List<String?> _lastEvaluatedItemIdStack;
   @override
   @JsonKey()
   List<String?> get lastEvaluatedItemIdStack {
-    if (_lastEvaluatedItemIdStack is EqualUnmodifiableListView) return _lastEvaluatedItemIdStack;
+    if (_lastEvaluatedItemIdStack is EqualUnmodifiableListView)
+      return _lastEvaluatedItemIdStack;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_lastEvaluatedItemIdStack);
   }
@@ -134,14 +146,18 @@ class _$PaginationStateImpl implements _PaginationState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PaginationStateImpl &&
-            const DeepCollectionEquality().equals(other._lastEvaluatedItemIdStack, _lastEvaluatedItemIdStack) &&
-            (identical(other.currentPageIndex, currentPageIndex) || other.currentPageIndex == currentPageIndex));
+            const DeepCollectionEquality().equals(
+                other._lastEvaluatedItemIdStack, _lastEvaluatedItemIdStack) &&
+            (identical(other.currentPageIndex, currentPageIndex) ||
+                other.currentPageIndex == currentPageIndex));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_lastEvaluatedItemIdStack), currentPageIndex);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_lastEvaluatedItemIdStack),
+      currentPageIndex);
 
   /// Create a copy of PaginationState
   /// with the given fields replaced by the non-null parameter values.
@@ -149,14 +165,17 @@ class _$PaginationStateImpl implements _PaginationState {
   @override
   @pragma('vm:prefer-inline')
   _$$PaginationStateImplCopyWith<_$PaginationStateImpl> get copyWith =>
-      __$$PaginationStateImplCopyWithImpl<_$PaginationStateImpl>(this, _$identity);
+      __$$PaginationStateImplCopyWithImpl<_$PaginationStateImpl>(
+          this, _$identity);
 }
 
 abstract class _PaginationState implements PaginationState {
-  const factory _PaginationState({final List<String?> lastEvaluatedItemIdStack, final int currentPageIndex}) =
-      _$PaginationStateImpl;
+  const factory _PaginationState(
+      {final List<String?> lastEvaluatedItemIdStack,
+      final int currentPageIndex}) = _$PaginationStateImpl;
 
-  factory _PaginationState.fromJson(Map<String, dynamic> json) = _$PaginationStateImpl.fromJson;
+  factory _PaginationState.fromJson(Map<String, dynamic> json) =
+      _$PaginationStateImpl.fromJson;
 
   @override
   List<String?> get lastEvaluatedItemIdStack;
@@ -167,5 +186,6 @@ abstract class _PaginationState implements PaginationState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PaginationStateImplCopyWith<_$PaginationStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$PaginationStateImplCopyWith<_$PaginationStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

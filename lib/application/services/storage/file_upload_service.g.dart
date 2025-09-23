@@ -12,10 +12,13 @@ String _$fileUploadServiceHash() => r'c51b832d9ab0370088e39b1010bac9049d60d5c3';
 ///
 /// Copied from [FileUploadService].
 @ProviderFor(FileUploadService)
-final fileUploadServiceProvider = AutoDisposeNotifierProvider<FileUploadService, void>.internal(
+final fileUploadServiceProvider =
+    AutoDisposeNotifierProvider<FileUploadService, void>.internal(
   FileUploadService.new,
   name: r'fileUploadServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$fileUploadServiceHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$fileUploadServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

@@ -74,7 +74,9 @@ class ProfileAppBar extends ConsumerWidget {
                     );
                     if (result == 'shared' && context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(localizations?.profileSharedMessage ?? 'Profile has been shared')),
+                        SnackBar(
+                            content: Text(localizations?.profileSharedMessage ??
+                                'Profile has been shared')),
                       );
                     }
                   },
@@ -84,7 +86,8 @@ class ProfileAppBar extends ConsumerWidget {
                   icon: const Icon(Icons.settings_outlined),
                   tooltip: localizations?.shareProfile ?? 'Settings',
                   onPressed: () {
-                    navigation.push(ProfilesRoutePath.profileSettings(profileId));
+                    navigation
+                        .push(ProfilesRoutePath.profileSettings(profileId));
                   },
                 ),
               ],
@@ -161,10 +164,12 @@ class ShareProfileBottomSheet extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ShareProfileBottomSheet> createState() => _ShareProfileBottomSheetState();
+  ConsumerState<ShareProfileBottomSheet> createState() =>
+      _ShareProfileBottomSheetState();
 }
 
-class _ShareProfileBottomSheetState extends ConsumerState<ShareProfileBottomSheet> {
+class _ShareProfileBottomSheetState
+    extends ConsumerState<ShareProfileBottomSheet> {
   late final TextEditingController didController;
 
   bool isLoading = false;
@@ -187,7 +192,8 @@ class _ShareProfileBottomSheetState extends ConsumerState<ShareProfileBottomShee
     final navigation = ref.read(navigationServiceProvider);
 
     setState(() => isLoading = true);
-    loadingMessageNotifier = ValueNotifier<String>(widget.localizations!.sharingProfileMessage);
+    loadingMessageNotifier =
+        ValueNotifier<String>(widget.localizations!.sharingProfileMessage);
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -221,14 +227,16 @@ class _ShareProfileBottomSheetState extends ConsumerState<ShareProfileBottomShee
       ),
     );
     final didValue = didController.text.trim();
-    final controller = widget.ref.read(profileSharingControllerProvider.notifier);
+    final controller =
+        widget.ref.read(profileSharingControllerProvider.notifier);
     controller.selectProfile(widget.profileId);
     await controller.shareAndAutoAccept(
       receiverDid: didValue,
       permissions: selectedPermission!,
       onMessage: (message) {
         final messageService = widget.ref.read(messageServiceProvider);
-        final localizedMessage = messageService.getLocalizedMessage(message, widget.localizations!);
+        final localizedMessage =
+            messageService.getLocalizedMessage(message, widget.localizations!);
         loadingMessageNotifier!.value = localizedMessage;
       },
     );
@@ -253,7 +261,8 @@ class _ShareProfileBottomSheetState extends ConsumerState<ShareProfileBottomShee
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(AppSizing.iconSmall)),
+          borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(AppSizing.iconSmall)),
         ),
         padding: const EdgeInsets.all(AppSizing.paddingLarge),
         child: Column(
@@ -266,7 +275,8 @@ class _ShareProfileBottomSheetState extends ConsumerState<ShareProfileBottomShee
             ),
             const SizedBox(height: AppSizing.paddingMedium),
             SimpleInfoWidget(
-              text: '${localizations?.recipientDidLabel ?? 'Enter Receiver Profile DID'}*',
+              text:
+                  '${localizations?.recipientDidLabel ?? 'Enter Receiver Profile DID'}*',
               dialogTitle: localizations!.infoShareRecipientDID,
               dialogContent: localizations.infoShareRecipientDIDDescription,
               textStyle: Theme.of(context).textTheme.labelLarge,
@@ -283,15 +293,18 @@ class _ShareProfileBottomSheetState extends ConsumerState<ShareProfileBottomShee
                     ?.copyWith(fontWeight: FontWeight.w600)
                     .copyWith(color: AppColorScheme.backgroundDark),
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
+                  borderSide: BorderSide(
+                      color: AppColorScheme.formFieldBorderUnfocused),
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
+                  borderSide: BorderSide(
+                      color: AppColorScheme.formFieldBorderUnfocused),
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
+                  borderSide: BorderSide(
+                      color: AppColorScheme.formFieldBorderUnfocused),
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
                 ),
                 contentPadding: const EdgeInsets.all(AppSizing.paddingMedium),
@@ -357,7 +370,8 @@ class _ShareProfileBottomSheetState extends ConsumerState<ShareProfileBottomShee
                     },
                     style: TextButton.styleFrom(
                       foregroundColor: AppColorScheme.textPrimary,
-                      padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingRegular),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: AppSizing.paddingRegular),
                     ),
                     child: Text(localizations.cancelActionText),
                   ),
@@ -365,18 +379,22 @@ class _ShareProfileBottomSheetState extends ConsumerState<ShareProfileBottomShee
                 Expanded(
                   child: CodeSnippetWidget(
                     title: localizations.lblCSShareProfile,
-                    codeLocations: CodeSnippetLocations.shareProfileSnippets(context),
+                    codeLocations:
+                        CodeSnippetLocations.shareProfileSnippets(context),
                   ),
                 ),
                 Expanded(
                   child: FilledButton(
                     key: Key(KeyConstants.keyShareSubmitButton),
-                    onPressed: isLoading || didController.text.trim().isEmpty ? null : handleShare,
+                    onPressed: isLoading || didController.text.trim().isEmpty
+                        ? null
+                        : handleShare,
                     child: isLoading
                         ? const SizedBox(
                             width: AppSizing.iconSmall,
                             height: AppSizing.iconSmall,
-                            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                            child: CircularProgressIndicator(
+                                strokeWidth: 2, color: Colors.white))
                         : Text(localizations.shareProfile),
                   ),
                 ),

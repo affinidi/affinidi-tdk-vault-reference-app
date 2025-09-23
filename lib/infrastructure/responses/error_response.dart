@@ -15,7 +15,8 @@ class ErrorResponse with _$ErrorResponse {
     @Default([]) List<ErrorDetails> details,
   }) = _ErrorResponse;
 
-  factory ErrorResponse.fromJson(Map<String, dynamic> json) => _$ErrorResponseFromJson(json);
+  factory ErrorResponse.fromJson(Map<String, dynamic> json) =>
+      _$ErrorResponseFromJson(json);
 }
 
 enum ErrorResponseType {

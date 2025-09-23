@@ -17,22 +17,25 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ClaimCredentialsPageState {
   OID4VCIClaimContext? get claimContext => throw _privateConstructorUsedError;
-  VerifiableCredential? get verifiableCredential => throw _privateConstructorUsedError;
+  VerifiableCredential? get verifiableCredential =>
+      throw _privateConstructorUsedError;
   Uri? get offerUri => throw _privateConstructorUsedError;
   String get profileId => throw _privateConstructorUsedError;
-  CredentialOfferFetchStatus get fetchStatus => throw _privateConstructorUsedError;
+  CredentialOfferFetchStatus get fetchStatus =>
+      throw _privateConstructorUsedError;
   String? get fetchErrorMessage => throw _privateConstructorUsedError;
 
   /// Create a copy of ClaimCredentialsPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ClaimCredentialsPageStateCopyWith<ClaimCredentialsPageState> get copyWith => throw _privateConstructorUsedError;
+  $ClaimCredentialsPageStateCopyWith<ClaimCredentialsPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ClaimCredentialsPageStateCopyWith<$Res> {
-  factory $ClaimCredentialsPageStateCopyWith(
-          ClaimCredentialsPageState value, $Res Function(ClaimCredentialsPageState) then) =
+  factory $ClaimCredentialsPageStateCopyWith(ClaimCredentialsPageState value,
+          $Res Function(ClaimCredentialsPageState) then) =
       _$ClaimCredentialsPageStateCopyWithImpl<$Res, ClaimCredentialsPageState>;
   @useResult
   $Res call(
@@ -45,7 +48,8 @@ abstract class $ClaimCredentialsPageStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ClaimCredentialsPageStateCopyWithImpl<$Res, $Val extends ClaimCredentialsPageState>
+class _$ClaimCredentialsPageStateCopyWithImpl<$Res,
+        $Val extends ClaimCredentialsPageState>
     implements $ClaimCredentialsPageStateCopyWith<$Res> {
   _$ClaimCredentialsPageStateCopyWithImpl(this._value, this._then);
 
@@ -96,9 +100,11 @@ class _$ClaimCredentialsPageStateCopyWithImpl<$Res, $Val extends ClaimCredential
 }
 
 /// @nodoc
-abstract class _$$ClaimCredentialsPageStateImplCopyWith<$Res> implements $ClaimCredentialsPageStateCopyWith<$Res> {
+abstract class _$$ClaimCredentialsPageStateImplCopyWith<$Res>
+    implements $ClaimCredentialsPageStateCopyWith<$Res> {
   factory _$$ClaimCredentialsPageStateImplCopyWith(
-          _$ClaimCredentialsPageStateImpl value, $Res Function(_$ClaimCredentialsPageStateImpl) then) =
+          _$ClaimCredentialsPageStateImpl value,
+          $Res Function(_$ClaimCredentialsPageStateImpl) then) =
       __$$ClaimCredentialsPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -113,10 +119,12 @@ abstract class _$$ClaimCredentialsPageStateImplCopyWith<$Res> implements $ClaimC
 
 /// @nodoc
 class __$$ClaimCredentialsPageStateImplCopyWithImpl<$Res>
-    extends _$ClaimCredentialsPageStateCopyWithImpl<$Res, _$ClaimCredentialsPageStateImpl>
+    extends _$ClaimCredentialsPageStateCopyWithImpl<$Res,
+        _$ClaimCredentialsPageStateImpl>
     implements _$$ClaimCredentialsPageStateImplCopyWith<$Res> {
   __$$ClaimCredentialsPageStateImplCopyWithImpl(
-      _$ClaimCredentialsPageStateImpl _value, $Res Function(_$ClaimCredentialsPageStateImpl) _then)
+      _$ClaimCredentialsPageStateImpl _value,
+      $Res Function(_$ClaimCredentialsPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of ClaimCredentialsPageState
@@ -196,26 +204,38 @@ class _$ClaimCredentialsPageStateImpl extends _ClaimCredentialsPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ClaimCredentialsPageStateImpl &&
-            (identical(other.claimContext, claimContext) || other.claimContext == claimContext) &&
+            (identical(other.claimContext, claimContext) ||
+                other.claimContext == claimContext) &&
             (identical(other.verifiableCredential, verifiableCredential) ||
                 other.verifiableCredential == verifiableCredential) &&
-            (identical(other.offerUri, offerUri) || other.offerUri == offerUri) &&
-            (identical(other.profileId, profileId) || other.profileId == profileId) &&
-            (identical(other.fetchStatus, fetchStatus) || other.fetchStatus == fetchStatus) &&
-            (identical(other.fetchErrorMessage, fetchErrorMessage) || other.fetchErrorMessage == fetchErrorMessage));
+            (identical(other.offerUri, offerUri) ||
+                other.offerUri == offerUri) &&
+            (identical(other.profileId, profileId) ||
+                other.profileId == profileId) &&
+            (identical(other.fetchStatus, fetchStatus) ||
+                other.fetchStatus == fetchStatus) &&
+            (identical(other.fetchErrorMessage, fetchErrorMessage) ||
+                other.fetchErrorMessage == fetchErrorMessage));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, claimContext, verifiableCredential, offerUri, profileId, fetchStatus, fetchErrorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      claimContext,
+      verifiableCredential,
+      offerUri,
+      profileId,
+      fetchStatus,
+      fetchErrorMessage);
 
   /// Create a copy of ClaimCredentialsPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ClaimCredentialsPageStateImplCopyWith<_$ClaimCredentialsPageStateImpl> get copyWith =>
-      __$$ClaimCredentialsPageStateImplCopyWithImpl<_$ClaimCredentialsPageStateImpl>(this, _$identity);
+  _$$ClaimCredentialsPageStateImplCopyWith<_$ClaimCredentialsPageStateImpl>
+      get copyWith => __$$ClaimCredentialsPageStateImplCopyWithImpl<
+          _$ClaimCredentialsPageStateImpl>(this, _$identity);
 }
 
 abstract class _ClaimCredentialsPageState extends ClaimCredentialsPageState {
@@ -245,6 +265,6 @@ abstract class _ClaimCredentialsPageState extends ClaimCredentialsPageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ClaimCredentialsPageStateImplCopyWith<_$ClaimCredentialsPageStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ClaimCredentialsPageStateImplCopyWith<_$ClaimCredentialsPageStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

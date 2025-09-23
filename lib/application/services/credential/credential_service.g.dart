@@ -29,7 +29,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$CredentialService extends BuildlessAutoDisposeNotifier<CredentialServiceState> {
+abstract class _$CredentialService
+    extends BuildlessAutoDisposeNotifier<CredentialServiceState> {
   late final String profileId;
 
   CredentialServiceState build({
@@ -84,7 +85,8 @@ class CredentialServiceFamily extends Family<CredentialServiceState> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'credentialServiceProvider';
@@ -94,7 +96,8 @@ class CredentialServiceFamily extends Family<CredentialServiceState> {
 /// for a specific profile stored inside a Vault.
 ///
 /// Copied from [CredentialService].
-class CredentialServiceProvider extends AutoDisposeNotifierProviderImpl<CredentialService, CredentialServiceState> {
+class CredentialServiceProvider extends AutoDisposeNotifierProviderImpl<
+    CredentialService, CredentialServiceState> {
   /// A service that manages claimed digital credentials (e.g. fetch, save, delete)
   /// for a specific profile stored inside a Vault.
   ///
@@ -105,9 +108,13 @@ class CredentialServiceProvider extends AutoDisposeNotifierProviderImpl<Credenti
           () => CredentialService()..profileId = profileId,
           from: credentialServiceProvider,
           name: r'credentialServiceProvider',
-          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$credentialServiceHash,
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$credentialServiceHash,
           dependencies: CredentialServiceFamily._dependencies,
-          allTransitiveDependencies: CredentialServiceFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              CredentialServiceFamily._allTransitiveDependencies,
           profileId: profileId,
         );
 
@@ -149,7 +156,8 @@ class CredentialServiceProvider extends AutoDisposeNotifierProviderImpl<Credenti
   }
 
   @override
-  AutoDisposeNotifierProviderElement<CredentialService, CredentialServiceState> createElement() {
+  AutoDisposeNotifierProviderElement<CredentialService, CredentialServiceState>
+      createElement() {
     return _CredentialServiceProviderElement(this);
   }
 
@@ -169,13 +177,15 @@ class CredentialServiceProvider extends AutoDisposeNotifierProviderImpl<Credenti
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CredentialServiceRef on AutoDisposeNotifierProviderRef<CredentialServiceState> {
+mixin CredentialServiceRef
+    on AutoDisposeNotifierProviderRef<CredentialServiceState> {
   /// The parameter `profileId` of this provider.
   String get profileId;
 }
 
 class _CredentialServiceProviderElement
-    extends AutoDisposeNotifierProviderElement<CredentialService, CredentialServiceState> with CredentialServiceRef {
+    extends AutoDisposeNotifierProviderElement<CredentialService,
+        CredentialServiceState> with CredentialServiceRef {
   _CredentialServiceProviderElement(super.provider);
 
   @override

@@ -22,19 +22,22 @@ mixin _$CreateVaultPageState {
   /// Create a copy of CreateVaultPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CreateVaultPageStateCopyWith<CreateVaultPageState> get copyWith => throw _privateConstructorUsedError;
+  $CreateVaultPageStateCopyWith<CreateVaultPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CreateVaultPageStateCopyWith<$Res> {
-  factory $CreateVaultPageStateCopyWith(CreateVaultPageState value, $Res Function(CreateVaultPageState) then) =
+  factory $CreateVaultPageStateCopyWith(CreateVaultPageState value,
+          $Res Function(CreateVaultPageState) then) =
       _$CreateVaultPageStateCopyWithImpl<$Res, CreateVaultPageState>;
   @useResult
   $Res call({SeedMode seedMode, bool isFormValid});
 }
 
 /// @nodoc
-class _$CreateVaultPageStateCopyWithImpl<$Res, $Val extends CreateVaultPageState>
+class _$CreateVaultPageStateCopyWithImpl<$Res,
+        $Val extends CreateVaultPageState>
     implements $CreateVaultPageStateCopyWith<$Res> {
   _$CreateVaultPageStateCopyWithImpl(this._value, this._then);
 
@@ -65,9 +68,10 @@ class _$CreateVaultPageStateCopyWithImpl<$Res, $Val extends CreateVaultPageState
 }
 
 /// @nodoc
-abstract class _$$CreateVaultPageStateImplCopyWith<$Res> implements $CreateVaultPageStateCopyWith<$Res> {
-  factory _$$CreateVaultPageStateImplCopyWith(
-          _$CreateVaultPageStateImpl value, $Res Function(_$CreateVaultPageStateImpl) then) =
+abstract class _$$CreateVaultPageStateImplCopyWith<$Res>
+    implements $CreateVaultPageStateCopyWith<$Res> {
+  factory _$$CreateVaultPageStateImplCopyWith(_$CreateVaultPageStateImpl value,
+          $Res Function(_$CreateVaultPageStateImpl) then) =
       __$$CreateVaultPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -78,8 +82,8 @@ abstract class _$$CreateVaultPageStateImplCopyWith<$Res> implements $CreateVault
 class __$$CreateVaultPageStateImplCopyWithImpl<$Res>
     extends _$CreateVaultPageStateCopyWithImpl<$Res, _$CreateVaultPageStateImpl>
     implements _$$CreateVaultPageStateImplCopyWith<$Res> {
-  __$$CreateVaultPageStateImplCopyWithImpl(
-      _$CreateVaultPageStateImpl _value, $Res Function(_$CreateVaultPageStateImpl) _then)
+  __$$CreateVaultPageStateImplCopyWithImpl(_$CreateVaultPageStateImpl _value,
+      $Res Function(_$CreateVaultPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of CreateVaultPageState
@@ -106,7 +110,9 @@ class __$$CreateVaultPageStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CreateVaultPageStateImpl extends _CreateVaultPageState {
-  const _$CreateVaultPageStateImpl({this.seedMode = SeedMode.generate, this.isFormValid = false}) : super._();
+  const _$CreateVaultPageStateImpl(
+      {this.seedMode = SeedMode.generate, this.isFormValid = false})
+      : super._();
 
   @override
   @JsonKey()
@@ -125,8 +131,10 @@ class _$CreateVaultPageStateImpl extends _CreateVaultPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreateVaultPageStateImpl &&
-            (identical(other.seedMode, seedMode) || other.seedMode == seedMode) &&
-            (identical(other.isFormValid, isFormValid) || other.isFormValid == isFormValid));
+            (identical(other.seedMode, seedMode) ||
+                other.seedMode == seedMode) &&
+            (identical(other.isFormValid, isFormValid) ||
+                other.isFormValid == isFormValid));
   }
 
   @override
@@ -137,12 +145,16 @@ class _$CreateVaultPageStateImpl extends _CreateVaultPageState {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CreateVaultPageStateImplCopyWith<_$CreateVaultPageStateImpl> get copyWith =>
-      __$$CreateVaultPageStateImplCopyWithImpl<_$CreateVaultPageStateImpl>(this, _$identity);
+  _$$CreateVaultPageStateImplCopyWith<_$CreateVaultPageStateImpl>
+      get copyWith =>
+          __$$CreateVaultPageStateImplCopyWithImpl<_$CreateVaultPageStateImpl>(
+              this, _$identity);
 }
 
 abstract class _CreateVaultPageState extends CreateVaultPageState {
-  const factory _CreateVaultPageState({final SeedMode seedMode, final bool isFormValid}) = _$CreateVaultPageStateImpl;
+  const factory _CreateVaultPageState(
+      {final SeedMode seedMode,
+      final bool isFormValid}) = _$CreateVaultPageStateImpl;
   const _CreateVaultPageState._() : super._();
 
   @override
@@ -154,5 +166,6 @@ abstract class _CreateVaultPageState extends CreateVaultPageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CreateVaultPageStateImplCopyWith<_$CreateVaultPageStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$CreateVaultPageStateImplCopyWith<_$CreateVaultPageStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

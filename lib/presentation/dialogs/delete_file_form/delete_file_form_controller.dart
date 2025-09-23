@@ -10,15 +10,19 @@ part 'delete_file_form_controller.g.dart';
 class DeleteFileFormController extends _$DeleteFileFormController {
   DeleteFileFormController() : super();
 
-  final loadingController = AsyncLoadingController.provider('deleteFileFormLoadingController');
+  final loadingController =
+      AsyncLoadingController.provider('deleteFileFormLoadingController');
 
   @override
-  void build({required Item file, String? parentNodeId, required String profileId}) {}
+  void build(
+      {required Item file, String? parentNodeId, required String profileId}) {}
 
   Future<void> delete({required void Function() onSuccess}) async {
     await ref.read(loadingController.notifier).start(() async {
       await ref
-          .read(storageServiceProvider(parentNodeId: parentNodeId, profileId: profileId).notifier)
+          .read(storageServiceProvider(
+                  parentNodeId: parentNodeId, profileId: profileId)
+              .notifier)
           .deleteFile(itemId: file.id, fileId: file.id);
 
       onSuccess.call();

@@ -19,11 +19,15 @@ abstract class ProfilesRoutePath {
   static String profileMyCredentials(String id) => '$base/$id/$myCredentials';
   static String profileShared(String id) => '$base/$id/$shared';
   static String profileSharing(String id) => '$base/$id/$sharing';
-  static String profileFilePreview(String id, String nodeId) => '$base/$id/$myFiles/$preview/$nodeId';
-  static String sharedProfileFilePreview(String id, String nodeId) => '$base/$id/$shared/$myFiles/$preview/$nodeId';
-  static String profileSharedProfileDetailsFiles(String profileId, String sharedProfileId) =>
+  static String profileFilePreview(String id, String nodeId) =>
+      '$base/$id/$myFiles/$preview/$nodeId';
+  static String sharedProfileFilePreview(String id, String nodeId) =>
+      '$base/$id/$shared/$myFiles/$preview/$nodeId';
+  static String profileSharedProfileDetailsFiles(
+          String profileId, String sharedProfileId) =>
       '$base/$profileId/$shared/$sharedProfileId/files';
-  static String profileSharedProfileDetailsFolderPath(String profileId, String sharedProfileId, String folderId) =>
+  static String profileSharedProfileDetailsFolderPath(
+          String profileId, String sharedProfileId, String folderId) =>
       '$base/$profileId/$shared/$sharedProfileId/files?folder=$folderId';
 }
 

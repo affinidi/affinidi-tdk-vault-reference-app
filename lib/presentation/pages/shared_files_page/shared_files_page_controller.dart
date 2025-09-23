@@ -15,12 +15,16 @@ part 'shared_files_page_controller.g.dart';
 class SharedFilesPageController extends _$SharedFilesPageController {
   SharedFilesPageController() : super();
 
-  final loadingController = AsyncLoadingController.provider('sharedFilesPageLoadingController');
-  final fileUploadController = AsyncLoadingController.provider('sharedFilesPageFileUploadingController');
+  final loadingController =
+      AsyncLoadingController.provider('sharedFilesPageLoadingController');
+  final fileUploadController =
+      AsyncLoadingController.provider('sharedFilesPageFileUploadingController');
 
   @override
-  SharedFilesPageState build({required String? parentNodeId, required String profileId}) {
-    final provider = storageServiceProvider(parentNodeId: parentNodeId, profileId: profileId);
+  SharedFilesPageState build(
+      {required String? parentNodeId, required String profileId}) {
+    final provider = storageServiceProvider(
+        parentNodeId: parentNodeId, profileId: profileId);
     Future(() async {
       state = state.copyWith(isLoading: true);
       await ref.read(provider.notifier).listItems(isSharedProfile: true);
@@ -45,7 +49,9 @@ class SharedFilesPageController extends _$SharedFilesPageController {
     if (localizations == null) return;
 
     ref.read(fileUploadController.notifier).start(() async {
-      final validFiles = await ref.read(fileUploadServiceProvider.notifier).pickAndValidateFiles(
+      final validFiles = await ref
+          .read(fileUploadServiceProvider.notifier)
+          .pickAndValidateFiles(
             parentNodeId: parentNodeId,
             profileId: profileId,
             localizations: localizations,
@@ -65,7 +71,11 @@ class SharedFilesPageController extends _$SharedFilesPageController {
 
   Future<void> downloadFile(Item item) async {
     ref.read(fileUploadController.notifier).start(() async {
-      await ref.read(storageServiceProvider(parentNodeId: parentNodeId, profileId: profileId).notifier).getFileContent(
+      await ref
+          .read(storageServiceProvider(
+                  parentNodeId: parentNodeId, profileId: profileId)
+              .notifier)
+          .getFileContent(
             fileId: item.id,
             isSharedProfile: true,
           );

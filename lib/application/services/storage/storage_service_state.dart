@@ -10,7 +10,9 @@ part 'storage_service_state.freezed.dart';
 class StorageServiceState with _$StorageServiceState {
   factory StorageServiceState({
     @Default([]) List<Item> items,
-    @Default({}) Map<String, PaginationState> paginationStates, // folderId -> PaginationState
+    @Default({})
+    Map<String, PaginationState>
+        paginationStates, // folderId -> PaginationState
     Uint8List? fileData,
   }) = _StorageServiceState;
 }

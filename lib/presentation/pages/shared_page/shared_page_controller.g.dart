@@ -6,7 +6,8 @@ part of 'shared_page_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sharedPageControllerHash() => r'9629b5c068dc080b104c37e9645dfd7d74574174';
+String _$sharedPageControllerHash() =>
+    r'9629b5c068dc080b104c37e9645dfd7d74574174';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,8 @@ class _SystemHash {
   }
 }
 
-abstract class _$SharedPageController extends BuildlessAutoDisposeNotifier<SharedPageState> {
+abstract class _$SharedPageController
+    extends BuildlessAutoDisposeNotifier<SharedPageState> {
   late final String profileId;
 
   SharedPageState build({
@@ -72,14 +74,16 @@ class SharedPageControllerFamily extends Family<SharedPageState> {
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'sharedPageControllerProvider';
 }
 
 /// See also [SharedPageController].
-class SharedPageControllerProvider extends AutoDisposeNotifierProviderImpl<SharedPageController, SharedPageState> {
+class SharedPageControllerProvider extends AutoDisposeNotifierProviderImpl<
+    SharedPageController, SharedPageState> {
   /// See also [SharedPageController].
   SharedPageControllerProvider({
     required String profileId,
@@ -87,9 +91,13 @@ class SharedPageControllerProvider extends AutoDisposeNotifierProviderImpl<Share
           () => SharedPageController()..profileId = profileId,
           from: sharedPageControllerProvider,
           name: r'sharedPageControllerProvider',
-          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$sharedPageControllerHash,
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$sharedPageControllerHash,
           dependencies: SharedPageControllerFamily._dependencies,
-          allTransitiveDependencies: SharedPageControllerFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              SharedPageControllerFamily._allTransitiveDependencies,
           profileId: profileId,
         );
 
@@ -131,13 +139,15 @@ class SharedPageControllerProvider extends AutoDisposeNotifierProviderImpl<Share
   }
 
   @override
-  AutoDisposeNotifierProviderElement<SharedPageController, SharedPageState> createElement() {
+  AutoDisposeNotifierProviderElement<SharedPageController, SharedPageState>
+      createElement() {
     return _SharedPageControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SharedPageControllerProvider && other.profileId == profileId;
+    return other is SharedPageControllerProvider &&
+        other.profileId == profileId;
   }
 
   @override
@@ -151,13 +161,15 @@ class SharedPageControllerProvider extends AutoDisposeNotifierProviderImpl<Share
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin SharedPageControllerRef on AutoDisposeNotifierProviderRef<SharedPageState> {
+mixin SharedPageControllerRef
+    on AutoDisposeNotifierProviderRef<SharedPageState> {
   /// The parameter `profileId` of this provider.
   String get profileId;
 }
 
 class _SharedPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<SharedPageController, SharedPageState> with SharedPageControllerRef {
+    extends AutoDisposeNotifierProviderElement<SharedPageController,
+        SharedPageState> with SharedPageControllerRef {
   _SharedPageControllerProviderElement(super.provider);
 
   @override

@@ -19,17 +19,20 @@ mixin _$SharedPageState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<SharedStorage> get sharedStorages => throw _privateConstructorUsedError;
   String? get selectedProfileId => throw _privateConstructorUsedError;
-  Map<String, List<dynamic>> get sharedFiles => throw _privateConstructorUsedError;
+  Map<String, List<dynamic>> get sharedFiles =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of SharedPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $SharedPageStateCopyWith<SharedPageState> get copyWith => throw _privateConstructorUsedError;
+  $SharedPageStateCopyWith<SharedPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SharedPageStateCopyWith<$Res> {
-  factory $SharedPageStateCopyWith(SharedPageState value, $Res Function(SharedPageState) then) =
+  factory $SharedPageStateCopyWith(
+          SharedPageState value, $Res Function(SharedPageState) then) =
       _$SharedPageStateCopyWithImpl<$Res, SharedPageState>;
   @useResult
   $Res call(
@@ -40,7 +43,8 @@ abstract class $SharedPageStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SharedPageStateCopyWithImpl<$Res, $Val extends SharedPageState> implements $SharedPageStateCopyWith<$Res> {
+class _$SharedPageStateCopyWithImpl<$Res, $Val extends SharedPageState>
+    implements $SharedPageStateCopyWith<$Res> {
   _$SharedPageStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -80,8 +84,10 @@ class _$SharedPageStateCopyWithImpl<$Res, $Val extends SharedPageState> implemen
 }
 
 /// @nodoc
-abstract class _$$SharedPageStateImplCopyWith<$Res> implements $SharedPageStateCopyWith<$Res> {
-  factory _$$SharedPageStateImplCopyWith(_$SharedPageStateImpl value, $Res Function(_$SharedPageStateImpl) then) =
+abstract class _$$SharedPageStateImplCopyWith<$Res>
+    implements $SharedPageStateCopyWith<$Res> {
+  factory _$$SharedPageStateImplCopyWith(_$SharedPageStateImpl value,
+          $Res Function(_$SharedPageStateImpl) then) =
       __$$SharedPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -93,9 +99,11 @@ abstract class _$$SharedPageStateImplCopyWith<$Res> implements $SharedPageStateC
 }
 
 /// @nodoc
-class __$$SharedPageStateImplCopyWithImpl<$Res> extends _$SharedPageStateCopyWithImpl<$Res, _$SharedPageStateImpl>
+class __$$SharedPageStateImplCopyWithImpl<$Res>
+    extends _$SharedPageStateCopyWithImpl<$Res, _$SharedPageStateImpl>
     implements _$$SharedPageStateImplCopyWith<$Res> {
-  __$$SharedPageStateImplCopyWithImpl(_$SharedPageStateImpl _value, $Res Function(_$SharedPageStateImpl) _then)
+  __$$SharedPageStateImplCopyWithImpl(
+      _$SharedPageStateImpl _value, $Res Function(_$SharedPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of SharedPageState
@@ -173,15 +181,23 @@ class _$SharedPageStateImpl implements _SharedPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SharedPageStateImpl &&
-            (identical(other.isLoading, isLoading) || other.isLoading == isLoading) &&
-            const DeepCollectionEquality().equals(other._sharedStorages, _sharedStorages) &&
-            (identical(other.selectedProfileId, selectedProfileId) || other.selectedProfileId == selectedProfileId) &&
-            const DeepCollectionEquality().equals(other._sharedFiles, _sharedFiles));
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            const DeepCollectionEquality()
+                .equals(other._sharedStorages, _sharedStorages) &&
+            (identical(other.selectedProfileId, selectedProfileId) ||
+                other.selectedProfileId == selectedProfileId) &&
+            const DeepCollectionEquality()
+                .equals(other._sharedFiles, _sharedFiles));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, const DeepCollectionEquality().hash(_sharedStorages),
-      selectedProfileId, const DeepCollectionEquality().hash(_sharedFiles));
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      const DeepCollectionEquality().hash(_sharedStorages),
+      selectedProfileId,
+      const DeepCollectionEquality().hash(_sharedFiles));
 
   /// Create a copy of SharedPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -189,7 +205,8 @@ class _$SharedPageStateImpl implements _SharedPageState {
   @override
   @pragma('vm:prefer-inline')
   _$$SharedPageStateImplCopyWith<_$SharedPageStateImpl> get copyWith =>
-      __$$SharedPageStateImplCopyWithImpl<_$SharedPageStateImpl>(this, _$identity);
+      __$$SharedPageStateImplCopyWithImpl<_$SharedPageStateImpl>(
+          this, _$identity);
 }
 
 abstract class _SharedPageState implements SharedPageState {
@@ -212,5 +229,6 @@ abstract class _SharedPageState implements SharedPageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SharedPageStateImplCopyWith<_$SharedPageStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$SharedPageStateImplCopyWith<_$SharedPageStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

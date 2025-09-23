@@ -33,7 +33,8 @@ class FilesExplorer extends ConsumerWidget {
 
   final String? parentNodeId;
   final String profileId;
-  final void Function({required String folderName, required String folderId}) onFolderTap;
+  final void Function({required String folderName, required String folderId})
+      onFolderTap;
   final void Function(Item node) onPreviewFile;
   final List<Item>? nodes;
   final bool isLoading;
@@ -170,7 +171,8 @@ class FilesExplorer extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset('assets/images/illustration-no-files.svg', width: 156, height: 82),
+              SvgPicture.asset('assets/images/illustration-no-files.svg',
+                  width: 156, height: 82),
               const SizedBox(height: AppSizing.paddingLarge),
               Center(
                 child: Text(
@@ -281,7 +283,9 @@ class _ListFileTile extends ConsumerWidget {
     return ListTile(
       onTap: onTap,
       contentPadding: EdgeInsets.only(left: AppSizing.paddingRegular),
-      leading: Hero(tag: item.id, child: SvgPicture.asset('assets/icons/documents-3.svg')),
+      leading: Hero(
+          tag: item.id,
+          child: SvgPicture.asset('assets/icons/documents-3.svg')),
       title: Text(item.name),
       subtitle: Text(item.formattedCreateDate(localeName)),
       trailing: IconButton(

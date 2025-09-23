@@ -21,12 +21,14 @@ mixin _$RenameFileFormState {
   /// Create a copy of RenameFileFormState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $RenameFileFormStateCopyWith<RenameFileFormState> get copyWith => throw _privateConstructorUsedError;
+  $RenameFileFormStateCopyWith<RenameFileFormState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $RenameFileFormStateCopyWith<$Res> {
-  factory $RenameFileFormStateCopyWith(RenameFileFormState value, $Res Function(RenameFileFormState) then) =
+  factory $RenameFileFormStateCopyWith(
+          RenameFileFormState value, $Res Function(RenameFileFormState) then) =
       _$RenameFileFormStateCopyWithImpl<$Res, RenameFileFormState>;
   @useResult
   $Res call({bool isRenameButtonEnabled});
@@ -59,9 +61,10 @@ class _$RenameFileFormStateCopyWithImpl<$Res, $Val extends RenameFileFormState>
 }
 
 /// @nodoc
-abstract class _$$RenameFileFormStateImplCopyWith<$Res> implements $RenameFileFormStateCopyWith<$Res> {
-  factory _$$RenameFileFormStateImplCopyWith(
-          _$RenameFileFormStateImpl value, $Res Function(_$RenameFileFormStateImpl) then) =
+abstract class _$$RenameFileFormStateImplCopyWith<$Res>
+    implements $RenameFileFormStateCopyWith<$Res> {
+  factory _$$RenameFileFormStateImplCopyWith(_$RenameFileFormStateImpl value,
+          $Res Function(_$RenameFileFormStateImpl) then) =
       __$$RenameFileFormStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -72,8 +75,8 @@ abstract class _$$RenameFileFormStateImplCopyWith<$Res> implements $RenameFileFo
 class __$$RenameFileFormStateImplCopyWithImpl<$Res>
     extends _$RenameFileFormStateCopyWithImpl<$Res, _$RenameFileFormStateImpl>
     implements _$$RenameFileFormStateImplCopyWith<$Res> {
-  __$$RenameFileFormStateImplCopyWithImpl(
-      _$RenameFileFormStateImpl _value, $Res Function(_$RenameFileFormStateImpl) _then)
+  __$$RenameFileFormStateImplCopyWithImpl(_$RenameFileFormStateImpl _value,
+      $Res Function(_$RenameFileFormStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of RenameFileFormState
@@ -123,11 +126,13 @@ class _$RenameFileFormStateImpl implements _RenameFileFormState {
   @override
   @pragma('vm:prefer-inline')
   _$$RenameFileFormStateImplCopyWith<_$RenameFileFormStateImpl> get copyWith =>
-      __$$RenameFileFormStateImplCopyWithImpl<_$RenameFileFormStateImpl>(this, _$identity);
+      __$$RenameFileFormStateImplCopyWithImpl<_$RenameFileFormStateImpl>(
+          this, _$identity);
 }
 
 abstract class _RenameFileFormState implements RenameFileFormState {
-  factory _RenameFileFormState({required final bool isRenameButtonEnabled}) = _$RenameFileFormStateImpl;
+  factory _RenameFileFormState({required final bool isRenameButtonEnabled}) =
+      _$RenameFileFormStateImpl;
 
   @override
   bool get isRenameButtonEnabled;
@@ -136,5 +141,6 @@ abstract class _RenameFileFormState implements RenameFileFormState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RenameFileFormStateImplCopyWith<_$RenameFileFormStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$RenameFileFormStateImplCopyWith<_$RenameFileFormStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -24,15 +24,20 @@ mixin _$StorageServiceState {
   /// Create a copy of StorageServiceState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $StorageServiceStateCopyWith<StorageServiceState> get copyWith => throw _privateConstructorUsedError;
+  $StorageServiceStateCopyWith<StorageServiceState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $StorageServiceStateCopyWith<$Res> {
-  factory $StorageServiceStateCopyWith(StorageServiceState value, $Res Function(StorageServiceState) then) =
+  factory $StorageServiceStateCopyWith(
+          StorageServiceState value, $Res Function(StorageServiceState) then) =
       _$StorageServiceStateCopyWithImpl<$Res, StorageServiceState>;
   @useResult
-  $Res call({List<Item> items, Map<String, PaginationState> paginationStates, Uint8List? fileData});
+  $Res call(
+      {List<Item> items,
+      Map<String, PaginationState> paginationStates,
+      Uint8List? fileData});
 }
 
 /// @nodoc
@@ -72,21 +77,25 @@ class _$StorageServiceStateCopyWithImpl<$Res, $Val extends StorageServiceState>
 }
 
 /// @nodoc
-abstract class _$$StorageServiceStateImplCopyWith<$Res> implements $StorageServiceStateCopyWith<$Res> {
-  factory _$$StorageServiceStateImplCopyWith(
-          _$StorageServiceStateImpl value, $Res Function(_$StorageServiceStateImpl) then) =
+abstract class _$$StorageServiceStateImplCopyWith<$Res>
+    implements $StorageServiceStateCopyWith<$Res> {
+  factory _$$StorageServiceStateImplCopyWith(_$StorageServiceStateImpl value,
+          $Res Function(_$StorageServiceStateImpl) then) =
       __$$StorageServiceStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Item> items, Map<String, PaginationState> paginationStates, Uint8List? fileData});
+  $Res call(
+      {List<Item> items,
+      Map<String, PaginationState> paginationStates,
+      Uint8List? fileData});
 }
 
 /// @nodoc
 class __$$StorageServiceStateImplCopyWithImpl<$Res>
     extends _$StorageServiceStateCopyWithImpl<$Res, _$StorageServiceStateImpl>
     implements _$$StorageServiceStateImplCopyWith<$Res> {
-  __$$StorageServiceStateImplCopyWithImpl(
-      _$StorageServiceStateImpl _value, $Res Function(_$StorageServiceStateImpl) _then)
+  __$$StorageServiceStateImplCopyWithImpl(_$StorageServiceStateImpl _value,
+      $Res Function(_$StorageServiceStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of StorageServiceState
@@ -117,7 +126,9 @@ class __$$StorageServiceStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StorageServiceStateImpl with DiagnosticableTreeMixin implements _StorageServiceState {
+class _$StorageServiceStateImpl
+    with DiagnosticableTreeMixin
+    implements _StorageServiceState {
   _$StorageServiceStateImpl(
       {final List<Item> items = const [],
       final Map<String, PaginationState> paginationStates = const {},
@@ -168,13 +179,17 @@ class _$StorageServiceStateImpl with DiagnosticableTreeMixin implements _Storage
         (other.runtimeType == runtimeType &&
             other is _$StorageServiceStateImpl &&
             const DeepCollectionEquality().equals(other._items, _items) &&
-            const DeepCollectionEquality().equals(other._paginationStates, _paginationStates) &&
+            const DeepCollectionEquality()
+                .equals(other._paginationStates, _paginationStates) &&
             const DeepCollectionEquality().equals(other.fileData, fileData));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(_items),
-      const DeepCollectionEquality().hash(_paginationStates), const DeepCollectionEquality().hash(fileData));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_items),
+      const DeepCollectionEquality().hash(_paginationStates),
+      const DeepCollectionEquality().hash(fileData));
 
   /// Create a copy of StorageServiceState
   /// with the given fields replaced by the non-null parameter values.
@@ -182,7 +197,8 @@ class _$StorageServiceStateImpl with DiagnosticableTreeMixin implements _Storage
   @override
   @pragma('vm:prefer-inline')
   _$$StorageServiceStateImplCopyWith<_$StorageServiceStateImpl> get copyWith =>
-      __$$StorageServiceStateImplCopyWithImpl<_$StorageServiceStateImpl>(this, _$identity);
+      __$$StorageServiceStateImplCopyWithImpl<_$StorageServiceStateImpl>(
+          this, _$identity);
 }
 
 abstract class _StorageServiceState implements StorageServiceState {
@@ -194,7 +210,8 @@ abstract class _StorageServiceState implements StorageServiceState {
   @override
   List<Item> get items;
   @override
-  Map<String, PaginationState> get paginationStates; // folderId -> PaginationState
+  Map<String, PaginationState>
+      get paginationStates; // folderId -> PaginationState
   @override
   Uint8List? get fileData;
 
@@ -202,5 +219,6 @@ abstract class _StorageServiceState implements StorageServiceState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$StorageServiceStateImplCopyWith<_$StorageServiceStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$StorageServiceStateImplCopyWith<_$StorageServiceStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

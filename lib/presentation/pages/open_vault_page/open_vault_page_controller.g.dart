@@ -6,14 +6,18 @@ part of 'open_vault_page_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$openVaultPageControllerHash() => r'85b1be33b5f5c4e444c9ac8035923cd5496b56a8';
+String _$openVaultPageControllerHash() =>
+    r'85b1be33b5f5c4e444c9ac8035923cd5496b56a8';
 
 /// See also [OpenVaultPageController].
 @ProviderFor(OpenVaultPageController)
-final openVaultPageControllerProvider = AutoDisposeNotifierProvider<OpenVaultPageController, bool>.internal(
+final openVaultPageControllerProvider =
+    AutoDisposeNotifierProvider<OpenVaultPageController, bool>.internal(
   OpenVaultPageController.new,
   name: r'openVaultPageControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$openVaultPageControllerHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$openVaultPageControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

@@ -10,5 +10,6 @@ class PaginationState with _$PaginationState {
     @Default(0) int currentPageIndex,
   }) = _PaginationState;
 
-  factory PaginationState.fromJson(Map<String, dynamic> json) => _$PaginationStateFromJson(json);
+  factory PaginationState.fromJson(Map<String, dynamic> json) =>
+      _$PaginationStateFromJson(json);
 }

@@ -16,7 +16,8 @@ part 'create_vault_page_controller.g.dart';
 class CreateVaultPageController extends _$CreateVaultPageController {
   CreateVaultPageController() : super();
 
-  final loadingController = AsyncLoadingController.provider('createVaultPageControllerLoading');
+  final loadingController =
+      AsyncLoadingController.provider('createVaultPageControllerLoading');
 
   @override
   CreateVaultPageState build() {

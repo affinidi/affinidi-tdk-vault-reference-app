@@ -6,7 +6,8 @@ part of 'claim_credential_repository_impl.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$claimCredentialRepositoryHash() => r'91ca05e43cc728fe745636f105fbfcf962f90e77';
+String _$claimCredentialRepositoryHash() =>
+    r'91ca05e43cc728fe745636f105fbfcf962f90e77';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -34,7 +35,8 @@ class _SystemHash {
 const claimCredentialRepositoryProvider = ClaimCredentialRepositoryFamily();
 
 /// See also [claimCredentialRepository].
-class ClaimCredentialRepositoryFamily extends Family<AsyncValue<ClaimCredentialRepository>> {
+class ClaimCredentialRepositoryFamily
+    extends Family<AsyncValue<ClaimCredentialRepository>> {
   /// See also [claimCredentialRepository].
   const ClaimCredentialRepositoryFamily();
 
@@ -67,14 +69,16 @@ class ClaimCredentialRepositoryFamily extends Family<AsyncValue<ClaimCredentialR
   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
 
   @override
   String? get name => r'claimCredentialRepositoryProvider';
 }
 
 /// See also [claimCredentialRepository].
-class ClaimCredentialRepositoryProvider extends AutoDisposeFutureProvider<ClaimCredentialRepository> {
+class ClaimCredentialRepositoryProvider
+    extends AutoDisposeFutureProvider<ClaimCredentialRepository> {
   /// See also [claimCredentialRepository].
   ClaimCredentialRepositoryProvider(
     String vaultId,
@@ -88,9 +92,12 @@ class ClaimCredentialRepositoryProvider extends AutoDisposeFutureProvider<ClaimC
           from: claimCredentialRepositoryProvider,
           name: r'claimCredentialRepositoryProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product') ? null : _$claimCredentialRepositoryHash,
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$claimCredentialRepositoryHash,
           dependencies: ClaimCredentialRepositoryFamily._dependencies,
-          allTransitiveDependencies: ClaimCredentialRepositoryFamily._allTransitiveDependencies,
+          allTransitiveDependencies:
+              ClaimCredentialRepositoryFamily._allTransitiveDependencies,
           vaultId: vaultId,
           accountIndex: accountIndex,
         );
@@ -111,7 +118,9 @@ class ClaimCredentialRepositoryProvider extends AutoDisposeFutureProvider<ClaimC
 
   @override
   Override overrideWith(
-    FutureOr<ClaimCredentialRepository> Function(ClaimCredentialRepositoryRef provider) create,
+    FutureOr<ClaimCredentialRepository> Function(
+            ClaimCredentialRepositoryRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -135,7 +144,9 @@ class ClaimCredentialRepositoryProvider extends AutoDisposeFutureProvider<ClaimC
 
   @override
   bool operator ==(Object other) {
-    return other is ClaimCredentialRepositoryProvider && other.vaultId == vaultId && other.accountIndex == accountIndex;
+    return other is ClaimCredentialRepositoryProvider &&
+        other.vaultId == vaultId &&
+        other.accountIndex == accountIndex;
   }
 
   @override
@@ -150,7 +161,8 @@ class ClaimCredentialRepositoryProvider extends AutoDisposeFutureProvider<ClaimC
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin ClaimCredentialRepositoryRef on AutoDisposeFutureProviderRef<ClaimCredentialRepository> {
+mixin ClaimCredentialRepositoryRef
+    on AutoDisposeFutureProviderRef<ClaimCredentialRepository> {
   /// The parameter `vaultId` of this provider.
   String get vaultId;
 
@@ -158,14 +170,16 @@ mixin ClaimCredentialRepositoryRef on AutoDisposeFutureProviderRef<ClaimCredenti
   int get accountIndex;
 }
 
-class _ClaimCredentialRepositoryProviderElement extends AutoDisposeFutureProviderElement<ClaimCredentialRepository>
+class _ClaimCredentialRepositoryProviderElement
+    extends AutoDisposeFutureProviderElement<ClaimCredentialRepository>
     with ClaimCredentialRepositoryRef {
   _ClaimCredentialRepositoryProviderElement(super.provider);
 
   @override
   String get vaultId => (origin as ClaimCredentialRepositoryProvider).vaultId;
   @override
-  int get accountIndex => (origin as ClaimCredentialRepositoryProvider).accountIndex;
+  int get accountIndex =>
+      (origin as ClaimCredentialRepositoryProvider).accountIndex;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

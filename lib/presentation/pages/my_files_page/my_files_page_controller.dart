@@ -15,13 +15,18 @@ part 'my_files_page_controller.g.dart';
 class MyFilesPageController extends _$MyFilesPageController {
   MyFilesPageController() : super();
 
-  final loadingController = AsyncLoadingController.provider('myFilesPageLoadingController');
-  final fileUploadController = AsyncLoadingController.provider('myFilesPageFileUploadingController');
-  final downloadingController = AsyncLoadingController.provider('myFilesPageDownloadingController');
+  final loadingController =
+      AsyncLoadingController.provider('myFilesPageLoadingController');
+  final fileUploadController =
+      AsyncLoadingController.provider('myFilesPageFileUploadingController');
+  final downloadingController =
+      AsyncLoadingController.provider('myFilesPageDownloadingController');
 
   @override
-  MyFilesPageState build({required String? parentNodeId, required String profileId}) {
-    final provider = storageServiceProvider(parentNodeId: parentNodeId, profileId: profileId);
+  MyFilesPageState build(
+      {required String? parentNodeId, required String profileId}) {
+    final provider = storageServiceProvider(
+        parentNodeId: parentNodeId, profileId: profileId);
     Future(() async {
       state = state.copyWith(isLoading: true);
       await ref.read(provider.notifier).listItems();
@@ -43,7 +48,9 @@ class MyFilesPageController extends _$MyFilesPageController {
 
   Future<void> uploadFiles(AppLocalizations localizations) async {
     ref.read(fileUploadController.notifier).start(() async {
-      final validFiles = await ref.read(fileUploadServiceProvider.notifier).pickAndValidateFiles(
+      final validFiles = await ref
+          .read(fileUploadServiceProvider.notifier)
+          .pickAndValidateFiles(
             parentNodeId: parentNodeId,
             profileId: profileId,
             localizations: localizations,
@@ -63,7 +70,11 @@ class MyFilesPageController extends _$MyFilesPageController {
 
   Future<void> downloadFile(Item item) async {
     ref.read(downloadingController.notifier).start(() async {
-      await ref.read(storageServiceProvider(parentNodeId: parentNodeId, profileId: profileId).notifier).getFileContent(
+      await ref
+          .read(storageServiceProvider(
+                  parentNodeId: parentNodeId, profileId: profileId)
+              .notifier)
+          .getFileContent(
             fileId: item.id,
           );
     });

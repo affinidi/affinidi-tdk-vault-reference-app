@@ -15,13 +15,15 @@ class CreateProfileFormController extends _$CreateProfileFormController {
 
   final profileNameController = TextEditingController();
   final profileDescriptionController = TextEditingController();
-  final loadingController = AsyncLoadingController.provider('createProfileFormLoadingController');
+  final loadingController =
+      AsyncLoadingController.provider('createProfileFormLoadingController');
 
   @override
   CreateProfileFormState build() {
     void profileNameListener() {
       Future(() {
-        state = state.copyWith(hasName: profileNameController.text.trim().isNotEmpty);
+        state = state.copyWith(
+            hasName: profileNameController.text.trim().isNotEmpty);
       });
     }
 
@@ -29,7 +31,9 @@ class CreateProfileFormController extends _$CreateProfileFormController {
 
     void profileDescriptionListener() {
       Future(() {
-        state = state.copyWith(hasDescription: profileDescriptionController.text.trim().isNotEmpty);
+        state = state.copyWith(
+            hasDescription:
+                profileDescriptionController.text.trim().isNotEmpty);
       });
     }
 
@@ -49,7 +53,9 @@ class CreateProfileFormController extends _$CreateProfileFormController {
   Future<void> create({required void Function() onSuccess}) async {
     if (profileNameController.text.trim().isEmpty) {
       Error.throwWithStackTrace(
-          AppException(message: 'Profile name is mandatory', type: AppExceptionType.missingProfileName),
+          AppException(
+              message: 'Profile name is mandatory',
+              type: AppExceptionType.missingProfileName),
           StackTrace.current);
     }
 

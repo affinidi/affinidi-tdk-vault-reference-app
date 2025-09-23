@@ -16,7 +16,8 @@ MessageService messageService(Ref ref) {
 }
 
 class MessageService {
-  String getLocalizedMessage(ProfileSharingMessage message, AppLocalizations localizations) {
+  String getLocalizedMessage(
+      ProfileSharingMessage message, AppLocalizations localizations) {
     switch (message) {
       case ProfileSharingMessage.sharingProfile:
         return localizations.sharingProfileMessage;

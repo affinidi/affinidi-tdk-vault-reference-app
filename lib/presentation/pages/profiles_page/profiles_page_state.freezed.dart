@@ -21,12 +21,14 @@ mixin _$ProfilesPageState {
   /// Create a copy of ProfilesPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProfilesPageStateCopyWith<ProfilesPageState> get copyWith => throw _privateConstructorUsedError;
+  $ProfilesPageStateCopyWith<ProfilesPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ProfilesPageStateCopyWith<$Res> {
-  factory $ProfilesPageStateCopyWith(ProfilesPageState value, $Res Function(ProfilesPageState) then) =
+  factory $ProfilesPageStateCopyWith(
+          ProfilesPageState value, $Res Function(ProfilesPageState) then) =
       _$ProfilesPageStateCopyWithImpl<$Res, ProfilesPageState>;
   @useResult
   $Res call({List<Profile>? profiles});
@@ -59,8 +61,10 @@ class _$ProfilesPageStateCopyWithImpl<$Res, $Val extends ProfilesPageState>
 }
 
 /// @nodoc
-abstract class _$$ProfilesPageStateImplCopyWith<$Res> implements $ProfilesPageStateCopyWith<$Res> {
-  factory _$$ProfilesPageStateImplCopyWith(_$ProfilesPageStateImpl value, $Res Function(_$ProfilesPageStateImpl) then) =
+abstract class _$$ProfilesPageStateImplCopyWith<$Res>
+    implements $ProfilesPageStateCopyWith<$Res> {
+  factory _$$ProfilesPageStateImplCopyWith(_$ProfilesPageStateImpl value,
+          $Res Function(_$ProfilesPageStateImpl) then) =
       __$$ProfilesPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -68,9 +72,11 @@ abstract class _$$ProfilesPageStateImplCopyWith<$Res> implements $ProfilesPageSt
 }
 
 /// @nodoc
-class __$$ProfilesPageStateImplCopyWithImpl<$Res> extends _$ProfilesPageStateCopyWithImpl<$Res, _$ProfilesPageStateImpl>
+class __$$ProfilesPageStateImplCopyWithImpl<$Res>
+    extends _$ProfilesPageStateCopyWithImpl<$Res, _$ProfilesPageStateImpl>
     implements _$$ProfilesPageStateImplCopyWith<$Res> {
-  __$$ProfilesPageStateImplCopyWithImpl(_$ProfilesPageStateImpl _value, $Res Function(_$ProfilesPageStateImpl) _then)
+  __$$ProfilesPageStateImplCopyWithImpl(_$ProfilesPageStateImpl _value,
+      $Res Function(_$ProfilesPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of ProfilesPageState
@@ -92,7 +98,8 @@ class __$$ProfilesPageStateImplCopyWithImpl<$Res> extends _$ProfilesPageStateCop
 /// @nodoc
 
 class _$ProfilesPageStateImpl implements _ProfilesPageState {
-  _$ProfilesPageStateImpl({final List<Profile>? profiles}) : _profiles = profiles;
+  _$ProfilesPageStateImpl({final List<Profile>? profiles})
+      : _profiles = profiles;
 
   final List<Profile>? _profiles;
   @override
@@ -118,7 +125,8 @@ class _$ProfilesPageStateImpl implements _ProfilesPageState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(_profiles));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_profiles));
 
   /// Create a copy of ProfilesPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -126,11 +134,13 @@ class _$ProfilesPageStateImpl implements _ProfilesPageState {
   @override
   @pragma('vm:prefer-inline')
   _$$ProfilesPageStateImplCopyWith<_$ProfilesPageStateImpl> get copyWith =>
-      __$$ProfilesPageStateImplCopyWithImpl<_$ProfilesPageStateImpl>(this, _$identity);
+      __$$ProfilesPageStateImplCopyWithImpl<_$ProfilesPageStateImpl>(
+          this, _$identity);
 }
 
 abstract class _ProfilesPageState implements ProfilesPageState {
-  factory _ProfilesPageState({final List<Profile>? profiles}) = _$ProfilesPageStateImpl;
+  factory _ProfilesPageState({final List<Profile>? profiles}) =
+      _$ProfilesPageStateImpl;
 
   @override
   List<Profile>? get profiles;
@@ -139,5 +149,6 @@ abstract class _ProfilesPageState implements ProfilesPageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProfilesPageStateImplCopyWith<_$ProfilesPageStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$ProfilesPageStateImplCopyWith<_$ProfilesPageStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

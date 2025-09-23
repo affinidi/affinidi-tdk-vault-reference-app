@@ -24,10 +24,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get driveTitle => 'Storage';
 
   @override
-  String get filesEmptyStateDescription => 'You don\'t have any files yet.\nThe Home folder is your root directory.';
+  String get filesEmptyStateDescription =>
+      'You don\'t have any files yet.\nThe Home folder is your root directory.';
 
   @override
-  String get credentialsEmptyStateDescription => 'You don\'t have any claimed credentials.';
+  String get credentialsEmptyStateDescription =>
+      'You don\'t have any claimed credentials.';
 
   @override
   String get retryActionText => 'Retry';
@@ -80,7 +82,8 @@ class AppLocalizationsEn extends AppLocalizations {
         'unmatched_tx_code': 'Transaction code does not match',
         'folderNotEmpty':
             'We cannot delete this folder because it\'s not empty. Please delete the files and try again.',
-        'nameAlreadyInUse': 'This name is already in use. Please choose a different one.',
+        'nameAlreadyInUse':
+            'This name is already in use. Please choose a different one.',
         'invalidPassword': 'Invalid password',
         'emptyPassword': 'Password cannot be empty',
         'invalidTransferData': 'Invalid transfer data',
@@ -214,7 +217,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get previewTitle => 'Preview';
 
   @override
-  String get unsupportedPreview => 'Preview is not supported for this file type';
+  String get unsupportedPreview =>
+      'Preview is not supported for this file type';
 
   @override
   String get home => 'Home';
@@ -223,13 +227,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createVaultTitle => 'Create your Vault';
 
   @override
-  String get createVaultDescription => 'Use this option to create a brand new Vault.';
+  String get createVaultDescription =>
+      'Use this option to create a brand new Vault.';
 
   @override
   String get createVaultActionLabel => 'Create';
 
   @override
-  String get vaultExistsErrorMessage => 'A vault with this seed already exists on this device';
+  String get vaultExistsErrorMessage =>
+      'A vault with this seed already exists on this device';
 
   @override
   String get seed => 'seed';
@@ -247,7 +253,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get login => 'Login';
 
   @override
-  String get openVaultDescription => 'Use this option to open a Vault you have already used on this device.';
+  String get openVaultDescription =>
+      'Use this option to open a Vault you have already used on this device.';
 
   @override
   String get accessVaultActionLabel => 'Access';
@@ -263,7 +270,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get transferVaultActionLabel => 'Start';
 
   @override
-  String get scanQrCodeInstructions => 'Position the QR code within the frame to scan';
+  String get scanQrCodeInstructions =>
+      'Position the QR code within the frame to scan';
 
   @override
   String get vaultName => 'Vault Name';
@@ -325,7 +333,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get shareProfileAcceptSuccessMessage => 'Shared profile accepted successfully!';
+  String get shareProfileAcceptSuccessMessage =>
+      'Shared profile accepted successfully!';
 
   @override
   String shareProfileAcceptErrorMessage(Object errorMessage) {
@@ -444,7 +453,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error => 'Error';
 
   @override
-  String get vaultsEmptyMessage => 'No vaults found. Create a new vault to get started.';
+  String get vaultsEmptyMessage =>
+      'No vaults found. Create a new vault to get started.';
 
   @override
   String get incorrectPassphrase => 'Wrong passphrase.';
@@ -465,7 +475,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileTypeDrift => 'Store in Drift (Local Storage)';
 
   @override
-  String get profileNotice => 'Profiles created using local storage cannot be shared.';
+  String get profileNotice =>
+      'Profiles created using local storage cannot be shared.';
 
   @override
   String get profileTypeChooseYourOwn => 'Choose your own';
@@ -500,7 +511,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileNotDeletedTitle => 'Profile Not Deleted';
 
   @override
-  String get profileNotDeletedMessage => 'This profile contains files/folders. Please delete them before trying again.';
+  String get profileNotDeletedMessage =>
+      'This profile contains files/folders. Please delete them before trying again.';
 
   @override
   String get gotItActionText => 'Got it';
@@ -518,16 +530,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorLoadingCodeSnippetsMessage => 'Error loading code snippets';
 
   @override
-  String get profilesEmptyStateDescription => 'You don\'t have any profiles yet. Start by creating one.';
+  String get profilesEmptyStateDescription =>
+      'You don\'t have any profiles yet. Start by creating one.';
 
   @override
   String get folderNotDeletedTitle => 'Folder Not Deleted';
 
   @override
-  String get folderNotDeletedMessage => 'This folder contains files/folders. Please delete them before trying again.';
+  String get folderNotDeletedMessage =>
+      'This folder contains files/folders. Please delete them before trying again.';
 
   @override
-  String get sharingProfileMessage => 'Sharing your profile. Auto-accepts profile if from the same device.';
+  String get sharingProfileMessage =>
+      'Sharing your profile. Auto-accepts profile if from the same device.';
 
   @override
   String get accessPermissionLabel => 'Access Permission';
@@ -569,10 +584,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileSharedMessage => 'Profile has been shared';
 
   @override
-  String get sharedProfileJsonGeneratedMessage => 'Shared profile JSON generated';
+  String get sharedProfileJsonGeneratedMessage =>
+      'Shared profile JSON generated';
 
   @override
-  String get autoAcceptingMessage => 'Auto-accepting the shared profile. This may take a few seconds.';
+  String get autoAcceptingMessage =>
+      'Auto-accepting the shared profile. This may take a few seconds.';
 
   @override
   String genericError(Object error) {
@@ -643,10 +660,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createProfile => 'Create Profile';
 
   @override
-  String get seedGenerationMessage => 'A secure 32-byte seed will be generated. It\'s needed to create your Vault.';
+  String get seedGenerationMessage =>
+      'A secure 32-byte seed will be generated. It\'s needed to create your Vault.';
 
   @override
-  String get existingSeedMessage => 'Provide an existing seed to create your Vault.';
+  String get existingSeedMessage =>
+      'Provide an existing seed to create your Vault.';
 
   @override
   String get enterSeedHint => 'Enter your seed';
@@ -818,7 +837,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snippetDescCreateVaultProfVFS => 'Create Vault Profile (Cloud)';
 
   @override
-  String get snippetDescCreateVaultProfDrift => 'Create Vault Profile (Local Storage)';
+  String get snippetDescCreateVaultProfDrift =>
+      'Create Vault Profile (Local Storage)';
 
   @override
   String get snippetDescGetFilesFolders => 'Get Files and Folders (Interface)';
@@ -831,16 +851,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snippetDescGetClaimedVCs => 'Get Claimed Credentials (Interface)';
 
   @override
-  String get snippetDescListVaults => 'List Vaults - Ref App-specific implementation';
+  String get snippetDescListVaults =>
+      'List Vaults - Ref App-specific implementation';
 
   @override
-  String get snippetDescListVaultsProfs => 'List Vault Profiles - Retrieves list of profiles';
+  String get snippetDescListVaultsProfs =>
+      'List Vault Profiles - Retrieves list of profiles';
 
   @override
   String get snippetDescShareProfile => 'Share Profile';
 
   @override
-  String get snippetDescRetrieveCredOffer => 'Retrieve Credential Offer via Offer URI';
+  String get snippetDescRetrieveCredOffer =>
+      'Retrieve Credential Offer via Offer URI';
 
   @override
   String get snippetDescClaimCredOffer => 'Claim Credential Offer';

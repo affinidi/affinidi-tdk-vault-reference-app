@@ -6,14 +6,18 @@ part of 'vaults_manager_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$vaultsManagerServiceHash() => r'651f2e8b273bc6aba67f4460d1590d52aaffd33d';
+String _$vaultsManagerServiceHash() =>
+    r'651f2e8b273bc6aba67f4460d1590d52aaffd33d';
 
 /// See also [VaultsManagerService].
 @ProviderFor(VaultsManagerService)
-final vaultsManagerServiceProvider = NotifierProvider<VaultsManagerService, VaultsManagerState>.internal(
+final vaultsManagerServiceProvider =
+    NotifierProvider<VaultsManagerService, VaultsManagerState>.internal(
   VaultsManagerService.new,
   name: r'vaultsManagerServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$vaultsManagerServiceHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$vaultsManagerServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

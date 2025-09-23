@@ -21,19 +21,22 @@ mixin _$CreateFolderFormState {
   /// Create a copy of CreateFolderFormState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CreateFolderFormStateCopyWith<CreateFolderFormState> get copyWith => throw _privateConstructorUsedError;
+  $CreateFolderFormStateCopyWith<CreateFolderFormState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CreateFolderFormStateCopyWith<$Res> {
-  factory $CreateFolderFormStateCopyWith(CreateFolderFormState value, $Res Function(CreateFolderFormState) then) =
+  factory $CreateFolderFormStateCopyWith(CreateFolderFormState value,
+          $Res Function(CreateFolderFormState) then) =
       _$CreateFolderFormStateCopyWithImpl<$Res, CreateFolderFormState>;
   @useResult
   $Res call({bool isCreateFolderButtonEnabled});
 }
 
 /// @nodoc
-class _$CreateFolderFormStateCopyWithImpl<$Res, $Val extends CreateFolderFormState>
+class _$CreateFolderFormStateCopyWithImpl<$Res,
+        $Val extends CreateFolderFormState>
     implements $CreateFolderFormStateCopyWith<$Res> {
   _$CreateFolderFormStateCopyWithImpl(this._value, this._then);
 
@@ -59,9 +62,11 @@ class _$CreateFolderFormStateCopyWithImpl<$Res, $Val extends CreateFolderFormSta
 }
 
 /// @nodoc
-abstract class _$$CreateFolderFormStateImplCopyWith<$Res> implements $CreateFolderFormStateCopyWith<$Res> {
+abstract class _$$CreateFolderFormStateImplCopyWith<$Res>
+    implements $CreateFolderFormStateCopyWith<$Res> {
   factory _$$CreateFolderFormStateImplCopyWith(
-          _$CreateFolderFormStateImpl value, $Res Function(_$CreateFolderFormStateImpl) then) =
+          _$CreateFolderFormStateImpl value,
+          $Res Function(_$CreateFolderFormStateImpl) then) =
       __$$CreateFolderFormStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -70,10 +75,11 @@ abstract class _$$CreateFolderFormStateImplCopyWith<$Res> implements $CreateFold
 
 /// @nodoc
 class __$$CreateFolderFormStateImplCopyWithImpl<$Res>
-    extends _$CreateFolderFormStateCopyWithImpl<$Res, _$CreateFolderFormStateImpl>
+    extends _$CreateFolderFormStateCopyWithImpl<$Res,
+        _$CreateFolderFormStateImpl>
     implements _$$CreateFolderFormStateImplCopyWith<$Res> {
-  __$$CreateFolderFormStateImplCopyWithImpl(
-      _$CreateFolderFormStateImpl _value, $Res Function(_$CreateFolderFormStateImpl) _then)
+  __$$CreateFolderFormStateImplCopyWithImpl(_$CreateFolderFormStateImpl _value,
+      $Res Function(_$CreateFolderFormStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of CreateFolderFormState
@@ -110,8 +116,10 @@ class _$CreateFolderFormStateImpl implements _CreateFolderFormState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreateFolderFormStateImpl &&
-            (identical(other.isCreateFolderButtonEnabled, isCreateFolderButtonEnabled) ||
-                other.isCreateFolderButtonEnabled == isCreateFolderButtonEnabled));
+            (identical(other.isCreateFolderButtonEnabled,
+                    isCreateFolderButtonEnabled) ||
+                other.isCreateFolderButtonEnabled ==
+                    isCreateFolderButtonEnabled));
   }
 
   @override
@@ -122,12 +130,15 @@ class _$CreateFolderFormStateImpl implements _CreateFolderFormState {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CreateFolderFormStateImplCopyWith<_$CreateFolderFormStateImpl> get copyWith =>
-      __$$CreateFolderFormStateImplCopyWithImpl<_$CreateFolderFormStateImpl>(this, _$identity);
+  _$$CreateFolderFormStateImplCopyWith<_$CreateFolderFormStateImpl>
+      get copyWith => __$$CreateFolderFormStateImplCopyWithImpl<
+          _$CreateFolderFormStateImpl>(this, _$identity);
 }
 
 abstract class _CreateFolderFormState implements CreateFolderFormState {
-  factory _CreateFolderFormState({required final bool isCreateFolderButtonEnabled}) = _$CreateFolderFormStateImpl;
+  factory _CreateFolderFormState(
+          {required final bool isCreateFolderButtonEnabled}) =
+      _$CreateFolderFormStateImpl;
 
   @override
   bool get isCreateFolderButtonEnabled;
@@ -136,5 +147,6 @@ abstract class _CreateFolderFormState implements CreateFolderFormState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CreateFolderFormStateImplCopyWith<_$CreateFolderFormStateImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$CreateFolderFormStateImplCopyWith<_$CreateFolderFormStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

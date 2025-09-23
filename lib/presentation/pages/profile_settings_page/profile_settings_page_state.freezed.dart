@@ -23,20 +23,22 @@ mixin _$ProfileSettingsPageState {
   /// Create a copy of ProfileSettingsPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProfileSettingsPageStateCopyWith<ProfileSettingsPageState> get copyWith => throw _privateConstructorUsedError;
+  $ProfileSettingsPageStateCopyWith<ProfileSettingsPageState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ProfileSettingsPageStateCopyWith<$Res> {
-  factory $ProfileSettingsPageStateCopyWith(
-          ProfileSettingsPageState value, $Res Function(ProfileSettingsPageState) then) =
+  factory $ProfileSettingsPageStateCopyWith(ProfileSettingsPageState value,
+          $Res Function(ProfileSettingsPageState) then) =
       _$ProfileSettingsPageStateCopyWithImpl<$Res, ProfileSettingsPageState>;
   @useResult
   $Res call({bool isSaving, Profile? profile, Set<int> revokingIds});
 }
 
 /// @nodoc
-class _$ProfileSettingsPageStateCopyWithImpl<$Res, $Val extends ProfileSettingsPageState>
+class _$ProfileSettingsPageStateCopyWithImpl<$Res,
+        $Val extends ProfileSettingsPageState>
     implements $ProfileSettingsPageStateCopyWith<$Res> {
   _$ProfileSettingsPageStateCopyWithImpl(this._value, this._then);
 
@@ -72,9 +74,11 @@ class _$ProfileSettingsPageStateCopyWithImpl<$Res, $Val extends ProfileSettingsP
 }
 
 /// @nodoc
-abstract class _$$ProfileSettingsPageStateImplCopyWith<$Res> implements $ProfileSettingsPageStateCopyWith<$Res> {
+abstract class _$$ProfileSettingsPageStateImplCopyWith<$Res>
+    implements $ProfileSettingsPageStateCopyWith<$Res> {
   factory _$$ProfileSettingsPageStateImplCopyWith(
-          _$ProfileSettingsPageStateImpl value, $Res Function(_$ProfileSettingsPageStateImpl) then) =
+          _$ProfileSettingsPageStateImpl value,
+          $Res Function(_$ProfileSettingsPageStateImpl) then) =
       __$$ProfileSettingsPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -83,10 +87,12 @@ abstract class _$$ProfileSettingsPageStateImplCopyWith<$Res> implements $Profile
 
 /// @nodoc
 class __$$ProfileSettingsPageStateImplCopyWithImpl<$Res>
-    extends _$ProfileSettingsPageStateCopyWithImpl<$Res, _$ProfileSettingsPageStateImpl>
+    extends _$ProfileSettingsPageStateCopyWithImpl<$Res,
+        _$ProfileSettingsPageStateImpl>
     implements _$$ProfileSettingsPageStateImplCopyWith<$Res> {
   __$$ProfileSettingsPageStateImplCopyWithImpl(
-      _$ProfileSettingsPageStateImpl _value, $Res Function(_$ProfileSettingsPageStateImpl) _then)
+      _$ProfileSettingsPageStateImpl _value,
+      $Res Function(_$ProfileSettingsPageStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of ProfileSettingsPageState
@@ -118,7 +124,10 @@ class __$$ProfileSettingsPageStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ProfileSettingsPageStateImpl implements _ProfileSettingsPageState {
-  const _$ProfileSettingsPageStateImpl({this.isSaving = false, this.profile, final Set<int> revokingIds = const {}})
+  const _$ProfileSettingsPageStateImpl(
+      {this.isSaving = false,
+      this.profile,
+      final Set<int> revokingIds = const {}})
       : _revokingIds = revokingIds;
 
   @override
@@ -145,26 +154,32 @@ class _$ProfileSettingsPageStateImpl implements _ProfileSettingsPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProfileSettingsPageStateImpl &&
-            (identical(other.isSaving, isSaving) || other.isSaving == isSaving) &&
+            (identical(other.isSaving, isSaving) ||
+                other.isSaving == isSaving) &&
             (identical(other.profile, profile) || other.profile == profile) &&
-            const DeepCollectionEquality().equals(other._revokingIds, _revokingIds));
+            const DeepCollectionEquality()
+                .equals(other._revokingIds, _revokingIds));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isSaving, profile, const DeepCollectionEquality().hash(_revokingIds));
+  int get hashCode => Object.hash(runtimeType, isSaving, profile,
+      const DeepCollectionEquality().hash(_revokingIds));
 
   /// Create a copy of ProfileSettingsPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ProfileSettingsPageStateImplCopyWith<_$ProfileSettingsPageStateImpl> get copyWith =>
-      __$$ProfileSettingsPageStateImplCopyWithImpl<_$ProfileSettingsPageStateImpl>(this, _$identity);
+  _$$ProfileSettingsPageStateImplCopyWith<_$ProfileSettingsPageStateImpl>
+      get copyWith => __$$ProfileSettingsPageStateImplCopyWithImpl<
+          _$ProfileSettingsPageStateImpl>(this, _$identity);
 }
 
 abstract class _ProfileSettingsPageState implements ProfileSettingsPageState {
-  const factory _ProfileSettingsPageState({final bool isSaving, final Profile? profile, final Set<int> revokingIds}) =
-      _$ProfileSettingsPageStateImpl;
+  const factory _ProfileSettingsPageState(
+      {final bool isSaving,
+      final Profile? profile,
+      final Set<int> revokingIds}) = _$ProfileSettingsPageStateImpl;
 
   @override
   bool get isSaving;
@@ -177,6 +192,6 @@ abstract class _ProfileSettingsPageState implements ProfileSettingsPageState {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProfileSettingsPageStateImplCopyWith<_$ProfileSettingsPageStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ProfileSettingsPageStateImplCopyWith<_$ProfileSettingsPageStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

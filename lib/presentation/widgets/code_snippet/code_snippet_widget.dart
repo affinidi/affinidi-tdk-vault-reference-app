@@ -88,14 +88,16 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
           try {
             final code = await location.getCode(localizations).timeout(
                   const Duration(seconds: 5),
-                  onTimeout: () => '${localizations.timeoutLoadingCodeMessage} ${location.filePath}',
+                  onTimeout: () =>
+                      '${localizations.timeoutLoadingCodeMessage} ${location.filePath}',
                 );
 
             codeParts.add(
                 ' /*****\n  Purpose: ${location.description}\n  Location: ${location.filePath}#L${location.startLine}\n *****/');
             codeParts.add(code);
           } catch (e) {
-            codeParts.add('${localizations.errorLoadingCodeMessage} ${location.filePath}: $e');
+            codeParts.add(
+                '${localizations.errorLoadingCodeMessage} ${location.filePath}: $e');
           }
         }
         allCode = codeParts.join('\n\n');
@@ -155,7 +157,8 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
                   IconButton(
                     icon: Icon(isCodeCopied ? Icons.check : Icons.copy),
                     onPressed: () async {
-                      await Clipboard.setData(ClipboardData(text: codeController!.text));
+                      await Clipboard.setData(
+                          ClipboardData(text: codeController!.text));
                       setState(() {
                         isCodeCopied = true;
                       });
@@ -190,7 +193,9 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
                               textStyle: Theme.of(context)
                                   .textTheme
                                   .bodySmall
-                                  ?.copyWith(color: Colors.white, fontFamily: 'SourceCode'),
+                                  ?.copyWith(
+                                      color: Colors.white,
+                                      fontFamily: 'SourceCode'),
                               gutterStyle: GutterStyle.none,
                               expands: true,
                             ),

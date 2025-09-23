@@ -10,7 +10,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class AsyncLoadingController extends AutoDisposeNotifier<AsyncValue<void>> {
   AsyncLoadingController() : super();
 
-  static AutoDisposeNotifierProvider<AsyncLoadingController, AsyncValue<dynamic>> provider(String name) =>
+  static AutoDisposeNotifierProvider<AsyncLoadingController,
+      AsyncValue<dynamic>> provider(
+          String name) =>
       NotifierProvider.autoDispose<AsyncLoadingController, AsyncValue>(
         AsyncLoadingController.new,
         name: name,

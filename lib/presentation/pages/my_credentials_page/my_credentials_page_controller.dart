@@ -14,7 +14,8 @@ class MyCredentialsPageController extends _$MyCredentialsPageController {
   MyCredentialsPageController() : super();
 
   /// Provides access to a loading controller used for async status indication
-  final loadingController = AsyncLoadingController.provider('myCredentialsPageLoadingController');
+  final loadingController =
+      AsyncLoadingController.provider('myCredentialsPageLoadingController');
 
   /// Initializes the state and triggers the initial fetch of claimed credentials.
   /// Also listens to credential state changes from the credential service and updates UI state accordingly.
@@ -24,7 +25,8 @@ class MyCredentialsPageController extends _$MyCredentialsPageController {
 
     Future(() {
       ref.read(loadingController.notifier).start(
-            () async => await ref.read(provider.notifier).getClaimedCredentials(),
+            () async =>
+                await ref.read(provider.notifier).getClaimedCredentials(),
           );
     });
 

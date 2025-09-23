@@ -95,7 +95,8 @@ GoRouter navigation(Ref ref) {
               routes: [
                 StatefulShellRoute.indexedStack(
                   builder: (context, state, navigationShell) {
-                    final profileId = state.pathParameters[ProfilesRouteParams.id]!;
+                    final profileId =
+                        state.pathParameters[ProfilesRouteParams.id]!;
                     return ProfilePage(
                       profileId: profileId,
                       navigationShell: navigationShell,
@@ -107,7 +108,8 @@ GoRouter navigation(Ref ref) {
                         GoRoute(
                           path: ProfilesRoutePath.myFiles,
                           builder: (context, state) => MyFilesPage(
-                            profileId: state.pathParameters[ProfilesRouteParams.id]!,
+                            profileId:
+                                state.pathParameters[ProfilesRouteParams.id]!,
                           ),
                         ),
                       ],
@@ -117,7 +119,8 @@ GoRouter navigation(Ref ref) {
                         GoRoute(
                           path: ProfilesRoutePath.myCredentials,
                           builder: (context, state) => MyCredentialsPage(
-                            profileId: state.pathParameters[ProfilesRouteParams.id]!,
+                            profileId:
+                                state.pathParameters[ProfilesRouteParams.id]!,
                           ),
                         ),
                       ],
@@ -127,7 +130,8 @@ GoRouter navigation(Ref ref) {
                         GoRoute(
                           path: ProfilesRoutePath.shared,
                           builder: (context, state) => SharedPage(
-                            profileId: state.pathParameters[ProfilesRouteParams.id]!,
+                            profileId:
+                                state.pathParameters[ProfilesRouteParams.id]!,
                           ),
                         ),
                       ],
@@ -142,8 +146,10 @@ GoRouter navigation(Ref ref) {
                   routes: [
                     StatefulShellRoute.indexedStack(
                       builder: (context, state, navigationShell) {
-                        final profileId = state.pathParameters[ProfilesRouteParams.id]!;
-                        final sharedProfileId = state.pathParameters[ProfilesRouteParams.sharedProfileId]!;
+                        final profileId =
+                            state.pathParameters[ProfilesRouteParams.id]!;
+                        final sharedProfileId = state.pathParameters[
+                            ProfilesRouteParams.sharedProfileId]!;
                         return SharedProfileDetailsPage(
                           profileId: profileId,
                           sharedProfileId: sharedProfileId,
@@ -156,7 +162,8 @@ GoRouter navigation(Ref ref) {
                             GoRoute(
                               path: ProfilesRoutePath.sharedProfileFiles,
                               builder: (context, state) => SharedFilesPage(
-                                profileId: state.pathParameters[ProfilesRouteParams.sharedProfileId]!,
+                                profileId: state.pathParameters[
+                                    ProfilesRouteParams.sharedProfileId]!,
                               ),
                             ),
                           ],
@@ -165,8 +172,10 @@ GoRouter navigation(Ref ref) {
                           routes: [
                             GoRoute(
                               path: ProfilesRoutePath.sharedProfileCredentials,
-                              builder: (context, state) => SharedCredentialsPage(
-                                profileId: state.pathParameters[ProfilesRouteParams.sharedProfileId]!,
+                              builder: (context, state) =>
+                                  SharedCredentialsPage(
+                                profileId: state.pathParameters[
+                                    ProfilesRouteParams.sharedProfileId]!,
                               ),
                             ),
                           ],
@@ -177,8 +186,8 @@ GoRouter navigation(Ref ref) {
                 ),
                 GoRoute(
                   path: ProfilesRoutePath.settings,
-                  builder: (context, state) =>
-                      ProfileSettingsPage(profileId: state.pathParameters[ProfilesRouteParams.id]!),
+                  builder: (context, state) => ProfileSettingsPage(
+                      profileId: state.pathParameters[ProfilesRouteParams.id]!),
                 ),
               ],
             ),
@@ -205,14 +214,16 @@ GoRouter navigation(Ref ref) {
       ),
     ),
     GoRoute(
-      path: '/vaults/profiles/:${ProfilesRouteParams.profileId}/files/preview/:${ProfilesRouteParams.nodeId}',
+      path:
+          '/vaults/profiles/:${ProfilesRouteParams.profileId}/files/preview/:${ProfilesRouteParams.nodeId}',
       builder: (context, state) => FilePreviewPage(
         profileId: state.pathParameters[ProfilesRouteParams.profileId]!,
         nodeId: state.pathParameters[ProfilesRouteParams.nodeId]!,
       ),
     ),
     GoRoute(
-      path: '/vaults/profiles/:${ProfilesRouteParams.profileId}/shared/files/preview/:${ProfilesRouteParams.nodeId}',
+      path:
+          '/vaults/profiles/:${ProfilesRouteParams.profileId}/shared/files/preview/:${ProfilesRouteParams.nodeId}',
       builder: (context, state) => FilePreviewPage(
         profileId: state.pathParameters[ProfilesRouteParams.profileId]!,
         nodeId: state.pathParameters[ProfilesRouteParams.nodeId]!,

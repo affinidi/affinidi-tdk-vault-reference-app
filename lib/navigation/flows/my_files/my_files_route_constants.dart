@@ -1,7 +1,10 @@
 abstract class MyFilesRoutePath {
-  static String profileFiles(String profileId) => '/vaults/profiles/$profileId/files';
-  static String filePreview(String profileId, String nodeId) => '/vaults/profiles/$profileId/files/preview/$nodeId';
-  static String folderPath(String profileId, String folderId) => '/vaults/profiles/$profileId/files?folder=$folderId';
+  static String profileFiles(String profileId) =>
+      '/vaults/profiles/$profileId/files';
+  static String filePreview(String profileId, String nodeId) =>
+      '/vaults/profiles/$profileId/files/preview/$nodeId';
+  static String folderPath(String profileId, String folderId) =>
+      '/vaults/profiles/$profileId/files?folder=$folderId';
 }
 
 abstract class MyFilesRouteName {
