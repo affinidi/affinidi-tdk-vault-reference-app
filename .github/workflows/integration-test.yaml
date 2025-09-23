@@ -9,4 +9,4 @@ jobs:
     secrets: inherit
     with:
       flutter-version: "3.32.6"
-      working-directory: "./integration_tests"
+      working-directory: "./integration_test"
