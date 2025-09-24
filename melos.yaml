@@ -9,7 +9,7 @@ scripts:
     exec:
       concurrency: 1
   test-integration:
-    name: test
+    name: test-integration
     description: "integration tests"
     run: flutter test integration_test/
     exec:
