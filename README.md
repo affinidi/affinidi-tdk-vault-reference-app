@@ -109,7 +109,7 @@ jenv add /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home/
 To generate models, run the following command in your terminal:
 
 ```bash
-make gen
+melos gen
 ```
 
 ## Run App on Simulator

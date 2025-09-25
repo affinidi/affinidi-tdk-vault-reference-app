@@ -1,7 +1,7 @@
 name: tdk_reference_app
 description: "A reference application that demonstrates the sample usage of the Affinidi TDK - Vault package to guide you through integrating it into your projects."
 publish_to: "none"
-version: 1.0.0+27
+version: 1.0.0+1
 
 environment:
   sdk: ^3.5.4

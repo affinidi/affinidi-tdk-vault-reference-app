@@ -5,8 +5,7 @@ echo "------------------------------------------------------------------------"
 echo "Generating code"
 echo "------------------------------------------------------------------------"
 
-fvm flutter clean
-fvm flutter pub get
-fvm dart run build_runner build --delete-conflicting-outputs
-fvm dart format -l 120 .
-
+flutter clean
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+dart format .

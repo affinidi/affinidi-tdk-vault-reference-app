@@ -57,43 +57,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String option(String option) {
-    String _temp0 = intl.Intl.selectLogic(
-      option,
-      {
-        'rename': 'Rename',
-        'preview': 'Preview',
-        'delete': 'Delete',
-        'share': 'Share',
-        'other': 'Unknown',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(option, {
+      'rename': 'Rename',
+      'preview': 'Preview',
+      'delete': 'Delete',
+      'share': 'Share',
+      'other': 'Unknown',
+    });
     return '$_temp0';
   }
 
   @override
   String errorMessage(String errorType) {
-    String _temp0 = intl.Intl.selectLogic(
-      errorType,
-      {
-        'credential_offer_expired': 'Credential offer is expired',
-        'credential_offer_claimed_error': 'Credential offer is already claimed',
-        'failed_to_load_credentialOffer': 'Failed to load credentials',
-        'invalid_proof': 'The proof in the Credential Request is invalid',
-        'unmatched_tx_code': 'Transaction code does not match',
-        'folderNotEmpty':
-            'We cannot delete this folder because it\'s not empty. Please delete the files and try again.',
-        'nameAlreadyInUse':
-            'This name is already in use. Please choose a different one.',
-        'invalidPassword': 'Invalid password',
-        'emptyPassword': 'Password cannot be empty',
-        'invalidTransferData': 'Invalid transfer data',
-        'emptyTransferData': 'Missing transfer data',
-        'missingProfileName': 'Please enter a valid profile name',
-        'invalidUrl': 'Please enter a valid URL',
-        'getCredentialFailed': 'Failed to get credential data',
-        'other': 'Something went wrong',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(errorType, {
+      'credential_offer_expired': 'Credential offer is expired',
+      'credential_offer_claimed_error': 'Credential offer is already claimed',
+      'failed_to_load_credentialOffer': 'Failed to load credentials',
+      'invalid_proof': 'The proof in the Credential Request is invalid',
+      'unmatched_tx_code': 'Transaction code does not match',
+      'folderNotEmpty':
+          'We cannot delete this folder because it\'s not empty. Please delete the files and try again.',
+      'nameAlreadyInUse':
+          'This name is already in use. Please choose a different one.',
+      'invalidPassword': 'Invalid password',
+      'emptyPassword': 'Password cannot be empty',
+      'invalidTransferData': 'Invalid transfer data',
+      'emptyTransferData': 'Missing transfer data',
+      'missingProfileName': 'Please enter a valid profile name',
+      'invalidUrl': 'Please enter a valid URL',
+      'getCredentialFailed': 'Failed to get credential data',
+      'other': 'Something went wrong',
+    });
     return '$_temp0';
   }
 

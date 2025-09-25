@@ -14,3 +14,15 @@ scripts:
     run: flutter test integration_test/
     exec:
       concurrency: 1
+  gen:
+    name: generate-code
+    description: generate code
+    run: sh scripts/codegen.sh
+    exec:
+      concurrency: 1
+  strings:
+    name: generate-strings
+    description: generate localized strings
+    run: sh scripts/generate_localized_files.sh
+    exec:
+      concurrency: 1

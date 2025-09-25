@@ -5,5 +5,5 @@ echo "------------------------------------------------------------------------"
 echo "Generating localized strings"
 echo "------------------------------------------------------------------------"
 
-fvm flutter gen-l10n
-fvm dart format -l 120 .
+flutter gen-l10n
+dart format .
