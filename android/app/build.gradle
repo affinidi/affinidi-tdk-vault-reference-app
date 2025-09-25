@@ -45,7 +45,7 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         manifestPlaceholders = [
-            "APP_NAME": "TDK Reference App"
+            "APP_NAME": "TDK Reference"
         ]
     }
 

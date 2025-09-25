@@ -22,7 +22,7 @@ class KeyConstants {
 
 class AppConfig {
   // Application Configuration
-  static const String appName = 'TDK Reference App';
+  static const String appName = 'TDK Reference';
 
   // GitHub Configuration
   static const String githubUrl =
