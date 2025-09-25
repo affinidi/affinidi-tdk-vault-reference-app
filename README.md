@@ -4,6 +4,9 @@ This reference application demonstrates the sample usage of the [Affinidi TDK - 
 
 It's the implementation of the Self-Sovereign Identity (SSI) concept to create digital identities with Decentralised Identities (DID), manage associated cryptographic keys, and provide a secure storage layer to store credentials and personal files, whether on the cloud or the device's local storage.
 
+> **IMPORTANT:** 
+> This project does not collect or process any personal data. However, when used as part of a broader system or application that handles personally identifiable information (PII), users are responsible for ensuring that any such use complies with applicable privacy laws and data protection obligations.
+
 ## Core Concepts
 
 - **Decentralised Identifier (DID):** A globally unique identifier that enables secure interactions. The DID is the cornerstone of Self-Sovereign Identity (SSI), a concept that aims to put individuals or entities in control of their digital identities. DID has different methods to prove control of digital identity.
