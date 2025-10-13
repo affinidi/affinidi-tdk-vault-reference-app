@@ -40,8 +40,18 @@ class ProfilesPage extends ConsumerWidget {
     final navigation = ref.read(navigationServiceProvider);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColorScheme.backgroundBlack,
       appBar: TdkAppBar(
+        leadingTitle: currentVaultId != null
+            ? vaultRegistry[currentVaultId]?.vaultName ?? 'Vault'
+            : 'Vault',
+        titleWidget: SimpleInfoWidget(
+          text: localizations.profilesTitle,
+          dialogTitle: localizations.infoProfile,
+          dialogContent: localizations.infoProfileDescription,
+          textStyle: AppTheme.headingLarge,
+        ),
+        centerTitle: true,
         showBackButton: true,
         onBackPressed: () {
           controller.resetCurrentVault();
@@ -75,40 +85,12 @@ class ProfilesPage extends ConsumerWidget {
                     .bodyLarge
                     ?.copyWith(color: AppColorScheme.backgroundWhite),
               ),
-              icon: const Icon(Icons.add),
             )
           : null,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: AppSizing.paddingSmall,
-                right: AppSizing.paddingLarge,
-                top: AppSizing.paddingSmall,
-                bottom: AppSizing.paddingRegular,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: AppSizing.paddingRegular),
-                    child: Text(
-                      currentVaultId != null
-                          ? vaultRegistry[currentVaultId]?.vaultName ?? 'Vault'
-                          : 'Vault',
-                      style: AppTheme.headingXLarge,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 1.0,
-              color: AppColorScheme.divider,
-            ),
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async {
@@ -185,11 +167,9 @@ class ProfilesPage extends ConsumerWidget {
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor:
-                                          AppColorScheme.backgroundWhite,
-                                      foregroundColor:
                                           AppTheme.colorScheme.primary,
-                                      side: BorderSide(
-                                          color: AppColorScheme.divider),
+                                      foregroundColor:
+                                          AppColorScheme.backgroundWhite,
                                       padding: const EdgeInsets.symmetric(
                                           vertical: AppSizing.paddingMedium),
                                       shape: RoundedRectangleBorder(
@@ -204,6 +184,7 @@ class ProfilesPage extends ConsumerWidget {
                                         fontFamily: 'Figtree',
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),

@@ -54,42 +54,18 @@ class ProfileSettingsPage extends HookConsumerWidget {
     }
 
     return Scaffold(
-      backgroundColor: AppColorScheme.backgroundWhite,
+      backgroundColor: AppColorScheme.backgroundBlack,
       appBar: TdkAppBar(
+        title: localizations.profileSettingsTitle,
         showBackButton: true,
         onBackPressed: () => Navigator.of(context).pop(),
       ),
       body: Column(
         children: [
-          // Header section
-          Padding(
-            padding: const EdgeInsets.only(
-              left: AppSizing.paddingSmall,
-              right: AppSizing.paddingLarge,
-              top: AppSizing.paddingSmall,
-              bottom: AppSizing.paddingRegular,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: AppSizing.paddingMedium,
-                      top: AppSizing.paddingLarge),
-                  child: Text(
-                    localizations.profileSettingsTitle,
-                    style: AppTheme.headingMedium,
-                  ),
-                ),
-                const SizedBox(height: AppSizing.paddingMedium),
-                const Divider(
-                  height: 1,
-                  color: AppColorScheme.divider,
-                ),
-              ],
-            ),
-          ),
           // Settings options
+          const SizedBox(
+            height: 24,
+          ),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(
@@ -146,7 +122,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
                   icon: Icons.delete,
                   title: localizations.deleteProfileTitle,
                   titleColor: AppColorScheme.error,
-                  iconColor: AppColorScheme.error,
+                  iconColor: AppColorScheme.backgroundWhite,
                   onTap: onDeleteProfile,
                 ),
               ],
@@ -251,7 +227,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppTheme.colorScheme.primary,
-              foregroundColor: AppColorScheme.backgroundWhite,
+              foregroundColor: AppColorScheme.backgroundBlack,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
               ),
@@ -261,7 +237,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
               style: Theme.of(context)
                   .textTheme
                   .labelLarge
-                  ?.copyWith(color: AppColorScheme.backgroundWhite),
+                  ?.copyWith(color: AppColorScheme.backgroundBlack),
             ),
           ),
         ],
@@ -290,7 +266,7 @@ class _SettingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      color: AppColorScheme.backgroundWhite,
+      color: AppColorScheme.backgroundBlack,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
         side: BorderSide(color: AppColorScheme.divider),

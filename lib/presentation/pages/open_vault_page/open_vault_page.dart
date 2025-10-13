@@ -57,8 +57,10 @@ class OpenVaultPage extends HookConsumerWidget {
     }
 
     return Scaffold(
-      backgroundColor: AppColorScheme.backgroundWhite,
+      backgroundColor: AppColorScheme.backgroundBlack,
       appBar: TdkAppBar(
+        title: localizations.login,
+        centerTitle: true,
         showBackButton: true,
         onBackPressed: () => navigation.pop(),
         actions: [
@@ -79,24 +81,6 @@ class OpenVaultPage extends HookConsumerWidget {
                 top: AppSizing.paddingSmall,
                 bottom: AppSizing.paddingRegular,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: AppSizing.paddingRegular,
-                        top: AppSizing.paddingLarge),
-                    child: Text(
-                      localizations.login,
-                      style: AppTheme.headingXLarge,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 1.0,
-              color: AppColorScheme.divider,
             ),
             Expanded(
               child: Padding(
@@ -108,7 +92,7 @@ class OpenVaultPage extends HookConsumerWidget {
                       '${localizations.vaultPassphrase}*',
                       style: Theme.of(context)
                           .textTheme
-                          .bodySmall
+                          .bodyMedium
                           ?.copyWith(fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: AppSizing.paddingSmall),
@@ -118,7 +102,7 @@ class OpenVaultPage extends HookConsumerWidget {
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: isPassphraseFocused.value
-                                  ? AppColorScheme.formFieldBorderFocused
+                                  ? AppColorScheme.backgroundWhite
                                   : AppColorScheme.formFieldBorderUnfocused,
                             ),
                             borderRadius:
@@ -142,8 +126,9 @@ class OpenVaultPage extends HookConsumerWidget {
                               },
                               decoration: InputDecoration(
                                 hintText: localizations.enterPassphrase,
-                                hintStyle:
-                                    TextStyle(color: Colors.grey.shade400),
+                                hintStyle: TextStyle(
+                                  color: Colors.grey.shade400,
+                                ),
                                 border: InputBorder.none,
                                 contentPadding: const EdgeInsets.all(
                                     AppSizing.paddingRegular),
@@ -189,7 +174,7 @@ class OpenVaultPage extends HookConsumerWidget {
                                   : Colors.grey.shade300,
                           foregroundColor:
                               (isPassphraseEntered.value && !isLoading)
-                                  ? AppColorScheme.backgroundWhite
+                                  ? AppColorScheme.backgroundBlack
                                   : const Color(0xFF9CA3AF),
                           padding: const EdgeInsets.symmetric(
                               vertical: AppSizing.paddingMedium),

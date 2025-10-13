@@ -27,7 +27,7 @@ class DidDisplay extends StatelessWidget {
           icon: const Icon(
             Icons.copy_outlined,
             size: AppSizing.iconMedium,
-            color: AppColorScheme.backgroundDark,
+            color: AppColorScheme.backgroundWhite,
           ),
           tooltip: AppLocalizations.of(context)?.copy ?? 'Copy',
           onPressed: () async {

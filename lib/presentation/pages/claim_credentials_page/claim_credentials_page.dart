@@ -50,6 +50,7 @@ class ClaimCredentialsPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: TdkAppBar(
+        title: localizations.claimCredentialsTitle,
         showBackButton: true,
         onBackPressed: () {
           navigation.pop(VaultsRoutePath.base);

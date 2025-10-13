@@ -65,7 +65,7 @@ class DeleteFolderForm extends ConsumerWidget {
 
     return Container(
       decoration: const BoxDecoration(
-        color: AppColorScheme.backgroundWhite,
+        color: AppColorScheme.backgroundBlack,
         borderRadius: BorderRadius.vertical(
             top: Radius.circular(AppSizing.paddingMedium)),
       ),
@@ -146,7 +146,7 @@ class DeleteFolderForm extends ConsumerWidget {
                               delete();
                             },
                       style: TextButton.styleFrom(
-                        foregroundColor: AppColorScheme.backgroundWhite,
+                        foregroundColor: AppColorScheme.backgroundBlack,
                         padding: const EdgeInsets.symmetric(
                             vertical: AppSizing.paddingRegular),
                       ),
@@ -157,7 +157,7 @@ class DeleteFolderForm extends ConsumerWidget {
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                    AppColorScheme.backgroundWhite),
+                                    AppColorScheme.backgroundBlack),
                               ),
                             )
                           : Text(
@@ -169,7 +169,7 @@ class DeleteFolderForm extends ConsumerWidget {
                                   .bodySmall
                                   ?.copyWith(
                                       fontWeight: FontWeight.w600,
-                                      color: AppColorScheme.backgroundWhite),
+                                      color: AppColorScheme.backgroundBlack),
                             ),
                     ),
                   ),

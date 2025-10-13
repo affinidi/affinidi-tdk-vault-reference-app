@@ -54,7 +54,9 @@ class MyApp extends ConsumerWidget {
       localizationsDelegates: [
         AppLocalizations.delegate,
       ],
-      theme: AppTheme.main,
+      theme: AppTheme.dark,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.dark,
       routerConfig: routerConfig,
     );
   }

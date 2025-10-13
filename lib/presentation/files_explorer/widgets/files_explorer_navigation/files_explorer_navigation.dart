@@ -109,6 +109,10 @@ class FilesExplorerNavigation extends ConsumerWidget {
               key: Key(KeyConstants.keyCreateFolderButton),
               icon: SvgPicture.asset(
                 'assets/icons/icon-add-folder.svg',
+                colorFilter: ColorFilter.mode(
+                  Colors.white,
+                  BlendMode.srcIn,
+                ),
               ),
               onPressed: () => onCreateFolderPressed(),
             ),
@@ -116,6 +120,10 @@ class FilesExplorerNavigation extends ConsumerWidget {
               key: Key(KeyConstants.keyUploadFilesButton),
               icon: SvgPicture.asset(
                 'assets/icons/add-doc.svg',
+                colorFilter: ColorFilter.mode(
+                  Colors.white,
+                  BlendMode.srcIn,
+                ),
               ),
               onPressed: () => onUploadFilePressed(),
             )

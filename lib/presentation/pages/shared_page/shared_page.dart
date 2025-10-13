@@ -25,7 +25,7 @@ class SharedPage extends ConsumerWidget {
     final navigation = ref.read(navigationServiceProvider);
 
     return Scaffold(
-      backgroundColor: AppColorScheme.backgroundWhite,
+      backgroundColor: AppColorScheme.backgroundBlack,
       body: state.isLoading
           ? const Center(child: CircularProgressIndicator())
           : state.sharedStorages.isEmpty

@@ -1,5 +1,5 @@
-// ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -24,12 +24,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get driveTitle => 'Storage';
 
   @override
-  String get filesEmptyStateDescription =>
-      'You don\'t have any files yet.\nThe Home folder is your root directory.';
+  String get filesEmptyStateDescription => 'You don\'t have any files yet.\nThe Home folder is your root directory.';
 
   @override
-  String get credentialsEmptyStateDescription =>
-      'You don\'t have any claimed credentials.';
+  String get credentialsEmptyStateDescription => 'You don\'t have any claimed credentials.';
 
   @override
   String get retryActionText => 'Retry';
@@ -57,37 +55,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String option(String option) {
-    String _temp0 = intl.Intl.selectLogic(option, {
-      'rename': 'Rename',
-      'preview': 'Preview',
-      'delete': 'Delete',
-      'share': 'Share',
-      'other': 'Unknown',
-    });
+    String _temp0 = intl.Intl.selectLogic(
+      option,
+      {
+        'rename': 'Rename',
+        'preview': 'Preview',
+        'delete': 'Delete',
+        'share': 'Share',
+        'other': 'Unknown',
+      },
+    );
     return '$_temp0';
   }
 
   @override
   String errorMessage(String errorType) {
-    String _temp0 = intl.Intl.selectLogic(errorType, {
-      'credential_offer_expired': 'Credential offer is expired',
-      'credential_offer_claimed_error': 'Credential offer is already claimed',
-      'failed_to_load_credentialOffer': 'Failed to load credentials',
-      'invalid_proof': 'The proof in the Credential Request is invalid',
-      'unmatched_tx_code': 'Transaction code does not match',
-      'folderNotEmpty':
-          'We cannot delete this folder because it\'s not empty. Please delete the files and try again.',
-      'nameAlreadyInUse':
-          'This name is already in use. Please choose a different one.',
-      'invalidPassword': 'Invalid password',
-      'emptyPassword': 'Password cannot be empty',
-      'invalidTransferData': 'Invalid transfer data',
-      'emptyTransferData': 'Missing transfer data',
-      'missingProfileName': 'Please enter a valid profile name',
-      'invalidUrl': 'Please enter a valid URL',
-      'getCredentialFailed': 'Failed to get credential data',
-      'other': 'Something went wrong',
-    });
+    String _temp0 = intl.Intl.selectLogic(
+      errorType,
+      {
+        'credential_offer_expired': 'Credential offer is expired',
+        'credential_offer_claimed_error': 'Credential offer is already claimed',
+        'failed_to_load_credentialOffer': 'Failed to load credentials',
+        'invalid_proof': 'The proof in the Credential Request is invalid',
+        'unmatched_tx_code': 'Transaction code does not match',
+        'folderNotEmpty': 'We cannot delete this folder because it\'s not empty. Please delete the files and try again.',
+        'nameAlreadyInUse': 'This name is already in use. Please choose a different one.',
+        'invalidPassword': 'Invalid password',
+        'emptyPassword': 'Password cannot be empty',
+        'invalidTransferData': 'Invalid transfer data',
+        'emptyTransferData': 'Missing transfer data',
+        'missingProfileName': 'Please enter a valid profile name',
+        'invalidUrl': 'Please enter a valid URL',
+        'getCredentialFailed': 'Failed to get credential data',
+        'other': 'Something went wrong',
+      },
+    );
     return '$_temp0';
   }
 
@@ -110,8 +112,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteFolderTitle => 'Delete folder';
 
   @override
-  String get deleteFolderDescription =>
-      'Please confirm deletion. This folder will be permanently removed and cannot be restored.';
+  String get deleteFolderDescription => 'Please confirm deletion. This folder will be permanently removed and cannot be restored.';
 
   @override
   String get deleteFolderActionText => 'Delete';
@@ -129,8 +130,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteFileLoadingMessage => 'Deleting file...';
 
   @override
-  String get deleteFileDescription =>
-      'Please confirm deletion. This file will be permanently removed and cannot be restored.';
+  String get deleteFileDescription => 'Please confirm deletion. This file will be permanently removed and cannot be restored.';
 
   @override
   String get uploadingFileLoadingMessage => 'Uploading...';
@@ -177,8 +177,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteCredentialLoadingMessage => 'Deleting credential...';
 
   @override
-  String get deleteCredentialDescription =>
-      'Please confirm deletion. This credential will be permanently removed and cannot be restored.';
+  String get deleteCredentialDescription => 'Please confirm deletion. This credential will be permanently removed and cannot be restored.';
 
   @override
   String get renameFolderDescription => 'Create a name for this folder.';
@@ -211,8 +210,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get previewTitle => 'Preview';
 
   @override
-  String get unsupportedPreview =>
-      'Preview is not supported for this file type';
+  String get unsupportedPreview => 'Preview is not supported for this file type';
 
   @override
   String get home => 'Home';
@@ -221,15 +219,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createVaultTitle => 'Create your Vault';
 
   @override
-  String get createVaultDescription =>
-      'Use this option to create a brand new Vault.';
+  String get createVaultDescription => 'Use this option to create a brand new Vault.';
 
   @override
   String get createVaultActionLabel => 'Create';
 
   @override
-  String get vaultExistsErrorMessage =>
-      'A vault with this seed already exists on this device';
+  String get vaultExistsErrorMessage => 'A vault with this seed already exists on this device';
 
   @override
   String get seed => 'seed';
@@ -247,8 +243,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get login => 'Login';
 
   @override
-  String get openVaultDescription =>
-      'Use this option to open a Vault you have already used on this device.';
+  String get openVaultDescription => 'Use this option to open a Vault you have already used on this device.';
 
   @override
   String get accessVaultActionLabel => 'Access';
@@ -257,15 +252,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get transferVaultTitle => 'Complete a Vault transfer';
 
   @override
-  String get transferVaultDescription =>
-      'Use this option to start scanning the QR code you received and complete a transfer.';
+  String get transferVaultDescription => 'Use this option to start scanning the QR code you received and complete a transfer.';
 
   @override
   String get transferVaultActionLabel => 'Start';
 
   @override
-  String get scanQrCodeInstructions =>
-      'Position the QR code within the frame to scan';
+  String get scanQrCodeInstructions => 'Position the QR code within the frame to scan';
 
   @override
   String get vaultName => 'Vault Name';
@@ -327,8 +320,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get shareProfileAcceptSuccessMessage =>
-      'Shared profile accepted successfully!';
+  String get shareProfileAcceptSuccessMessage => 'Shared profile accepted successfully!';
 
   @override
   String shareProfileAcceptErrorMessage(Object errorMessage) {
@@ -447,8 +439,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error => 'Error';
 
   @override
-  String get vaultsEmptyMessage =>
-      'No vaults found. Create a new vault to get started.';
+  String get vaultsEmptyMessage => 'No vaults found. Create a new vault to get started.';
 
   @override
   String get incorrectPassphrase => 'Wrong passphrase.';
@@ -469,8 +460,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileTypeDrift => 'Store in Drift (Local Storage)';
 
   @override
-  String get profileNotice =>
-      'Profiles created using local storage cannot be shared.';
+  String get profileNotice => 'Profiles created using local storage cannot be shared.';
 
   @override
   String get profileTypeChooseYourOwn => 'Choose your own';
@@ -505,8 +495,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileNotDeletedTitle => 'Profile Not Deleted';
 
   @override
-  String get profileNotDeletedMessage =>
-      'This profile contains files/folders. Please delete them before trying again.';
+  String get profileNotDeletedMessage => 'This profile contains files/folders. Please delete them before trying again.';
 
   @override
   String get gotItActionText => 'Got it';
@@ -524,19 +513,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorLoadingCodeSnippetsMessage => 'Error loading code snippets';
 
   @override
-  String get profilesEmptyStateDescription =>
-      'You don\'t have any profiles yet. Start by creating one.';
+  String get profilesEmptyStateDescription => 'You don\'t have any profiles yet. Start by creating one.';
 
   @override
   String get folderNotDeletedTitle => 'Folder Not Deleted';
 
   @override
-  String get folderNotDeletedMessage =>
-      'This folder contains files/folders. Please delete them before trying again.';
+  String get folderNotDeletedMessage => 'This folder contains files/folders. Please delete them before trying again.';
 
   @override
-  String get sharingProfileMessage =>
-      'Sharing your profile. Auto-accepts profile if from the same device.';
+  String get sharingProfileMessage => 'Sharing your profile. Auto-accepts profile if from the same device.';
 
   @override
   String get accessPermissionLabel => 'Access Permission';
@@ -578,12 +564,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileSharedMessage => 'Profile has been shared';
 
   @override
-  String get sharedProfileJsonGeneratedMessage =>
-      'Shared profile JSON generated';
+  String get sharedProfileJsonGeneratedMessage => 'Shared profile JSON generated';
 
   @override
-  String get autoAcceptingMessage =>
-      'Auto-accepting the shared profile. This may take a few seconds.';
+  String get autoAcceptingMessage => 'Auto-accepting the shared profile. This may take a few seconds.';
 
   @override
   String genericError(Object error) {
@@ -654,12 +638,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createProfile => 'Create Profile';
 
   @override
-  String get seedGenerationMessage =>
-      'A secure 32-byte seed will be generated. It\'s needed to create your Vault.';
+  String get seedGenerationMessage => 'A secure 32-byte seed will be generated. It\'s needed to create your Vault.';
 
   @override
-  String get existingSeedMessage =>
-      'Provide an existing seed to create your Vault.';
+  String get existingSeedMessage => 'Provide an existing seed to create your Vault.';
 
   @override
   String get enterSeedHint => 'Enter your seed';
@@ -692,85 +674,73 @@ class AppLocalizationsEn extends AppLocalizations {
   String get infoVault => 'What is Vault?';
 
   @override
-  String get infoVaultDescription =>
-      'Vault is a secure digital wallet that allows you to manage your digital identities, personal documents, and store credentials securely, such as verified identity VC and certificates. It protects the data stored in the vault with end-to-end encryption.\n\nAffinidi TDK - Vault does not track the list of vaults created, including their name and passphrase—it is handled by the app and persisted using the device\'s local storage (the reference app uses Drift for the local storage layer).';
+  String get infoVaultDescription => '**Vault** is a secure digital wallet that allows you to manage your digital identities, personal documents, and store credentials securely, such as verified identity VC and certificates. It protects the data stored in the vault with end-to-end encryption.\n\nAffinidi TDK - Vault does not track the list of vaults created, including their name and passphrase—it is handled by the app and persisted using the device\'s local storage (the reference app uses Drift for the local storage layer).';
 
   @override
   String get infoVaultAttr => 'About Vault Name and Passphrase';
 
   @override
-  String get infoVaultAttrDescription =>
-      'The reference app manages and persists the vault\'s name and passphrase using local storage (it uses Drift as the local storage layer) as part of its functionality.\n\nAffinidi TDK - Vault does not track or handle these attributes.';
+  String get infoVaultAttrDescription => 'The reference app manages and persists the vault\'s name and passphrase using local storage (it uses Drift as the local storage layer) as part of its functionality.\n\nAffinidi TDK - Vault does not track or handle these attributes.';
 
   @override
   String get infoSeed => 'What is a Seed?';
 
   @override
-  String get infoSeedDescription =>
-      'A seed is a bit string used as an initial input to generate a sequence of pseudo-random numbers to create cryptographic keys. The Vault TDK uses a 32-byte string to create a vault.\n\nGenerate Random Seed option creates a 32-byte string as input to create and initialise a new vault.\n\nExisting Seed option allows you to create the vault with the same set of cryptographic key pairs created from another device and sync cloud profiles from the same vault.';
+  String get infoSeedDescription => 'A **seed** is a bit string used as an initial input to generate a sequence of pseudo-random numbers to create cryptographic keys. The Vault TDK uses a 32-byte string to create a vault.\n\nGenerate Random **Seed** option creates a 32-byte string as input to create and initialise a new vault.\n\nExisting **Seed** option allows you to create the vault with the same set of cryptographic key pairs created from another device and sync cloud profiles from the same vault.';
 
   @override
   String get infoProfile => 'What is a Profile?';
 
   @override
-  String get infoProfileDescription =>
-      'A profile represents your digital identity. It allows you to manage credentials and personal files related to your profile, including sharing your profile with other users. \n\nEach profile has its own Decentralised Identifier (DID).';
+  String get infoProfileDescription => 'A **profile** represents your digital identity. It allows you to manage credentials and personal files related to your **profile**, including sharing your **profile** with other users. \n\nEach **profile** has its own Decentralised Identifier (DID).';
 
   @override
   String get infoProfileStorage => 'What is a Profile Storage?';
 
   @override
-  String get infoProfileStorageDescription =>
-      'Creating a profile requires selecting a storage to store credentials, including personal files. You can create your profile using cloud storage provided by Affinidi or your device\'s local storage. \n\nCloud storage option enables multi-device sync and profile sharing.';
+  String get infoProfileStorageDescription => 'Creating a profile requires selecting a storage to store credentials, including personal files. You can create your profile using cloud storage provided by Affinidi or your device\'s local storage. \n\nCloud storage option enables multi-device sync and profile sharing.';
 
   @override
   String get infoCredential => 'What is a Claimed Credential?';
 
   @override
-  String get infoCredentialDescription =>
-      'The claimed credential is a Verifiable Credential (VC) that contains a set of claims about the subject and metadata, including the cryptographical proof of who issued it, ensuring authenticity and tamper-evident. It is a W3C (World Wide Web Consortium) standard for digitally representing and exchanging credentials in a secure, privacy-preserving, and machine-verifiable manner. \n\nAn example of a credential is a university issuing you a completion certificate, attesting that you have completed the course.';
+  String get infoCredentialDescription => 'The **claimed credential** is a Verifiable Credential (VC) that contains a set of claims about the subject and metadata, including the cryptographical proof of who issued it, ensuring authenticity and tamper-evident. It is a W3C (World Wide Web Consortium) standard for digitally representing and exchanging credentials in a secure, privacy-preserving, and machine-verifiable manner. \n\nAn example of a credential is a university issuing you a completion certificate, attesting that you have completed the course.';
 
   @override
   String get infoShareContent => 'What is a Shared Content?';
 
   @override
-  String get infoShareContentDescription =>
-      'The shared content contains data shared by another user through the profile sharing process using your Decentralised Identifier (DID). Depending on the permission set by the other user who shared it, you can write or read-only on the shared content.';
+  String get infoShareContentDescription => 'The **shared content** contains data shared by another user through the profile sharing process using your Decentralised Identifier (DID). Depending on the permission set by the other user who shared it, you can write or read-only on the shared content.';
 
   @override
   String get infoAccessManagement => 'What is Access Management?';
 
   @override
-  String get infoAccessManagementDescription =>
-      'A reference app-specific implementation that tracks the DIDs to whom you shared your profile. It allows you to see the list of DIDs and revoke their access to your profile. It stores the list of DIDs in the device\'s local storage.';
+  String get infoAccessManagementDescription => 'A reference app-specific implementation that tracks the DIDs to whom you shared your profile. It allows you to see the list of DIDs and revoke their access to your profile. It stores the list of DIDs in the device\'s local storage.';
 
   @override
   String get infoShareRecipientDID => 'What is Receipient DID?';
 
   @override
-  String get infoShareRecipientDIDDescription =>
-      'The Recipient DID is the Decentralised Identifier (DID) of the other user\'s profile with whom you want to share your profile.\n\nDepending on your implementation, the DID method may be different to represent each type of user. It could be did:key or did:peer for individuals, or did:web or did:webvh for businesses and organisations.';
+  String get infoShareRecipientDIDDescription => 'The Recipient DID is the Decentralised Identifier (DID) of the other user\'s profile with whom you want to share your profile.\n\nDepending on your implementation, the DID method may be different to represent each type of user. It could be did:key or did:peer for individuals, or did:web or did:webvh for businesses and organisations.';
 
   @override
   String get infoSharePermissions => 'What is Access Permission?';
 
   @override
-  String get infoSharePermissionsDescription =>
-      'The Access Permission sets the access level of the user to whom you shared your profile. By setting the access level of the user, they can:\n\n- Read-only the content of your shared profile.\n- Read and write data (e.g., upload files) into your shared profile.';
+  String get infoSharePermissionsDescription => 'The Access Permission sets the access level of the user to whom you shared your profile. By setting the access level of the user, they can:\n\n- Read-only the content of your shared profile.\n- Read and write data (e.g., upload files) into your shared profile.';
 
   @override
   String get infoShareFlow => 'Learn more about profile sharing';
 
   @override
-  String get infoShareFlowDescription =>
-      'If you are sharing your profile to another profile in the same device, it will auto-accept the profile sharing instead of requesting for consent to accept.\n\nThis is a reference app-specific implementation.';
+  String get infoShareFlowDescription => 'If you are sharing your profile to another profile in the same device, it will auto-accept the profile sharing instead of requesting for consent to accept.\n\nThis is a reference app-specific implementation.';
 
   @override
   String get infoSetFilePermissions => 'What is Set File Permissions?';
 
   @override
-  String get infoSetFilePermissionsDescription =>
-      'The Set File Permissions option enables you to restrict the file formats (e.g., only accept PDF and JPG files) and sizes (e.g., only accept files up to 5MB in size) that users can upload to your profile\'s file system, including when you share your profile with other users.';
+  String get infoSetFilePermissionsDescription => 'The Set File Permissions option enables you to restrict the file formats (e.g., only accept PDF and JPG files) and sizes (e.g., only accept files up to 5MB in size) that users can upload to your profile\'s file system, including when you share your profile with other users.';
 
   @override
   String get lblCSCreateVault => 'Create Vault Snippets';
@@ -800,8 +770,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get infoClaimCredential => 'What is Claim Credential?';
 
   @override
-  String get infoClaimCredentialDescription =>
-      'The claim credential follows the OpenID for Verifiable Credential Issuance (OID4VCI) protocol that leverages the existing OAuth 2.0 authorisation flow to facilitate the secure claim of a credential offer from the issuer and allow users to store them in their digital wallet (e.g., Affinidi TDK - Vault).';
+  String get infoClaimCredentialDescription => 'The claim credential follows the OpenID for Verifiable Credential Issuance (OID4VCI) protocol that leverages the existing OAuth 2.0 authorisation flow to facilitate the secure claim of a credential offer from the issuer and allow users to store them in their digital wallet (e.g., Affinidi TDK - Vault).';
 
   @override
   String get lblCSClaimCredential => 'Claim Credential Snippets';
@@ -831,33 +800,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snippetDescCreateVaultProfVFS => 'Create Vault Profile (Cloud)';
 
   @override
-  String get snippetDescCreateVaultProfDrift =>
-      'Create Vault Profile (Local Storage)';
+  String get snippetDescCreateVaultProfDrift => 'Create Vault Profile (Local Storage)';
 
   @override
   String get snippetDescGetFilesFolders => 'Get Files and Folders (Interface)';
 
   @override
-  String get snippetDescGetSharedContents =>
-      'Get Shared Content - Retrieves the list of profiles, including the shared storages for the given profile';
+  String get snippetDescGetSharedContents => 'Get Shared Content - Retrieves the list of profiles, including the shared storages for the given profile';
 
   @override
   String get snippetDescGetClaimedVCs => 'Get Claimed Credentials (Interface)';
 
   @override
-  String get snippetDescListVaults =>
-      'List Vaults - Ref App-specific implementation';
+  String get snippetDescListVaults => 'List Vaults - Ref App-specific implementation';
 
   @override
-  String get snippetDescListVaultsProfs =>
-      'List Vault Profiles - Retrieves list of profiles';
+  String get snippetDescListVaultsProfs => 'List Vault Profiles - Retrieves list of profiles';
 
   @override
   String get snippetDescShareProfile => 'Share Profile';
 
   @override
-  String get snippetDescRetrieveCredOffer =>
-      'Retrieve Credential Offer via Offer URI';
+  String get snippetDescRetrieveCredOffer => 'Retrieve Credential Offer via Offer URI';
 
   @override
   String get snippetDescClaimCredOffer => 'Claim Credential Offer';
