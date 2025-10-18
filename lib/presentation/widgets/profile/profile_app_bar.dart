@@ -75,8 +75,11 @@ class ProfileAppBar extends ConsumerWidget {
                     if (result == 'shared' && context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                            content: Text(localizations?.profileSharedMessage ??
-                                'Profile has been shared')),
+                            content: Text(
+                          localizations?.profileSharedMessage ??
+                              'Profile has been shared',
+                          style: const TextStyle(color: Colors.white),
+                        )),
                       );
                     }
                   },

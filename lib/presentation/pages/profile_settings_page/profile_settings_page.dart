@@ -208,7 +208,10 @@ class ProfileSettingsPage extends HookConsumerWidget {
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(localizations.profileUpdateSuccess),
+                      content: Text(
+                        localizations.profileUpdateSuccess,
+                        style: const TextStyle(color: Colors.white),
+                      ),
                       behavior: SnackBarBehavior.floating,
                       duration: const Duration(seconds: 2),
                     ),
@@ -217,7 +220,10 @@ class ProfileSettingsPage extends HookConsumerWidget {
                 onError: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(localizations.profileUpdateFailure),
+                      content: Text(
+                        localizations.profileUpdateFailure,
+                        style: const TextStyle(color: Colors.white),
+                      ),
                       behavior: SnackBarBehavior.floating,
                       duration: const Duration(seconds: 2),
                     ),

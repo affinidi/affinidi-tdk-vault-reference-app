@@ -152,7 +152,7 @@ class VaultsPage extends ConsumerWidget {
           if (!context.mounted) return;
           context.push(VaultsRoutePath.create);
         },
-        backgroundColor: AppColorScheme.backgroundWhite,
+        backgroundColor: theme.colorScheme.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
         ),
@@ -273,7 +273,7 @@ class SwipeToDeleteBackground extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: AppSizing.paddingLarge),
               decoration: BoxDecoration(
-                color: AppColorScheme.error,
+                color: Theme.of(context).colorScheme.primary,
                 borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
               ),
               child: Icon(

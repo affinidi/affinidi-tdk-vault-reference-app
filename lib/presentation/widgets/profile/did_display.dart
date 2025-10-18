@@ -35,8 +35,11 @@ class DidDisplay extends StatelessWidget {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    content:
-                        Text(AppLocalizations.of(context)!.copiedToClipboard)),
+                  content: Text(
+                    AppLocalizations.of(context)!.copiedToClipboard,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
               );
             }
           },

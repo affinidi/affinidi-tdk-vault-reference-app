@@ -67,6 +67,7 @@ class CreateVaultPage extends HookConsumerWidget {
                           errorType == AppExceptionType.vaultAlreadyExists
                       ? localizations.vaultExistsErrorMessage
                       : localizations.createVaultErrorMessage,
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             );
@@ -287,7 +288,10 @@ class CreateVaultPage extends HookConsumerWidget {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                          localizations.existingSeedMessage),
+                                        localizations.existingSeedMessage,
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
                                       backgroundColor:
                                           AppColorScheme.backgroundDark,
                                     ),

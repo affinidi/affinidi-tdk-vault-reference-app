@@ -112,7 +112,11 @@ class MyFilesPage extends HookConsumerWidget {
       } catch (e) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(e.toString())),
+            SnackBar(
+                content: Text(
+              e.toString(),
+              style: const TextStyle(color: Colors.white),
+            )),
           );
         }
       }

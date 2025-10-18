@@ -292,7 +292,10 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                           .showSnackBar(
                                         SnackBar(
                                             content: Text(
-                                                localizations.settingsSaved)),
+                                          localizations.settingsSaved,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        )),
                                       );
                                     }
                                   },
