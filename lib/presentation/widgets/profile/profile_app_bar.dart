@@ -43,7 +43,7 @@ class ProfileAppBar extends ConsumerWidget {
     final navigation = ref.read(navigationServiceProvider);
 
     return Container(
-      color: Colors.white,
+      color: AppColorScheme.backgroundBlack,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -75,8 +75,14 @@ class ProfileAppBar extends ConsumerWidget {
                     if (result == 'shared' && context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                            content: Text(localizations?.profileSharedMessage ??
-                                'Profile has been shared')),
+                          content: Text(
+                            localizations?.profileSharedMessage ??
+                                'Profile has been shared',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: AppColorScheme.backgroundDark,
+                          behavior: SnackBarBehavior.fixed,
+                        ),
                       );
                     }
                   },
@@ -201,7 +207,7 @@ class _ShareProfileBottomSheetState
         child: Container(
           padding: const EdgeInsets.all(AppSizing.paddingLarge),
           decoration: BoxDecoration(
-            color: AppColorScheme.backgroundWhite,
+            color: AppColorScheme.backgroundBlack,
             borderRadius: BorderRadius.circular(AppSizing.paddingMedium),
           ),
           child: SizedBox(

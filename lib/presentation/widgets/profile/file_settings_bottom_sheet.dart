@@ -49,7 +49,7 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
-        color: AppColorScheme.backgroundWhite,
+        color: AppColorScheme.backgroundBlack,
         borderRadius: const BorderRadius.vertical(
             top: Radius.circular(AppSizing.paddingMedium)),
       ),
@@ -170,7 +170,7 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                             ),
                             child: IconButton(
                               icon: const Icon(Icons.add,
-                                  color: AppColorScheme.backgroundWhite,
+                                  color: AppColorScheme.backgroundBlack,
                                   size: AppSizing.iconSmall),
                               onPressed: () {
                                 final value = formatInputController.text
@@ -250,7 +250,7 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                           child: FilledButton(
                             onPressed: () => navigation.pop(),
                             style: FilledButton.styleFrom(
-                              backgroundColor: AppColorScheme.backgroundWhite,
+                              backgroundColor: AppColorScheme.backgroundBlack,
                               foregroundColor: AppColorScheme.textPrimary,
                               side: const BorderSide(
                                   color:
@@ -291,15 +291,21 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
-                                            content: Text(
-                                                localizations.settingsSaved)),
+                                          content: Text(
+                                            localizations.settingsSaved,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
+                                          backgroundColor: AppColorScheme.backgroundDark,
+                                          behavior: SnackBarBehavior.fixed,
+                                        ),
                                       );
                                     }
                                   },
                             style: FilledButton.styleFrom(
                               backgroundColor:
                                   Theme.of(context).colorScheme.primary,
-                              foregroundColor: AppColorScheme.backgroundWhite,
+                              foregroundColor: AppColorScheme.backgroundBlack,
                               minimumSize: const Size.fromHeight(
                                   AppSizing.paddingXXLarge),
                             ),
@@ -310,7 +316,7 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
                                       valueColor: AlwaysStoppedAnimation<Color>(
-                                          AppColorScheme.backgroundWhite),
+                                          AppColorScheme.backgroundBlack),
                                     ),
                                   )
                                 : Text(
@@ -321,7 +327,7 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                         ?.copyWith(
                                             fontWeight: FontWeight.w600,
                                             color:
-                                                AppColorScheme.backgroundWhite),
+                                                AppColorScheme.backgroundBlack),
                                   ),
                           ),
                         ),

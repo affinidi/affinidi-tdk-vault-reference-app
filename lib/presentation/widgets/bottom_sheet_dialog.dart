@@ -94,7 +94,12 @@ class BottomSheetDialog extends StatelessWidget {
                               IconButton(
                                   onPressed: onCancel,
                                   icon: SvgPicture.asset(
-                                      'assets/icons/icon-close.svg'))
+                                    'assets/icons/icon-close.svg',
+                                    colorFilter: const ColorFilter.mode(
+                                      Colors.white,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ))
                             ],
                           ),
                         ),

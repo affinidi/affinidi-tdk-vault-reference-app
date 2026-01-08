@@ -1,5 +1,6 @@
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../../application/services/sharing/granular_access_service.dart';
 
 part 'shared_page_state.freezed.dart';
 
@@ -10,5 +11,6 @@ class SharedPageState with _$SharedPageState {
     @Default([]) List<SharedStorage> sharedStorages,
     String? selectedProfileId,
     @Default({}) Map<String, List<dynamic>> sharedFiles,
+    @Default([]) List<GranularAccessItem> granularAccessItems,
   }) = _SharedPageState;
 }

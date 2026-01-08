@@ -18,6 +18,7 @@ import '../../../navigation/navigation_provider.dart';
 import '../../dialogs/delete_credential_form/delete_credential_form.dart';
 import '../../dialogs/options_picker/credential_option.dart';
 import '../../dialogs/options_picker/options_picker.dart';
+import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
 import '../../widgets/claimed_credential_medium_widget.dart';
 import '../../widgets/loading_status/async_loading_status.dart';
@@ -48,7 +49,7 @@ class MyCredentialsPage extends HookConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColorScheme.backgroundBlack,
       body: Center(
         child: Column(
           children: [

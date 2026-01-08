@@ -56,13 +56,19 @@ class FilePreviewPage extends ConsumerWidget {
           leading: data != null
               ? IconButton(
                   onPressed: () => shareFile(context.sharePositionOrigin),
-                  icon: SvgPicture.asset('assets/icons/icon-share.svg'))
+                  icon: SvgPicture.asset(
+                    'assets/icons/icon-share.svg',
+                    colorFilter:
+                        ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  ))
               : SizedBox.shrink(),
           title: Text(localizations.previewTitle),
           actions: [
             IconButton(
                 onPressed: onCancel,
-                icon: SvgPicture.asset('assets/icons/icon-close.svg'))
+                icon: SvgPicture.asset('assets/icons/icon-close.svg',
+                    colorFilter:
+                        ColorFilter.mode(Colors.white, BlendMode.srcIn))),
           ],
         ),
         body: AsyncLoadingStatus(

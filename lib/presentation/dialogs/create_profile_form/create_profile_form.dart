@@ -161,7 +161,7 @@ class CreateProfileForm extends ConsumerWidget {
                                         ?.copyWith(fontWeight: FontWeight.w600)
                                         .copyWith(
                                             color:
-                                                AppColorScheme.backgroundWhite),
+                                                AppColorScheme.backgroundBlack),
                                   ),
                                 ),
                               ),

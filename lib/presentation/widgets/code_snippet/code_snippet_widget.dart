@@ -26,7 +26,10 @@ class CodeSnippetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
     return IconButton(
-      icon: const Icon(Icons.code),
+      icon: const Icon(
+        Icons.code,
+        size: 30,
+      ),
       onPressed: () => _showCodeSnippetOverlay(context),
       tooltip: localizations.viewCodeSnippetsActionText,
     );
@@ -54,6 +57,25 @@ class _CodeSnippetOverlay extends StatefulWidget {
   final Map<String, String>? codeSnippets;
   final List<CodeSnippetLocation>? codeLocations;
   final String title;
+
+  String get _implementationType {
+    if (codeLocations == null || codeLocations!.isEmpty) {
+      return '';
+    }
+
+    final allTdk =
+        codeLocations!.every((loc) => loc.filePath.startsWith('http'));
+    final allLocal =
+        codeLocations!.every((loc) => !loc.filePath.startsWith('http'));
+
+    if (allTdk) {
+      return 'TDK Implementation';
+    } else if (allLocal) {
+      return 'Reference App Implementation';
+    } else {
+      return 'Mixed Implementation';
+    }
+  }
 
   @override
   State<_CodeSnippetOverlay> createState() => _CodeSnippetOverlayState();
@@ -131,14 +153,14 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
       backgroundColor: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
-          color: AppColorScheme.backgroundWhite,
+          color: AppColorScheme.backgroundBlack,
         ),
         child: Column(
           children: [
             Container(
               padding: const EdgeInsets.all(AppSizing.paddingMedium),
               decoration: BoxDecoration(
-                color: AppColorScheme.backgroundWhite,
+                color: AppColorScheme.backgroundBlack,
                 border: Border(
                   bottom: BorderSide(
                     color: AppColorScheme.divider,
@@ -149,9 +171,28 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      widget.title,
-                      style: AppTheme.headingMedium,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          widget.title,
+                          style: AppTheme.headingMedium,
+                        ),
+                        if (widget._implementationType.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
+                            child: Text(
+                              widget._implementationType,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    color: AppColorScheme.textSecondary,
+                                  ),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                   IconButton(

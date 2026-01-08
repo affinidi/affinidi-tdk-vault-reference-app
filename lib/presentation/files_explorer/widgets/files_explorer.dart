@@ -17,6 +17,8 @@ import '../../dialogs/options_picker/folder_option.dart';
 import '../../dialogs/options_picker/options_picker.dart';
 import '../../dialogs/rename_file_form/rename_file_form.dart';
 import '../../dialogs/rename_folder_form/rename_folder_form.dart';
+import '../../dialogs/share_node_bottom_sheet/share_node_bottom_sheet.dart';
+import '../../dialogs/manage_node_access_bottom_sheet/manage_node_access_bottom_sheet.dart';
 import '../../themes/app_sizing.dart';
 
 class FilesExplorer extends ConsumerWidget {
@@ -72,12 +74,34 @@ class FilesExplorer extends ConsumerWidget {
       onPreviewFile(node);
     }
 
+    void showShareFileDialog(Item item) {
+      if (!context.mounted) return;
+      ShareNodeBottomSheet.show(
+        context: context,
+        profileId: profileId,
+        nodeId: item.id,
+        nodeName: item.name,
+      );
+    }
+
+    void showManageAccessDialog(Item item) {
+      if (!context.mounted) return;
+      ManageNodeAccessBottomSheet.show(
+        context: context,
+        profileId: profileId,
+        nodeId: item.id,
+        nodeName: item.name,
+      );
+    }
+
     void showFileOptions(Item item) async {
       if (!context.mounted) return;
 
       final fileOptions = <FileOption>[
         FileOption.rename,
         if (!isSharedProfile) FileOption.delete,
+        FileOption.share,
+        FileOption.manageAccess,
       ];
 
       final selectedFileOption = await OptionsPicker.show(
@@ -88,6 +112,10 @@ class FilesExplorer extends ConsumerWidget {
           option.svgAssetName,
           width: AppSizing.iconSmall,
           height: AppSizing.iconSmall,
+          colorFilter: const ColorFilter.mode(
+            Colors.white,
+            BlendMode.srcIn,
+          ),
         ),
         itemTitleBuilder: (option) => Text(
           localizations.option(option.name),
@@ -101,6 +129,10 @@ class FilesExplorer extends ConsumerWidget {
           showRenameFileDialog(item);
         case FileOption.delete:
           showDeleteFileDialog(item);
+        case FileOption.share:
+          showShareFileDialog(item);
+        case FileOption.manageAccess:
+          showManageAccessDialog(item);
       }
     }
 
@@ -127,12 +159,34 @@ class FilesExplorer extends ConsumerWidget {
       );
     }
 
+    void showShareFolderDialog(Item item) {
+      if (!context.mounted) return;
+      ShareNodeBottomSheet.show(
+        context: context,
+        profileId: profileId,
+        nodeId: item.id,
+        nodeName: item.name,
+      );
+    }
+
+    void showManageAccessFolderDialog(Item item) {
+      if (!context.mounted) return;
+      ManageNodeAccessBottomSheet.show(
+        context: context,
+        profileId: profileId,
+        nodeId: item.id,
+        nodeName: item.name,
+      );
+    }
+
     void showFolderOptions(Item item) async {
       if (!context.mounted) return;
 
       final folderOptions = <FolderOption>[
         FolderOption.rename,
         if (!isSharedProfile) FolderOption.delete,
+        FolderOption.share,
+        FolderOption.manageAccess,
       ];
 
       final selectedFolderOption = await OptionsPicker.show(
@@ -143,6 +197,10 @@ class FilesExplorer extends ConsumerWidget {
           option.svgAssetName,
           width: AppSizing.iconSmall,
           height: AppSizing.iconSmall,
+          colorFilter: const ColorFilter.mode(
+            Colors.white,
+            BlendMode.srcIn,
+          ),
         ),
         itemTitleBuilder: (option) => Text(
           localizations.option(option.name),
@@ -158,6 +216,10 @@ class FilesExplorer extends ConsumerWidget {
           showDeleteFolderDialog(item);
         case FolderOption.rename:
           showRenameFolderDialog(item);
+        case FolderOption.share:
+          showShareFolderDialog(item);
+        case FolderOption.manageAccess:
+          showManageAccessFolderDialog(item);
       }
     }
 

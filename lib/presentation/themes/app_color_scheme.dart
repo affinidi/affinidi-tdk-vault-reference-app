@@ -2,27 +2,35 @@ import 'package:flutter/material.dart';
 
 class AppColorScheme {
   static final light = ColorScheme.fromSeed(seedColor: Colors.blue).copyWith(
-    primary: Color.fromARGB(255, 255, 107, 60), // #ff6b3c
+    primary: Color(0xff007aff), // #040822
   );
 
-  // Form field colors
+  static final dark = ColorScheme.fromSeed(
+    seedColor: Colors.blue,
+    brightness: Brightness.dark,
+  ).copyWith(
+    primary: Color(0xff007aff), // #040822
+  );
+
+  // Form field colors - Using dark theme
   static const Color formFieldBorderFocused = Color(0xff0467f1);
-  static const Color formFieldBorderUnfocused = Color(0xffcdced3);
+  static const Color formFieldBorderUnfocused = Color(0xff4A4A4A);
 
-  // Text colors
-  static const Color textPrimary = Color(0xFF1D2138);
-  static const Color textSecondary = Color(0xFF1D2138);
+  // Text colors - Using dark theme
+  static const Color textPrimary = Colors.white;
+  static const Color textSecondary = Color(0xFFB0B0B0);
 
-  // Background colors
-  static const Color backgroundLight = Color(0xFFF5F5F5);
+  // Background colors - Using dark theme
+  static const Color backgroundLight = Color(0xFF1A1A1A);
+  static const Color backgroundBlack = Color(0xff040822);
   static const Color backgroundWhite = Colors.white;
-  static const Color backgroundDark = Color(0xFF4A4A4A);
+  static const Color backgroundDark = Color(0xFF1A1A1A);
 
-  // Icon colors
-  static const Color iconInfo = Color(0xFF1D2138);
+  // Icon colors - Using dark theme
+  static const Color iconInfo = Colors.white;
 
-  // Divider colors
-  static const Color divider = Color(0xFFE6E6E9);
+  // Divider colors - Using dark theme
+  static const Color divider = Color(0xFF2A2A2A);
 
   // Error colors
   static const Color error = Colors.red;

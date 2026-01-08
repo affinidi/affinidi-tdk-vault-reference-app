@@ -238,6 +238,99 @@ class VaultService extends _$VaultService {
     );
   }
 
+  /// Shares an item (file/folder) with another user
+  ///
+  /// [profileId]: The ID of the profile that owns the item.
+  /// [nodeId]: The ID of the item (file/folder) to share.
+  /// [toDid]: The DID of the recipient.
+  /// [permissions]: Access level for the recipient.
+  /// [expiresAt]: Optional expiration date for the access.
+  Future<void> shareItem({
+    required String profileId,
+    required String nodeId,
+    required String toDid,
+    required Permissions permissions,
+    DateTime? expiresAt,
+  }) async {
+    if (state.currentVault == null) {
+      throw AppException(
+        message: 'Vault not initialized',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+    final policy = await state.currentVault!.getItemPermissionsPolicy(
+      profileId: profileId,
+      granteeDid: toDid,
+    );
+    policy.addPermission([nodeId], [permissions], expiresAt: expiresAt);
+    await state.currentVault!.setItemAccess(
+      profileId: profileId,
+      granteeDid: toDid,
+      policy: policy,
+    );
+  }
+
+  /// Revokes access to a shared item (file/folder)
+  ///
+  /// [profileId]: The ID of the profile that owns the item.
+  /// [nodeId]: The ID of the item to revoke access from.
+  /// [granteeDid]: The DID of the user to revoke access from.
+  Future<void> revokeItemAccess({
+    required String profileId,
+    required String nodeId,
+    required String granteeDid,
+  }) async {
+    if (state.currentVault == null) {
+      throw AppException(
+        message: 'Vault not initialized',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+    try {
+      final policy = await state.currentVault!.getItemPermissionsPolicy(
+        profileId: profileId,
+        granteeDid: granteeDid,
+      );
+      // Remove permission for this specific node (empty permissions list removes all permissions for the node)
+      policy.removePermission([nodeId], []);
+      // Set the updated policy (this sends the complete policy to the backend)
+      await state.currentVault!.setItemAccess(
+        profileId: profileId,
+        granteeDid: granteeDid,
+        policy: policy,
+      );
+    } catch (e) {
+      if (e is AppException) {
+        rethrow;
+      }
+      throw AppException(
+        message: 'Failed to revoke item access: $e',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+  }
+
+  /// Gets access permissions for a specific item
+  ///
+  /// [profileId]: The ID of the profile that owns the item.
+  /// [granteeDid]: The DID of the user to get access permissions for.
+  /// Returns a list of ItemPermission objects.
+  Future<List<ItemPermission>> getItemAccess({
+    required String profileId,
+    required String granteeDid,
+  }) async {
+    if (state.currentVault == null) {
+      throw AppException(
+        message: 'Vault not initialized',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+    return await state.currentVault!.getItemAccess(
+      profileId: profileId,
+      granteeDid: granteeDid,
+    );
+  }
+
   /// Gets the next available account index by finding the highest used index
   int _getNextAccountIndex(List<Profile> profiles) {
     if (profiles.isEmpty) {

@@ -27,7 +27,7 @@ class DidDisplay extends StatelessWidget {
           icon: const Icon(
             Icons.copy_outlined,
             size: AppSizing.iconMedium,
-            color: AppColorScheme.backgroundDark,
+            color: AppColorScheme.backgroundWhite,
           ),
           tooltip: AppLocalizations.of(context)?.copy ?? 'Copy',
           onPressed: () async {
@@ -35,8 +35,13 @@ class DidDisplay extends StatelessWidget {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    content:
-                        Text(AppLocalizations.of(context)!.copiedToClipboard)),
+                  content: Text(
+                    AppLocalizations.of(context)!.copiedToClipboard,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: AppColorScheme.backgroundDark,
+                  behavior: SnackBarBehavior.fixed,
+                ),
               );
             }
           },

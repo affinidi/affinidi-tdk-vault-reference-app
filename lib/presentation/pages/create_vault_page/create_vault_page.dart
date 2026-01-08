@@ -67,7 +67,10 @@ class CreateVaultPage extends HookConsumerWidget {
                           errorType == AppExceptionType.vaultAlreadyExists
                       ? localizations.vaultExistsErrorMessage
                       : localizations.createVaultErrorMessage,
+                  style: const TextStyle(color: Colors.white),
                 ),
+                backgroundColor: AppColorScheme.backgroundDark,
+                behavior: SnackBarBehavior.fixed,
               ),
             );
           },
@@ -76,8 +79,28 @@ class CreateVaultPage extends HookConsumerWidget {
     }
 
     return Scaffold(
-      backgroundColor: AppColorScheme.backgroundWhite,
+      backgroundColor: AppColorScheme.backgroundBlack,
       appBar: TdkAppBar(
+        titleWidget: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              localizations.createYourVault
+                  .substring(0, localizations.createYourVault.lastIndexOf(' ')),
+              style: AppTheme.headingMedium,
+            ),
+            const SizedBox(
+              width: 6,
+            ),
+            SimpleInfoWidget(
+              text: localizations.createYourVault.split(' ').skip(2).join(' '),
+              dialogTitle: localizations.infoVaultAttr,
+              dialogContent: localizations.infoVaultAttrDescription,
+              textStyle: AppTheme.headingMedium,
+            ),
+          ],
+        ),
         showBackButton: true,
         onBackPressed: () {
           navigation.pop(VaultsRoutePath.base);
@@ -93,46 +116,6 @@ class CreateVaultPage extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: AppSizing.paddingMedium,
-                  right: AppSizing.paddingLarge,
-                  top: AppSizing.paddingSmall,
-                  bottom: AppSizing.paddingRegular),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: AppSizing.paddingXXLarge,
-                        left: AppSizing.paddingSmall),
-                    child: Text(
-                      localizations.createYourVault.substring(
-                          0, localizations.createYourVault.lastIndexOf(' ')),
-                      style: AppTheme.headingXLarge,
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: AppSizing.paddingSmall),
-                    child: SimpleInfoWidget(
-                      text: localizations.createYourVault
-                          .split(' ')
-                          .skip(2)
-                          .join(' '),
-                      dialogTitle: localizations.infoVaultAttr,
-                      dialogContent: localizations.infoVaultAttrDescription,
-                      textStyle: AppTheme.headingXLarge,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Separator
-            Container(
-              height: 1.0,
-              color: AppColorScheme.divider,
-            ),
             // Form content
             Expanded(
               child: SingleChildScrollView(
@@ -307,9 +290,13 @@ class CreateVaultPage extends HookConsumerWidget {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                          localizations.existingSeedMessage),
+                                        localizations.existingSeedMessage,
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
                                       backgroundColor:
                                           AppColorScheme.backgroundDark,
+                                      behavior: SnackBarBehavior.fixed,
                                     ),
                                   );
                                 },
@@ -413,7 +400,7 @@ class CreateVaultPage extends HookConsumerWidget {
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                        color: AppColorScheme.backgroundWhite),
+                                        color: AppColorScheme.backgroundBlack),
                               ),
                             ),
                           ),

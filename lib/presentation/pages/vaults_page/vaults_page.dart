@@ -34,8 +34,27 @@ class VaultsPage extends ConsumerWidget {
     final navigation = ref.read(navigationServiceProvider);
 
     return Scaffold(
-      backgroundColor: AppColorScheme.backgroundWhite,
+      backgroundColor: AppColorScheme.backgroundBlack,
       appBar: TdkAppBar(
+        titleWidget: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              localizations.myVaults.substring(
+                  0,
+                  localizations.myVaults.indexOf(
+                      localizations.myVaults.split(' ').skip(1).join(' '))),
+              style: AppTheme.headingLarge,
+            ),
+            SimpleInfoWidget(
+              text: localizations.myVaults.split(' ').skip(1).join(' '),
+              dialogTitle: localizations.infoVault,
+              dialogContent: localizations.infoVaultDescription,
+              textStyle: AppTheme.headingLarge,
+            ),
+          ],
+        ),
         actions: [
           CodeSnippetWidget(
             title: localizations.lblCSListVaults,
@@ -47,37 +66,6 @@ class VaultsPage extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: AppSizing.paddingLarge,
-                  right: AppSizing.paddingLarge,
-                  top: AppSizing.paddingXXLarge,
-                  bottom: AppSizing.paddingRegular),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    localizations.myVaults.substring(
-                        0,
-                        localizations.myVaults.indexOf(localizations.myVaults
-                            .split(' ')
-                            .skip(1)
-                            .join(' '))),
-                    style: AppTheme.headingXLarge,
-                  ),
-                  SimpleInfoWidget(
-                    text: localizations.myVaults.split(' ').skip(1).join(' '),
-                    dialogTitle: localizations.infoVault,
-                    dialogContent: localizations.infoVaultDescription,
-                    textStyle: AppTheme.headingXLarge,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 1.0,
-              color: AppColorScheme.divider,
-            ),
             Expanded(
               child: vaultPageState.isLoading
                   ? const Center(child: CircularProgressIndicator())
@@ -164,25 +152,21 @@ class VaultsPage extends ConsumerWidget {
           if (!context.mounted) return;
           context.push(VaultsRoutePath.create);
         },
-        backgroundColor: AppTheme.colorScheme.primary,
+        backgroundColor: theme.colorScheme.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
         ),
-        elevation: 0,
+        elevation: 8,
+        highlightElevation: 12,
         extendedPadding: const EdgeInsets.symmetric(
             horizontal: AppSizing.paddingMedium,
             vertical: AppSizing.paddingMedium),
-        icon: Icon(
-          Icons.add,
-          color: AppColorScheme.backgroundWhite,
-          size: AppSizing.iconSmall,
-        ),
         label: Text(
           localizations.addVault,
-          style: Theme.of(context)
-              .textTheme
-              .labelLarge
-              ?.copyWith(color: AppColorScheme.backgroundWhite),
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: AppColorScheme.backgroundBlack,
+                fontWeight: FontWeight.bold,
+              ),
         ),
       ),
     );
@@ -203,45 +187,68 @@ class _VaultCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
-      color: AppColorScheme.backgroundWhite,
+      elevation: 12,
+      shadowColor: Colors.black.withOpacity(0.6),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
       ),
-      child: InkWell(
-        onTap: () => onSelected(vault),
-        borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSizing.paddingMedium),
-          child: Row(
-            children: [
-              // Vault icon
-              SvgPicture.asset(
-                'assets/icons/vault-icon.svg',
-                width: AppSizing.iconSmall,
-                height: AppSizing.iconSmall,
-              ),
-              const SizedBox(width: AppSizing.paddingMedium),
-
-              Expanded(
-                child: Text(
-                  vaultName,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(letterSpacing: 0.2),
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.only(right: 4),
-                child: Icon(
-                  Icons.chevron_right,
-                  color: AppColorScheme.textPrimary,
-                  size: AppSizing.iconSmall,
-                ),
-              ),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF1A1A1A),
+              Color(0xFF2A2A2A),
+              Color(0xFF1F1F1F),
             ],
+            stops: [0.0, 0.5, 1.0],
+          ),
+          borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
+          border: Border.all(
+            color: Colors.white.withOpacity(0.1),
+            width: 1,
+          ),
+        ),
+        child: InkWell(
+          onTap: () => onSelected(vault),
+          borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
+          child: Padding(
+            padding: const EdgeInsets.all(AppSizing.paddingMedium),
+            child: Row(
+              children: [
+                // Vault icon
+                SvgPicture.asset(
+                  'assets/icons/vault-icon.svg',
+                  width: AppSizing.iconSmall,
+                  height: AppSizing.iconSmall,
+                  colorFilter: ColorFilter.mode(
+                    Colors.white.withOpacity(0.9),
+                    BlendMode.srcIn,
+                  ),
+                ),
+                const SizedBox(width: AppSizing.paddingMedium),
+
+                Expanded(
+                  child: Text(
+                    vaultName,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(letterSpacing: 0.2),
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: Icon(
+                    Icons.chevron_right,
+                    color: AppColorScheme.textPrimary,
+                    size: AppSizing.iconSmall,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -266,7 +273,7 @@ class SwipeToDeleteBackground extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: AppSizing.paddingLarge),
               decoration: BoxDecoration(
-                color: AppColorScheme.error,
+                color: Theme.of(context).colorScheme.primary,
                 borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
               ),
               child: Icon(

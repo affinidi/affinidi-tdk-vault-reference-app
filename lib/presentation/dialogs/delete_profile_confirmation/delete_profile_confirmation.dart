@@ -102,7 +102,7 @@ class _DeleteProfileConfirmationState
 
     return Container(
       decoration: const BoxDecoration(
-        color: AppColorScheme.backgroundWhite,
+        color: AppColorScheme.backgroundBlack,
         borderRadius: BorderRadius.vertical(
             top: Radius.circular(AppSizing.paddingMedium)),
       ),
@@ -192,7 +192,7 @@ class _DeleteProfileConfirmationState
                               isError ? cancel() : delete();
                             },
                       style: TextButton.styleFrom(
-                        foregroundColor: AppColorScheme.backgroundWhite,
+                        foregroundColor: AppColorScheme.backgroundBlack,
                         padding: const EdgeInsets.symmetric(
                             vertical: AppSizing.paddingRegular),
                       ),
@@ -203,7 +203,7 @@ class _DeleteProfileConfirmationState
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                    AppColorScheme.backgroundWhite),
+                                    AppColorScheme.backgroundBlack),
                               ),
                             )
                           : Text(
@@ -215,7 +215,7 @@ class _DeleteProfileConfirmationState
                                   .bodySmall
                                   ?.copyWith(
                                       fontWeight: FontWeight.w600,
-                                      color: AppColorScheme.backgroundWhite),
+                                      color: AppColorScheme.backgroundBlack),
                             ),
                     ),
                   ),
