@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import '../../../navigation/flows/profiles/profiles_route_constants.dart';
 import '../../../navigation/navigation_provider.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../themes/app_color_scheme.dart';
+import '../../themes/app_theme.dart';
 
 class SharedProfileDetailsPage extends HookConsumerWidget {
   const SharedProfileDetailsPage({
@@ -63,6 +65,15 @@ class SharedProfileDetailsPage extends HookConsumerWidget {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: navigationShell.currentIndex,
           onTap: (index) => navigationShell.goBranch(index),
+          selectedItemColor: AppTheme.colorScheme.primary,
+          unselectedItemColor: AppColorScheme.textSecondary,
+          selectedLabelStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: AppTheme.colorScheme.primary,
+              ),
+          unselectedLabelStyle:
+              Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: AppColorScheme.textSecondary,
+                  ),
           items: navigationItems
               .map(
                 (item) => BottomNavigationBarItem(
