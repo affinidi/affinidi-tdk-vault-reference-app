@@ -188,7 +188,7 @@ class _VaultCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 12,
-      shadowColor: Colors.black.withOpacity(0.6),
+      shadowColor: Colors.black.withValues(alpha: 0.6),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
       ),
@@ -206,7 +206,7 @@ class _VaultCard extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
           border: Border.all(
-            color: Colors.white.withOpacity(0.1),
+            color: Colors.white.withValues(alpha: 0.1),
             width: 1,
           ),
         ),
@@ -223,7 +223,7 @@ class _VaultCard extends StatelessWidget {
                   width: AppSizing.iconSmall,
                   height: AppSizing.iconSmall,
                   colorFilter: ColorFilter.mode(
-                    Colors.white.withOpacity(0.9),
+                    Colors.white.withValues(alpha: 0.9),
                     BlendMode.srcIn,
                   ),
                 ),

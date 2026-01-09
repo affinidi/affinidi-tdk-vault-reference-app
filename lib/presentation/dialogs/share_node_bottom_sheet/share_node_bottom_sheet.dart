@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
-import '../../../application/services/vault/vault_service.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../navigation/navigation_provider.dart';
+import '../../pages/share_node_full_screen_page/share_node_full_screen_page.dart';
+import '../../pages/manage_node_access/manage_node_access.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
 import '../../themes/app_theme.dart';
 import '../../widgets/simple_info_widget.dart';
-import '../../widgets/bottom_sheet_dialog.dart';
 
 class ShareNodeBottomSheet extends HookConsumerWidget {
   const ShareNodeBottomSheet({
@@ -32,6 +32,7 @@ class ShareNodeBottomSheet extends HookConsumerWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      useSafeArea: true,
       backgroundColor: Colors.transparent,
       builder: (context) => ShareNodeBottomSheet(
         profileId: profileId,
@@ -45,7 +46,6 @@ class ShareNodeBottomSheet extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final navigation = ref.read(navigationServiceProvider);
-    final vaultService = ref.read(vaultServiceProvider.notifier);
     final didController = useTextEditingController();
     final selectedPermission = useState<Permissions?>(Permissions.read);
     final hasTimeLimit = useState<bool>(false);
@@ -53,72 +53,38 @@ class ShareNodeBottomSheet extends HookConsumerWidget {
     final selectedTime = useState<TimeOfDay?>(null);
     final isLoading = useState<bool>(false);
 
-    Future<void> handleShare() async {
-      if (didController.text.trim().isEmpty) return;
-
-      isLoading.value = true;
-      try {
-        final receiverDid = didController.text.trim();
-        DateTime? expiresAt;
-
-        if (hasTimeLimit.value && selectedDate.value != null) {
-          final date = selectedDate.value!;
-          final time =
-              selectedTime.value ?? const TimeOfDay(hour: 23, minute: 59);
-          // Create DateTime in local timezone first
-          final localDateTime = DateTime(
-            date.year,
-            date.month,
-            date.day,
-            time.hour,
-            time.minute,
-          );
-          // Validate that the expiration date is in the future
-          final now = DateTime.now();
-          if (localDateTime.isBefore(now)) {
-            throw Exception('Expiration date must be in the future');
-          }
-          // Convert to UTC for backend (backend expects UTC dates)
-          expiresAt = localDateTime.toUtc();
-        }
-
-        await vaultService.shareItem(
-          profileId: profileId,
-          nodeId: nodeId,
-          toDid: receiverDid,
-          permissions: selectedPermission.value ?? Permissions.read,
-          expiresAt: expiresAt,
-        );
-
-        if (context.mounted) {
-          navigation.pop();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                localizations.fileSharedMessage,
-                style: const TextStyle(color: Colors.white),
-              ),
-              backgroundColor: AppColorScheme.backgroundDark,
-              behavior: SnackBarBehavior.fixed,
+    void openFullPage() {
+      final navigator = Navigator.of(context);
+      navigator.pop();
+      Future.microtask(
+        () => navigator.push(
+          MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (context) => ShareNodeFullScreenPage(
+              profileId: profileId,
+              nodeId: nodeId,
+              nodeName: nodeName,
             ),
-          );
-        }
-      } catch (e) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                '${localizations.errorSharingFile}: $e',
-                style: const TextStyle(color: Colors.white),
-              ),
-              backgroundColor: AppColorScheme.backgroundDark,
-              behavior: SnackBarBehavior.fixed,
+          ),
+        ),
+      );
+    }
+
+    void openManageAccessPage() {
+      final navigator = Navigator.of(context);
+      navigator.pop();
+      Future.microtask(
+        () => navigator.push(
+          MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (context) => ManageNodeAccessPage(
+              profileId: profileId,
+              nodeId: nodeId,
+              nodeName: nodeName,
             ),
-          );
-        }
-      } finally {
-        isLoading.value = false;
-      }
+          ),
+        ),
+      );
     }
 
     Future<void> selectDate() async {
@@ -164,175 +130,239 @@ class ShareNodeBottomSheet extends HookConsumerWidget {
       }
     }
 
-    return BottomSheetDialog(
-      title: localizations.shareFile,
-      titleStyle: AppTheme.headingMedium,
-      onCancel: () => navigation.pop(),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SimpleInfoWidget(
-            text: '${localizations.recipientDidLabel}*',
-            dialogTitle: localizations.infoShareRecipientDID,
-            dialogContent: localizations.infoShareRecipientDIDDescription,
-            textStyle: Theme.of(context).textTheme.labelLarge,
-          ),
-          const SizedBox(height: AppSizing.paddingSmall),
-          TextField(
-            controller: didController,
-            enabled: !isLoading.value,
-            enableInteractiveSelection: true,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              hintText: localizations.recipientDidHint,
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(fontWeight: FontWeight.w600)
-                  .copyWith(color: AppColorScheme.textPrimary),
-              border: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
-                borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+    final mq = MediaQuery.of(context);
+
+    return DraggableScrollableSheet(
+      expand: false,
+      minChildSize: 0.35,
+      initialChildSize: 0.55,
+      maxChildSize: 0.9,
+      builder: (context, scrollController) {
+        return Padding(
+          padding: mq.viewInsets,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(AppSizing.iconSmall),
               ),
-              enabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
-                borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppColorScheme.formFieldBorderUnfocused),
-                borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
-              ),
-              contentPadding: const EdgeInsets.all(AppSizing.paddingMedium),
             ),
-          ),
-          const SizedBox(height: AppSizing.paddingLarge),
-          SimpleInfoWidget(
-            text: localizations.accessPermissionLabel,
-            dialogTitle: localizations.infoSharePermissions,
-            dialogContent: localizations.infoSharePermissionsDescription,
-            textStyle: Theme.of(context).textTheme.labelLarge,
-          ),
-          const SizedBox(height: AppSizing.paddingSmall),
-          RadioListTile<Permissions>(
-            title: Text(
-              localizations.canViewOnlyLabel,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            value: Permissions.read,
-            groupValue: selectedPermission.value,
-            onChanged: isLoading.value
-                ? null
-                : (value) {
-                    selectedPermission.value = value;
-                  },
-            contentPadding: EdgeInsets.zero,
-            visualDensity: const VisualDensity(horizontal: -4),
-          ),
-          RadioListTile<Permissions>(
-            title: Text(
-              localizations.canWriteLabel,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            value: Permissions.all,
-            groupValue: selectedPermission.value,
-            onChanged: isLoading.value
-                ? null
-                : (value) {
-                    selectedPermission.value = value;
-                  },
-            contentPadding: EdgeInsets.zero,
-            visualDensity: const VisualDensity(horizontal: -4),
-          ),
-          const SizedBox(height: AppSizing.paddingLarge),
-          Row(
-            children: [
-              Checkbox(
-                value: hasTimeLimit.value,
-                onChanged: isLoading.value
-                    ? null
-                    : (value) {
-                        hasTimeLimit.value = value ?? false;
-                        if (!hasTimeLimit.value) {
-                          selectedDate.value = null;
-                          selectedTime.value = null;
-                        }
-                      },
-              ),
-              Expanded(
-                child: Text(
-                  localizations.timeLimitLabel,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
-            ],
-          ),
-          if (hasTimeLimit.value) ...[
-            const SizedBox(height: AppSizing.paddingMedium),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: isLoading.value ? null : selectDate,
-                    icon: const Icon(Icons.calendar_today, size: 18),
-                    label: Text(
-                      selectedDate.value != null
-                          ? '${selectedDate.value!.day}/${selectedDate.value!.month}/${selectedDate.value!.year}'
-                          : localizations.selectDateLabel,
+            child: SingleChildScrollView(
+              controller: scrollController,
+              padding: const EdgeInsets.all(AppSizing.paddingLarge),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    localizations.shareFile,
+                    style: AppTheme.headingMedium,
+                  ),
+                  const SizedBox(height: AppSizing.paddingMedium),
+                  SimpleInfoWidget(
+                    text: '${localizations.recipientDidLabel}*',
+                    dialogTitle: localizations.infoShareRecipientDID,
+                    dialogContent:
+                        localizations.infoShareRecipientDIDDescription,
+                    textStyle: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  const SizedBox(height: AppSizing.paddingSmall),
+                  TextField(
+                    controller: didController,
+                    enabled: !isLoading.value,
+                    enableInteractiveSelection: true,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      hintText: localizations.recipientDidHint,
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w600)
+                          .copyWith(color: AppColorScheme.textPrimary),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: AppColorScheme.formFieldBorderUnfocused),
+                        borderRadius:
+                            BorderRadius.circular(AppSizing.paddingXSmall),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: AppColorScheme.formFieldBorderUnfocused),
+                        borderRadius:
+                            BorderRadius.circular(AppSizing.paddingXSmall),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: AppColorScheme.formFieldBorderUnfocused),
+                        borderRadius:
+                            BorderRadius.circular(AppSizing.paddingXSmall),
+                      ),
+                      contentPadding:
+                          const EdgeInsets.all(AppSizing.paddingMedium),
                     ),
                   ),
-                ),
-                const SizedBox(width: AppSizing.paddingMedium),
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: isLoading.value ? null : selectTime,
-                    icon: const Icon(Icons.access_time, size: 18),
-                    label: Text(
-                      selectedTime.value != null
-                          ? selectedTime.value!.format(context)
-                          : localizations.selectTimeLabel,
-                    ),
+                  const SizedBox(height: AppSizing.paddingLarge),
+                  SimpleInfoWidget(
+                    text: localizations.accessPermissionLabel,
+                    dialogTitle: localizations.infoSharePermissions,
+                    dialogContent:
+                        localizations.infoSharePermissionsDescription,
+                    textStyle: Theme.of(context).textTheme.labelLarge,
                   ),
-                ),
-              ],
+                  const SizedBox(height: AppSizing.paddingSmall),
+                  _PermissionTile(
+                    label: localizations.canViewOnlyLabel,
+                    value: Permissions.read,
+                    selected: selectedPermission.value == Permissions.read,
+                    enabled: !isLoading.value,
+                    onSelect: () => selectedPermission.value = Permissions.read,
+                  ),
+                  _PermissionTile(
+                    label: localizations.canWriteLabel,
+                    value: Permissions.all,
+                    selected: selectedPermission.value == Permissions.all,
+                    enabled: !isLoading.value,
+                    onSelect: () => selectedPermission.value = Permissions.all,
+                  ),
+                  const SizedBox(height: AppSizing.paddingLarge),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: hasTimeLimit.value,
+                        onChanged: isLoading.value
+                            ? null
+                            : (value) {
+                                hasTimeLimit.value = value ?? false;
+                                if (!hasTimeLimit.value) {
+                                  selectedDate.value = null;
+                                  selectedTime.value = null;
+                                }
+                              },
+                      ),
+                      Expanded(
+                        child: Text(
+                          localizations.timeLimitLabel,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (hasTimeLimit.value) ...[
+                    const SizedBox(height: AppSizing.paddingMedium),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            onPressed: isLoading.value ? null : selectDate,
+                            icon: const Icon(Icons.calendar_today, size: 18),
+                            label: Text(
+                              selectedDate.value != null
+                                  ? '${selectedDate.value!.day}/${selectedDate.value!.month}/${selectedDate.value!.year}'
+                                  : localizations.selectDateLabel,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: AppSizing.paddingMedium),
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            onPressed: isLoading.value ? null : selectTime,
+                            icon: const Icon(Icons.access_time, size: 18),
+                            label: Text(
+                              selectedTime.value != null
+                                  ? selectedTime.value!.format(context)
+                                  : localizations.selectTimeLabel,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                  const SizedBox(height: AppSizing.paddingLarge),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () {
+                            if (isLoading.value) return;
+                            navigation.pop();
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor: AppColorScheme.textPrimary,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: AppSizing.paddingRegular),
+                          ),
+                          child: Text(localizations.cancelActionText),
+                        ),
+                      ),
+                      Expanded(
+                        child: FilledButton(
+                          onPressed: openFullPage,
+                          child: Text(localizations.shareProfile),
+                        ),
+                      ),
+                      const SizedBox(width: AppSizing.paddingSmall),
+                      Expanded(
+                        child: FilledButton.tonal(
+                          onPressed: openManageAccessPage,
+                          child: Text(localizations.manageAccess),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _PermissionTile extends StatelessWidget {
+  const _PermissionTile({
+    required this.label,
+    required this.value,
+    required this.selected,
+    required this.enabled,
+    required this.onSelect,
+  });
+
+  final String label;
+  final Permissions value;
+  final bool selected;
+  final bool enabled;
+  final VoidCallback onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    final color =
+        selected ? AppColorScheme.textPrimary : AppColorScheme.textSecondary;
+
+    return InkWell(
+      onTap: enabled ? onSelect : null,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingSmall),
+        child: Row(
+          children: [
+            Icon(
+              selected ? Icons.radio_button_checked : Icons.radio_button_off,
+              color: color,
+              size: AppSizing.iconSmall + 2,
+            ),
+            const SizedBox(width: AppSizing.paddingSmall),
+            Expanded(
+              child: Text(
+                label,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: color),
+              ),
             ),
           ],
-        ],
+        ),
       ),
-      actions: [
-        Expanded(
-          child: TextButton(
-            onPressed: isLoading.value ? null : () => navigation.pop(),
-            style: TextButton.styleFrom(
-              foregroundColor: AppColorScheme.textPrimary,
-              padding: const EdgeInsets.symmetric(
-                  vertical: AppSizing.paddingRegular),
-            ),
-            child: Text(localizations.cancelActionText),
-          ),
-        ),
-        Expanded(
-          child: ValueListenableBuilder<TextEditingValue>(
-            valueListenable: didController,
-            builder: (context, value, child) {
-              final hasText = value.text.trim().isNotEmpty;
-              return FilledButton(
-                onPressed: isLoading.value || !hasText ? null : handleShare,
-                child: isLoading.value
-                    ? const SizedBox(
-                        width: AppSizing.iconSmall,
-                        height: AppSizing.iconSmall,
-                        child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white))
-                    : Text(localizations.shareProfile),
-              );
-            },
-          ),
-        ),
-      ],
     );
   }
 }

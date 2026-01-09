@@ -235,78 +235,34 @@ class CreateVaultPage extends HookConsumerWidget {
                             },
                           ),
                           const SizedBox(height: AppSizing.paddingMedium),
-                          Row(
-                            children: [
-                              Radio<SeedMode>(
-                                value: SeedMode.generate,
-                                key: Key(
-                                  'radio_${SeedMode.generate.name}',
-                                ),
-                                groupValue: state.seedMode,
-                                onChanged: (value) {
-                                  controller.updateSeedMode(value!);
-                                  controller.validateForm(
-                                    vaultName: vaultNameController.text,
-                                    password: passwordController.text,
-                                    seed: seedController.text,
-                                    seedMode: value,
-                                  );
-                                },
-                                activeColor: AppTheme.colorScheme.primary,
-                              ),
-                              Text(
-                                localizations.generateRandomSeed,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                              const SizedBox(width: AppSizing.paddingSmall),
-                            ],
+                          _SeedModeTile(
+                            label: localizations.generateRandomSeed,
+                            value: SeedMode.generate,
+                            selected: state.seedMode == SeedMode.generate,
+                            onSelect: (mode) {
+                              controller.updateSeedMode(mode);
+                              controller.validateForm(
+                                vaultName: vaultNameController.text,
+                                password: passwordController.text,
+                                seed: seedController.text,
+                                seedMode: mode,
+                              );
+                            },
                           ),
-                          Row(
-                            children: [
-                              Radio<SeedMode>(
-                                value: SeedMode.useExisting,
-                                key: Key(
-                                  'radio_${SeedMode.useExisting.name}',
-                                ),
-                                groupValue: state.seedMode,
-                                onChanged: (value) {
-                                  controller.updateSeedMode(value!);
-                                  controller.validateForm(
-                                    vaultName: vaultNameController.text,
-                                    password: passwordController.text,
-                                    seed: seedController.text,
-                                    seedMode: value,
-                                  );
-                                },
-                                activeColor: AppTheme.colorScheme.primary,
-                              ),
-                              Text(
-                                localizations.existingSeed,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                              const SizedBox(width: AppSizing.paddingXSmall),
-                              GestureDetector(
-                                onTap: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        localizations.existingSeedMessage,
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      ),
-                                      backgroundColor:
-                                          AppColorScheme.backgroundDark,
-                                      behavior: SnackBarBehavior.fixed,
-                                    ),
-                                  );
-                                },
-                                child: Icon(
-                                  Icons.info_outline,
-                                  size: AppSizing.iconSmall,
-                                  color: Colors.grey.shade600,
-                                ),
-                              ),
-                            ],
+                          _SeedModeTile(
+                            label: localizations.existingSeed,
+                            value: SeedMode.useExisting,
+                            selected: state.seedMode == SeedMode.useExisting,
+                            infoMessage: localizations.existingSeedMessage,
+                            onSelect: (mode) {
+                              controller.updateSeedMode(mode);
+                              controller.validateForm(
+                                vaultName: vaultNameController.text,
+                                password: passwordController.text,
+                                seed: seedController.text,
+                                seedMode: mode,
+                              );
+                            },
                           ),
                           const SizedBox(height: AppSizing.paddingXSmall),
                           Center(
@@ -413,6 +369,82 @@ class CreateVaultPage extends HookConsumerWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _SeedModeTile extends StatelessWidget {
+  const _SeedModeTile({
+    required this.label,
+    required this.value,
+    required this.selected,
+    required this.onSelect,
+    this.infoMessage,
+  });
+
+  final String label;
+  final SeedMode value;
+  final bool selected;
+  final void Function(SeedMode) onSelect;
+  final String? infoMessage;
+
+  @override
+  Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodyMedium;
+    final iconColor =
+        selected ? AppTheme.colorScheme.primary : AppColorScheme.textSecondary;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingXSmall),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          InkWell(
+            onTap: () => onSelect(value),
+            borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+            child: Padding(
+              padding: const EdgeInsets.all(AppSizing.paddingXSmall),
+              child: Icon(
+                selected ? Icons.radio_button_checked : Icons.radio_button_off,
+                color: iconColor,
+                size: AppSizing.iconSmall + 4,
+              ),
+            ),
+          ),
+          const SizedBox(width: AppSizing.paddingSmall),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(child: Text(label, style: textStyle)),
+                if (infoMessage != null) ...[
+                  const SizedBox(width: AppSizing.paddingXSmall),
+                  GestureDetector(
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            infoMessage!,
+                            style: const TextStyle(
+                              color: AppColorScheme.textPrimary,
+                            ),
+                          ),
+                          backgroundColor: AppColorScheme.backgroundDark,
+                          behavior: SnackBarBehavior.fixed,
+                        ),
+                      );
+                    },
+                    child: Icon(
+                      Icons.info_outline,
+                      size: AppSizing.iconSmall,
+                      color: AppColorScheme.textSecondary,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

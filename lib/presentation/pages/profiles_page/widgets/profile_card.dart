@@ -26,7 +26,7 @@ class ProfileCard extends HookConsumerWidget {
 
     return Card(
       elevation: 12,
-      shadowColor: Colors.black.withOpacity(0.6),
+      shadowColor: Colors.black.withValues(alpha: 0.6),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSizing.paddingRegular),
       ),
@@ -44,7 +44,7 @@ class ProfileCard extends HookConsumerWidget {
           ),
           borderRadius: BorderRadius.circular(AppSizing.paddingRegular),
           border: Border.all(
-            color: Colors.white.withOpacity(0.1),
+            color: Colors.white.withValues(alpha: 0.1),
             width: 1,
           ),
         ),

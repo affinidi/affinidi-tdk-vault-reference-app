@@ -157,6 +157,53 @@ class ProfileAppBar extends ConsumerWidget {
   }
 }
 
+class _PermissionTile extends StatelessWidget {
+  const _PermissionTile({
+    super.key,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final color =
+        selected ? AppTheme.colorScheme.primary : AppColorScheme.textSecondary;
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingXSmall),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              selected ? Icons.radio_button_checked : Icons.radio_button_off,
+              color: color,
+              size: AppSizing.iconSmall + 2,
+            ),
+            const SizedBox(width: AppSizing.paddingSmall),
+            Expanded(
+              child: Text(
+                label,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: color),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class ShareProfileBottomSheet extends ConsumerStatefulWidget {
   final String profileId;
   final WidgetRef ref;
@@ -326,36 +373,20 @@ class _ShareProfileBottomSheetState
               textStyle: Theme.of(context).textTheme.labelLarge,
             ),
             const SizedBox(height: AppSizing.paddingSmall),
-            RadioListTile<Permissions>(
-              title: Text(
-                localizations.canViewOnlyLabel,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              value: Permissions.read,
-              groupValue: selectedPermission,
-              onChanged: isLoading
+            _PermissionTile(
+              label: localizations.canViewOnlyLabel,
+              selected: selectedPermission == Permissions.read,
+              onTap: isLoading
                   ? null
-                  : (value) {
-                      setState(() => selectedPermission = value);
-                    },
-              contentPadding: EdgeInsets.zero,
-              visualDensity: VisualDensity(horizontal: -4),
+                  : () => setState(() => selectedPermission = Permissions.read),
             ),
-            RadioListTile<Permissions>(
+            _PermissionTile(
               key: Key(KeyConstants.keyCanWriteRadio),
-              title: Text(
-                localizations.canWriteLabel,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              value: Permissions.all,
-              groupValue: selectedPermission,
-              onChanged: isLoading
+              label: localizations.canWriteLabel,
+              selected: selectedPermission == Permissions.all,
+              onTap: isLoading
                   ? null
-                  : (value) {
-                      setState(() => selectedPermission = value);
-                    },
-              contentPadding: EdgeInsets.zero,
-              visualDensity: VisualDensity(horizontal: -4),
+                  : () => setState(() => selectedPermission = Permissions.all),
             ),
             Center(
                 child: SimpleInfoWidget(

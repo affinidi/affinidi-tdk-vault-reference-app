@@ -17,8 +17,8 @@ import '../../dialogs/options_picker/folder_option.dart';
 import '../../dialogs/options_picker/options_picker.dart';
 import '../../dialogs/rename_file_form/rename_file_form.dart';
 import '../../dialogs/rename_folder_form/rename_folder_form.dart';
-import '../../dialogs/share_node_bottom_sheet/share_node_bottom_sheet.dart';
-import '../../dialogs/manage_node_access_bottom_sheet/manage_node_access_bottom_sheet.dart';
+import '../../pages/manage_node_access/manage_node_access.dart';
+import '../../pages/share_node_full_screen_page/share_node_full_screen_page.dart';
 import '../../themes/app_sizing.dart';
 
 class FilesExplorer extends ConsumerWidget {
@@ -76,21 +76,27 @@ class FilesExplorer extends ConsumerWidget {
 
     void showShareFileDialog(Item item) {
       if (!context.mounted) return;
-      ShareNodeBottomSheet.show(
-        context: context,
-        profileId: profileId,
-        nodeId: item.id,
-        nodeName: item.name,
+      Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(
+          builder: (context) => ShareNodeFullScreenPage(
+            profileId: profileId,
+            nodeId: item.id,
+            nodeName: item.name,
+          ),
+        ),
       );
     }
 
     void showManageAccessDialog(Item item) {
       if (!context.mounted) return;
-      ManageNodeAccessBottomSheet.show(
-        context: context,
-        profileId: profileId,
-        nodeId: item.id,
-        nodeName: item.name,
+      Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(
+          builder: (context) => ManageNodeAccessPage(
+            profileId: profileId,
+            nodeId: item.id,
+            nodeName: item.name,
+          ),
+        ),
       );
     }
 
@@ -161,21 +167,27 @@ class FilesExplorer extends ConsumerWidget {
 
     void showShareFolderDialog(Item item) {
       if (!context.mounted) return;
-      ShareNodeBottomSheet.show(
-        context: context,
-        profileId: profileId,
-        nodeId: item.id,
-        nodeName: item.name,
+      Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(
+          builder: (context) => ShareNodeFullScreenPage(
+            profileId: profileId,
+            nodeId: item.id,
+            nodeName: item.name,
+          ),
+        ),
       );
     }
 
     void showManageAccessFolderDialog(Item item) {
       if (!context.mounted) return;
-      ManageNodeAccessBottomSheet.show(
-        context: context,
-        profileId: profileId,
-        nodeId: item.id,
-        nodeName: item.name,
+      Navigator.of(context, rootNavigator: true).push(
+        MaterialPageRoute(
+          builder: (context) => ManageNodeAccessPage(
+            profileId: profileId,
+            nodeId: item.id,
+            nodeName: item.name,
+          ),
+        ),
       );
     }
 
