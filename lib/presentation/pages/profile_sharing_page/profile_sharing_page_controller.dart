@@ -50,6 +50,7 @@ class ProfileSharingController extends _$ProfileSharingController {
     required String receiverDid,
     required Permissions permissions,
     required void Function(ProfileSharingMessage message) onMessage,
+    DateTime? expiresAt,
   }) async {
     state = state.copyWith(isLoading: true);
     onMessage(ProfileSharingMessage.sharingProfile);
@@ -60,6 +61,7 @@ class ProfileSharingController extends _$ProfileSharingController {
         profileId: state.selectedProfileId!,
         toDid: receiverDid,
         permissions: permissions,
+        expiresAt: expiresAt,
       );
       if (sharedProfile != null) {
         await Future.delayed(const Duration(seconds: 1));

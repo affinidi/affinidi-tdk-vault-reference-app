@@ -187,6 +187,7 @@ class VaultService extends _$VaultService {
     required String profileId,
     required String toDid,
     Permissions permissions = Permissions.all,
+    DateTime? expiresAt,
   }) async {
     if (state.currentVault == null) {
       throw AppException(
@@ -198,6 +199,7 @@ class VaultService extends _$VaultService {
       profileId: profileId,
       toDid: toDid,
       permissions: permissions,
+      expiresAt: expiresAt,
     );
   }
 

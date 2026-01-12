@@ -8,14 +8,11 @@ environment:
 dependencies:
   affinidi_tdk_claim_verifiable_credential: ^1.4.0
   affinidi_tdk_cryptography: ^2.4.0
-  affinidi_tdk_vault:
-    path: ../affinidi-tdk/libs/dart/vault
-  affinidi_tdk_vault_data_manager:
-    path: ../affinidi-tdk/packages/dart/vault_data_manager
+  affinidi_tdk_vault: ^1.15.0
+  affinidi_tdk_vault_data_manager: ^1.14.0
   affinidi_tdk_vault_edge_drift_provider: ^1.1.0
   affinidi_tdk_vault_edge_provider: ^1.1.0
-  affinidi_tdk_vault_flutter_utils:
-    path: ../affinidi-tdk/libs/dart/vault_flutter_utils
+  affinidi_tdk_vault_flutter_utils: ^1.14.0
   collection: ^1.19.0
   cross_file: ^0.3.4+2
   crypto: ^3.0.6
