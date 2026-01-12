@@ -241,12 +241,6 @@ class VaultService extends _$VaultService {
   }
 
   /// Shares an item (file/folder) with another user
-  ///
-  /// [profileId]: The ID of the profile that owns the item.
-  /// [nodeId]: The ID of the item (file/folder) to share.
-  /// [toDid]: The DID of the recipient.
-  /// [permissions]: Access level for the recipient.
-  /// [expiresAt]: Optional expiration date for the access.
   Future<void> shareItem({
     required String profileId,
     required String nodeId,
@@ -273,10 +267,6 @@ class VaultService extends _$VaultService {
   }
 
   /// Revokes access to a shared item (file/folder)
-  ///
-  /// [profileId]: The ID of the profile that owns the item.
-  /// [nodeId]: The ID of the item to revoke access from.
-  /// [granteeDid]: The DID of the user to revoke access from.
   Future<void> revokeItemAccess({
     required String profileId,
     required String nodeId,
@@ -293,9 +283,7 @@ class VaultService extends _$VaultService {
         profileId: profileId,
         granteeDid: granteeDid,
       );
-      // Remove permission for this specific node (empty permissions list removes all permissions for the node)
       policy.removePermission([nodeId], []);
-      // Set the updated policy (this sends the complete policy to the backend)
       await state.currentVault!.setItemAccess(
         profileId: profileId,
         granteeDid: granteeDid,
@@ -313,10 +301,6 @@ class VaultService extends _$VaultService {
   }
 
   /// Gets access permissions for a specific item
-  ///
-  /// [profileId]: The ID of the profile that owns the item.
-  /// [granteeDid]: The DID of the user to get access permissions for.
-  /// Returns a list of ItemPermission objects.
   Future<List<ItemPermission>> getItemAccess({
     required String profileId,
     required String granteeDid,
@@ -333,25 +317,18 @@ class VaultService extends _$VaultService {
     );
   }
 
-  /// Gets the next available account index by finding the highest used index
   int _getNextAccountIndex(List<Profile> profiles) {
     if (profiles.isEmpty) {
       return 0;
     }
-    // Find the highest account index used
     final highestIndex = profiles.fold(
         0,
         (previousValue, element) =>
             math.max(previousValue, element.accountIndex));
-    // Return the next available index
     return highestIndex + 1;
   }
 
   /// Checks if a vault already exists for the given base64 seed.
-  ///
-  /// [base64Seed]: The encoded seed string to check against.
-  ///
-  /// Returns `true` if a vault exists, `false` otherwise.
   bool _doesVaultWithSeedExist({
     required String base64Seed,
   }) {

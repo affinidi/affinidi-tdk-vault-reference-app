@@ -87,9 +87,7 @@ class ManageNodeAccess extends HookConsumerWidget {
 
     String formatExpiration(DateTime? expiresAt) {
       if (expiresAt == null) return localizations.neverExpires;
-      // Convert UTC to local time for display
       final localTime = expiresAt.toLocal();
-      // Format as two lines: date on first line, time on second line
       return '${localTime.day}/${localTime.month}/${localTime.year}\n${localTime.hour}:${localTime.minute.toString().padLeft(2, '0')}';
     }
 

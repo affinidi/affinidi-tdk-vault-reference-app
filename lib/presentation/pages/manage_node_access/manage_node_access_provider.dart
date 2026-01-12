@@ -109,7 +109,6 @@ class ManageNodeAccessNotifier
           }
         }
       } catch (e) {
-        // Skip profiles we cannot resolve instead of blocking the list.
         debugPrint('manage_access: unable to load ${profile.id}: $e');
         continue;
       }

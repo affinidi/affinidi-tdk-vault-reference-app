@@ -89,7 +89,6 @@ class ShareNodeBottomSheet extends HookConsumerWidget {
 
     Future<void> selectDate() async {
       final now = DateTime.now();
-      // Use today's date (midnight) to ensure we don't allow past dates
       final today = DateTime(now.year, now.month, now.day);
       final picked = await showDatePicker(
         context: context,
@@ -99,14 +98,12 @@ class ShareNodeBottomSheet extends HookConsumerWidget {
       );
       if (picked != null) {
         selectedDate.value = picked;
-        // If date is today, ensure time is in the future
         if (picked.year == now.year &&
             picked.month == now.month &&
             picked.day == now.day) {
           final currentTime = TimeOfDay.fromDateTime(now);
           if (selectedTime.value != null) {
             final selectedTimeValue = selectedTime.value!;
-            // If selected time is before current time, set it to current time + 1 minute
             if (selectedTimeValue.hour < currentTime.hour ||
                 (selectedTimeValue.hour == currentTime.hour &&
                     selectedTimeValue.minute <= currentTime.minute)) {

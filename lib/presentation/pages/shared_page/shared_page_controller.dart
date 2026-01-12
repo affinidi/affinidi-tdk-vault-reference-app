@@ -48,7 +48,7 @@ class SharedPageController extends _$SharedPageController {
           activeStorages.add(storage);
         }
       }
-      // Load granular access items
+
       List<GranularAccessItem> granularAccessItems = [];
       try {
         final granularAccessService = ref.read(granularAccessServiceProvider);
@@ -57,7 +57,6 @@ class SharedPageController extends _$SharedPageController {
         );
       } catch (e) {
         debugPrint('Error discovering granular access items: $e');
-        // Continue even if discovery fails
         granularAccessItems = [];
       }
       state = state.copyWith(

@@ -37,12 +37,6 @@ class GranularAccessService {
   GranularAccessService(this.ref);
 
   /// Discovers all files/folders shared with the current user via granular access
-  ///
-  /// This method:
-  /// 1. Gets the current user's DID from their profile
-  /// 2. Iterates through all profiles in the vault
-  /// 3. For each profile, checks if any items are shared with the current user
-  /// 4. Returns a list of GranularAccessItem objects
   Future<List<GranularAccessItem>> discoverSharedFiles({
     required String currentProfileId,
   }) async {
@@ -53,7 +47,6 @@ class GranularAccessService {
         return [];
       }
 
-      // Get current profile's DID
       final profiles = await vault.listProfiles();
       final currentProfile = profiles.firstWhere(
         (p) => p.id == currentProfileId,
@@ -63,7 +56,6 @@ class GranularAccessService {
 
       final sharedItems = <GranularAccessItem>[];
 
-      // Check all profiles to see if any have shared items with current user
       for (final profile in profiles) {
         try {
           final vaultServiceNotifier = ref.read(vaultServiceProvider.notifier);
@@ -73,19 +65,16 @@ class GranularAccessService {
           );
 
           for (final permission in permissions) {
-            // Filter out expired permissions
             if (permission.expiresAt != null) {
               final now = DateTime.now().toUtc();
               final expiresAt = permission.expiresAt!.toUtc();
               if (expiresAt.isBefore(now)) {
-                // Skip expired permissions - backend should have revoked these, but filter client-side as well
                 continue;
               }
             }
 
             for (final nodeId in permission.itemIds) {
               try {
-                // Try to get node info from owner's file storage
                 final nodeInfo = await _getNodeInfo(
                   vault: vault,
                   profileId: profile.id,
@@ -104,20 +93,17 @@ class GranularAccessService {
                   ));
                 }
               } catch (e) {
-                // Skip if we can't get node info
                 continue;
               }
             }
           }
         } catch (e) {
-          // Skip if we can't get access for this profile
           continue;
         }
       }
 
       return sharedItems;
     } catch (e) {
-      // Return empty list if discovery fails - don't break the app
       return [];
     }
   }
@@ -134,7 +120,6 @@ class GranularAccessService {
       final fileStorage = profile.defaultFileStorage;
       if (fileStorage == null) return null;
 
-      // Try to find the node by searching through folders
       Item? foundItem = await _searchForNode(
         fileStorage: fileStorage,
         profileId: profileId,
@@ -148,7 +133,6 @@ class GranularAccessService {
         };
       }
     } catch (e) {
-      // If we can't find the node, return null
       return null;
     }
     return null;
@@ -161,13 +145,12 @@ class GranularAccessService {
     required String nodeId,
   }) async {
     try {
-      // Search in root folder
       final rootFolder = await fileStorage.getFolder(folderId: profileId);
       for (final item in rootFolder.items) {
         if (item.id == nodeId) {
           return item;
         }
-        // If it's a folder, search recursively
+
         if (item is Folder) {
           final found = await _searchForNode(
             fileStorage: fileStorage,
