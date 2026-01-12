@@ -53,8 +53,8 @@ class ProfilesPage extends ConsumerWidget {
         ),
         centerTitle: true,
         showBackButton: true,
-        onBackPressed: () {
-          controller.resetCurrentVault();
+        onBackPressed: () async {
+          await controller.resetCurrentVault();
           final navigation = ref.read(navigationServiceProvider);
           navigation.go(VaultsRoutePath.base);
         },

@@ -95,6 +95,7 @@ class ManageNodeAccessNotifier
     final vaultNotifier = ref.read(vaultServiceProvider.notifier);
     final profiles = await vault.listProfiles();
     final allAccess = <AccessEntry>[];
+    final nowUtc = DateTime.now().toUtc();
 
     for (final profile in profiles) {
       try {
@@ -104,6 +105,10 @@ class ManageNodeAccessNotifier
         );
 
         for (final perm in permissions) {
+          final expiresAt = perm.expiresAt?.toUtc();
+          if (expiresAt != null && expiresAt.isBefore(nowUtc)) {
+            continue;
+          }
           if (perm.itemIds.contains(nodeId)) {
             allAccess.add((granteeDid: profile.did, permission: perm));
           }

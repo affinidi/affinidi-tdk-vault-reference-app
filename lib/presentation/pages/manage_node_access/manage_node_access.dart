@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import '../../../application/services/vault/vault_service.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../themes/app_color_scheme.dart';
@@ -77,9 +78,24 @@ class ManageNodeAccess extends HookConsumerWidget {
     }, [accessKey]);
 
     String formatPermissions(List<String> rights) {
-      if (rights.contains('vfsRead') && rights.contains('vfsWrite')) {
+      Permissions? mapRight(String right) {
+        for (final permission in Permissions.values) {
+          if (right.toLowerCase().contains(permission.name.toLowerCase())) {
+            return permission;
+          }
+        }
+        return null;
+      }
+
+      final mappedPermissions =
+          rights.map(mapRight).whereType<Permissions>().toSet();
+      final hasAll = mappedPermissions.contains(Permissions.all);
+      final hasWrite = hasAll || mappedPermissions.contains(Permissions.write);
+      final hasRead = hasAll || mappedPermissions.contains(Permissions.read);
+      if (hasWrite && hasRead) {
         return localizations.canWriteLabel;
-      } else if (rights.contains('vfsRead')) {
+      }
+      if (hasRead) {
         return localizations.canViewOnlyLabel;
       }
       return rights.join(', ');

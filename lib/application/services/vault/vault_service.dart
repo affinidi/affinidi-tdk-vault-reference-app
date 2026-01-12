@@ -26,6 +26,7 @@ class VaultService extends _$VaultService {
   VaultService() : super();
 
   int _accountIndex = 0;
+  static final Map<String, Database> _edgeDatabases = {};
 
   @override
   VaultServiceState build() {
@@ -136,9 +137,9 @@ class VaultService extends _$VaultService {
   /// Resets the current vault session in memory.
   ///
   /// Clears the `currentVault` and `currentVaultId` state.
-  void resetCurrentVault() {
+  Future<void> resetCurrentVault() async {
     log('Reseting current vault...', name: 'VaultService');
-
+    await _disposeCurrentVaultResources();
     state = state.copyWith(
       currentVault: null,
       currentVaultId: null,
@@ -338,31 +339,59 @@ class VaultService extends _$VaultService {
 
   /// Creates a platform-specific database
   static Future<Database> _createPlatformDatabase(String repositoryId) async {
+    final cached = _edgeDatabases[repositoryId];
+    if (cached != null) {
+      return cached;
+    }
     final cleanRepositoryId =
         repositoryId.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
     final databaseName = 'edge_profiles_$cleanRepositoryId.db';
 
-    log('Database not found in cache, creating new one', name: 'VaultService');
-
     try {
       if (kIsWeb) {
         log('Creating web database', name: 'VaultService');
-        return await DatabaseConfig.createDatabase(
+        final database = await DatabaseConfig.createDatabase(
           databaseName: databaseName,
         );
-      } else {
-        log('Creating native database', name: 'VaultService');
-        final documentsDir = await getApplicationDocumentsDirectory();
-        log('Documents directory: ${documentsDir.path}', name: 'VaultService');
-        return await DatabaseConfig.createDatabase(
-          databaseName: databaseName,
-          directory: documentsDir.path,
-        );
+        _edgeDatabases[repositoryId] = database;
+        return database;
       }
+      log('Creating native database', name: 'VaultService');
+      final documentsDir = await getApplicationDocumentsDirectory();
+      log('Documents directory: ${documentsDir.path}', name: 'VaultService');
+      final database = await DatabaseConfig.createDatabase(
+        databaseName: databaseName,
+        directory: documentsDir.path,
+      );
+      _edgeDatabases[repositoryId] = database;
+      return database;
     } catch (e, stackTrace) {
       log('Error creating database: $e', name: 'VaultService');
       log('Stack trace: $stackTrace', name: 'VaultService');
       rethrow;
+    }
+  }
+
+  Future<void> _disposeCurrentVaultResources() async {
+    final vaultId = state.currentVaultId;
+    final vault = state.currentVault;
+    if (vault != null) {
+      try {
+        await (vault as dynamic).dispose();
+      } catch (_) {
+        try {
+          await (vault as dynamic).close();
+        } catch (_) {}
+      }
+    }
+    if (vaultId != null) {
+      final edgeRepositoryId = '${vaultId}_edge_repository';
+      final db = _edgeDatabases.remove(edgeRepositoryId);
+      if (db != null) {
+        try {
+          await db.close();
+        } catch (_) {}
+      }
     }
   }
 }

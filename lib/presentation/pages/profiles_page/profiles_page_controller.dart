@@ -47,9 +47,9 @@ class ProfilesPageController extends _$ProfilesPageController {
   /// Handles logic for closing the Profiles Page:
   /// - Resets the current vault
   /// - Navigates back to the Vaults page
-  void resetCurrentVault() {
+  Future<void> resetCurrentVault() async {
     final vaultService = ref.read(vaultServiceProvider.notifier);
-    vaultService.resetCurrentVault();
+    await vaultService.resetCurrentVault();
   }
 
   /// Internal method that loads profiles with a loading indicator.

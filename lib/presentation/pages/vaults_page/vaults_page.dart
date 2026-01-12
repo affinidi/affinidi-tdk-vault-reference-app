@@ -116,7 +116,7 @@ class VaultsPage extends ConsumerWidget {
                                       .read(vaultServiceProvider)
                                       .currentVaultId;
                                   if (currentVaultId == seed) {
-                                    ref
+                                    await ref
                                         .read(vaultServiceProvider.notifier)
                                         .resetCurrentVault();
                                   }
