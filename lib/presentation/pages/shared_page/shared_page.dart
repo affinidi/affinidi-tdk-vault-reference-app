@@ -24,8 +24,8 @@ class SharedPage extends ConsumerWidget {
     final state = ref.watch(provider);
     final navigation = ref.read(navigationServiceProvider);
 
-    final hasSharedContent = state.sharedStorages.isNotEmpty ||
-        state.granularAccessItems.isNotEmpty;
+    final hasSharedContent =
+        state.sharedStorages.isNotEmpty || state.granularAccessItems.isNotEmpty;
 
     return Scaffold(
       backgroundColor: AppColorScheme.backgroundBlack,
@@ -93,8 +93,8 @@ class SharedPage extends ConsumerWidget {
                       }
 
                       return SharedProfileCard(
-                        title: localizations.sharedFromNodeLabel(
-                            item.ownerProfileName),
+                        title: localizations
+                            .sharedFromNodeLabel(item.ownerProfileName),
                         subtitle: '${item.nodeName} • $permissionsText',
                         onPressed: () {
                           if (item.isFolder) {
