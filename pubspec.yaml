@@ -73,8 +73,7 @@ dev_dependencies:
 dependency_overrides:
   clock: 1.1.1
   ssi: ^2.2.0
-  affinidi_tdk_vault:
-    path: ../affinidi-tdk/libs/dart/vault
+  
 flutter:
   uses-material-design: true
   generate: true
