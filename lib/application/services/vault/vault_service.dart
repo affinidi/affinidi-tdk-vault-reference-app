@@ -376,21 +376,13 @@ class VaultService extends _$VaultService {
     final vaultId = state.currentVaultId;
     final vault = state.currentVault;
     if (vault != null) {
-      try {
-        await (vault as dynamic).dispose();
-      } catch (_) {
-        try {
-          await (vault as dynamic).close();
-        } catch (_) {}
-      }
+      await (vault as dynamic).dispose();
     }
     if (vaultId != null) {
       final edgeRepositoryId = '${vaultId}_edge_repository';
       final db = _edgeDatabases.remove(edgeRepositoryId);
       if (db != null) {
-        try {
-          await db.close();
-        } catch (_) {}
+        await db.close();
       }
     }
   }

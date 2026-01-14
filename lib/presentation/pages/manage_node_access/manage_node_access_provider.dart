@@ -1,5 +1,4 @@
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
-import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/services/vault/vault_service.dart';
@@ -98,24 +97,19 @@ class ManageNodeAccessNotifier
     final nowUtc = DateTime.now().toUtc();
 
     for (final profile in profiles) {
-      try {
-        final permissions = await vaultNotifier.getItemAccess(
-          profileId: profileId,
-          granteeDid: profile.did,
-        );
+      final permissions = await vaultNotifier.getItemAccess(
+        profileId: profileId,
+        granteeDid: profile.did,
+      );
 
-        for (final perm in permissions) {
-          final expiresAt = perm.expiresAt?.toUtc();
-          if (expiresAt != null && expiresAt.isBefore(nowUtc)) {
-            continue;
-          }
-          if (perm.itemIds.contains(nodeId)) {
-            allAccess.add((granteeDid: profile.did, permission: perm));
-          }
+      for (final perm in permissions) {
+        final expiresAt = perm.expiresAt?.toUtc();
+        if (expiresAt != null && expiresAt.isBefore(nowUtc)) {
+          continue;
         }
-      } catch (e) {
-        debugPrint('manage_access: unable to load ${profile.id}: $e');
-        continue;
+        if (perm.itemIds.contains(nodeId)) {
+          allAccess.add((granteeDid: profile.did, permission: perm));
+        }
       }
     }
 
