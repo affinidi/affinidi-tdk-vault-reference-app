@@ -12,7 +12,8 @@ part of 'error_response.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 ErrorResponse _$ErrorResponseFromJson(Map<String, dynamic> json) {
   return _ErrorResponse.fromJson(json);
@@ -35,14 +36,16 @@ mixin _$ErrorResponse {
 /// @nodoc
 abstract class $ErrorResponseCopyWith<$Res> {
   factory $ErrorResponseCopyWith(
-          ErrorResponse value, $Res Function(ErrorResponse) then) =
-      _$ErrorResponseCopyWithImpl<$Res, ErrorResponse>;
+    ErrorResponse value,
+    $Res Function(ErrorResponse) then,
+  ) = _$ErrorResponseCopyWithImpl<$Res, ErrorResponse>;
   @useResult
-  $Res call(
-      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
-      ErrorResponseType type,
-      String message,
-      List<ErrorDetails> details});
+  $Res call({
+    @JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
+    ErrorResponseType type,
+    String message,
+    List<ErrorDetails> details,
+  });
 }
 
 /// @nodoc
@@ -64,20 +67,23 @@ class _$ErrorResponseCopyWithImpl<$Res, $Val extends ErrorResponse>
     Object? message = null,
     Object? details = null,
   }) {
-    return _then(_value.copyWith(
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ErrorResponseType,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      details: null == details
-          ? _value.details
-          : details // ignore: cast_nullable_to_non_nullable
-              as List<ErrorDetails>,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            type: null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                      as ErrorResponseType,
+            message: null == message
+                ? _value.message
+                : message // ignore: cast_nullable_to_non_nullable
+                      as String,
+            details: null == details
+                ? _value.details
+                : details // ignore: cast_nullable_to_non_nullable
+                      as List<ErrorDetails>,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -85,15 +91,17 @@ class _$ErrorResponseCopyWithImpl<$Res, $Val extends ErrorResponse>
 abstract class _$$ErrorResponseImplCopyWith<$Res>
     implements $ErrorResponseCopyWith<$Res> {
   factory _$$ErrorResponseImplCopyWith(
-          _$ErrorResponseImpl value, $Res Function(_$ErrorResponseImpl) then) =
-      __$$ErrorResponseImplCopyWithImpl<$Res>;
+    _$ErrorResponseImpl value,
+    $Res Function(_$ErrorResponseImpl) then,
+  ) = __$$ErrorResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
-      ErrorResponseType type,
-      String message,
-      List<ErrorDetails> details});
+  $Res call({
+    @JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
+    ErrorResponseType type,
+    String message,
+    List<ErrorDetails> details,
+  });
 }
 
 /// @nodoc
@@ -101,8 +109,9 @@ class __$$ErrorResponseImplCopyWithImpl<$Res>
     extends _$ErrorResponseCopyWithImpl<$Res, _$ErrorResponseImpl>
     implements _$$ErrorResponseImplCopyWith<$Res> {
   __$$ErrorResponseImplCopyWithImpl(
-      _$ErrorResponseImpl _value, $Res Function(_$ErrorResponseImpl) _then)
-      : super(_value, _then);
+    _$ErrorResponseImpl _value,
+    $Res Function(_$ErrorResponseImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ErrorResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -113,32 +122,34 @@ class __$$ErrorResponseImplCopyWithImpl<$Res>
     Object? message = null,
     Object? details = null,
   }) {
-    return _then(_$ErrorResponseImpl(
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ErrorResponseType,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      details: null == details
-          ? _value._details
-          : details // ignore: cast_nullable_to_non_nullable
-              as List<ErrorDetails>,
-    ));
+    return _then(
+      _$ErrorResponseImpl(
+        type: null == type
+            ? _value.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as ErrorResponseType,
+        message: null == message
+            ? _value.message
+            : message // ignore: cast_nullable_to_non_nullable
+                  as String,
+        details: null == details
+            ? _value._details
+            : details // ignore: cast_nullable_to_non_nullable
+                  as List<ErrorDetails>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable(createToJson: false)
 class _$ErrorResponseImpl implements _ErrorResponse {
-  _$ErrorResponseImpl(
-      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
-      this.type = ErrorResponseType.other,
-      required this.message,
-      final List<ErrorDetails> details = const []})
-      : _details = details;
+  _$ErrorResponseImpl({
+    @JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
+    this.type = ErrorResponseType.other,
+    required this.message,
+    final List<ErrorDetails> details = const [],
+  }) : _details = details;
 
   factory _$ErrorResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$ErrorResponseImplFromJson(json);
@@ -174,8 +185,12 @@ class _$ErrorResponseImpl implements _ErrorResponse {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, type, message,
-      const DeepCollectionEquality().hash(_details));
+  int get hashCode => Object.hash(
+    runtimeType,
+    type,
+    message,
+    const DeepCollectionEquality().hash(_details),
+  );
 
   /// Create a copy of ErrorResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -187,11 +202,12 @@ class _$ErrorResponseImpl implements _ErrorResponse {
 }
 
 abstract class _ErrorResponse implements ErrorResponse {
-  factory _ErrorResponse(
-      {@JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
-      final ErrorResponseType type,
-      required final String message,
-      final List<ErrorDetails> details}) = _$ErrorResponseImpl;
+  factory _ErrorResponse({
+    @JsonKey(name: 'name', unknownEnumValue: ErrorResponseType.other)
+    final ErrorResponseType type,
+    required final String message,
+    final List<ErrorDetails> details,
+  }) = _$ErrorResponseImpl;
 
   factory _ErrorResponse.fromJson(Map<String, dynamic> json) =
       _$ErrorResponseImpl.fromJson;

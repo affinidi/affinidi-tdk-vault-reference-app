@@ -32,11 +32,14 @@ class ProfilesPage extends ConsumerWidget {
 
     final controller = ref.read(profilesPageControllerProvider.notifier);
     final profiles = ref.watch(
-        profilesPageControllerProvider.select((state) => state.profiles ?? []));
-    final currentVaultId =
-        ref.watch(vaultServiceProvider.select((state) => state.currentVaultId));
+      profilesPageControllerProvider.select((state) => state.profiles ?? []),
+    );
+    final currentVaultId = ref.watch(
+      vaultServiceProvider.select((state) => state.currentVaultId),
+    );
     final vaultRegistry = ref.watch(
-        vaultsManagerServiceProvider.select((state) => state.vaultRegistry));
+      vaultsManagerServiceProvider.select((state) => state.vaultRegistry),
+    );
     final navigation = ref.read(navigationServiceProvider);
 
     return Scaffold(
@@ -51,8 +54,9 @@ class ProfilesPage extends ConsumerWidget {
         actions: [
           CodeSnippetWidget(
             title: localizations.lblCSListVaultProfiles,
-            codeLocations:
-                CodeSnippetLocations.listVaultProfilesSnippets(context),
+            codeLocations: CodeSnippetLocations.listVaultProfilesSnippets(
+              context,
+            ),
           ),
         ],
       ),
@@ -70,10 +74,9 @@ class ProfilesPage extends ConsumerWidget {
               ),
               label: Text(
                 localizations.createProfile,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: AppColorScheme.backgroundWhite),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: AppColorScheme.backgroundWhite,
+                ),
               ),
               icon: const Icon(Icons.add),
             )
@@ -93,8 +96,9 @@ class ProfilesPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: AppSizing.paddingRegular),
+                    padding: const EdgeInsets.only(
+                      left: AppSizing.paddingRegular,
+                    ),
                     child: Text(
                       currentVaultId != null
                           ? vaultRegistry[currentVaultId]?.vaultName ?? 'Vault'
@@ -105,10 +109,7 @@ class ProfilesPage extends ConsumerWidget {
                 ],
               ),
             ),
-            Container(
-              height: 1.0,
-              color: AppColorScheme.divider,
-            ),
+            Container(height: 1.0, color: AppColorScheme.divider),
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async {
@@ -119,8 +120,9 @@ class ProfilesPage extends ConsumerWidget {
                   child: profiles.isEmpty
                       ? Center(
                           child: Padding(
-                            padding:
-                                const EdgeInsets.all(AppSizing.paddingLarge),
+                            padding: const EdgeInsets.all(
+                              AppSizing.paddingLarge,
+                            ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -131,46 +133,53 @@ class ProfilesPage extends ConsumerWidget {
                                 ),
                                 const SizedBox(height: AppSizing.paddingLarge),
                                 Center(
-                                    child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      localizations
-                                          .profilesEmptyStateDescription
-                                          .substring(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        localizations
+                                            .profilesEmptyStateDescription
+                                            .substring(
                                               0,
                                               localizations
                                                   .profilesEmptyStateDescription
-                                                  .indexOf(localizations
-                                                      .targetKeywordProfiles)),
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                    SimpleInfoWidget(
-                                      text: localizations.targetKeywordProfiles,
-                                      dialogTitle: localizations.infoProfile,
-                                      dialogContent:
-                                          localizations.infoProfileDescription,
-                                      textStyle: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                    Text(
-                                      ' yet.',
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                  ],
-                                )),
+                                                  .indexOf(
+                                                    localizations
+                                                        .targetKeywordProfiles,
+                                                  ),
+                                            ),
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium,
+                                      ),
+                                      SimpleInfoWidget(
+                                        text:
+                                            localizations.targetKeywordProfiles,
+                                        dialogTitle: localizations.infoProfile,
+                                        dialogContent: localizations
+                                            .infoProfileDescription,
+                                        textStyle: Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium,
+                                      ),
+                                      Text(
+                                        ' yet.',
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 Text(
                                   localizations.profilesEmptyStateDescription
-                                      .substring(localizations
-                                          .profilesEmptyStateDescription
-                                          .indexOf('Start')),
+                                      .substring(
+                                        localizations
+                                            .profilesEmptyStateDescription
+                                            .indexOf('Start'),
+                                      ),
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
@@ -189,12 +198,15 @@ class ProfilesPage extends ConsumerWidget {
                                       foregroundColor:
                                           AppTheme.colorScheme.primary,
                                       side: BorderSide(
-                                          color: AppColorScheme.divider),
+                                        color: AppColorScheme.divider,
+                                      ),
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: AppSizing.paddingMedium),
+                                        vertical: AppSizing.paddingMedium,
+                                      ),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(
-                                            AppSizing.paddingXXLarge),
+                                          AppSizing.paddingXXLarge,
+                                        ),
                                       ),
                                       splashFactory: InkRipple.splashFactory,
                                     ),
@@ -219,14 +231,17 @@ class ProfilesPage extends ConsumerWidget {
                             final profile = profiles[index];
                             return Padding(
                               padding: EdgeInsets.only(
-                                  bottom: AppSizing.paddingRegular),
+                                bottom: AppSizing.paddingRegular,
+                              ),
                               child: ProfileCard(
                                 profile: profile,
                                 onSelected: (profile) {
                                   if (!context.mounted) return;
                                   navigation.push(
-                                      ProfilesRoutePath.profileMyFiles(
-                                          profile.id));
+                                    ProfilesRoutePath.profileMyFiles(
+                                      profile.id,
+                                    ),
+                                  );
                                 },
                               ),
                             );

@@ -27,5 +27,4 @@ enum ErrorResponseType {
   @JsonValue('NodeUpdateError')
   nodeUpdateError,
   other,
-  ;
 }

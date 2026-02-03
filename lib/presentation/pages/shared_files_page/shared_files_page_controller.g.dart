@@ -87,28 +87,31 @@ class SharedFilesPageControllerFamily extends Family<SharedFilesPageState> {
 }
 
 /// See also [SharedFilesPageController].
-class SharedFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<
-    SharedFilesPageController, SharedFilesPageState> {
+class SharedFilesPageControllerProvider
+    extends
+        AutoDisposeNotifierProviderImpl<
+          SharedFilesPageController,
+          SharedFilesPageState
+        > {
   /// See also [SharedFilesPageController].
   SharedFilesPageControllerProvider({
     required String? parentNodeId,
     required String profileId,
   }) : this._internal(
-          () => SharedFilesPageController()
-            ..parentNodeId = parentNodeId
-            ..profileId = profileId,
-          from: sharedFilesPageControllerProvider,
-          name: r'sharedFilesPageControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$sharedFilesPageControllerHash,
-          dependencies: SharedFilesPageControllerFamily._dependencies,
-          allTransitiveDependencies:
-              SharedFilesPageControllerFamily._allTransitiveDependencies,
-          parentNodeId: parentNodeId,
-          profileId: profileId,
-        );
+         () => SharedFilesPageController()
+           ..parentNodeId = parentNodeId
+           ..profileId = profileId,
+         from: sharedFilesPageControllerProvider,
+         name: r'sharedFilesPageControllerProvider',
+         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+             ? null
+             : _$sharedFilesPageControllerHash,
+         dependencies: SharedFilesPageControllerFamily._dependencies,
+         allTransitiveDependencies:
+             SharedFilesPageControllerFamily._allTransitiveDependencies,
+         parentNodeId: parentNodeId,
+         profileId: profileId,
+       );
 
   SharedFilesPageControllerProvider._internal(
     super._createNotifier, {
@@ -128,10 +131,7 @@ class SharedFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<
   SharedFilesPageState runNotifierBuild(
     covariant SharedFilesPageController notifier,
   ) {
-    return notifier.build(
-      parentNodeId: parentNodeId,
-      profileId: profileId,
-    );
+    return notifier.build(parentNodeId: parentNodeId, profileId: profileId);
   }
 
   @override
@@ -154,8 +154,11 @@ class SharedFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeNotifierProviderElement<SharedFilesPageController,
-      SharedFilesPageState> createElement() {
+  AutoDisposeNotifierProviderElement<
+    SharedFilesPageController,
+    SharedFilesPageState
+  >
+  createElement() {
     return _SharedFilesPageControllerProviderElement(this);
   }
 
@@ -188,8 +191,12 @@ mixin SharedFilesPageControllerRef
 }
 
 class _SharedFilesPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<SharedFilesPageController,
-        SharedFilesPageState> with SharedFilesPageControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          SharedFilesPageController,
+          SharedFilesPageState
+        >
+    with SharedFilesPageControllerRef {
   _SharedFilesPageControllerProviderElement(super.provider);
 
   @override
@@ -199,5 +206,6 @@ class _SharedFilesPageControllerProviderElement
   String get profileId =>
       (origin as SharedFilesPageControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

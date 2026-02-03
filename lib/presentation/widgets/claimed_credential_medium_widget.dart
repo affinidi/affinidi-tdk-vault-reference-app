@@ -31,10 +31,11 @@ class ClaimedCredentialMediumWidget extends ConsumerWidget {
     return Card(
       child: Padding(
         padding: EdgeInsets.fromLTRB(
-            AppSizing.paddingMedium,
-            AppSizing.paddingXSmall,
-            AppSizing.paddingMedium,
-            AppSizing.paddingMedium),
+          AppSizing.paddingMedium,
+          AppSizing.paddingXSmall,
+          AppSizing.paddingMedium,
+          AppSizing.paddingMedium,
+        ),
         child: Column(
           spacing: AppSizing.paddingSmall,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,9 +43,10 @@ class ClaimedCredentialMediumWidget extends ConsumerWidget {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: SvgPicture.asset(
-                  'assets/icons/icons-navigation-verifiable-dark.svg',
-                  width: AppSizing.iconLarge,
-                  height: AppSizing.iconLarge),
+                'assets/icons/icons-navigation-verifiable-dark.svg',
+                width: AppSizing.iconLarge,
+                height: AppSizing.iconLarge,
+              ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -55,13 +57,19 @@ class ClaimedCredentialMediumWidget extends ConsumerWidget {
                 ],
               ),
             ),
-            Text(localizations.verifiedCredentials,
-                style: theme.textTheme.bodyMedium
-                    ?.copyWith(fontWeight: FontWeight.w600)),
+            Text(
+              localizations.verifiedCredentials,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             if (displayName != null)
-              Text(displayName,
-                  style: theme.textTheme.bodyMedium
-                      ?.copyWith(fontWeight: FontWeight.w800)),
+              Text(
+                displayName,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
             Text(
               digitalCredential.verifiableCredential.issuer.id.toString(),
               style: theme.textTheme.bodyMedium,
@@ -75,10 +83,14 @@ class ClaimedCredentialMediumWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: AppSizing.paddingXSmall,
                     children: [
-                      Text(localizations.issuanceDate,
-                          style: theme.textTheme.bodySmall),
-                      Text(issuanceDate.toString(),
-                          style: theme.textTheme.bodySmall),
+                      Text(
+                        localizations.issuanceDate,
+                        style: theme.textTheme.bodySmall,
+                      ),
+                      Text(
+                        issuanceDate.toString(),
+                        style: theme.textTheme.bodySmall,
+                      ),
                     ],
                   ),
                 ),
@@ -87,10 +99,14 @@ class ClaimedCredentialMediumWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     spacing: AppSizing.paddingXSmall,
                     children: [
-                      Text(localizations.expiryDate,
-                          style: theme.textTheme.bodySmall),
-                      Text(expiryDate.toString(),
-                          style: theme.textTheme.bodySmall),
+                      Text(
+                        localizations.expiryDate,
+                        style: theme.textTheme.bodySmall,
+                      ),
+                      Text(
+                        expiryDate.toString(),
+                        style: theme.textTheme.bodySmall,
+                      ),
                     ],
                   ),
                 ),

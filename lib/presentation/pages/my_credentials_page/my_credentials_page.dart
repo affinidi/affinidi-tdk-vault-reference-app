@@ -29,10 +29,7 @@ import 'my_credentials_page_controller.dart';
 
 class MyCredentialsPage extends HookConsumerWidget {
   static String get routePath => MyCredentialsRoutePath.base;
-  const MyCredentialsPage({
-    super.key,
-    required this.profileId,
-  });
+  const MyCredentialsPage({super.key, required this.profileId});
 
   final String profileId;
 
@@ -42,9 +39,7 @@ class MyCredentialsPage extends HookConsumerWidget {
     final controller = ref.read(provider.notifier);
     // Get credentials to determine if we should show FAB or not
     final claimedCredentials = ref.watch(
-      provider.select(
-        (state) => state.digitalCredentials,
-      ),
+      provider.select((state) => state.digitalCredentials),
     );
 
     return Scaffold(
@@ -68,20 +63,17 @@ class MyCredentialsPage extends HookConsumerWidget {
         ),
       ),
       // Show FAB only when there are credentials
-      floatingActionButton: (claimedCredentials != null &&
-              claimedCredentials.isNotEmpty)
+      floatingActionButton:
+          (claimedCredentials != null && claimedCredentials.isNotEmpty)
           ? FloatingActionButton(
               backgroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () {
                 final navigation = ref.read(navigationServiceProvider);
-                navigation.push(ClaimCredentialsRoutePath.claimCredentialWithId(
-                  profileId,
-                ));
+                navigation.push(
+                  ClaimCredentialsRoutePath.claimCredentialWithId(profileId),
+                );
               },
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.add, color: Colors.white),
             )
           : null,
     );
@@ -100,8 +92,9 @@ class _MyCredentialsContent extends ConsumerWidget {
     if (!context.mounted) return;
 
     ClaimedCredentialDetailsPage.show(
-        context: context,
-        verifiableCredential: digitalCredential.verifiableCredential);
+      context: context,
+      verifiableCredential: digitalCredential.verifiableCredential,
+    );
   }
 
   void showDeleteCredentialDialog(
@@ -121,14 +114,17 @@ class _MyCredentialsContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final claimedCredentials = ref
-        .watch(myCredentialsPageControllerProvider(profileId: profileId).select(
-      (state) => state.digitalCredentials,
-    ));
-    final credentialServiceState =
-        ref.watch(credentialServiceProvider(profileId: profileId));
+    final claimedCredentials = ref.watch(
+      myCredentialsPageControllerProvider(
+        profileId: profileId,
+      ).select((state) => state.digitalCredentials),
+    );
+    final credentialServiceState = ref.watch(
+      credentialServiceProvider(profileId: profileId),
+    );
     final controller = ref.watch(
-        myCredentialsPageControllerProvider(profileId: profileId).notifier);
+      myCredentialsPageControllerProvider(profileId: profileId).notifier,
+    );
 
     void showCredentialOptions(DigitalCredential digitalCredential) async {
       if (!context.mounted) return;
@@ -136,12 +132,12 @@ class _MyCredentialsContent extends ConsumerWidget {
       final selectedOption = await OptionsPicker.show(
         useRootNavigator: true,
         context: context,
-        options: [
-          CredentialOption.delete,
-          CredentialOption.share,
-        ],
-        itemLeadingBuilder: (option) => SvgPicture.asset(option.svgAssetName,
-            width: AppSizing.iconMedium, height: AppSizing.iconMedium),
+        options: [CredentialOption.delete, CredentialOption.share],
+        itemLeadingBuilder: (option) => SvgPicture.asset(
+          option.svgAssetName,
+          width: AppSizing.iconMedium,
+          height: AppSizing.iconMedium,
+        ),
         itemTitleBuilder: (option) => Text(localizations.option(option.name)),
       );
 
@@ -159,8 +155,10 @@ class _MyCredentialsContent extends ConsumerWidget {
             profileId: profileId,
           );
         case CredentialOption.share:
-          await shareCredential(digitalCredential,
-              sharePositionOrigin: context.sharePositionOrigin);
+          await shareCredential(
+            digitalCredential,
+            sharePositionOrigin: context.sharePositionOrigin,
+          );
       }
     }
 
@@ -174,47 +172,56 @@ class _MyCredentialsContent extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset('assets/images/illustration-credentials.svg',
-                width: 164, height: 81.8),
+            SvgPicture.asset(
+              'assets/images/illustration-credentials.svg',
+              width: 164,
+              height: 81.8,
+            ),
             const SizedBox(height: AppSizing.paddingLarge),
             Center(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  localizations.credentialsEmptyStateDescription.substring(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    localizations.credentialsEmptyStateDescription.substring(
                       0,
                       localizations.credentialsEmptyStateDescription.indexOf(
-                          localizations.targetKeywordClaimedCredential)),
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                SimpleInfoWidget(
-                  text: localizations.credentialsEmptyStateDescription
-                      .split(' ')
-                      .skip(4)
-                      .join(' '),
-                  dialogTitle: localizations.infoCredential,
-                  dialogContent: localizations.infoCredentialDescription,
-                  textStyle: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            )),
+                        localizations.targetKeywordClaimedCredential,
+                      ),
+                    ),
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  SimpleInfoWidget(
+                    text: localizations.credentialsEmptyStateDescription
+                        .split(' ')
+                        .skip(4)
+                        .join(' '),
+                    dialogTitle: localizations.infoCredential,
+                    dialogContent: localizations.infoCredentialDescription,
+                    textStyle: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ),
+            ),
             // Claim Credentials button at the bottom when empty
             Row(
               children: [
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 32.0, horizontal: 32.0),
+                      vertical: 32.0,
+                      horizontal: 32.0,
+                    ),
                     child: FilledButton(
                       key: Key(KeyConstants.keyClaimCredentialsButton),
                       onPressed: () {
                         final navigation = ref.read(navigationServiceProvider);
                         navigation.push(
-                            ClaimCredentialsRoutePath.claimCredentialWithId(
-                          profileId,
-                        ));
+                          ClaimCredentialsRoutePath.claimCredentialWithId(
+                            profileId,
+                          ),
+                        );
                       },
                       child: Text(localizations.claimCredentialsTitle),
                     ),
@@ -265,10 +272,12 @@ class _MyCredentialsContent extends ConsumerWidget {
     );
   }
 
-  Future<void> shareCredential(DigitalCredential digitalCredential,
-      {required Rect sharePositionOrigin}) async {
-    final credentialJsonString =
-        digitalCredential.verifiableCredential.toString();
+  Future<void> shareCredential(
+    DigitalCredential digitalCredential, {
+    required Rect sharePositionOrigin,
+  }) async {
+    final credentialJsonString = digitalCredential.verifiableCredential
+        .toString();
     final tempDir = await getTemporaryDirectory();
     final tempFile = io.File('${tempDir.path}/credential.json');
     await tempFile.writeAsString(credentialJsonString);

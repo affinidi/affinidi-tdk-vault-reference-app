@@ -12,7 +12,8 @@ part of 'error_details.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 ErrorDetails _$ErrorDetailsFromJson(Map<String, dynamic> json) {
   return _ErrorDetails.fromJson(json);
@@ -34,8 +35,9 @@ mixin _$ErrorDetails {
 /// @nodoc
 abstract class $ErrorDetailsCopyWith<$Res> {
   factory $ErrorDetailsCopyWith(
-          ErrorDetails value, $Res Function(ErrorDetails) then) =
-      _$ErrorDetailsCopyWithImpl<$Res, ErrorDetails>;
+    ErrorDetails value,
+    $Res Function(ErrorDetails) then,
+  ) = _$ErrorDetailsCopyWithImpl<$Res, ErrorDetails>;
   @useResult
   $Res call({String? issue, String? field, String? value});
 }
@@ -59,20 +61,23 @@ class _$ErrorDetailsCopyWithImpl<$Res, $Val extends ErrorDetails>
     Object? field = freezed,
     Object? value = freezed,
   }) {
-    return _then(_value.copyWith(
-      issue: freezed == issue
-          ? _value.issue
-          : issue // ignore: cast_nullable_to_non_nullable
-              as String?,
-      field: freezed == field
-          ? _value.field
-          : field // ignore: cast_nullable_to_non_nullable
-              as String?,
-      value: freezed == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            issue: freezed == issue
+                ? _value.issue
+                : issue // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            field: freezed == field
+                ? _value.field
+                : field // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            value: freezed == value
+                ? _value.value
+                : value // ignore: cast_nullable_to_non_nullable
+                      as String?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -80,8 +85,9 @@ class _$ErrorDetailsCopyWithImpl<$Res, $Val extends ErrorDetails>
 abstract class _$$ErrorDetailsImplCopyWith<$Res>
     implements $ErrorDetailsCopyWith<$Res> {
   factory _$$ErrorDetailsImplCopyWith(
-          _$ErrorDetailsImpl value, $Res Function(_$ErrorDetailsImpl) then) =
-      __$$ErrorDetailsImplCopyWithImpl<$Res>;
+    _$ErrorDetailsImpl value,
+    $Res Function(_$ErrorDetailsImpl) then,
+  ) = __$$ErrorDetailsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? issue, String? field, String? value});
@@ -92,8 +98,9 @@ class __$$ErrorDetailsImplCopyWithImpl<$Res>
     extends _$ErrorDetailsCopyWithImpl<$Res, _$ErrorDetailsImpl>
     implements _$$ErrorDetailsImplCopyWith<$Res> {
   __$$ErrorDetailsImplCopyWithImpl(
-      _$ErrorDetailsImpl _value, $Res Function(_$ErrorDetailsImpl) _then)
-      : super(_value, _then);
+    _$ErrorDetailsImpl _value,
+    $Res Function(_$ErrorDetailsImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ErrorDetails
   /// with the given fields replaced by the non-null parameter values.
@@ -104,20 +111,22 @@ class __$$ErrorDetailsImplCopyWithImpl<$Res>
     Object? field = freezed,
     Object? value = freezed,
   }) {
-    return _then(_$ErrorDetailsImpl(
-      issue: freezed == issue
-          ? _value.issue
-          : issue // ignore: cast_nullable_to_non_nullable
-              as String?,
-      field: freezed == field
-          ? _value.field
-          : field // ignore: cast_nullable_to_non_nullable
-              as String?,
-      value: freezed == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$ErrorDetailsImpl(
+        issue: freezed == issue
+            ? _value.issue
+            : issue // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        field: freezed == field
+            ? _value.field
+            : field // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        value: freezed == value
+            ? _value.value
+            : value // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
   }
 }
 
@@ -165,10 +174,11 @@ class _$ErrorDetailsImpl implements _ErrorDetails {
 }
 
 abstract class _ErrorDetails implements ErrorDetails {
-  factory _ErrorDetails(
-      {final String? issue,
-      final String? field,
-      final String? value}) = _$ErrorDetailsImpl;
+  factory _ErrorDetails({
+    final String? issue,
+    final String? field,
+    final String? value,
+  }) = _$ErrorDetailsImpl;
 
   factory _ErrorDetails.fromJson(Map<String, dynamic> json) =
       _$ErrorDetailsImpl.fromJson;

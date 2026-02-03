@@ -21,31 +21,24 @@ class ClaimCredentialService extends _$ClaimCredentialService {
     return ClaimCredentialServiceState();
   }
 
-  Future<void> getCredentialOffer(
-    Uri offerUri,
-    int accountIndex,
-  ) async {
+  Future<void> getCredentialOffer(Uri offerUri, int accountIndex) async {
     state = state.copyWith(claimContext: null, verifiableCredential: null);
     final vaultProvider = ref.read(vaultServiceProvider);
 
     final currentVaultId = vaultProvider.currentVaultId;
     if (currentVaultId == null) {
       throw AppException(
-          message: 'No vault is currently open. Please open a vault first.',
-          type: AppExceptionType.missingVaultId);
+        message: 'No vault is currently open. Please open a vault first.',
+        type: AppExceptionType.missingVaultId,
+      );
     }
 
     final claimCredentialRepository = await ref.read(
-      claimCredentialRepositoryProvider(
-        currentVaultId,
-        accountIndex,
-      ).future,
+      claimCredentialRepositoryProvider(currentVaultId, accountIndex).future,
     );
     try {
-      final claimContext =
-          await claimCredentialRepository.getOID4VCIClaimContext(
-        offerUri,
-      );
+      final claimContext = await claimCredentialRepository
+          .getOID4VCIClaimContext(offerUri);
 
       await claimCrendential(
         claimContext: claimContext,
@@ -67,15 +60,14 @@ class ClaimCredentialService extends _$ClaimCredentialService {
       final currentVaultId = vaultProvider.currentVaultId;
       if (currentVaultId == null) {
         throw AppException(
-            message: 'No vault is currently open. Please open a vault first.',
-            type: AppExceptionType.missingVaultId);
+          message: 'No vault is currently open. Please open a vault first.',
+          type: AppExceptionType.missingVaultId,
+        );
       }
 
-      final credentialRepository =
-          await ref.read(claimCredentialRepositoryProvider(
-        currentVaultId,
-        accountIndex,
-      ).future);
+      final credentialRepository = await ref.read(
+        claimCredentialRepositoryProvider(currentVaultId, accountIndex).future,
+      );
       final verifiableCredential = await credentialRepository.claimCredentials(
         claimContext: claimContext,
       );

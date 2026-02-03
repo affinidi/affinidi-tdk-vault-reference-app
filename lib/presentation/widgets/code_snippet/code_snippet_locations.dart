@@ -60,7 +60,8 @@ class CodeSnippetLocations {
   }
 
   static List<CodeSnippetLocation> viewVaultProfileSnippets(
-      BuildContext context) {
+    BuildContext context,
+  ) {
     final localizations = AppLocalizations.of(context)!;
 
     return [
@@ -103,7 +104,8 @@ class CodeSnippetLocations {
   }
 
   static List<CodeSnippetLocation> listVaultProfilesSnippets(
-      BuildContext context) {
+    BuildContext context,
+  ) {
     final localizations = AppLocalizations.of(context)!;
 
     return [
@@ -132,7 +134,8 @@ class CodeSnippetLocations {
   }
 
   static List<CodeSnippetLocation> claimCredentialSnippets(
-      BuildContext context) {
+    BuildContext context,
+  ) {
     final localizations = AppLocalizations.of(context)!;
 
     return [

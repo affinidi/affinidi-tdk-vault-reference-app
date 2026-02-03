@@ -17,7 +17,10 @@ class DidDisplay extends StatelessWidget {
           child: Text(
             AppLocalizations.of(context)?.didLabel(did) ?? 'DID: $did',
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: Color(0xFF9B9CA7), height: 1.33, letterSpacing: 0.2),
+              color: Color(0xFF9B9CA7),
+              height: 1.33,
+              letterSpacing: 0.2,
+            ),
             overflow: TextOverflow.ellipsis,
             semanticsLabel:
                 AppLocalizations.of(context)?.didLabel(did) ?? 'DID: $did',
@@ -35,8 +38,10 @@ class DidDisplay extends StatelessWidget {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    content:
-                        Text(AppLocalizations.of(context)!.copiedToClipboard)),
+                  content: Text(
+                    AppLocalizations.of(context)!.copiedToClipboard,
+                  ),
+                ),
               );
             }
           },

@@ -7,10 +7,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../widgets/labeled_text_field.dart';
 
 class ClaimUriForm extends HookConsumerWidget {
-  const ClaimUriForm({
-    super.key,
-    required this.onSubmit,
-  });
+  const ClaimUriForm({super.key, required this.onSubmit});
 
   final void Function(Uri uri) onSubmit;
 
@@ -51,10 +48,9 @@ class ClaimUriForm extends HookConsumerWidget {
               padding: const EdgeInsets.only(bottom: 4),
               child: Text(
                 errorText.value!,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: Theme.of(context).colorScheme.error),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.error,
+                ),
               ),
             ),
           FilledButton(

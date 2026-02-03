@@ -24,11 +24,7 @@ import 'my_files_page_controller.dart';
 class MyFilesPage extends HookConsumerWidget {
   final screenKey = 'MyFilesPage';
 
-  const MyFilesPage({
-    super.key,
-    this.parentNodeId,
-    required this.profileId,
-  });
+  const MyFilesPage({super.key, this.parentNodeId, required this.profileId});
 
   final String? parentNodeId;
   final String profileId;
@@ -37,7 +33,8 @@ class MyFilesPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final currentFolderId = useState<String?>(parentNodeId);
-    final currentParentNodeId = currentFolderId.value ??
+    final currentParentNodeId =
+        currentFolderId.value ??
         (GoRouterState.of(context).uri.queryParameters['folder']);
     final provider = myFilesPageControllerProvider(
       parentNodeId: currentParentNodeId,
@@ -48,8 +45,9 @@ class MyFilesPage extends HookConsumerWidget {
 
     final filesExplorerBreadcrumbProvider =
         filesExplorerBreadcrumbControllerProvider(screenKey);
-    final breadcrumbController =
-        ref.read(filesExplorerBreadcrumbProvider.notifier);
+    final breadcrumbController = ref.read(
+      filesExplorerBreadcrumbProvider.notifier,
+    );
     final navigation = ref.read(navigationServiceProvider);
 
     useEffect(() {
@@ -61,18 +59,20 @@ class MyFilesPage extends HookConsumerWidget {
       final stack = ref.read(filesExplorerBreadcrumbProvider);
 
       if (currentFolderId.value != null && stack.isEmpty) {
-        final items = ref.read(myFilesPageControllerProvider(
-          parentNodeId: null,
-          profileId: profileId,
-        ).select((state) => state.items));
+        final items = ref.read(
+          myFilesPageControllerProvider(
+            parentNodeId: null,
+            profileId: profileId,
+          ).select((state) => state.items),
+        );
 
         String? folderName;
         if (items != null) {
           Folder? folder;
           try {
-            folder = items
-                .whereType<Folder>()
-                .firstWhere((f) => f.id == currentFolderId.value);
+            folder = items.whereType<Folder>().firstWhere(
+              (f) => f.id == currentFolderId.value,
+            );
           } catch (_) {
             folder = null;
           }
@@ -82,7 +82,9 @@ class MyFilesPage extends HookConsumerWidget {
         folderName ??= 'Folder';
 
         breadcrumbController.push(
-            title: folderName, id: currentFolderId.value!);
+          title: folderName,
+          id: currentFolderId.value!,
+        );
       }
       return null;
     }, [currentFolderId.value]);
@@ -98,9 +100,10 @@ class MyFilesPage extends HookConsumerWidget {
       if (!context.mounted) return;
 
       CreateFolderForm.show(
-          context: context,
-          parentNodeId: currentFolderId.value,
-          profileId: profileId);
+        context: context,
+        parentNodeId: currentFolderId.value,
+        profileId: profileId,
+      );
     }
 
     void showFilePicker() async {
@@ -110,9 +113,9 @@ class MyFilesPage extends HookConsumerWidget {
         await controller.uploadFiles(localizations);
       } catch (e) {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(e.toString())),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(e.toString())));
         }
       }
     }
@@ -128,38 +131,36 @@ class MyFilesPage extends HookConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(
-                  AppSizing.paddingSmall,
-                  AppSizing.paddingMedium,
-                  AppSizing.paddingSmall,
-                  AppSizing.paddingSmall),
+                AppSizing.paddingSmall,
+                AppSizing.paddingMedium,
+                AppSizing.paddingSmall,
+                AppSizing.paddingSmall,
+              ),
               child: FilesExplorerNavigation(
                 onCreateFolderPressed: showCreateFolderDialog,
                 onUploadFilePressed: showFilePicker,
                 screenKey: screenKey,
                 onSelected: (String folderId) {
                   if (folderId.isNotEmpty) {
-                    breadcrumbController.popUntil(
-                      id: folderId,
-                    );
+                    breadcrumbController.popUntil(id: folderId);
                     navigation.pushReplacement(
-                      MyFilesRoutePath.folderPath(
-                        profileId,
-                        folderId,
-                      ),
+                      MyFilesRoutePath.folderPath(profileId, folderId),
                     );
                     // }
                   } else {
                     breadcrumbController.clear();
-                    navigation
-                        .push(ProfilesRoutePath.profileMyFiles(profileId));
+                    navigation.push(
+                      ProfilesRoutePath.profileMyFiles(profileId),
+                    );
                   }
                 },
               ),
             ),
             Expanded(
               child: Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: AppSizing.paddingRegular),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingRegular,
+                ),
                 child: AsyncLoadingStatus(
                   controller.loadingController,
                   child: FilesExplorer(
@@ -167,7 +168,9 @@ class MyFilesPage extends HookConsumerWidget {
                     profileId: profileId,
                     onFolderTap: ({required folderName, required folderId}) {
                       breadcrumbController.push(
-                          title: folderName, id: folderId);
+                        title: folderName,
+                        id: folderId,
+                      );
                       currentFolderId.value = folderId;
                     },
                     onPreviewFile: ref.read(provider.notifier).previewFile,

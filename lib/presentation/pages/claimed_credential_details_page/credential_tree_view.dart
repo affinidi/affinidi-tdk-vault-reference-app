@@ -12,10 +12,7 @@ import 'claimed_credential_node.dart';
 class CredentialTreeView extends StatefulWidget {
   final VerifiableCredential verifiableCredential;
 
-  const CredentialTreeView({
-    super.key,
-    required this.verifiableCredential,
-  });
+  const CredentialTreeView({super.key, required this.verifiableCredential});
 
   @override
   State<CredentialTreeView> createState() => _CredentialTreeViewState();
@@ -29,11 +26,7 @@ class _CredentialTreeViewState extends State<CredentialTreeView> {
     super.initState();
     final vc = widget.verifiableCredential;
 
-    final root = ClaimedCredentialNode(
-      key: '',
-      value: '',
-      isRoot: true,
-    );
+    final root = ClaimedCredentialNode(key: '', value: '', isRoot: true);
 
     if (vc.validFrom != null) {
       root.children.add(
@@ -45,10 +38,7 @@ class _CredentialTreeViewState extends State<CredentialTreeView> {
     }
 
     root.children.add(
-      ClaimedCredentialNode(
-        key: 'Issuer',
-        value: vc.issuer.id.toString(),
-      ),
+      ClaimedCredentialNode(key: 'Issuer', value: vc.issuer.id.toString()),
     );
 
     for (final subject in vc.credentialSubject) {
@@ -75,9 +65,10 @@ class _CredentialTreeViewState extends State<CredentialTreeView> {
       children: [
         Padding(
           padding: const EdgeInsets.only(
-              left: AppSizing.paddingMedium,
-              top: 0,
-              bottom: AppSizing.paddingMedium),
+            left: AppSizing.paddingMedium,
+            top: 0,
+            bottom: AppSizing.paddingMedium,
+          ),
           child: Text(widget.verifiableCredential.type.toList()[1]),
         ),
         Column(
@@ -85,25 +76,31 @@ class _CredentialTreeViewState extends State<CredentialTreeView> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizing.paddingRegular),
-              child: LayoutBuilder(builder: (context, constrainedBox) {
-                return TreeView<ClaimedCredentialNode>(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  treeController: treeController,
-                  nodeBuilder: (BuildContext context,
-                      TreeEntry<ClaimedCredentialNode> entry) {
-                    return TreeTile(
-                      key: ValueKey(entry.node),
-                      entry: entry,
-                      rightColumnWidth: constrainedBox.maxWidth * 0.5,
-                    );
-                  },
-                );
-              }),
+                horizontal: AppSizing.paddingRegular,
+              ),
+              child: LayoutBuilder(
+                builder: (context, constrainedBox) {
+                  return TreeView<ClaimedCredentialNode>(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    treeController: treeController,
+                    nodeBuilder:
+                        (
+                          BuildContext context,
+                          TreeEntry<ClaimedCredentialNode> entry,
+                        ) {
+                          return TreeTile(
+                            key: ValueKey(entry.node),
+                            entry: entry,
+                            rightColumnWidth: constrainedBox.maxWidth * 0.5,
+                          );
+                        },
+                  );
+                },
+              ),
             ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -114,10 +111,7 @@ class _CredentialTreeViewState extends State<CredentialTreeView> {
   ) {
     for (var entry in credentialSubjectEntry.entries) {
       if (entry.value is Map<String, dynamic>) {
-        final child = ClaimedCredentialNode(
-          key: entry.key,
-          value: '',
-        );
+        final child = ClaimedCredentialNode(key: entry.key, value: '');
 
         parent.children.add(child);
         _buildCredentialSubjectNode(child, entry.value);

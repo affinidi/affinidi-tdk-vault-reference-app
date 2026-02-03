@@ -12,7 +12,8 @@ part of 'shared_credentials_page_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$SharedCredentialsPageState {
@@ -24,22 +25,28 @@ mixin _$SharedCredentialsPageState {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   $SharedCredentialsPageStateCopyWith<SharedCredentialsPageState>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SharedCredentialsPageStateCopyWith<$Res> {
-  factory $SharedCredentialsPageStateCopyWith(SharedCredentialsPageState value,
-          $Res Function(SharedCredentialsPageState) then) =
-      _$SharedCredentialsPageStateCopyWithImpl<$Res,
-          SharedCredentialsPageState>;
+  factory $SharedCredentialsPageStateCopyWith(
+    SharedCredentialsPageState value,
+    $Res Function(SharedCredentialsPageState) then,
+  ) =
+      _$SharedCredentialsPageStateCopyWithImpl<
+        $Res,
+        SharedCredentialsPageState
+      >;
   @useResult
   $Res call({List<DigitalCredential>? digitalCredentials, bool isLoading});
 }
 
 /// @nodoc
-class _$SharedCredentialsPageStateCopyWithImpl<$Res,
-        $Val extends SharedCredentialsPageState>
+class _$SharedCredentialsPageStateCopyWithImpl<
+  $Res,
+  $Val extends SharedCredentialsPageState
+>
     implements $SharedCredentialsPageStateCopyWith<$Res> {
   _$SharedCredentialsPageStateCopyWithImpl(this._value, this._then);
 
@@ -52,20 +59,20 @@ class _$SharedCredentialsPageStateCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? digitalCredentials = freezed,
-    Object? isLoading = null,
-  }) {
-    return _then(_value.copyWith(
-      digitalCredentials: freezed == digitalCredentials
-          ? _value.digitalCredentials
-          : digitalCredentials // ignore: cast_nullable_to_non_nullable
-              as List<DigitalCredential>?,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+  $Res call({Object? digitalCredentials = freezed, Object? isLoading = null}) {
+    return _then(
+      _value.copyWith(
+            digitalCredentials: freezed == digitalCredentials
+                ? _value.digitalCredentials
+                : digitalCredentials // ignore: cast_nullable_to_non_nullable
+                      as List<DigitalCredential>?,
+            isLoading: null == isLoading
+                ? _value.isLoading
+                : isLoading // ignore: cast_nullable_to_non_nullable
+                      as bool,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -73,9 +80,9 @@ class _$SharedCredentialsPageStateCopyWithImpl<$Res,
 abstract class _$$SharedCredentialsPageStateImplCopyWith<$Res>
     implements $SharedCredentialsPageStateCopyWith<$Res> {
   factory _$$SharedCredentialsPageStateImplCopyWith(
-          _$SharedCredentialsPageStateImpl value,
-          $Res Function(_$SharedCredentialsPageStateImpl) then) =
-      __$$SharedCredentialsPageStateImplCopyWithImpl<$Res>;
+    _$SharedCredentialsPageStateImpl value,
+    $Res Function(_$SharedCredentialsPageStateImpl) then,
+  ) = __$$SharedCredentialsPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<DigitalCredential>? digitalCredentials, bool isLoading});
@@ -83,42 +90,44 @@ abstract class _$$SharedCredentialsPageStateImplCopyWith<$Res>
 
 /// @nodoc
 class __$$SharedCredentialsPageStateImplCopyWithImpl<$Res>
-    extends _$SharedCredentialsPageStateCopyWithImpl<$Res,
-        _$SharedCredentialsPageStateImpl>
+    extends
+        _$SharedCredentialsPageStateCopyWithImpl<
+          $Res,
+          _$SharedCredentialsPageStateImpl
+        >
     implements _$$SharedCredentialsPageStateImplCopyWith<$Res> {
   __$$SharedCredentialsPageStateImplCopyWithImpl(
-      _$SharedCredentialsPageStateImpl _value,
-      $Res Function(_$SharedCredentialsPageStateImpl) _then)
-      : super(_value, _then);
+    _$SharedCredentialsPageStateImpl _value,
+    $Res Function(_$SharedCredentialsPageStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of SharedCredentialsPageState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? digitalCredentials = freezed,
-    Object? isLoading = null,
-  }) {
-    return _then(_$SharedCredentialsPageStateImpl(
-      digitalCredentials: freezed == digitalCredentials
-          ? _value._digitalCredentials
-          : digitalCredentials // ignore: cast_nullable_to_non_nullable
-              as List<DigitalCredential>?,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+  $Res call({Object? digitalCredentials = freezed, Object? isLoading = null}) {
+    return _then(
+      _$SharedCredentialsPageStateImpl(
+        digitalCredentials: freezed == digitalCredentials
+            ? _value._digitalCredentials
+            : digitalCredentials // ignore: cast_nullable_to_non_nullable
+                  as List<DigitalCredential>?,
+        isLoading: null == isLoading
+            ? _value.isLoading
+            : isLoading // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$SharedCredentialsPageStateImpl implements _SharedCredentialsPageState {
-  _$SharedCredentialsPageStateImpl(
-      {final List<DigitalCredential>? digitalCredentials,
-      this.isLoading = false})
-      : _digitalCredentials = digitalCredentials;
+  _$SharedCredentialsPageStateImpl({
+    final List<DigitalCredential>? digitalCredentials,
+    this.isLoading = false,
+  }) : _digitalCredentials = digitalCredentials;
 
   final List<DigitalCredential>? _digitalCredentials;
   @override
@@ -145,15 +154,20 @@ class _$SharedCredentialsPageStateImpl implements _SharedCredentialsPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SharedCredentialsPageStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other._digitalCredentials, _digitalCredentials) &&
+            const DeepCollectionEquality().equals(
+              other._digitalCredentials,
+              _digitalCredentials,
+            ) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_digitalCredentials), isLoading);
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(_digitalCredentials),
+    isLoading,
+  );
 
   /// Create a copy of SharedCredentialsPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -161,15 +175,18 @@ class _$SharedCredentialsPageStateImpl implements _SharedCredentialsPageState {
   @override
   @pragma('vm:prefer-inline')
   _$$SharedCredentialsPageStateImplCopyWith<_$SharedCredentialsPageStateImpl>
-      get copyWith => __$$SharedCredentialsPageStateImplCopyWithImpl<
-          _$SharedCredentialsPageStateImpl>(this, _$identity);
+  get copyWith =>
+      __$$SharedCredentialsPageStateImplCopyWithImpl<
+        _$SharedCredentialsPageStateImpl
+      >(this, _$identity);
 }
 
 abstract class _SharedCredentialsPageState
     implements SharedCredentialsPageState {
-  factory _SharedCredentialsPageState(
-      {final List<DigitalCredential>? digitalCredentials,
-      final bool isLoading}) = _$SharedCredentialsPageStateImpl;
+  factory _SharedCredentialsPageState({
+    final List<DigitalCredential>? digitalCredentials,
+    final bool isLoading,
+  }) = _$SharedCredentialsPageStateImpl;
 
   @override
   List<DigitalCredential>? get digitalCredentials;
@@ -181,5 +198,5 @@ abstract class _SharedCredentialsPageState
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SharedCredentialsPageStateImplCopyWith<_$SharedCredentialsPageStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

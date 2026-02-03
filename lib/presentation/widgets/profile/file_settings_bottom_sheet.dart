@@ -51,7 +51,8 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
       decoration: BoxDecoration(
         color: AppColorScheme.backgroundWhite,
         borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(AppSizing.paddingMedium)),
+          top: Radius.circular(AppSizing.paddingMedium),
+        ),
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -80,7 +81,8 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
             // Content
             Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizing.paddingLarge),
+                horizontal: AppSizing.paddingLarge,
+              ),
               child: Form(
                 key: formKey,
                 child: Column(
@@ -142,7 +144,8 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                   color: AppColorScheme.formFieldBorderFocused,
                                 ),
                                 borderRadius: BorderRadius.circular(
-                                    AppSizing.paddingXSmall),
+                                  AppSizing.paddingXSmall,
+                                ),
                               ),
                               child: TextFormField(
                                 controller: formatInputController,
@@ -153,10 +156,12 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                       .textTheme
                                       .bodySmall
                                       ?.copyWith(
-                                          color: AppColorScheme.backgroundDark),
+                                        color: AppColorScheme.backgroundDark,
+                                      ),
                                   border: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsets.all(AppSizing.paddingMedium),
+                                  contentPadding: EdgeInsets.all(
+                                    AppSizing.paddingMedium,
+                                  ),
                                 ),
                               ),
                             ),
@@ -166,12 +171,15 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                             decoration: BoxDecoration(
                               color: AppColorScheme.formFieldBorderFocused,
                               borderRadius: BorderRadius.circular(
-                                  AppSizing.paddingXSmall),
+                                AppSizing.paddingXSmall,
+                              ),
                             ),
                             child: IconButton(
-                              icon: const Icon(Icons.add,
-                                  color: AppColorScheme.backgroundWhite,
-                                  size: AppSizing.iconSmall),
+                              icon: const Icon(
+                                Icons.add,
+                                color: AppColorScheme.backgroundWhite,
+                                size: AppSizing.iconSmall,
+                              ),
                               onPressed: () {
                                 final value = formatInputController.text
                                     .trim()
@@ -191,14 +199,16 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                         Wrap(
                           spacing: AppSizing.paddingSmall,
                           children: formats.value
-                              .map((format) => Chip(
-                                    label: Text(format),
-                                    onDeleted: () {
-                                      formats.value = formats.value
-                                          .where((f) => f != format)
-                                          .toList();
-                                    },
-                                  ))
+                              .map(
+                                (format) => Chip(
+                                  label: Text(format),
+                                  onDeleted: () {
+                                    formats.value = formats.value
+                                        .where((f) => f != format)
+                                        .toList();
+                                  },
+                                ),
+                              )
                               .toList(),
                         ),
                         const SizedBox(height: AppSizing.paddingMedium),
@@ -215,27 +225,31 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                       controller: maxFileSizeController,
                       decoration: InputDecoration(
                         hintText: localizations.inputFileSizeInMb,
-                        hintStyle: Theme.of(context)
-                            .textTheme
-                            .bodySmall
+                        hintStyle: Theme.of(context).textTheme.bodySmall
                             ?.copyWith(color: AppColorScheme.backgroundDark),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColorScheme.formFieldBorderUnfocused),
-                          borderRadius:
-                              BorderRadius.circular(AppSizing.paddingXSmall),
+                            color: AppColorScheme.formFieldBorderUnfocused,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                            AppSizing.paddingXSmall,
+                          ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColorScheme.formFieldBorderUnfocused),
-                          borderRadius:
-                              BorderRadius.circular(AppSizing.paddingXSmall),
+                            color: AppColorScheme.formFieldBorderUnfocused,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                            AppSizing.paddingXSmall,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColorScheme.formFieldBorderUnfocused),
-                          borderRadius:
-                              BorderRadius.circular(AppSizing.paddingXSmall),
+                            color: AppColorScheme.formFieldBorderUnfocused,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                            AppSizing.paddingXSmall,
+                          ),
                         ),
                         contentPadding: EdgeInsets.all(AppSizing.paddingMedium),
                       ),
@@ -253,10 +267,11 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                               backgroundColor: AppColorScheme.backgroundWhite,
                               foregroundColor: AppColorScheme.textPrimary,
                               side: const BorderSide(
-                                  color:
-                                      AppColorScheme.formFieldBorderUnfocused),
+                                color: AppColorScheme.formFieldBorderUnfocused,
+                              ),
                               minimumSize: const Size.fromHeight(
-                                  AppSizing.paddingXXLarge),
+                                AppSizing.paddingXXLarge,
+                              ),
                             ),
                             child: Text(
                               localizations.cancelActionText,
@@ -271,37 +286,46 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                 ? null
                                 : () async {
                                     final maxFileSize = int.tryParse(
-                                        maxFileSizeController.text);
+                                      maxFileSizeController.text,
+                                    );
                                     final allowedExtensions =
                                         formatOption.value == 1
-                                            ? formats.value.join(',')
-                                            : null;
+                                        ? formats.value.join(',')
+                                        : null;
                                     await ref
-                                        .read(fileSettingsProvider(profileId)
-                                            .notifier)
+                                        .read(
+                                          fileSettingsProvider(
+                                            profileId,
+                                          ).notifier,
+                                        )
                                         .update(
                                           maxFileSize: maxFileSize,
                                           allowedExtensions:
                                               allowedExtensions?.isEmpty ?? true
-                                                  ? null
-                                                  : allowedExtensions,
+                                              ? null
+                                              : allowedExtensions,
                                         );
                                     if (context.mounted) {
                                       Navigator.of(context).pop();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
                                         SnackBar(
-                                            content: Text(
-                                                localizations.settingsSaved)),
+                                          content: Text(
+                                            localizations.settingsSaved,
+                                          ),
+                                        ),
                                       );
                                     }
                                   },
                             style: FilledButton.styleFrom(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
+                              backgroundColor: Theme.of(
+                                context,
+                              ).colorScheme.primary,
                               foregroundColor: AppColorScheme.backgroundWhite,
                               minimumSize: const Size.fromHeight(
-                                  AppSizing.paddingXXLarge),
+                                AppSizing.paddingXXLarge,
+                              ),
                             ),
                             child: fileSettingsAsync.isLoading
                                 ? const SizedBox(
@@ -310,18 +334,17 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
                                       valueColor: AlwaysStoppedAnimation<Color>(
-                                          AppColorScheme.backgroundWhite),
+                                        AppColorScheme.backgroundWhite,
+                                      ),
                                     ),
                                   )
                                 : Text(
                                     localizations.saveActionText,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
+                                    style: Theme.of(context).textTheme.bodySmall
                                         ?.copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            color:
-                                                AppColorScheme.backgroundWhite),
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColorScheme.backgroundWhite,
+                                        ),
                                   ),
                           ),
                         ),

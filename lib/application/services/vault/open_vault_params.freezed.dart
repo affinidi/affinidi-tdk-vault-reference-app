@@ -12,7 +12,8 @@ part of 'open_vault_params.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 OpenVaultParams _$OpenVaultParamsFromJson(Map<String, dynamic> json) {
   return _OpenVaultParams.fromJson(json);
@@ -38,11 +39,16 @@ mixin _$OpenVaultParams {
 /// @nodoc
 abstract class $OpenVaultParamsCopyWith<$Res> {
   factory $OpenVaultParamsCopyWith(
-          OpenVaultParams value, $Res Function(OpenVaultParams) then) =
-      _$OpenVaultParamsCopyWithImpl<$Res, OpenVaultParams>;
+    OpenVaultParams value,
+    $Res Function(OpenVaultParams) then,
+  ) = _$OpenVaultParamsCopyWithImpl<$Res, OpenVaultParams>;
   @useResult
-  $Res call(
-      {String vaultId, String base64Seed, String vaultName, String password});
+  $Res call({
+    String vaultId,
+    String base64Seed,
+    String vaultName,
+    String password,
+  });
 }
 
 /// @nodoc
@@ -65,37 +71,45 @@ class _$OpenVaultParamsCopyWithImpl<$Res, $Val extends OpenVaultParams>
     Object? vaultName = null,
     Object? password = null,
   }) {
-    return _then(_value.copyWith(
-      vaultId: null == vaultId
-          ? _value.vaultId
-          : vaultId // ignore: cast_nullable_to_non_nullable
-              as String,
-      base64Seed: null == base64Seed
-          ? _value.base64Seed
-          : base64Seed // ignore: cast_nullable_to_non_nullable
-              as String,
-      vaultName: null == vaultName
-          ? _value.vaultName
-          : vaultName // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            vaultId: null == vaultId
+                ? _value.vaultId
+                : vaultId // ignore: cast_nullable_to_non_nullable
+                      as String,
+            base64Seed: null == base64Seed
+                ? _value.base64Seed
+                : base64Seed // ignore: cast_nullable_to_non_nullable
+                      as String,
+            vaultName: null == vaultName
+                ? _value.vaultName
+                : vaultName // ignore: cast_nullable_to_non_nullable
+                      as String,
+            password: null == password
+                ? _value.password
+                : password // ignore: cast_nullable_to_non_nullable
+                      as String,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$OpenVaultParamsImplCopyWith<$Res>
     implements $OpenVaultParamsCopyWith<$Res> {
-  factory _$$OpenVaultParamsImplCopyWith(_$OpenVaultParamsImpl value,
-          $Res Function(_$OpenVaultParamsImpl) then) =
-      __$$OpenVaultParamsImplCopyWithImpl<$Res>;
+  factory _$$OpenVaultParamsImplCopyWith(
+    _$OpenVaultParamsImpl value,
+    $Res Function(_$OpenVaultParamsImpl) then,
+  ) = __$$OpenVaultParamsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String vaultId, String base64Seed, String vaultName, String password});
+  $Res call({
+    String vaultId,
+    String base64Seed,
+    String vaultName,
+    String password,
+  });
 }
 
 /// @nodoc
@@ -103,8 +117,9 @@ class __$$OpenVaultParamsImplCopyWithImpl<$Res>
     extends _$OpenVaultParamsCopyWithImpl<$Res, _$OpenVaultParamsImpl>
     implements _$$OpenVaultParamsImplCopyWith<$Res> {
   __$$OpenVaultParamsImplCopyWithImpl(
-      _$OpenVaultParamsImpl _value, $Res Function(_$OpenVaultParamsImpl) _then)
-      : super(_value, _then);
+    _$OpenVaultParamsImpl _value,
+    $Res Function(_$OpenVaultParamsImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of OpenVaultParams
   /// with the given fields replaced by the non-null parameter values.
@@ -116,35 +131,38 @@ class __$$OpenVaultParamsImplCopyWithImpl<$Res>
     Object? vaultName = null,
     Object? password = null,
   }) {
-    return _then(_$OpenVaultParamsImpl(
-      vaultId: null == vaultId
-          ? _value.vaultId
-          : vaultId // ignore: cast_nullable_to_non_nullable
-              as String,
-      base64Seed: null == base64Seed
-          ? _value.base64Seed
-          : base64Seed // ignore: cast_nullable_to_non_nullable
-              as String,
-      vaultName: null == vaultName
-          ? _value.vaultName
-          : vaultName // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+    return _then(
+      _$OpenVaultParamsImpl(
+        vaultId: null == vaultId
+            ? _value.vaultId
+            : vaultId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        base64Seed: null == base64Seed
+            ? _value.base64Seed
+            : base64Seed // ignore: cast_nullable_to_non_nullable
+                  as String,
+        vaultName: null == vaultName
+            ? _value.vaultName
+            : vaultName // ignore: cast_nullable_to_non_nullable
+                  as String,
+        password: null == password
+            ? _value.password
+            : password // ignore: cast_nullable_to_non_nullable
+                  as String,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$OpenVaultParamsImpl implements _OpenVaultParams {
-  const _$OpenVaultParamsImpl(
-      {required this.vaultId,
-      required this.base64Seed,
-      required this.vaultName,
-      required this.password});
+  const _$OpenVaultParamsImpl({
+    required this.vaultId,
+    required this.base64Seed,
+    required this.vaultName,
+    required this.password,
+  });
 
   factory _$OpenVaultParamsImpl.fromJson(Map<String, dynamic> json) =>
       _$$OpenVaultParamsImplFromJson(json);
@@ -189,22 +207,23 @@ class _$OpenVaultParamsImpl implements _OpenVaultParams {
   @pragma('vm:prefer-inline')
   _$$OpenVaultParamsImplCopyWith<_$OpenVaultParamsImpl> get copyWith =>
       __$$OpenVaultParamsImplCopyWithImpl<_$OpenVaultParamsImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OpenVaultParamsImplToJson(
-      this,
-    );
+    return _$$OpenVaultParamsImplToJson(this);
   }
 }
 
 abstract class _OpenVaultParams implements OpenVaultParams {
-  const factory _OpenVaultParams(
-      {required final String vaultId,
-      required final String base64Seed,
-      required final String vaultName,
-      required final String password}) = _$OpenVaultParamsImpl;
+  const factory _OpenVaultParams({
+    required final String vaultId,
+    required final String base64Seed,
+    required final String vaultName,
+    required final String password,
+  }) = _$OpenVaultParamsImpl;
 
   factory _OpenVaultParams.fromJson(Map<String, dynamic> json) =
       _$OpenVaultParamsImpl.fromJson;

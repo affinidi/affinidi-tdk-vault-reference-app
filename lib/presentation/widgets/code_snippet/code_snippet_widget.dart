@@ -86,18 +86,22 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
         final codeParts = <String>[];
         for (final location in widget.codeLocations!) {
           try {
-            final code = await location.getCode(localizations).timeout(
+            final code = await location
+                .getCode(localizations)
+                .timeout(
                   const Duration(seconds: 5),
                   onTimeout: () =>
                       '${localizations.timeoutLoadingCodeMessage} ${location.filePath}',
                 );
 
             codeParts.add(
-                ' /*****\n  Purpose: ${location.description}\n  Location: ${location.filePath}#L${location.startLine}\n *****/');
+              ' /*****\n  Purpose: ${location.description}\n  Location: ${location.filePath}#L${location.startLine}\n *****/',
+            );
             codeParts.add(code);
           } catch (e) {
             codeParts.add(
-                '${localizations.errorLoadingCodeMessage} ${location.filePath}: $e');
+              '${localizations.errorLoadingCodeMessage} ${location.filePath}: $e',
+            );
           }
         }
         allCode = codeParts.join('\n\n');
@@ -105,10 +109,7 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
 
       if (mounted) {
         setState(() {
-          codeController = CodeController(
-            text: allCode,
-            language: dart,
-          );
+          codeController = CodeController(text: allCode, language: dart);
           isLoading = false;
         });
       }
@@ -130,9 +131,7 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
     return Dialog.fullscreen(
       backgroundColor: Colors.transparent,
       child: Container(
-        decoration: BoxDecoration(
-          color: AppColorScheme.backgroundWhite,
-        ),
+        decoration: BoxDecoration(color: AppColorScheme.backgroundWhite),
         child: Column(
           children: [
             Container(
@@ -140,25 +139,20 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
               decoration: BoxDecoration(
                 color: AppColorScheme.backgroundWhite,
                 border: Border(
-                  bottom: BorderSide(
-                    color: AppColorScheme.divider,
-                    width: 1.0,
-                  ),
+                  bottom: BorderSide(color: AppColorScheme.divider, width: 1.0),
                 ),
               ),
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      widget.title,
-                      style: AppTheme.headingMedium,
-                    ),
+                    child: Text(widget.title, style: AppTheme.headingMedium),
                   ),
                   IconButton(
                     icon: Icon(isCodeCopied ? Icons.check : Icons.copy),
                     onPressed: () async {
                       await Clipboard.setData(
-                          ClipboardData(text: codeController!.text));
+                        ClipboardData(text: codeController!.text),
+                      );
                       setState(() {
                         isCodeCopied = true;
                       });
@@ -175,31 +169,28 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
               child: Container(
                 margin: const EdgeInsets.all(AppSizing.paddingMedium),
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColorScheme.divider,
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: AppColorScheme.divider, width: 1.0),
                   borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
                 ),
                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
-                    child: isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : CodeTheme(
-                            data: CodeThemeData(styles: monokaiSublimeTheme),
-                            child: CodeField(
-                              controller: codeController!,
-                              readOnly: true,
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      color: Colors.white,
-                                      fontFamily: 'SourceCode'),
-                              gutterStyle: GutterStyle.none,
-                              expands: true,
-                            ),
-                          )),
+                  borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
+                  child: isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : CodeTheme(
+                          data: CodeThemeData(styles: monokaiSublimeTheme),
+                          child: CodeField(
+                            controller: codeController!,
+                            readOnly: true,
+                            textStyle: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Colors.white,
+                                  fontFamily: 'SourceCode',
+                                ),
+                            gutterStyle: GutterStyle.none,
+                            expands: true,
+                          ),
+                        ),
+                ),
               ),
             ),
           ],

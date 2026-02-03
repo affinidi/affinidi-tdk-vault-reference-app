@@ -16,40 +16,41 @@ part 'file_preview_page_controller.g.dart';
 class FilePreviewPageController extends _$FilePreviewPageController {
   FilePreviewPageController() : super();
 
-  final loadingController =
-      AsyncLoadingController.provider('filePreviewPageController');
+  final loadingController = AsyncLoadingController.provider(
+    'filePreviewPageController',
+  );
 
   @override
-  FilePreviewPageState build(
-      {required String nodeId,
-      required String profileId,
-      String? parentNodeId,
-      bool isSharedProfile = false}) {
+  FilePreviewPageState build({
+    required String nodeId,
+    required String profileId,
+    String? parentNodeId,
+    bool isSharedProfile = false,
+  }) {
     final provider = storageServiceProvider(
-        parentNodeId: parentNodeId, profileId: profileId);
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
     Future(() {
       ref.read(loadingController.notifier).start(() async {
-        await ref.read(provider.notifier).getFileContent(
-              fileId: nodeId,
-              isSharedProfile: isSharedProfile,
-            );
+        await ref
+            .read(provider.notifier)
+            .getFileContent(fileId: nodeId, isSharedProfile: isSharedProfile);
       });
     });
 
-    ref.listen(
-      provider.select((state) => state.fileData),
-      (previous, next) {
-        Future(() {
-          if (next != null) {
-            state = state.copyWith(
-                data: next, documentType: DocumentType.fromData(next));
-          } else {
-            state = state.copyWith(data: null, documentType: null);
-          }
-        });
-      },
-      fireImmediately: true,
-    );
+    ref.listen(provider.select((state) => state.fileData), (previous, next) {
+      Future(() {
+        if (next != null) {
+          state = state.copyWith(
+            data: next,
+            documentType: DocumentType.fromData(next),
+          );
+        } else {
+          state = state.copyWith(data: null, documentType: null);
+        }
+      });
+    }, fireImmediately: true);
 
     return FilePreviewPageState();
   }
@@ -59,7 +60,9 @@ class FilePreviewPageController extends _$FilePreviewPageController {
 
     if (fileData == null) {
       Error.throwWithStackTrace(
-          'A file must be selected to be shared', StackTrace.current);
+        'A file must be selected to be shared',
+        StackTrace.current,
+      );
     }
 
     final documentType = DocumentType.fromData(fileData);

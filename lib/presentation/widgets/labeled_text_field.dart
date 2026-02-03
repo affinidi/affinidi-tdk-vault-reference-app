@@ -36,9 +36,7 @@ class LabeledTextField extends StatelessWidget {
         labelText: labelText,
         suffix: suffix,
         errorText: errorText,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
@@ -46,7 +44,9 @@ class LabeledTextField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primary, width: 2),
+            color: Theme.of(context).colorScheme.primary,
+            width: 2,
+          ),
         ),
       ),
       onSubmitted: onSubmitted,

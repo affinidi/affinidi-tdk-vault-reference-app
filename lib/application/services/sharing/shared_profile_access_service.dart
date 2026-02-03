@@ -28,16 +28,18 @@ class SharedProfileAccessService {
   }
 
   Future<List<SharedProfileAccessData>> getSharedAccessesForProfile(
-      String profileId) async {
+    String profileId,
+  ) async {
     final all = await _db.getAllAccesses();
     return all.where((entry) => entry.profileId == profileId).toList();
   }
 
   Stream<List<SharedProfileAccessData>> watchSharedAccessesForProfile(
-      String profileId) {
+    String profileId,
+  ) {
     return _db.watchAllAccesses().map(
-          (all) => all.where((entry) => entry.profileId == profileId).toList(),
-        );
+      (all) => all.where((entry) => entry.profileId == profileId).toList(),
+    );
   }
 
   Future<void> removeSharedAccess(int id) async {

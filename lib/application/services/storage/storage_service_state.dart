@@ -12,7 +12,7 @@ class StorageServiceState with _$StorageServiceState {
     @Default([]) List<Item> items,
     @Default({})
     Map<String, PaginationState>
-        paginationStates, // folderId -> PaginationState
+    paginationStates, // folderId -> PaginationState
     Uint8List? fileData,
   }) = _StorageServiceState;
 }

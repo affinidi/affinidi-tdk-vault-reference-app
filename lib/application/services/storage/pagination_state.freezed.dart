@@ -12,7 +12,8 @@ part of 'pagination_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 PaginationState _$PaginationStateFromJson(Map<String, dynamic> json) {
   return _PaginationState.fromJson(json);
@@ -34,8 +35,9 @@ mixin _$PaginationState {
 /// @nodoc
 abstract class $PaginationStateCopyWith<$Res> {
   factory $PaginationStateCopyWith(
-          PaginationState value, $Res Function(PaginationState) then) =
-      _$PaginationStateCopyWithImpl<$Res, PaginationState>;
+    PaginationState value,
+    $Res Function(PaginationState) then,
+  ) = _$PaginationStateCopyWithImpl<$Res, PaginationState>;
   @useResult
   $Res call({List<String?> lastEvaluatedItemIdStack, int currentPageIndex});
 }
@@ -58,25 +60,29 @@ class _$PaginationStateCopyWithImpl<$Res, $Val extends PaginationState>
     Object? lastEvaluatedItemIdStack = null,
     Object? currentPageIndex = null,
   }) {
-    return _then(_value.copyWith(
-      lastEvaluatedItemIdStack: null == lastEvaluatedItemIdStack
-          ? _value.lastEvaluatedItemIdStack
-          : lastEvaluatedItemIdStack // ignore: cast_nullable_to_non_nullable
-              as List<String?>,
-      currentPageIndex: null == currentPageIndex
-          ? _value.currentPageIndex
-          : currentPageIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            lastEvaluatedItemIdStack: null == lastEvaluatedItemIdStack
+                ? _value.lastEvaluatedItemIdStack
+                : lastEvaluatedItemIdStack // ignore: cast_nullable_to_non_nullable
+                      as List<String?>,
+            currentPageIndex: null == currentPageIndex
+                ? _value.currentPageIndex
+                : currentPageIndex // ignore: cast_nullable_to_non_nullable
+                      as int,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$PaginationStateImplCopyWith<$Res>
     implements $PaginationStateCopyWith<$Res> {
-  factory _$$PaginationStateImplCopyWith(_$PaginationStateImpl value,
-          $Res Function(_$PaginationStateImpl) then) =
-      __$$PaginationStateImplCopyWithImpl<$Res>;
+  factory _$$PaginationStateImplCopyWith(
+    _$PaginationStateImpl value,
+    $Res Function(_$PaginationStateImpl) then,
+  ) = __$$PaginationStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<String?> lastEvaluatedItemIdStack, int currentPageIndex});
@@ -87,8 +93,9 @@ class __$$PaginationStateImplCopyWithImpl<$Res>
     extends _$PaginationStateCopyWithImpl<$Res, _$PaginationStateImpl>
     implements _$$PaginationStateImplCopyWith<$Res> {
   __$$PaginationStateImplCopyWithImpl(
-      _$PaginationStateImpl _value, $Res Function(_$PaginationStateImpl) _then)
-      : super(_value, _then);
+    _$PaginationStateImpl _value,
+    $Res Function(_$PaginationStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of PaginationState
   /// with the given fields replaced by the non-null parameter values.
@@ -98,26 +105,28 @@ class __$$PaginationStateImplCopyWithImpl<$Res>
     Object? lastEvaluatedItemIdStack = null,
     Object? currentPageIndex = null,
   }) {
-    return _then(_$PaginationStateImpl(
-      lastEvaluatedItemIdStack: null == lastEvaluatedItemIdStack
-          ? _value._lastEvaluatedItemIdStack
-          : lastEvaluatedItemIdStack // ignore: cast_nullable_to_non_nullable
-              as List<String?>,
-      currentPageIndex: null == currentPageIndex
-          ? _value.currentPageIndex
-          : currentPageIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
+    return _then(
+      _$PaginationStateImpl(
+        lastEvaluatedItemIdStack: null == lastEvaluatedItemIdStack
+            ? _value._lastEvaluatedItemIdStack
+            : lastEvaluatedItemIdStack // ignore: cast_nullable_to_non_nullable
+                  as List<String?>,
+        currentPageIndex: null == currentPageIndex
+            ? _value.currentPageIndex
+            : currentPageIndex // ignore: cast_nullable_to_non_nullable
+                  as int,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable(createToJson: false)
 class _$PaginationStateImpl implements _PaginationState {
-  const _$PaginationStateImpl(
-      {final List<String?> lastEvaluatedItemIdStack = const [],
-      this.currentPageIndex = 0})
-      : _lastEvaluatedItemIdStack = lastEvaluatedItemIdStack;
+  const _$PaginationStateImpl({
+    final List<String?> lastEvaluatedItemIdStack = const [],
+    this.currentPageIndex = 0,
+  }) : _lastEvaluatedItemIdStack = lastEvaluatedItemIdStack;
 
   factory _$PaginationStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$PaginationStateImplFromJson(json);
@@ -147,7 +156,9 @@ class _$PaginationStateImpl implements _PaginationState {
         (other.runtimeType == runtimeType &&
             other is _$PaginationStateImpl &&
             const DeepCollectionEquality().equals(
-                other._lastEvaluatedItemIdStack, _lastEvaluatedItemIdStack) &&
+              other._lastEvaluatedItemIdStack,
+              _lastEvaluatedItemIdStack,
+            ) &&
             (identical(other.currentPageIndex, currentPageIndex) ||
                 other.currentPageIndex == currentPageIndex));
   }
@@ -155,9 +166,10 @@ class _$PaginationStateImpl implements _PaginationState {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_lastEvaluatedItemIdStack),
-      currentPageIndex);
+    runtimeType,
+    const DeepCollectionEquality().hash(_lastEvaluatedItemIdStack),
+    currentPageIndex,
+  );
 
   /// Create a copy of PaginationState
   /// with the given fields replaced by the non-null parameter values.
@@ -166,13 +178,16 @@ class _$PaginationStateImpl implements _PaginationState {
   @pragma('vm:prefer-inline')
   _$$PaginationStateImplCopyWith<_$PaginationStateImpl> get copyWith =>
       __$$PaginationStateImplCopyWithImpl<_$PaginationStateImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _PaginationState implements PaginationState {
-  const factory _PaginationState(
-      {final List<String?> lastEvaluatedItemIdStack,
-      final int currentPageIndex}) = _$PaginationStateImpl;
+  const factory _PaginationState({
+    final List<String?> lastEvaluatedItemIdStack,
+    final int currentPageIndex,
+  }) = _$PaginationStateImpl;
 
   factory _PaginationState.fromJson(Map<String, dynamic> json) =
       _$PaginationStateImpl.fromJson;

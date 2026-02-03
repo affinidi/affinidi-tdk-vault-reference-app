@@ -17,30 +17,32 @@ class SharedProfileDetailsPageController
   SharedProfileDetailsPageController() : super();
 
   final loadingController = AsyncLoadingController.provider(
-      'sharedProfileDetailsPageLoadingController');
+    'sharedProfileDetailsPageLoadingController',
+  );
   final fileUploadController = AsyncLoadingController.provider(
-      'sharedProfileDetailsPageFileUploadingController');
+    'sharedProfileDetailsPageFileUploadingController',
+  );
 
   @override
-  SharedProfileDetailsPageState build(
-      {required String? parentNodeId, required String profileId}) {
+  SharedProfileDetailsPageState build({
+    required String? parentNodeId,
+    required String profileId,
+  }) {
     final provider = storageServiceProvider(
-        parentNodeId: parentNodeId, profileId: profileId);
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
     Future(() async {
       state = state.copyWith(isLoading: true);
       await ref.read(provider.notifier).listItems(isSharedProfile: true);
       state = state.copyWith(isLoading: false);
     });
 
-    ref.listen(
-      provider.select((state) => state.items),
-      (previous, next) {
-        Future(() {
-          state = state.copyWith(items: next);
-        });
-      },
-      fireImmediately: true,
-    );
+    ref.listen(provider.select((state) => state.items), (previous, next) {
+      Future(() {
+        state = state.copyWith(items: next);
+      });
+    }, fireImmediately: true);
 
     return SharedProfileDetailsPageState(isLoading: true);
   }
@@ -51,8 +53,9 @@ class SharedProfileDetailsPageController
   Future<void> listItems() async {
     try {
       state = state.copyWith(isLoading: true);
-      final sharedStorage =
-          await ref.read(sharedStorageByIdProvider(profileId).future);
+      final sharedStorage = await ref.read(
+        sharedStorageByIdProvider(profileId).future,
+      );
       final items = await sharedStorage.getFolder();
       state = state.copyWith(items: items.items, isLoading: false);
     } catch (e) {
@@ -75,7 +78,9 @@ class SharedProfileDetailsPageController
           );
 
       if (validFiles.isNotEmpty) {
-        await ref.read(fileUploadServiceProvider.notifier).uploadFiles(
+        await ref
+            .read(fileUploadServiceProvider.notifier)
+            .uploadFiles(
               files: validFiles,
               parentNodeId: parentNodeId,
               profileId: profileId,
@@ -88,9 +93,12 @@ class SharedProfileDetailsPageController
   Future<void> downloadFile(Item item) async {
     ref.read(fileUploadController.notifier).start(() async {
       await ref
-          .read(storageServiceProvider(
-                  parentNodeId: parentNodeId, profileId: profileId)
-              .notifier)
+          .read(
+            storageServiceProvider(
+              parentNodeId: parentNodeId,
+              profileId: profileId,
+            ).notifier,
+          )
           .getFileContent(fileId: item.id);
     });
   }
@@ -103,10 +111,7 @@ class SharedProfileDetailsPageController
       path =
           '${ProfilesRoutePath.profileMyFiles(profileId)}/folder/$parentNodeId/preview/${node.id}';
     } else {
-      path = ProfilesRoutePath.profileFilePreview(
-        profileId,
-        node.id,
-      );
+      path = ProfilesRoutePath.profileFilePreview(profileId, node.id);
     }
 
     navigation.push(path);

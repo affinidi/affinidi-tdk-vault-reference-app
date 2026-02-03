@@ -33,9 +33,7 @@ abstract class _$CredentialService
     extends BuildlessAutoDisposeNotifier<CredentialServiceState> {
   late final String profileId;
 
-  CredentialServiceState build({
-    required String profileId,
-  });
+  CredentialServiceState build({required String profileId});
 }
 
 /// A service that manages claimed digital credentials (e.g. fetch, save, delete)
@@ -60,21 +58,15 @@ class CredentialServiceFamily extends Family<CredentialServiceState> {
   /// for a specific profile stored inside a Vault.
   ///
   /// Copied from [CredentialService].
-  CredentialServiceProvider call({
-    required String profileId,
-  }) {
-    return CredentialServiceProvider(
-      profileId: profileId,
-    );
+  CredentialServiceProvider call({required String profileId}) {
+    return CredentialServiceProvider(profileId: profileId);
   }
 
   @override
   CredentialServiceProvider getProviderOverride(
     covariant CredentialServiceProvider provider,
   ) {
-    return call(
-      profileId: provider.profileId,
-    );
+    return call(profileId: provider.profileId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -96,27 +88,29 @@ class CredentialServiceFamily extends Family<CredentialServiceState> {
 /// for a specific profile stored inside a Vault.
 ///
 /// Copied from [CredentialService].
-class CredentialServiceProvider extends AutoDisposeNotifierProviderImpl<
-    CredentialService, CredentialServiceState> {
+class CredentialServiceProvider
+    extends
+        AutoDisposeNotifierProviderImpl<
+          CredentialService,
+          CredentialServiceState
+        > {
   /// A service that manages claimed digital credentials (e.g. fetch, save, delete)
   /// for a specific profile stored inside a Vault.
   ///
   /// Copied from [CredentialService].
-  CredentialServiceProvider({
-    required String profileId,
-  }) : this._internal(
-          () => CredentialService()..profileId = profileId,
-          from: credentialServiceProvider,
-          name: r'credentialServiceProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$credentialServiceHash,
-          dependencies: CredentialServiceFamily._dependencies,
-          allTransitiveDependencies:
-              CredentialServiceFamily._allTransitiveDependencies,
-          profileId: profileId,
-        );
+  CredentialServiceProvider({required String profileId})
+    : this._internal(
+        () => CredentialService()..profileId = profileId,
+        from: credentialServiceProvider,
+        name: r'credentialServiceProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$credentialServiceHash,
+        dependencies: CredentialServiceFamily._dependencies,
+        allTransitiveDependencies:
+            CredentialServiceFamily._allTransitiveDependencies,
+        profileId: profileId,
+      );
 
   CredentialServiceProvider._internal(
     super._createNotifier, {
@@ -134,9 +128,7 @@ class CredentialServiceProvider extends AutoDisposeNotifierProviderImpl<
   CredentialServiceState runNotifierBuild(
     covariant CredentialService notifier,
   ) {
-    return notifier.build(
-      profileId: profileId,
-    );
+    return notifier.build(profileId: profileId);
   }
 
   @override
@@ -157,7 +149,7 @@ class CredentialServiceProvider extends AutoDisposeNotifierProviderImpl<
 
   @override
   AutoDisposeNotifierProviderElement<CredentialService, CredentialServiceState>
-      createElement() {
+  createElement() {
     return _CredentialServiceProviderElement(this);
   }
 
@@ -184,12 +176,17 @@ mixin CredentialServiceRef
 }
 
 class _CredentialServiceProviderElement
-    extends AutoDisposeNotifierProviderElement<CredentialService,
-        CredentialServiceState> with CredentialServiceRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          CredentialService,
+          CredentialServiceState
+        >
+    with CredentialServiceRef {
   _CredentialServiceProviderElement(super.provider);
 
   @override
   String get profileId => (origin as CredentialServiceProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -70,6 +70,7 @@ pubspec.lock
 .svn/
 .swiftpm/
 migrate_working_dir/
+untranslated_messages_file.txt
 
 # IntelliJ related
 *.iml

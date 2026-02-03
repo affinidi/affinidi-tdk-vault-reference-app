@@ -78,14 +78,17 @@ class ProfileSettingsPageController extends _$ProfileSettingsPageController {
     final sharedAccessService = ref.read(sharedProfileAccessServiceProvider);
     try {
       await vaultService.revokeProfileAccess(
-          profileId: profileId, granteeDid: receiverDid);
+        profileId: profileId,
+        granteeDid: receiverDid,
+      );
       await sharedAccessService.removeSharedAccess(entryId);
       _lastActionStatus = ProfileSettingsActionStatus.revokeSuccess;
     } catch (e) {
       _lastActionStatus = ProfileSettingsActionStatus.revokeFailure;
     } finally {
-      state =
-          state.copyWith(revokingIds: state.revokingIds.difference({entryId}));
+      state = state.copyWith(
+        revokingIds: state.revokingIds.difference({entryId}),
+      );
     }
   }
 }

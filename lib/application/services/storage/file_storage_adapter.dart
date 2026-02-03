@@ -17,9 +17,10 @@ class FileStorageAdapter implements BaseStorageRepository {
       storage.renameFile(fileId: fileId, newName: newName);
 
   @override
-  Future<void> renameFolder(
-          {required String folderId, required String newName}) =>
-      storage.renameFolder(folderId: folderId, newName: newName);
+  Future<void> renameFolder({
+    required String folderId,
+    required String newName,
+  }) => storage.renameFolder(folderId: folderId, newName: newName);
 
   @override
   Future<void> deleteFile({required String fileId}) =>
@@ -30,10 +31,13 @@ class FileStorageAdapter implements BaseStorageRepository {
       storage.deleteFolder(folderId: folderId);
 
   @override
-  Future<void> createFolder(
-          {required String parentFolderId, required String folderName}) =>
-      storage.createFolder(
-          parentFolderId: parentFolderId, folderName: folderName);
+  Future<void> createFolder({
+    required String parentFolderId,
+    required String folderName,
+  }) => storage.createFolder(
+    parentFolderId: parentFolderId,
+    folderName: folderName,
+  );
 
   @override
   Future<List<int>> getFileContent({required String fileId}) =>
@@ -45,12 +49,11 @@ class FileStorageAdapter implements BaseStorageRepository {
     required Uint8List data,
     String? parentFolderId,
     void Function(int p1, int p2)? onSendProgress,
-  }) =>
-      storage.createFile(
-        fileName: fileName,
-        data: data,
-        parentFolderId: parentFolderId,
-      );
+  }) => storage.createFile(
+    fileName: fileName,
+    data: data,
+    parentFolderId: parentFolderId,
+  );
 
   @override
   Future<PaginatedList<Item>> getFolder({
@@ -58,11 +61,10 @@ class FileStorageAdapter implements BaseStorageRepository {
     int? limit,
     String? exclusiveStartItemId,
     VaultCancelToken? cancelToken,
-  }) =>
-      storage.getFolder(
-        folderId: folderId,
-        limit: limit,
-        exclusiveStartItemId: exclusiveStartItemId,
-        cancelToken: cancelToken,
-      );
+  }) => storage.getFolder(
+    folderId: folderId,
+    limit: limit,
+    exclusiveStartItemId: exclusiveStartItemId,
+    cancelToken: cancelToken,
+  );
 }

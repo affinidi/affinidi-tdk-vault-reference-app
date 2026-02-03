@@ -28,8 +28,9 @@ class CredentialOfferDetails extends HookConsumerWidget {
       return const SizedBox.shrink();
     }
 
-    final provider =
-        claimCredentialsPageControllerProvider(profileId: profileId);
+    final provider = claimCredentialsPageControllerProvider(
+      profileId: profileId,
+    );
     final fetchStatus = ref.watch(provider.select((s) => s.fetchStatus));
 
     final controller = ref.read(provider.notifier);
@@ -82,8 +83,8 @@ class CredentialOfferDetails extends HookConsumerWidget {
                         localizations.errorMessage('getCredentialFailed'),
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
+                          color: Theme.of(context).colorScheme.error,
+                        ),
                       ),
                       const SizedBox(height: 12),
                       FilledButton(
@@ -94,19 +95,14 @@ class CredentialOfferDetails extends HookConsumerWidget {
                   ),
                 ),
             ] else ...[
-              VerifiableCredential(
-                offerUri: offerUri!,
-                profileId: profileId,
-              ),
+              VerifiableCredential(offerUri: offerUri!, profileId: profileId),
               Center(
                 child: FilledButton(
                   onPressed: saveCredential,
-                  child: Text(
-                    localizations.saveActionText,
-                  ),
+                  child: Text(localizations.saveActionText),
                 ),
               ),
-            ]
+            ],
           ],
         ),
       ),

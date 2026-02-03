@@ -13,35 +13,35 @@ class SharedCredentialsPageController
   SharedCredentialsPageController() : super();
 
   /// Provides access to a loading controller used for async status indication
-  final loadingController =
-      AsyncLoadingController.provider('sharedCredentialsPageLoadingController');
+  final loadingController = AsyncLoadingController.provider(
+    'sharedCredentialsPageLoadingController',
+  );
 
   /// Initializes the state and triggers the initial fetch of claimed credentials.
   /// Also listens to credential state changes from the credential service and updates UI state accordingly.
   @override
   SharedCredentialsPageState build({required String profileId}) {
-    final provider = credentialServiceProvider(
-      profileId: profileId,
-    );
+    final provider = credentialServiceProvider(profileId: profileId);
 
     Future(() {
-      ref.read(loadingController.notifier).start(
-            () async => await ref.read(provider.notifier).getClaimedCredentials(
-                  isSharedProfile: true,
-                ),
+      ref
+          .read(loadingController.notifier)
+          .start(
+            () async => await ref
+                .read(provider.notifier)
+                .getClaimedCredentials(isSharedProfile: true),
           );
     });
 
     // Listen for updates to claimed credentials and update local state
-    ref.listen(
-      provider.select((state) => state.claimedCredentials),
-      (previous, next) {
-        Future(() {
-          state = state.copyWith(digitalCredentials: next);
-        });
-      },
-      fireImmediately: true,
-    );
+    ref.listen(provider.select((state) => state.claimedCredentials), (
+      previous,
+      next,
+    ) {
+      Future(() {
+        state = state.copyWith(digitalCredentials: next);
+      });
+    }, fireImmediately: true);
 
     return SharedCredentialsPageState();
   }

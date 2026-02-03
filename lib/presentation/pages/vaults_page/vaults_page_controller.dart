@@ -22,8 +22,9 @@ class VaultsPageController extends _$VaultsPageController {
     state = state.copyWith(isLoading: true, errorMessage: null);
 
     // Load available vaults
-    final vaultsManagerService =
-        ref.read(vaultsManagerServiceProvider.notifier);
+    final vaultsManagerService = ref.read(
+      vaultsManagerServiceProvider.notifier,
+    );
     await vaultsManagerService.loadVaults();
 
     final vaultService = ref.read(vaultServiceProvider.notifier);
@@ -49,9 +50,7 @@ class VaultsPageController extends _$VaultsPageController {
 
   Future<void> deleteVault(String vaultId) async {
     log('Deleting vault: $vaultId');
-    await ref.read(vaultsManagerServiceProvider.notifier).removeVault(
-          vaultId,
-        );
+    await ref.read(vaultsManagerServiceProvider.notifier).removeVault(vaultId);
     await _loadVaults();
   }
 
@@ -62,8 +61,6 @@ class VaultsPageController extends _$VaultsPageController {
   }
 
   void addVault(String vaultId, Vault vault) {
-    state = state.copyWith(
-      vaultsById: {...state.vaultsById, vaultId: vault},
-    );
+    state = state.copyWith(vaultsById: {...state.vaultsById, vaultId: vault});
   }
 }

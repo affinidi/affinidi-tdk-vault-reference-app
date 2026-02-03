@@ -23,10 +23,7 @@ import '../../widgets/simple_info_widget.dart';
 class ClaimCredentialsPage extends HookConsumerWidget {
   static String routePath = ClaimCredentialsRoutePath.base;
 
-  const ClaimCredentialsPage({
-    super.key,
-    required this.profileId,
-  });
+  const ClaimCredentialsPage({super.key, required this.profileId});
 
   final String profileId;
 
@@ -36,9 +33,7 @@ class ClaimCredentialsPage extends HookConsumerWidget {
     final provider = claimCredentialsPageControllerProvider(
       profileId: profileId,
     );
-    final controller = ref.read(
-      provider.notifier,
-    );
+    final controller = ref.read(provider.notifier);
 
     final profileDidFuture = useMemoized(() => controller.getProfileDid());
     final profileDid = useFuture(profileDidFuture);
@@ -57,8 +52,9 @@ class ClaimCredentialsPage extends HookConsumerWidget {
         actions: [
           CodeSnippetWidget(
             title: localizations.lblCSClaimCredential,
-            codeLocations:
-                CodeSnippetLocations.claimCredentialSnippets(context),
+            codeLocations: CodeSnippetLocations.claimCredentialSnippets(
+              context,
+            ),
           ),
         ],
       ),
@@ -66,17 +62,19 @@ class ClaimCredentialsPage extends HookConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
         child: ConstrainedBox(
           constraints: const BoxConstraints(
-              maxWidth: 480), // Keep content centered & readable
+            maxWidth: 480,
+          ), // Keep content centered & readable
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 1.0,
-                    left: 1.0,
-                    right: 1.0,
-                    bottom: AppSizing.paddingRegular),
+                  top: 1.0,
+                  left: 1.0,
+                  right: 1.0,
+                  bottom: AppSizing.paddingRegular,
+                ),
                 child: Text(
                   localizations.claimCredentialsTitle,
                   style: AppTheme.headingXLarge,

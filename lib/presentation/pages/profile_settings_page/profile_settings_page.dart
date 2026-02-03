@@ -18,10 +18,7 @@ import '../../widgets/profile/file_settings_bottom_sheet.dart';
 import 'access_management_page.dart';
 
 class ProfileSettingsPage extends HookConsumerWidget {
-  const ProfileSettingsPage({
-    super.key,
-    required this.profileId,
-  });
+  const ProfileSettingsPage({super.key, required this.profileId});
 
   final String profileId;
 
@@ -48,9 +45,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
     }
 
     if (settingsState.profile == null) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
@@ -74,18 +69,16 @@ class ProfileSettingsPage extends HookConsumerWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: AppSizing.paddingMedium,
-                      top: AppSizing.paddingLarge),
+                    left: AppSizing.paddingMedium,
+                    top: AppSizing.paddingLarge,
+                  ),
                   child: Text(
                     localizations.profileSettingsTitle,
                     style: AppTheme.headingMedium,
                   ),
                 ),
                 const SizedBox(height: AppSizing.paddingMedium),
-                const Divider(
-                  height: 1,
-                  color: AppColorScheme.divider,
-                ),
+                const Divider(height: 1, color: AppColorScheme.divider),
               ],
             ),
           ),
@@ -93,7 +86,8 @@ class ProfileSettingsPage extends HookConsumerWidget {
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizing.paddingMedium),
+                horizontal: AppSizing.paddingMedium,
+              ),
               children: [
                 // Edit Profile Section
                 _SettingsTile(
@@ -101,7 +95,10 @@ class ProfileSettingsPage extends HookConsumerWidget {
                   title: localizations.editProfile,
                   onTap: () {
                     _showEditProfileDialog(
-                        context, ref, settingsState.profile!);
+                      context,
+                      ref,
+                      settingsState.profile!,
+                    );
                   },
                 ),
                 const SizedBox(height: AppSizing.paddingSmall),
@@ -116,7 +113,8 @@ class ProfileSettingsPage extends HookConsumerWidget {
                       isScrollControlled: true,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(AppSizing.paddingLarge)),
+                          top: Radius.circular(AppSizing.paddingLarge),
+                        ),
                       ),
                       builder: (context) =>
                           FileSettingsBottomSheet(profileId: profileId),
@@ -158,10 +156,14 @@ class ProfileSettingsPage extends HookConsumerWidget {
   }
 
   void _showEditProfileDialog(
-      BuildContext context, WidgetRef ref, dynamic profile) {
+    BuildContext context,
+    WidgetRef ref,
+    dynamic profile,
+  ) {
     final nameController = TextEditingController(text: profile.name);
-    final descriptionController =
-        TextEditingController(text: profile.description);
+    final descriptionController = TextEditingController(
+      text: profile.description,
+    );
     final localizations = AppLocalizations.of(context)!;
     final controllerProvider = profileSettingsPageControllerProvider(profileId);
     final controller = ref.read(controllerProvider.notifier);
@@ -169,10 +171,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(
-          localizations.editProfile,
-          style: AppTheme.headingMedium,
-        ),
+        title: Text(localizations.editProfile, style: AppTheme.headingMedium),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -184,12 +183,14 @@ class ProfileSettingsPage extends HookConsumerWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
                   borderSide: BorderSide(
-                      color: AppColorScheme.formFieldBorderUnfocused),
+                    color: AppColorScheme.formFieldBorderUnfocused,
+                  ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
-                  borderSide:
-                      BorderSide(color: AppColorScheme.formFieldBorderFocused),
+                  borderSide: BorderSide(
+                    color: AppColorScheme.formFieldBorderFocused,
+                  ),
                 ),
               ),
             ),
@@ -202,12 +203,14 @@ class ProfileSettingsPage extends HookConsumerWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
                   borderSide: BorderSide(
-                      color: AppColorScheme.formFieldBorderUnfocused),
+                    color: AppColorScheme.formFieldBorderUnfocused,
+                  ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
-                  borderSide:
-                      BorderSide(color: AppColorScheme.formFieldBorderFocused),
+                  borderSide: BorderSide(
+                    color: AppColorScheme.formFieldBorderFocused,
+                  ),
                 ),
               ),
             ),
@@ -258,10 +261,9 @@ class ProfileSettingsPage extends HookConsumerWidget {
             ),
             child: Text(
               localizations.saveActionText,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelLarge
-                  ?.copyWith(color: AppColorScheme.backgroundWhite),
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: AppColorScheme.backgroundWhite,
+              ),
             ),
           ),
         ],
@@ -296,14 +298,8 @@ class _SettingsTile extends StatelessWidget {
         side: BorderSide(color: AppColorScheme.divider),
       ),
       child: ListTile(
-        leading: Icon(
-          icon,
-          color: iconColor ?? AppColorScheme.textPrimary,
-        ),
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
+        leading: Icon(icon, color: iconColor ?? AppColorScheme.textPrimary),
+        title: Text(title, style: Theme.of(context).textTheme.labelLarge),
         trailing: Icon(
           Icons.arrow_forward_ios,
           size: AppSizing.iconXSmall,

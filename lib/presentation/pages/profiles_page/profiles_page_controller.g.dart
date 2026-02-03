@@ -11,16 +11,19 @@ String _$profilesPageControllerHash() =>
 
 /// See also [ProfilesPageController].
 @ProviderFor(ProfilesPageController)
-final profilesPageControllerProvider = AutoDisposeNotifierProvider<
-    ProfilesPageController, ProfilesPageState>.internal(
-  ProfilesPageController.new,
-  name: r'profilesPageControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$profilesPageControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final profilesPageControllerProvider =
+    AutoDisposeNotifierProvider<
+      ProfilesPageController,
+      ProfilesPageState
+    >.internal(
+      ProfilesPageController.new,
+      name: r'profilesPageControllerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$profilesPageControllerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$ProfilesPageController = AutoDisposeNotifier<ProfilesPageState>;
 // ignore_for_file: type=lint

@@ -12,7 +12,8 @@ part of 'create_vault_page_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$CreateVaultPageState {
@@ -28,16 +29,19 @@ mixin _$CreateVaultPageState {
 
 /// @nodoc
 abstract class $CreateVaultPageStateCopyWith<$Res> {
-  factory $CreateVaultPageStateCopyWith(CreateVaultPageState value,
-          $Res Function(CreateVaultPageState) then) =
-      _$CreateVaultPageStateCopyWithImpl<$Res, CreateVaultPageState>;
+  factory $CreateVaultPageStateCopyWith(
+    CreateVaultPageState value,
+    $Res Function(CreateVaultPageState) then,
+  ) = _$CreateVaultPageStateCopyWithImpl<$Res, CreateVaultPageState>;
   @useResult
   $Res call({SeedMode seedMode, bool isFormValid});
 }
 
 /// @nodoc
-class _$CreateVaultPageStateCopyWithImpl<$Res,
-        $Val extends CreateVaultPageState>
+class _$CreateVaultPageStateCopyWithImpl<
+  $Res,
+  $Val extends CreateVaultPageState
+>
     implements $CreateVaultPageStateCopyWith<$Res> {
   _$CreateVaultPageStateCopyWithImpl(this._value, this._then);
 
@@ -50,29 +54,30 @@ class _$CreateVaultPageStateCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? seedMode = null,
-    Object? isFormValid = null,
-  }) {
-    return _then(_value.copyWith(
-      seedMode: null == seedMode
-          ? _value.seedMode
-          : seedMode // ignore: cast_nullable_to_non_nullable
-              as SeedMode,
-      isFormValid: null == isFormValid
-          ? _value.isFormValid
-          : isFormValid // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+  $Res call({Object? seedMode = null, Object? isFormValid = null}) {
+    return _then(
+      _value.copyWith(
+            seedMode: null == seedMode
+                ? _value.seedMode
+                : seedMode // ignore: cast_nullable_to_non_nullable
+                      as SeedMode,
+            isFormValid: null == isFormValid
+                ? _value.isFormValid
+                : isFormValid // ignore: cast_nullable_to_non_nullable
+                      as bool,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CreateVaultPageStateImplCopyWith<$Res>
     implements $CreateVaultPageStateCopyWith<$Res> {
-  factory _$$CreateVaultPageStateImplCopyWith(_$CreateVaultPageStateImpl value,
-          $Res Function(_$CreateVaultPageStateImpl) then) =
-      __$$CreateVaultPageStateImplCopyWithImpl<$Res>;
+  factory _$$CreateVaultPageStateImplCopyWith(
+    _$CreateVaultPageStateImpl value,
+    $Res Function(_$CreateVaultPageStateImpl) then,
+  ) = __$$CreateVaultPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({SeedMode seedMode, bool isFormValid});
@@ -82,37 +87,38 @@ abstract class _$$CreateVaultPageStateImplCopyWith<$Res>
 class __$$CreateVaultPageStateImplCopyWithImpl<$Res>
     extends _$CreateVaultPageStateCopyWithImpl<$Res, _$CreateVaultPageStateImpl>
     implements _$$CreateVaultPageStateImplCopyWith<$Res> {
-  __$$CreateVaultPageStateImplCopyWithImpl(_$CreateVaultPageStateImpl _value,
-      $Res Function(_$CreateVaultPageStateImpl) _then)
-      : super(_value, _then);
+  __$$CreateVaultPageStateImplCopyWithImpl(
+    _$CreateVaultPageStateImpl _value,
+    $Res Function(_$CreateVaultPageStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of CreateVaultPageState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? seedMode = null,
-    Object? isFormValid = null,
-  }) {
-    return _then(_$CreateVaultPageStateImpl(
-      seedMode: null == seedMode
-          ? _value.seedMode
-          : seedMode // ignore: cast_nullable_to_non_nullable
-              as SeedMode,
-      isFormValid: null == isFormValid
-          ? _value.isFormValid
-          : isFormValid // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+  $Res call({Object? seedMode = null, Object? isFormValid = null}) {
+    return _then(
+      _$CreateVaultPageStateImpl(
+        seedMode: null == seedMode
+            ? _value.seedMode
+            : seedMode // ignore: cast_nullable_to_non_nullable
+                  as SeedMode,
+        isFormValid: null == isFormValid
+            ? _value.isFormValid
+            : isFormValid // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$CreateVaultPageStateImpl extends _CreateVaultPageState {
-  const _$CreateVaultPageStateImpl(
-      {this.seedMode = SeedMode.generate, this.isFormValid = false})
-      : super._();
+  const _$CreateVaultPageStateImpl({
+    this.seedMode = SeedMode.generate,
+    this.isFormValid = false,
+  }) : super._();
 
   @override
   @JsonKey()
@@ -146,15 +152,18 @@ class _$CreateVaultPageStateImpl extends _CreateVaultPageState {
   @override
   @pragma('vm:prefer-inline')
   _$$CreateVaultPageStateImplCopyWith<_$CreateVaultPageStateImpl>
-      get copyWith =>
-          __$$CreateVaultPageStateImplCopyWithImpl<_$CreateVaultPageStateImpl>(
-              this, _$identity);
+  get copyWith =>
+      __$$CreateVaultPageStateImplCopyWithImpl<_$CreateVaultPageStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _CreateVaultPageState extends CreateVaultPageState {
-  const factory _CreateVaultPageState(
-      {final SeedMode seedMode,
-      final bool isFormValid}) = _$CreateVaultPageStateImpl;
+  const factory _CreateVaultPageState({
+    final SeedMode seedMode,
+    final bool isFormValid,
+  }) = _$CreateVaultPageStateImpl;
   const _CreateVaultPageState._() : super._();
 
   @override
@@ -167,5 +176,5 @@ abstract class _CreateVaultPageState extends CreateVaultPageState {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreateVaultPageStateImplCopyWith<_$CreateVaultPageStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
