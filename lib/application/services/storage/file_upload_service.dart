@@ -82,8 +82,11 @@ class FileUploadService extends _$FileUploadService {
     bool isSharedProfile = false,
   }) async {
     final storageService = ref.read(
-        storageServiceProvider(parentNodeId: parentNodeId, profileId: profileId)
-            .notifier);
+      storageServiceProvider(
+        parentNodeId: parentNodeId,
+        profileId: profileId,
+      ).notifier,
+    );
     await storageService.uploadFiles(
       files: files,
       isSharedProfile: isSharedProfile,

@@ -52,30 +52,33 @@ class FilePreviewPage extends ConsumerWidget {
     }
 
     return Scaffold(
-        appBar: AppBar(
-          leading: data != null
-              ? IconButton(
-                  onPressed: () => shareFile(context.sharePositionOrigin),
-                  icon: SvgPicture.asset('assets/icons/icon-share.svg'))
-              : SizedBox.shrink(),
-          title: Text(localizations.previewTitle),
-          actions: [
-            IconButton(
-                onPressed: onCancel,
-                icon: SvgPicture.asset('assets/icons/icon-close.svg'))
-          ],
-        ),
-        body: AsyncLoadingStatus(
-          controller.loadingController,
-          child: Hero(
-            tag: nodeId,
-            child: (data != null && documentType != null)
-                ? //
-                _DocumentWidget(data: data, documentType: documentType)
-                : //
-                SizedBox.shrink(),
+      appBar: AppBar(
+        leading: data != null
+            ? IconButton(
+                onPressed: () => shareFile(context.sharePositionOrigin),
+                icon: SvgPicture.asset('assets/icons/icon-share.svg'),
+              )
+            : SizedBox.shrink(),
+        title: Text(localizations.previewTitle),
+        actions: [
+          IconButton(
+            onPressed: onCancel,
+            icon: SvgPicture.asset('assets/icons/icon-close.svg'),
           ),
-        ));
+        ],
+      ),
+      body: AsyncLoadingStatus(
+        controller.loadingController,
+        child: Hero(
+          tag: nodeId,
+          child: (data != null && documentType != null)
+              ? //
+                _DocumentWidget(data: data, documentType: documentType)
+              : //
+                SizedBox.shrink(),
+        ),
+      ),
+    );
   }
 }
 

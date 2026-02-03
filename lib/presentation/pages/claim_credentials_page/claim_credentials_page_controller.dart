@@ -20,11 +20,13 @@ part 'claim_credentials_page_controller.g.dart';
 class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
   ClaimCredentialsPageController() : super();
 
-  final loadingController =
-      AsyncLoadingController.provider('loadingController');
+  final loadingController = AsyncLoadingController.provider(
+    'loadingController',
+  );
   final savingController = AsyncLoadingController.provider('savingController');
-  final validatingController =
-      AsyncLoadingController.provider('validatingController');
+  final validatingController = AsyncLoadingController.provider(
+    'validatingController',
+  );
 
   @override
   ClaimCredentialsPageState build({required String profileId}) {
@@ -32,15 +34,19 @@ class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
 
     final provider = claimCredentialServiceProvider;
 
-    ref.listen(provider.select((state) => state.claimContext),
-        (previous, next) {
+    ref.listen(provider.select((state) => state.claimContext), (
+      previous,
+      next,
+    ) {
       Future(() {
         state = state.copyWith(claimContext: next);
       });
     }, fireImmediately: true);
 
-    ref.listen(provider.select((state) => state.verifiableCredential),
-        (previous, next) {
+    ref.listen(provider.select((state) => state.verifiableCredential), (
+      previous,
+      next,
+    ) {
       Future(() {
         state = state.copyWith(verifiableCredential: next);
       });
@@ -62,18 +68,11 @@ class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
     try {
       await ref
           .read(claimCredentialServiceProvider.notifier)
-          .getCredentialOffer(
-            uri,
-            profileIndex + 1,
-          );
+          .getCredentialOffer(uri, profileIndex + 1);
 
-      state = state.copyWith(
-        fetchStatus: CredentialOfferFetchStatus.success,
-      );
+      state = state.copyWith(fetchStatus: CredentialOfferFetchStatus.success);
     } catch (e) {
-      state = state.copyWith(
-        fetchStatus: CredentialOfferFetchStatus.error,
-      );
+      state = state.copyWith(fetchStatus: CredentialOfferFetchStatus.error);
     }
   }
 
@@ -84,19 +83,22 @@ class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
     final verifiableCredential = state.verifiableCredential;
     if (verifiableCredential == null) {
       Error.throwWithStackTrace(
-          AppException(
-            message: 'Cannot save credential as none was provided',
-            type: AppExceptionType.missingVerifiableCredentials,
-          ),
-          StackTrace.current);
+        AppException(
+          message: 'Cannot save credential as none was provided',
+          type: AppExceptionType.missingVerifiableCredentials,
+        ),
+        StackTrace.current,
+      );
     }
 
-    ref.read(savingController.notifier).start(() async => await ref
-        .read(credentialServiceProvider(profileId: profileId).notifier)
-        .saveCredential(
-          verifiableCredential: verifiableCredential,
-        )
-        .then((_) => onSuccess()));
+    ref
+        .read(savingController.notifier)
+        .start(
+          () async => await ref
+              .read(credentialServiceProvider(profileId: profileId).notifier)
+              .saveCredential(verifiableCredential: verifiableCredential)
+              .then((_) => onSuccess()),
+        );
   }
 
   Future<String> getProfileDid() async {
@@ -121,11 +123,7 @@ class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
 
   void goToMyCredentialPage() {
     final navigation = ref.read(navigationServiceProvider);
-    navigation.go(
-      ProfilesRoutePath.profileMyCredentials(
-        profileId,
-      ),
-    );
+    navigation.go(ProfilesRoutePath.profileMyCredentials(profileId));
   }
 
   // Private helper methods

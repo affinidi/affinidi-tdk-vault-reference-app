@@ -15,26 +15,14 @@ class AppTheme {
     ),
     textTheme: const TextTheme(
       // Caption styles
-      labelSmall: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.normal,
-      ),
+      labelSmall: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
 
       // Body styles
-      bodySmall: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.normal,
-      ),
+      bodySmall: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
 
-      bodyMedium: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.normal,
-      ),
+      bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
 
-      bodyLarge: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-      ),
+      bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
 
       // Button styles
       labelLarge: TextStyle(
@@ -45,10 +33,7 @@ class AppTheme {
       ),
 
       // Heading styles
-      titleSmall: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w700,
-      ),
+      titleSmall: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
 
       titleMedium: TextStyle(
         fontSize: 20,

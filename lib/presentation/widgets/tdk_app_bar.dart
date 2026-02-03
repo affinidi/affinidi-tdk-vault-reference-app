@@ -39,10 +39,7 @@ class TdkAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1.0),
-        child: Container(
-          height: 1.0,
-          color: AppColorScheme.divider,
-        ),
+        child: Container(height: 1.0, color: AppColorScheme.divider),
       ),
     );
   }

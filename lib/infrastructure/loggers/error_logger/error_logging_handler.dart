@@ -15,9 +15,7 @@ class ErrorLoggingHandler {
 
   static final ErrorLoggingHandler instance = _instance;
 
-  List<ErrorLogger> loggers = [
-    if (kDebugMode) ConsoleLogger(),
-  ];
+  List<ErrorLogger> loggers = [if (kDebugMode) ConsoleLogger()];
 
   void logError(
     error,
@@ -60,5 +58,5 @@ class ErrorLoggingHandler {
 
 AutoDisposeProvider<ErrorLoggingHandler> errorLoggingProvider =
     Provider.autoDispose<ErrorLoggingHandler>((ref) {
-  return ErrorLoggingHandler.instance;
-}, name: 'errorLoggingProvider');
+      return ErrorLoggingHandler.instance;
+    }, name: 'errorLoggingProvider');

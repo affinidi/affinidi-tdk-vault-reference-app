@@ -5,11 +5,8 @@ part 'error_details.g.dart';
 
 @Freezed(fromJson: true, toJson: false)
 class ErrorDetails with _$ErrorDetails {
-  factory ErrorDetails({
-    String? issue,
-    String? field,
-    String? value,
-  }) = _ErrorDetails;
+  factory ErrorDetails({String? issue, String? field, String? value}) =
+      _ErrorDetails;
 
   factory ErrorDetails.fromJson(Map<String, dynamic> json) =>
       _$ErrorDetailsFromJson(json);

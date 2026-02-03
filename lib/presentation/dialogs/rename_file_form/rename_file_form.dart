@@ -30,18 +30,17 @@ class RenameFileForm extends ConsumerWidget {
     String? parentNodeId,
     required String profileId,
     bool isSharedProfile = false,
-  }) =>
-      showModalBottomSheet(
-        useRootNavigator: true,
-        isScrollControlled: true,
-        context: context,
-        builder: (context) => RenameFileForm(
-          file: item,
-          parentNodeId: parentNodeId,
-          profileId: profileId,
-          isSharedProfile: isSharedProfile,
-        ),
-      );
+  }) => showModalBottomSheet(
+    useRootNavigator: true,
+    isScrollControlled: true,
+    context: context,
+    builder: (context) => RenameFileForm(
+      file: item,
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+      isSharedProfile: isSharedProfile,
+    ),
+  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -110,9 +109,10 @@ class RenameFileForm extends ConsumerWidget {
                   labelText: localizations.fileName,
                   hintText: localizations.fileName,
                   suffix: _ClearButton(
-                      file: file,
-                      parentNodeId: parentNodeId,
-                      profileId: profileId),
+                    file: file,
+                    parentNodeId: parentNodeId,
+                    profileId: profileId,
+                  ),
                 ),
                 onSubmitted: (value) {
                   if (value.trim().isNotEmpty) {
@@ -143,21 +143,23 @@ class _ClearButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = renameFileFormControllerProvider(
-        item: file, parentNodeId: parentNodeId, profileId: profileId);
+      item: file,
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
     final controller = ref.read(provider.notifier);
-    final isRenameButtonEnabled =
-        ref.watch(provider.select((state) => state.isRenameButtonEnabled));
+    final isRenameButtonEnabled = ref.watch(
+      provider.select((state) => state.isRenameButtonEnabled),
+    );
 
     return isRenameButtonEnabled
         ? GestureDetector(
             onTap: () => controller.clearName(),
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizing.paddingSmall),
-              child: Icon(
-                Icons.cancel_rounded,
-                size: AppSizing.iconXSmall,
+                horizontal: AppSizing.paddingSmall,
               ),
+              child: Icon(Icons.cancel_rounded, size: AppSizing.iconXSmall),
             ),
           )
         : SizedBox.shrink();
@@ -181,10 +183,14 @@ class _RenameButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final provider = renameFileFormControllerProvider(
-        item: file, parentNodeId: parentNodeId, profileId: profileId);
+      item: file,
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
 
-    final isRenameButtonEnabled =
-        ref.watch(provider.select((state) => state.isRenameButtonEnabled));
+    final isRenameButtonEnabled = ref.watch(
+      provider.select((state) => state.isRenameButtonEnabled),
+    );
 
     return FilledButton(
       onPressed: isRenameButtonEnabled ? () => onRenameFile() : null,

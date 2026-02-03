@@ -12,7 +12,8 @@ part of 'file_preview_page_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$FilePreviewPageState {
@@ -28,16 +29,19 @@ mixin _$FilePreviewPageState {
 
 /// @nodoc
 abstract class $FilePreviewPageStateCopyWith<$Res> {
-  factory $FilePreviewPageStateCopyWith(FilePreviewPageState value,
-          $Res Function(FilePreviewPageState) then) =
-      _$FilePreviewPageStateCopyWithImpl<$Res, FilePreviewPageState>;
+  factory $FilePreviewPageStateCopyWith(
+    FilePreviewPageState value,
+    $Res Function(FilePreviewPageState) then,
+  ) = _$FilePreviewPageStateCopyWithImpl<$Res, FilePreviewPageState>;
   @useResult
   $Res call({Uint8List? data, DocumentType? documentType});
 }
 
 /// @nodoc
-class _$FilePreviewPageStateCopyWithImpl<$Res,
-        $Val extends FilePreviewPageState>
+class _$FilePreviewPageStateCopyWithImpl<
+  $Res,
+  $Val extends FilePreviewPageState
+>
     implements $FilePreviewPageStateCopyWith<$Res> {
   _$FilePreviewPageStateCopyWithImpl(this._value, this._then);
 
@@ -50,29 +54,30 @@ class _$FilePreviewPageStateCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? data = freezed,
-    Object? documentType = freezed,
-  }) {
-    return _then(_value.copyWith(
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
-      documentType: freezed == documentType
-          ? _value.documentType
-          : documentType // ignore: cast_nullable_to_non_nullable
-              as DocumentType?,
-    ) as $Val);
+  $Res call({Object? data = freezed, Object? documentType = freezed}) {
+    return _then(
+      _value.copyWith(
+            data: freezed == data
+                ? _value.data
+                : data // ignore: cast_nullable_to_non_nullable
+                      as Uint8List?,
+            documentType: freezed == documentType
+                ? _value.documentType
+                : documentType // ignore: cast_nullable_to_non_nullable
+                      as DocumentType?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$FilePreviewPageStateImplCopyWith<$Res>
     implements $FilePreviewPageStateCopyWith<$Res> {
-  factory _$$FilePreviewPageStateImplCopyWith(_$FilePreviewPageStateImpl value,
-          $Res Function(_$FilePreviewPageStateImpl) then) =
-      __$$FilePreviewPageStateImplCopyWithImpl<$Res>;
+  factory _$$FilePreviewPageStateImplCopyWith(
+    _$FilePreviewPageStateImpl value,
+    $Res Function(_$FilePreviewPageStateImpl) then,
+  ) = __$$FilePreviewPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Uint8List? data, DocumentType? documentType});
@@ -82,28 +87,28 @@ abstract class _$$FilePreviewPageStateImplCopyWith<$Res>
 class __$$FilePreviewPageStateImplCopyWithImpl<$Res>
     extends _$FilePreviewPageStateCopyWithImpl<$Res, _$FilePreviewPageStateImpl>
     implements _$$FilePreviewPageStateImplCopyWith<$Res> {
-  __$$FilePreviewPageStateImplCopyWithImpl(_$FilePreviewPageStateImpl _value,
-      $Res Function(_$FilePreviewPageStateImpl) _then)
-      : super(_value, _then);
+  __$$FilePreviewPageStateImplCopyWithImpl(
+    _$FilePreviewPageStateImpl _value,
+    $Res Function(_$FilePreviewPageStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of FilePreviewPageState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? data = freezed,
-    Object? documentType = freezed,
-  }) {
-    return _then(_$FilePreviewPageStateImpl(
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
-      documentType: freezed == documentType
-          ? _value.documentType
-          : documentType // ignore: cast_nullable_to_non_nullable
-              as DocumentType?,
-    ));
+  $Res call({Object? data = freezed, Object? documentType = freezed}) {
+    return _then(
+      _$FilePreviewPageStateImpl(
+        data: freezed == data
+            ? _value.data
+            : data // ignore: cast_nullable_to_non_nullable
+                  as Uint8List?,
+        documentType: freezed == documentType
+            ? _value.documentType
+            : documentType // ignore: cast_nullable_to_non_nullable
+                  as DocumentType?,
+      ),
+    );
   }
 }
 
@@ -145,7 +150,10 @@ class _$FilePreviewPageStateImpl
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(data), documentType);
+    runtimeType,
+    const DeepCollectionEquality().hash(data),
+    documentType,
+  );
 
   /// Create a copy of FilePreviewPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -153,15 +161,18 @@ class _$FilePreviewPageStateImpl
   @override
   @pragma('vm:prefer-inline')
   _$$FilePreviewPageStateImplCopyWith<_$FilePreviewPageStateImpl>
-      get copyWith =>
-          __$$FilePreviewPageStateImplCopyWithImpl<_$FilePreviewPageStateImpl>(
-              this, _$identity);
+  get copyWith =>
+      __$$FilePreviewPageStateImplCopyWithImpl<_$FilePreviewPageStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _FilePreviewPageState implements FilePreviewPageState {
-  factory _FilePreviewPageState(
-      {final Uint8List? data,
-      final DocumentType? documentType}) = _$FilePreviewPageStateImpl;
+  factory _FilePreviewPageState({
+    final Uint8List? data,
+    final DocumentType? documentType,
+  }) = _$FilePreviewPageStateImpl;
 
   @override
   Uint8List? get data;
@@ -173,5 +184,5 @@ abstract class _FilePreviewPageState implements FilePreviewPageState {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FilePreviewPageStateImplCopyWith<_$FilePreviewPageStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

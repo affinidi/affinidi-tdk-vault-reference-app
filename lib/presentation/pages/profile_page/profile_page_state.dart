@@ -5,7 +5,5 @@ part 'profile_page_state.freezed.dart';
 
 @Freezed(toJson: false, fromJson: false)
 class ProfilePageState with _$ProfilePageState {
-  factory ProfilePageState({
-    Profile? profile,
-  }) = _ProfilePageState;
+  factory ProfilePageState({Profile? profile}) = _ProfilePageState;
 }

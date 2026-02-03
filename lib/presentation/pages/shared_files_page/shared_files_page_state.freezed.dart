@@ -12,7 +12,8 @@ part of 'shared_files_page_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$SharedFilesPageState {
@@ -28,16 +29,19 @@ mixin _$SharedFilesPageState {
 
 /// @nodoc
 abstract class $SharedFilesPageStateCopyWith<$Res> {
-  factory $SharedFilesPageStateCopyWith(SharedFilesPageState value,
-          $Res Function(SharedFilesPageState) then) =
-      _$SharedFilesPageStateCopyWithImpl<$Res, SharedFilesPageState>;
+  factory $SharedFilesPageStateCopyWith(
+    SharedFilesPageState value,
+    $Res Function(SharedFilesPageState) then,
+  ) = _$SharedFilesPageStateCopyWithImpl<$Res, SharedFilesPageState>;
   @useResult
   $Res call({bool isLoading, List<Item>? items});
 }
 
 /// @nodoc
-class _$SharedFilesPageStateCopyWithImpl<$Res,
-        $Val extends SharedFilesPageState>
+class _$SharedFilesPageStateCopyWithImpl<
+  $Res,
+  $Val extends SharedFilesPageState
+>
     implements $SharedFilesPageStateCopyWith<$Res> {
   _$SharedFilesPageStateCopyWithImpl(this._value, this._then);
 
@@ -50,29 +54,30 @@ class _$SharedFilesPageStateCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? isLoading = null,
-    Object? items = freezed,
-  }) {
-    return _then(_value.copyWith(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      items: freezed == items
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<Item>?,
-    ) as $Val);
+  $Res call({Object? isLoading = null, Object? items = freezed}) {
+    return _then(
+      _value.copyWith(
+            isLoading: null == isLoading
+                ? _value.isLoading
+                : isLoading // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            items: freezed == items
+                ? _value.items
+                : items // ignore: cast_nullable_to_non_nullable
+                      as List<Item>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$SharedFilesPageStateImplCopyWith<$Res>
     implements $SharedFilesPageStateCopyWith<$Res> {
-  factory _$$SharedFilesPageStateImplCopyWith(_$SharedFilesPageStateImpl value,
-          $Res Function(_$SharedFilesPageStateImpl) then) =
-      __$$SharedFilesPageStateImplCopyWithImpl<$Res>;
+  factory _$$SharedFilesPageStateImplCopyWith(
+    _$SharedFilesPageStateImpl value,
+    $Res Function(_$SharedFilesPageStateImpl) then,
+  ) = __$$SharedFilesPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool isLoading, List<Item>? items});
@@ -82,28 +87,28 @@ abstract class _$$SharedFilesPageStateImplCopyWith<$Res>
 class __$$SharedFilesPageStateImplCopyWithImpl<$Res>
     extends _$SharedFilesPageStateCopyWithImpl<$Res, _$SharedFilesPageStateImpl>
     implements _$$SharedFilesPageStateImplCopyWith<$Res> {
-  __$$SharedFilesPageStateImplCopyWithImpl(_$SharedFilesPageStateImpl _value,
-      $Res Function(_$SharedFilesPageStateImpl) _then)
-      : super(_value, _then);
+  __$$SharedFilesPageStateImplCopyWithImpl(
+    _$SharedFilesPageStateImpl _value,
+    $Res Function(_$SharedFilesPageStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of SharedFilesPageState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? isLoading = null,
-    Object? items = freezed,
-  }) {
-    return _then(_$SharedFilesPageStateImpl(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      items: freezed == items
-          ? _value._items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<Item>?,
-    ));
+  $Res call({Object? isLoading = null, Object? items = freezed}) {
+    return _then(
+      _$SharedFilesPageStateImpl(
+        isLoading: null == isLoading
+            ? _value.isLoading
+            : isLoading // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        items: freezed == items
+            ? _value._items
+            : items // ignore: cast_nullable_to_non_nullable
+                  as List<Item>?,
+      ),
+    );
   }
 }
 
@@ -111,7 +116,7 @@ class __$$SharedFilesPageStateImplCopyWithImpl<$Res>
 
 class _$SharedFilesPageStateImpl implements _SharedFilesPageState {
   _$SharedFilesPageStateImpl({this.isLoading = false, final List<Item>? items})
-      : _items = items;
+    : _items = items;
 
   @override
   @JsonKey()
@@ -143,7 +148,10 @@ class _$SharedFilesPageStateImpl implements _SharedFilesPageState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, isLoading, const DeepCollectionEquality().hash(_items));
+    runtimeType,
+    isLoading,
+    const DeepCollectionEquality().hash(_items),
+  );
 
   /// Create a copy of SharedFilesPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -151,15 +159,18 @@ class _$SharedFilesPageStateImpl implements _SharedFilesPageState {
   @override
   @pragma('vm:prefer-inline')
   _$$SharedFilesPageStateImplCopyWith<_$SharedFilesPageStateImpl>
-      get copyWith =>
-          __$$SharedFilesPageStateImplCopyWithImpl<_$SharedFilesPageStateImpl>(
-              this, _$identity);
+  get copyWith =>
+      __$$SharedFilesPageStateImplCopyWithImpl<_$SharedFilesPageStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _SharedFilesPageState implements SharedFilesPageState {
-  factory _SharedFilesPageState(
-      {final bool isLoading,
-      final List<Item>? items}) = _$SharedFilesPageStateImpl;
+  factory _SharedFilesPageState({
+    final bool isLoading,
+    final List<Item>? items,
+  }) = _$SharedFilesPageStateImpl;
 
   @override
   bool get isLoading;
@@ -171,5 +182,5 @@ abstract class _SharedFilesPageState implements SharedFilesPageState {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SharedFilesPageStateImplCopyWith<_$SharedFilesPageStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

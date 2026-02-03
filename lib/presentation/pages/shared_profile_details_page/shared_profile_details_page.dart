@@ -41,25 +41,21 @@ class SharedProfileDetailsPage extends HookConsumerWidget {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
-        context.go(ProfilesRoutePath.profileShared(
-          profileId,
-        ));
+        context.go(ProfilesRoutePath.profileShared(profileId));
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(localizations.sharedProfileDetails),
-          leading: BackButton(onPressed: () {
-            if (context.mounted) {
-              navigation.pop();
-            }
-          }),
+          leading: BackButton(
+            onPressed: () {
+              if (context.mounted) {
+                navigation.pop();
+              }
+            },
+          ),
         ),
-        body: Column(
-          children: [
-            Expanded(child: navigationShell),
-          ],
-        ),
+        body: Column(children: [Expanded(child: navigationShell)]),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: navigationShell.currentIndex,
           onTap: (index) => navigationShell.goBranch(index),
@@ -78,10 +74,7 @@ class SharedProfileDetailsPage extends HookConsumerWidget {
 }
 
 class _NavigationItem {
-  const _NavigationItem({
-    required this.localizedLabel,
-    required this.icon,
-  });
+  const _NavigationItem({required this.localizedLabel, required this.icon});
   final String localizedLabel;
   final IconData icon;
 }

@@ -23,20 +23,14 @@ class CustomErrorDialog extends ConsumerWidget {
   });
 
   @override
-  Widget build(
-    BuildContext context,
-    WidgetRef ref,
-  ) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final navigation = ref.read(navigationServiceProvider);
 
     return AlertDialog(
       title: Text(title),
       content: Text(message),
       actions: [
-        TextButton(
-          onPressed: () => navigation.pop(),
-          child: Text(buttonText),
-        ),
+        TextButton(onPressed: () => navigation.pop(), child: Text(buttonText)),
       ],
     );
   }
@@ -82,8 +76,9 @@ class _DeleteProfileConfirmationState
   }
 
   Future<void> delete() async {
-    final controller =
-        ref.read(deleteProfileConfirmationControllerProvider.notifier);
+    final controller = ref.read(
+      deleteProfileConfirmationControllerProvider.notifier,
+    );
     controller.profileId = widget.profileId;
     await controller.delete();
     final state = ref.read(deleteProfileConfirmationControllerProvider);
@@ -104,7 +99,8 @@ class _DeleteProfileConfirmationState
       decoration: const BoxDecoration(
         color: AppColorScheme.backgroundWhite,
         borderRadius: BorderRadius.vertical(
-            top: Radius.circular(AppSizing.paddingMedium)),
+          top: Radius.circular(AppSizing.paddingMedium),
+        ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -122,8 +118,10 @@ class _DeleteProfileConfirmationState
                 ),
                 const Spacer(),
                 IconButton(
-                  icon: const Icon(Icons.close,
-                      color: AppColorScheme.textPrimary),
+                  icon: const Icon(
+                    Icons.close,
+                    color: AppColorScheme.textPrimary,
+                  ),
                   onPressed: cancel,
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
@@ -139,8 +137,9 @@ class _DeleteProfileConfirmationState
             child: Text(
               isError
                   ? localizations.profileNotDeletedMessage
-                  : localizations
-                      .deleteProfileConfirmationMessage(widget.profileName),
+                  : localizations.deleteProfileConfirmationMessage(
+                      widget.profileName,
+                    ),
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
@@ -157,14 +156,14 @@ class _DeleteProfileConfirmationState
                     style: TextButton.styleFrom(
                       foregroundColor: AppColorScheme.textPrimary,
                       padding: const EdgeInsets.symmetric(
-                          vertical: AppSizing.paddingRegular),
+                        vertical: AppSizing.paddingRegular,
+                      ),
                     ),
                     child: Text(
                       isError ? '' : localizations.cancelActionText,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontWeight: FontWeight.w600),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
@@ -172,8 +171,9 @@ class _DeleteProfileConfirmationState
                 Expanded(
                   child: CodeSnippetWidget(
                     title: localizations.lblCSCreateProfile,
-                    codeLocations:
-                        CodeSnippetLocations.deleteProfileSnippets(context),
+                    codeLocations: CodeSnippetLocations.deleteProfileSnippets(
+                      context,
+                    ),
                   ),
                 ),
                 const SizedBox(width: AppSizing.paddingRegular),
@@ -182,8 +182,9 @@ class _DeleteProfileConfirmationState
                     height: AppSizing.iconXLarge,
                     decoration: BoxDecoration(
                       color: AppColorScheme.error,
-                      borderRadius:
-                          BorderRadius.circular(AppSizing.paddingSmall),
+                      borderRadius: BorderRadius.circular(
+                        AppSizing.paddingSmall,
+                      ),
                     ),
                     child: TextButton(
                       onPressed: isLoading
@@ -194,7 +195,8 @@ class _DeleteProfileConfirmationState
                       style: TextButton.styleFrom(
                         foregroundColor: AppColorScheme.backgroundWhite,
                         padding: const EdgeInsets.symmetric(
-                            vertical: AppSizing.paddingRegular),
+                          vertical: AppSizing.paddingRegular,
+                        ),
                       ),
                       child: isLoading
                           ? const SizedBox(
@@ -203,19 +205,19 @@ class _DeleteProfileConfirmationState
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                    AppColorScheme.backgroundWhite),
+                                  AppColorScheme.backgroundWhite,
+                                ),
                               ),
                             )
                           : Text(
                               isError
                                   ? localizations.gotItActionText
                                   : localizations.deleteActionText,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
+                              style: Theme.of(context).textTheme.bodySmall
                                   ?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColorScheme.backgroundWhite),
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColorScheme.backgroundWhite,
+                                  ),
                             ),
                     ),
                   ),

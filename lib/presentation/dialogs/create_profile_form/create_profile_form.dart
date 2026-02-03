@@ -19,19 +19,14 @@ import '../../widgets/code_snippet/code_snippet_locations.dart';
 import 'create_profile_form_controller.dart';
 
 class CreateProfileForm extends ConsumerWidget {
-  const CreateProfileForm({
-    super.key,
-  });
+  const CreateProfileForm({super.key});
 
-  static void show({
-    required BuildContext context,
-  }) =>
-      showModalBottomSheet(
-        useRootNavigator: true,
-        isScrollControlled: true,
-        context: context,
-        builder: (context) => CreateProfileForm(),
-      );
+  static void show({required BuildContext context}) => showModalBottomSheet(
+    useRootNavigator: true,
+    isScrollControlled: true,
+    context: context,
+    builder: (context) => CreateProfileForm(),
+  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -85,20 +80,23 @@ class CreateProfileForm extends ConsumerWidget {
       body: Column(
         children: [
           ModalAsyncLoadingStatus(
-              loadingMessage: localizations.createProfileLoadingMessage,
-              controller.loadingController),
+            loadingMessage: localizations.createProfileLoadingMessage,
+            controller.loadingController,
+          ),
           Column(
             spacing: AppSizing.paddingLarge,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _ProfileNameField(nameController: nameController),
               _ProfileDescriptionField(
-                  descriptionController: descriptionController),
+                descriptionController: descriptionController,
+              ),
               Consumer(
                 builder: (context, ref, child) {
                   final state = ref.watch(createProfileFormControllerProvider);
-                  final controller =
-                      ref.read(createProfileFormControllerProvider.notifier);
+                  final controller = ref.read(
+                    createProfileFormControllerProvider.notifier,
+                  );
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,12 +133,14 @@ class CreateProfileForm extends ConsumerWidget {
                       if (state.selectedProfileType == ProfileType.edge) ...[
                         const SizedBox(height: AppSizing.paddingSmall),
                         Container(
-                          padding:
-                              const EdgeInsets.all(AppSizing.paddingRegular),
+                          padding: const EdgeInsets.all(
+                            AppSizing.paddingRegular,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColorScheme.backgroundLight,
-                            borderRadius:
-                                BorderRadius.circular(AppSizing.paddingSmall),
+                            borderRadius: BorderRadius.circular(
+                              AppSizing.paddingSmall,
+                            ),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,13 +155,11 @@ class CreateProfileForm extends ConsumerWidget {
                                 child: Center(
                                   child: Text(
                                     'i',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
+                                    style: Theme.of(context).textTheme.bodySmall
                                         ?.copyWith(fontWeight: FontWeight.w600)
                                         .copyWith(
-                                            color:
-                                                AppColorScheme.backgroundWhite),
+                                          color: AppColorScheme.backgroundWhite,
+                                        ),
                                   ),
                                 ),
                               ),
@@ -200,7 +198,8 @@ class _ProfileNameField extends HookConsumerWidget {
     final localizations = AppLocalizations.of(context)!;
     final isNameFocused = useState(false);
     final hasName = ref.watch(
-        createProfileFormControllerProvider.select((state) => state.hasName));
+      createProfileFormControllerProvider.select((state) => state.hasName),
+    );
     final controller = ref.read(createProfileFormControllerProvider.notifier);
 
     return Column(
@@ -233,8 +232,9 @@ class _ProfileNameField extends HookConsumerWidget {
                     hintText: localizations.profileNamePlaceholder,
                     hintStyle: TextStyle(color: Colors.grey.shade400),
                     border: InputBorder.none,
-                    contentPadding:
-                        const EdgeInsets.all(AppSizing.paddingRegular),
+                    contentPadding: const EdgeInsets.all(
+                      AppSizing.paddingRegular,
+                    ),
                     suffixIcon: hasName
                         ? IconButton(
                             icon: const Icon(Icons.cancel_rounded),
@@ -261,8 +261,11 @@ class _ProfileDescriptionField extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final isDescriptionFocused = useState(false);
-    final hasDescription = ref.watch(createProfileFormControllerProvider
-        .select((state) => state.hasDescription));
+    final hasDescription = ref.watch(
+      createProfileFormControllerProvider.select(
+        (state) => state.hasDescription,
+      ),
+    );
     final controller = ref.read(createProfileFormControllerProvider.notifier);
 
     return Column(
@@ -296,8 +299,9 @@ class _ProfileDescriptionField extends HookConsumerWidget {
                     hintText: localizations.profileDescriptionPlaceholder,
                     hintStyle: TextStyle(color: Colors.grey.shade400),
                     border: InputBorder.none,
-                    contentPadding:
-                        const EdgeInsets.all(AppSizing.paddingRegular),
+                    contentPadding: const EdgeInsets.all(
+                      AppSizing.paddingRegular,
+                    ),
                     suffixIcon: hasDescription
                         ? IconButton(
                             icon: const Icon(Icons.cancel_rounded),
@@ -349,10 +353,7 @@ class _RadioTile extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text(
-                    label,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
+                  Text(label, style: Theme.of(context).textTheme.bodySmall),
                   if (icon != null) ...[
                     const SizedBox(width: AppSizing.paddingSmall),
                     SvgPicture.asset(
@@ -372,9 +373,7 @@ class _RadioTile extends StatelessWidget {
 }
 
 class _CreateProfileButton extends ConsumerWidget {
-  const _CreateProfileButton({
-    required this.onCreateProfile,
-  });
+  const _CreateProfileButton({required this.onCreateProfile});
 
   final void Function() onCreateProfile;
 
@@ -383,8 +382,9 @@ class _CreateProfileButton extends ConsumerWidget {
     final localizations = AppLocalizations.of(context)!;
     final provider = createProfileFormControllerProvider;
 
-    final isCreateProfileButtonEnabled = ref
-        .watch(provider.select((state) => state.isCreateProfileButtonEnabled));
+    final isCreateProfileButtonEnabled = ref.watch(
+      provider.select((state) => state.isCreateProfileButtonEnabled),
+    );
 
     return FilledButton(
       onPressed: isCreateProfileButtonEnabled ? () => onCreateProfile() : null,

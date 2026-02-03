@@ -12,7 +12,8 @@ part of 'create_profile_form_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$CreateProfileFormState {
@@ -29,17 +30,23 @@ mixin _$CreateProfileFormState {
 
 /// @nodoc
 abstract class $CreateProfileFormStateCopyWith<$Res> {
-  factory $CreateProfileFormStateCopyWith(CreateProfileFormState value,
-          $Res Function(CreateProfileFormState) then) =
-      _$CreateProfileFormStateCopyWithImpl<$Res, CreateProfileFormState>;
+  factory $CreateProfileFormStateCopyWith(
+    CreateProfileFormState value,
+    $Res Function(CreateProfileFormState) then,
+  ) = _$CreateProfileFormStateCopyWithImpl<$Res, CreateProfileFormState>;
   @useResult
-  $Res call(
-      {bool hasName, bool hasDescription, ProfileType selectedProfileType});
+  $Res call({
+    bool hasName,
+    bool hasDescription,
+    ProfileType selectedProfileType,
+  });
 }
 
 /// @nodoc
-class _$CreateProfileFormStateCopyWithImpl<$Res,
-        $Val extends CreateProfileFormState>
+class _$CreateProfileFormStateCopyWithImpl<
+  $Res,
+  $Val extends CreateProfileFormState
+>
     implements $CreateProfileFormStateCopyWith<$Res> {
   _$CreateProfileFormStateCopyWithImpl(this._value, this._then);
 
@@ -57,20 +64,23 @@ class _$CreateProfileFormStateCopyWithImpl<$Res,
     Object? hasDescription = null,
     Object? selectedProfileType = null,
   }) {
-    return _then(_value.copyWith(
-      hasName: null == hasName
-          ? _value.hasName
-          : hasName // ignore: cast_nullable_to_non_nullable
-              as bool,
-      hasDescription: null == hasDescription
-          ? _value.hasDescription
-          : hasDescription // ignore: cast_nullable_to_non_nullable
-              as bool,
-      selectedProfileType: null == selectedProfileType
-          ? _value.selectedProfileType
-          : selectedProfileType // ignore: cast_nullable_to_non_nullable
-              as ProfileType,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            hasName: null == hasName
+                ? _value.hasName
+                : hasName // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            hasDescription: null == hasDescription
+                ? _value.hasDescription
+                : hasDescription // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            selectedProfileType: null == selectedProfileType
+                ? _value.selectedProfileType
+                : selectedProfileType // ignore: cast_nullable_to_non_nullable
+                      as ProfileType,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -78,24 +88,27 @@ class _$CreateProfileFormStateCopyWithImpl<$Res,
 abstract class _$$CreateProfileFormStateImplCopyWith<$Res>
     implements $CreateProfileFormStateCopyWith<$Res> {
   factory _$$CreateProfileFormStateImplCopyWith(
-          _$CreateProfileFormStateImpl value,
-          $Res Function(_$CreateProfileFormStateImpl) then) =
-      __$$CreateProfileFormStateImplCopyWithImpl<$Res>;
+    _$CreateProfileFormStateImpl value,
+    $Res Function(_$CreateProfileFormStateImpl) then,
+  ) = __$$CreateProfileFormStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool hasName, bool hasDescription, ProfileType selectedProfileType});
+  $Res call({
+    bool hasName,
+    bool hasDescription,
+    ProfileType selectedProfileType,
+  });
 }
 
 /// @nodoc
 class __$$CreateProfileFormStateImplCopyWithImpl<$Res>
-    extends _$CreateProfileFormStateCopyWithImpl<$Res,
-        _$CreateProfileFormStateImpl>
+    extends
+        _$CreateProfileFormStateCopyWithImpl<$Res, _$CreateProfileFormStateImpl>
     implements _$$CreateProfileFormStateImplCopyWith<$Res> {
   __$$CreateProfileFormStateImplCopyWithImpl(
-      _$CreateProfileFormStateImpl _value,
-      $Res Function(_$CreateProfileFormStateImpl) _then)
-      : super(_value, _then);
+    _$CreateProfileFormStateImpl _value,
+    $Res Function(_$CreateProfileFormStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of CreateProfileFormState
   /// with the given fields replaced by the non-null parameter values.
@@ -106,20 +119,22 @@ class __$$CreateProfileFormStateImplCopyWithImpl<$Res>
     Object? hasDescription = null,
     Object? selectedProfileType = null,
   }) {
-    return _then(_$CreateProfileFormStateImpl(
-      hasName: null == hasName
-          ? _value.hasName
-          : hasName // ignore: cast_nullable_to_non_nullable
-              as bool,
-      hasDescription: null == hasDescription
-          ? _value.hasDescription
-          : hasDescription // ignore: cast_nullable_to_non_nullable
-              as bool,
-      selectedProfileType: null == selectedProfileType
-          ? _value.selectedProfileType
-          : selectedProfileType // ignore: cast_nullable_to_non_nullable
-              as ProfileType,
-    ));
+    return _then(
+      _$CreateProfileFormStateImpl(
+        hasName: null == hasName
+            ? _value.hasName
+            : hasName // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        hasDescription: null == hasDescription
+            ? _value.hasDescription
+            : hasDescription // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        selectedProfileType: null == selectedProfileType
+            ? _value.selectedProfileType
+            : selectedProfileType // ignore: cast_nullable_to_non_nullable
+                  as ProfileType,
+      ),
+    );
   }
 }
 
@@ -127,11 +142,11 @@ class __$$CreateProfileFormStateImplCopyWithImpl<$Res>
 
 class _$CreateProfileFormStateImpl extends _CreateProfileFormState
     with DiagnosticableTreeMixin {
-  _$CreateProfileFormStateImpl(
-      {this.hasName = false,
-      this.hasDescription = false,
-      this.selectedProfileType = ProfileType.affinidiCloud})
-      : super._();
+  _$CreateProfileFormStateImpl({
+    this.hasName = false,
+    this.hasDescription = false,
+    this.selectedProfileType = ProfileType.affinidiCloud,
+  }) : super._();
 
   @override
   @JsonKey()
@@ -180,15 +195,19 @@ class _$CreateProfileFormStateImpl extends _CreateProfileFormState
   @override
   @pragma('vm:prefer-inline')
   _$$CreateProfileFormStateImplCopyWith<_$CreateProfileFormStateImpl>
-      get copyWith => __$$CreateProfileFormStateImplCopyWithImpl<
-          _$CreateProfileFormStateImpl>(this, _$identity);
+  get copyWith =>
+      __$$CreateProfileFormStateImplCopyWithImpl<_$CreateProfileFormStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _CreateProfileFormState extends CreateProfileFormState {
-  factory _CreateProfileFormState(
-      {final bool hasName,
-      final bool hasDescription,
-      final ProfileType selectedProfileType}) = _$CreateProfileFormStateImpl;
+  factory _CreateProfileFormState({
+    final bool hasName,
+    final bool hasDescription,
+    final ProfileType selectedProfileType,
+  }) = _$CreateProfileFormStateImpl;
   _CreateProfileFormState._() : super._();
 
   @override
@@ -203,5 +222,5 @@ abstract class _CreateProfileFormState extends CreateProfileFormState {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreateProfileFormStateImplCopyWith<_$CreateProfileFormStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

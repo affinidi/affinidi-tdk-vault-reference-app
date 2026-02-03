@@ -15,8 +15,11 @@ import '../../widgets/code_snippet/code_snippet_locations.dart';
 import '../../../l10n/app_localizations.dart';
 
 class ProfilePage extends HookConsumerWidget {
-  const ProfilePage(
-      {super.key, required this.navigationShell, required this.profileId});
+  const ProfilePage({
+    super.key,
+    required this.navigationShell,
+    required this.profileId,
+  });
 
   final StatefulNavigationShell navigationShell;
   final String profileId;
@@ -38,10 +41,7 @@ class ProfilePage extends HookConsumerWidget {
           localizedLabel: localizations.myCredentials,
           icon: Icons.badge,
         ),
-        NavigationItem(
-          localizedLabel: localizations.shared,
-          icon: Icons.share,
-        ),
+        NavigationItem(localizedLabel: localizations.shared, icon: Icons.share),
       ],
       [localizations],
     );
@@ -51,14 +51,13 @@ class ProfilePage extends HookConsumerWidget {
       resizeToAvoidBottomInset: false,
       appBar: TdkAppBar(
         showBackButton: true,
-        onBackPressed: () => navigation.go(
-          ProfilesRoutePath.base,
-        ),
+        onBackPressed: () => navigation.go(ProfilesRoutePath.base),
         actions: [
           CodeSnippetWidget(
             title: localizations.lblCSViewVaultProfile,
-            codeLocations:
-                CodeSnippetLocations.viewVaultProfileSnippets(context),
+            codeLocations: CodeSnippetLocations.viewVaultProfileSnippets(
+              context,
+            ),
           ),
         ],
       ),
@@ -91,10 +90,7 @@ class ProfilePage extends HookConsumerWidget {
 }
 
 class NavigationItem {
-  const NavigationItem({
-    required this.localizedLabel,
-    required this.icon,
-  });
+  const NavigationItem({required this.localizedLabel, required this.icon});
   final String localizedLabel;
   final IconData icon;
 }

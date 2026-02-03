@@ -100,23 +100,22 @@ class DeleteFileFormControllerProvider
     String? parentNodeId,
     required String profileId,
   }) : this._internal(
-          () => DeleteFileFormController()
-            ..file = file
-            ..parentNodeId = parentNodeId
-            ..profileId = profileId,
-          from: deleteFileFormControllerProvider,
-          name: r'deleteFileFormControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$deleteFileFormControllerHash,
-          dependencies: DeleteFileFormControllerFamily._dependencies,
-          allTransitiveDependencies:
-              DeleteFileFormControllerFamily._allTransitiveDependencies,
-          file: file,
-          parentNodeId: parentNodeId,
-          profileId: profileId,
-        );
+         () => DeleteFileFormController()
+           ..file = file
+           ..parentNodeId = parentNodeId
+           ..profileId = profileId,
+         from: deleteFileFormControllerProvider,
+         name: r'deleteFileFormControllerProvider',
+         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+             ? null
+             : _$deleteFileFormControllerHash,
+         dependencies: DeleteFileFormControllerFamily._dependencies,
+         allTransitiveDependencies:
+             DeleteFileFormControllerFamily._allTransitiveDependencies,
+         file: file,
+         parentNodeId: parentNodeId,
+         profileId: profileId,
+       );
 
   DeleteFileFormControllerProvider._internal(
     super._createNotifier, {
@@ -135,9 +134,7 @@ class DeleteFileFormControllerProvider
   final String profileId;
 
   @override
-  void runNotifierBuild(
-    covariant DeleteFileFormController notifier,
-  ) {
+  void runNotifierBuild(covariant DeleteFileFormController notifier) {
     return notifier.build(
       file: file,
       parentNodeId: parentNodeId,
@@ -168,7 +165,7 @@ class DeleteFileFormControllerProvider
 
   @override
   AutoDisposeNotifierProviderElement<DeleteFileFormController, void>
-      createElement() {
+  createElement() {
     return _DeleteFileFormControllerProviderElement(this);
   }
 
@@ -218,5 +215,6 @@ class _DeleteFileFormControllerProviderElement
   String get profileId =>
       (origin as DeleteFileFormControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

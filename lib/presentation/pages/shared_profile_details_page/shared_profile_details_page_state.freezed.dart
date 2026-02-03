@@ -12,7 +12,8 @@ part of 'shared_profile_details_page_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$SharedProfileDetailsPageState {
@@ -23,23 +24,28 @@ mixin _$SharedProfileDetailsPageState {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   $SharedProfileDetailsPageStateCopyWith<SharedProfileDetailsPageState>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SharedProfileDetailsPageStateCopyWith<$Res> {
   factory $SharedProfileDetailsPageStateCopyWith(
-          SharedProfileDetailsPageState value,
-          $Res Function(SharedProfileDetailsPageState) then) =
-      _$SharedProfileDetailsPageStateCopyWithImpl<$Res,
-          SharedProfileDetailsPageState>;
+    SharedProfileDetailsPageState value,
+    $Res Function(SharedProfileDetailsPageState) then,
+  ) =
+      _$SharedProfileDetailsPageStateCopyWithImpl<
+        $Res,
+        SharedProfileDetailsPageState
+      >;
   @useResult
   $Res call({bool isLoading, List<Item>? items});
 }
 
 /// @nodoc
-class _$SharedProfileDetailsPageStateCopyWithImpl<$Res,
-        $Val extends SharedProfileDetailsPageState>
+class _$SharedProfileDetailsPageStateCopyWithImpl<
+  $Res,
+  $Val extends SharedProfileDetailsPageState
+>
     implements $SharedProfileDetailsPageStateCopyWith<$Res> {
   _$SharedProfileDetailsPageStateCopyWithImpl(this._value, this._then);
 
@@ -52,20 +58,20 @@ class _$SharedProfileDetailsPageStateCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? isLoading = null,
-    Object? items = freezed,
-  }) {
-    return _then(_value.copyWith(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      items: freezed == items
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<Item>?,
-    ) as $Val);
+  $Res call({Object? isLoading = null, Object? items = freezed}) {
+    return _then(
+      _value.copyWith(
+            isLoading: null == isLoading
+                ? _value.isLoading
+                : isLoading // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            items: freezed == items
+                ? _value.items
+                : items // ignore: cast_nullable_to_non_nullable
+                      as List<Item>?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -73,9 +79,9 @@ class _$SharedProfileDetailsPageStateCopyWithImpl<$Res,
 abstract class _$$SharedProfileDetailsPageStateImplCopyWith<$Res>
     implements $SharedProfileDetailsPageStateCopyWith<$Res> {
   factory _$$SharedProfileDetailsPageStateImplCopyWith(
-          _$SharedProfileDetailsPageStateImpl value,
-          $Res Function(_$SharedProfileDetailsPageStateImpl) then) =
-      __$$SharedProfileDetailsPageStateImplCopyWithImpl<$Res>;
+    _$SharedProfileDetailsPageStateImpl value,
+    $Res Function(_$SharedProfileDetailsPageStateImpl) then,
+  ) = __$$SharedProfileDetailsPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool isLoading, List<Item>? items});
@@ -83,32 +89,34 @@ abstract class _$$SharedProfileDetailsPageStateImplCopyWith<$Res>
 
 /// @nodoc
 class __$$SharedProfileDetailsPageStateImplCopyWithImpl<$Res>
-    extends _$SharedProfileDetailsPageStateCopyWithImpl<$Res,
-        _$SharedProfileDetailsPageStateImpl>
+    extends
+        _$SharedProfileDetailsPageStateCopyWithImpl<
+          $Res,
+          _$SharedProfileDetailsPageStateImpl
+        >
     implements _$$SharedProfileDetailsPageStateImplCopyWith<$Res> {
   __$$SharedProfileDetailsPageStateImplCopyWithImpl(
-      _$SharedProfileDetailsPageStateImpl _value,
-      $Res Function(_$SharedProfileDetailsPageStateImpl) _then)
-      : super(_value, _then);
+    _$SharedProfileDetailsPageStateImpl _value,
+    $Res Function(_$SharedProfileDetailsPageStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of SharedProfileDetailsPageState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? isLoading = null,
-    Object? items = freezed,
-  }) {
-    return _then(_$SharedProfileDetailsPageStateImpl(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      items: freezed == items
-          ? _value._items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<Item>?,
-    ));
+  $Res call({Object? isLoading = null, Object? items = freezed}) {
+    return _then(
+      _$SharedProfileDetailsPageStateImpl(
+        isLoading: null == isLoading
+            ? _value.isLoading
+            : isLoading // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        items: freezed == items
+            ? _value._items
+            : items // ignore: cast_nullable_to_non_nullable
+                  as List<Item>?,
+      ),
+    );
   }
 }
 
@@ -116,9 +124,10 @@ class __$$SharedProfileDetailsPageStateImplCopyWithImpl<$Res>
 
 class _$SharedProfileDetailsPageStateImpl
     implements _SharedProfileDetailsPageState {
-  _$SharedProfileDetailsPageStateImpl(
-      {this.isLoading = false, final List<Item>? items})
-      : _items = items;
+  _$SharedProfileDetailsPageStateImpl({
+    this.isLoading = false,
+    final List<Item>? items,
+  }) : _items = items;
 
   @override
   @JsonKey()
@@ -150,7 +159,10 @@ class _$SharedProfileDetailsPageStateImpl
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, isLoading, const DeepCollectionEquality().hash(_items));
+    runtimeType,
+    isLoading,
+    const DeepCollectionEquality().hash(_items),
+  );
 
   /// Create a copy of SharedProfileDetailsPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -158,16 +170,20 @@ class _$SharedProfileDetailsPageStateImpl
   @override
   @pragma('vm:prefer-inline')
   _$$SharedProfileDetailsPageStateImplCopyWith<
-          _$SharedProfileDetailsPageStateImpl>
-      get copyWith => __$$SharedProfileDetailsPageStateImplCopyWithImpl<
-          _$SharedProfileDetailsPageStateImpl>(this, _$identity);
+    _$SharedProfileDetailsPageStateImpl
+  >
+  get copyWith =>
+      __$$SharedProfileDetailsPageStateImplCopyWithImpl<
+        _$SharedProfileDetailsPageStateImpl
+      >(this, _$identity);
 }
 
 abstract class _SharedProfileDetailsPageState
     implements SharedProfileDetailsPageState {
-  factory _SharedProfileDetailsPageState(
-      {final bool isLoading,
-      final List<Item>? items}) = _$SharedProfileDetailsPageStateImpl;
+  factory _SharedProfileDetailsPageState({
+    final bool isLoading,
+    final List<Item>? items,
+  }) = _$SharedProfileDetailsPageStateImpl;
 
   @override
   bool get isLoading;
@@ -179,6 +195,7 @@ abstract class _SharedProfileDetailsPageState
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SharedProfileDetailsPageStateImplCopyWith<
-          _$SharedProfileDetailsPageStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+    _$SharedProfileDetailsPageStateImpl
+  >
+  get copyWith => throw _privateConstructorUsedError;
 }

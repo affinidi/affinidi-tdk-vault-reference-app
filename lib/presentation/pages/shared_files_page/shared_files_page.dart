@@ -36,7 +36,8 @@ class SharedFilesPage extends HookConsumerWidget {
     final currentFolderId = useState<String?>(parentNodeId);
 
     final provider = sharedFilesPageControllerProvider(
-      parentNodeId: currentFolderId.value ??
+      parentNodeId:
+          currentFolderId.value ??
           (GoRouterState.of(context).uri.queryParameters['folder']),
       profileId: profileId,
     );
@@ -45,25 +46,28 @@ class SharedFilesPage extends HookConsumerWidget {
 
     final filesExplorerBreadcrumbProvider =
         filesExplorerBreadcrumbControllerProvider('SharedFilesPage');
-    final breadcrumbController =
-        ref.read(filesExplorerBreadcrumbProvider.notifier);
+    final breadcrumbController = ref.read(
+      filesExplorerBreadcrumbProvider.notifier,
+    );
 
     useEffect(() {
       final stack = ref.read(filesExplorerBreadcrumbProvider);
 
       if (currentFolderId.value != null && stack.isEmpty) {
-        final items = ref.read(sharedFilesPageControllerProvider(
-          parentNodeId: null,
-          profileId: profileId,
-        ).select((state) => state.items));
+        final items = ref.read(
+          sharedFilesPageControllerProvider(
+            parentNodeId: null,
+            profileId: profileId,
+          ).select((state) => state.items),
+        );
 
         String? folderName;
         if (items != null) {
           Folder? folder;
           try {
-            folder = items
-                .whereType<Folder>()
-                .firstWhere((f) => f.id == currentFolderId.value);
+            folder = items.whereType<Folder>().firstWhere(
+              (f) => f.id == currentFolderId.value,
+            );
           } catch (_) {
             folder = null;
           }
@@ -73,7 +77,9 @@ class SharedFilesPage extends HookConsumerWidget {
         folderName ??= 'Folder';
 
         breadcrumbController.push(
-            title: folderName, id: currentFolderId.value!);
+          title: folderName,
+          id: currentFolderId.value!,
+        );
       }
       return null;
     }, [currentFolderId.value]);
@@ -113,10 +119,11 @@ class SharedFilesPage extends HookConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(
-                  AppSizing.paddingSmall,
-                  AppSizing.paddingMedium,
-                  AppSizing.paddingSmall,
-                  AppSizing.paddingSmall),
+                AppSizing.paddingSmall,
+                AppSizing.paddingMedium,
+                AppSizing.paddingSmall,
+                AppSizing.paddingSmall,
+              ),
               child: FilesExplorerNavigation(
                 onCreateFolderPressed: showCreateFolderDialog,
                 onUploadFilePressed: showFilePicker,
@@ -127,9 +134,7 @@ class SharedFilesPage extends HookConsumerWidget {
                       GoRouterState.of(context).pathParameters['id'] ?? '';
 
                   if (folderId.isNotEmpty) {
-                    breadcrumbController.popUntil(
-                      id: folderId,
-                    );
+                    breadcrumbController.popUntil(id: folderId);
 
                     navigation.pushReplacement(
                       ProfilesRoutePath.profileSharedProfileDetailsFolderPath(
@@ -142,18 +147,20 @@ class SharedFilesPage extends HookConsumerWidget {
                   } else {
                     breadcrumbController.clear();
                     navigation.pushReplacement(
-                        ProfilesRoutePath.profileSharedProfileDetailsFiles(
-                      rootProfileId,
-                      profileId,
-                    ));
+                      ProfilesRoutePath.profileSharedProfileDetailsFiles(
+                        rootProfileId,
+                        profileId,
+                      ),
+                    );
                   }
                 },
               ),
             ),
             Expanded(
               child: Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: AppSizing.paddingRegular),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingRegular,
+                ),
                 child: AsyncLoadingStatus(
                   controller.loadingController,
                   child: FilesExplorer(
@@ -162,7 +169,9 @@ class SharedFilesPage extends HookConsumerWidget {
                     profileId: profileId,
                     onFolderTap: ({required folderName, required folderId}) {
                       breadcrumbController.push(
-                          title: folderName, id: folderId);
+                        title: folderName,
+                        id: folderId,
+                      );
                       currentFolderId.value = folderId;
                     },
                     onPreviewFile: ref.read(provider.notifier).previewFile,

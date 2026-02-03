@@ -93,31 +93,33 @@ class RenameFolderFormControllerFamily extends Family<RenameFolderFormState> {
 
 /// See also [RenameFolderFormController].
 class RenameFolderFormControllerProvider
-    extends AutoDisposeNotifierProviderImpl<RenameFolderFormController,
-        RenameFolderFormState> {
+    extends
+        AutoDisposeNotifierProviderImpl<
+          RenameFolderFormController,
+          RenameFolderFormState
+        > {
   /// See also [RenameFolderFormController].
   RenameFolderFormControllerProvider({
     required Item item,
     required String? parentNodeId,
     required String profileId,
   }) : this._internal(
-          () => RenameFolderFormController()
-            ..item = item
-            ..parentNodeId = parentNodeId
-            ..profileId = profileId,
-          from: renameFolderFormControllerProvider,
-          name: r'renameFolderFormControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$renameFolderFormControllerHash,
-          dependencies: RenameFolderFormControllerFamily._dependencies,
-          allTransitiveDependencies:
-              RenameFolderFormControllerFamily._allTransitiveDependencies,
-          item: item,
-          parentNodeId: parentNodeId,
-          profileId: profileId,
-        );
+         () => RenameFolderFormController()
+           ..item = item
+           ..parentNodeId = parentNodeId
+           ..profileId = profileId,
+         from: renameFolderFormControllerProvider,
+         name: r'renameFolderFormControllerProvider',
+         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+             ? null
+             : _$renameFolderFormControllerHash,
+         dependencies: RenameFolderFormControllerFamily._dependencies,
+         allTransitiveDependencies:
+             RenameFolderFormControllerFamily._allTransitiveDependencies,
+         item: item,
+         parentNodeId: parentNodeId,
+         profileId: profileId,
+       );
 
   RenameFolderFormControllerProvider._internal(
     super._createNotifier, {
@@ -168,8 +170,11 @@ class RenameFolderFormControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<RenameFolderFormController,
-      RenameFolderFormState> createElement() {
+  AutoDisposeNotifierProviderElement<
+    RenameFolderFormController,
+    RenameFolderFormState
+  >
+  createElement() {
     return _RenameFolderFormControllerProviderElement(this);
   }
 
@@ -207,8 +212,12 @@ mixin RenameFolderFormControllerRef
 }
 
 class _RenameFolderFormControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<RenameFolderFormController,
-        RenameFolderFormState> with RenameFolderFormControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          RenameFolderFormController,
+          RenameFolderFormState
+        >
+    with RenameFolderFormControllerRef {
   _RenameFolderFormControllerProviderElement(super.provider);
 
   @override
@@ -220,5 +229,6 @@ class _RenameFolderFormControllerProviderElement
   String get profileId =>
       (origin as RenameFolderFormControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

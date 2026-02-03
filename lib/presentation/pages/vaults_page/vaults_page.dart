@@ -49,20 +49,21 @@ class VaultsPage extends ConsumerWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                  left: AppSizing.paddingLarge,
-                  right: AppSizing.paddingLarge,
-                  top: AppSizing.paddingXXLarge,
-                  bottom: AppSizing.paddingRegular),
+                left: AppSizing.paddingLarge,
+                right: AppSizing.paddingLarge,
+                top: AppSizing.paddingXXLarge,
+                bottom: AppSizing.paddingRegular,
+              ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     localizations.myVaults.substring(
-                        0,
-                        localizations.myVaults.indexOf(localizations.myVaults
-                            .split(' ')
-                            .skip(1)
-                            .join(' '))),
+                      0,
+                      localizations.myVaults.indexOf(
+                        localizations.myVaults.split(' ').skip(1).join(' '),
+                      ),
+                    ),
                     style: AppTheme.headingXLarge,
                   ),
                   SimpleInfoWidget(
@@ -74,87 +75,86 @@ class VaultsPage extends ConsumerWidget {
                 ],
               ),
             ),
-            Container(
-              height: 1.0,
-              color: AppColorScheme.divider,
-            ),
+            Container(height: 1.0, color: AppColorScheme.divider),
             Expanded(
               child: vaultPageState.isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : vaultEntries.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.lock_outline,
-                                  size: AppSizing.iconXXLarge,
-                                  color: theme.colorScheme.primary),
-                              const SizedBox(height: AppSizing.paddingMedium),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: AppSizing.paddingXXLarge),
-                                child: Text(
-                                  localizations.vaultsEmptyMessage,
-                                  textAlign: TextAlign.center,
-                                  style: theme.textTheme.titleMedium,
-                                ),
-                              ),
-                            ],
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.lock_outline,
+                            size: AppSizing.iconXXLarge,
+                            color: theme.colorScheme.primary,
                           ),
-                        )
-                      : ListView.builder(
-                          padding: const EdgeInsets.all(AppSizing.paddingLarge),
-                          itemCount: vaultEntries.length,
-                          itemBuilder: (context, index) {
-                            final entry = vaultEntries[index];
-                            final vaultName =
-                                vaultRegistry[entry.key]?.vaultName;
-                            final vault = entry.value;
-                            final seed = entry.key;
+                          const SizedBox(height: AppSizing.paddingMedium),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppSizing.paddingXXLarge,
+                            ),
+                            child: Text(
+                              localizations.vaultsEmptyMessage,
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.titleMedium,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.all(AppSizing.paddingLarge),
+                      itemCount: vaultEntries.length,
+                      itemBuilder: (context, index) {
+                        final entry = vaultEntries[index];
+                        final vaultName = vaultRegistry[entry.key]?.vaultName;
+                        final vault = entry.value;
+                        final seed = entry.key;
 
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: AppSizing.paddingRegular),
-                              child: Dismissible(
-                                key: ValueKey(entry.key),
-                                direction: DismissDirection.endToStart,
-                                dismissThresholds: const {
-                                  DismissDirection.startToEnd: 0.4,
-                                },
-                                background: SwipeToDeleteBackground(),
-                                confirmDismiss: (_) async {
-                                  final currentVaultId = ref
-                                      .read(vaultServiceProvider)
-                                      .currentVaultId;
-                                  if (currentVaultId == seed) {
-                                    ref
-                                        .read(vaultServiceProvider.notifier)
-                                        .resetCurrentVault();
-                                  }
-                                  await ref
-                                      .read(
-                                          vaultsPageControllerProvider.notifier)
-                                      .deleteVault(seed);
-                                  return true;
-                                },
-                                child: _VaultCard(
-                                  vaultName: vaultName ?? '',
-                                  vault: vault,
-                                  onSelected: (vault) async {
-                                    await ref
-                                        .read(vaultsPageControllerProvider
-                                            .notifier)
-                                        .selectVault(seed);
-                                    if (!context.mounted) return;
-                                    navigation.push(
-                                      VaultsRoutePath.openVaultWithId(seed),
-                                    );
-                                  },
-                                ),
-                              ),
-                            );
-                          }),
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: AppSizing.paddingRegular,
+                          ),
+                          child: Dismissible(
+                            key: ValueKey(entry.key),
+                            direction: DismissDirection.endToStart,
+                            dismissThresholds: const {
+                              DismissDirection.startToEnd: 0.4,
+                            },
+                            background: SwipeToDeleteBackground(),
+                            confirmDismiss: (_) async {
+                              final currentVaultId = ref
+                                  .read(vaultServiceProvider)
+                                  .currentVaultId;
+                              if (currentVaultId == seed) {
+                                ref
+                                    .read(vaultServiceProvider.notifier)
+                                    .resetCurrentVault();
+                              }
+                              await ref
+                                  .read(vaultsPageControllerProvider.notifier)
+                                  .deleteVault(seed);
+                              return true;
+                            },
+                            child: _VaultCard(
+                              vaultName: vaultName ?? '',
+                              vault: vault,
+                              onSelected: (vault) async {
+                                await ref
+                                    .read(vaultsPageControllerProvider.notifier)
+                                    .selectVault(seed);
+                                if (!context.mounted) return;
+                                navigation.push(
+                                  VaultsRoutePath.openVaultWithId(seed),
+                                );
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ),
             ),
           ],
         ),
@@ -170,8 +170,9 @@ class VaultsPage extends ConsumerWidget {
         ),
         elevation: 0,
         extendedPadding: const EdgeInsets.symmetric(
-            horizontal: AppSizing.paddingMedium,
-            vertical: AppSizing.paddingMedium),
+          horizontal: AppSizing.paddingMedium,
+          vertical: AppSizing.paddingMedium,
+        ),
         icon: Icon(
           Icons.add,
           color: AppColorScheme.backgroundWhite,
@@ -179,10 +180,9 @@ class VaultsPage extends ConsumerWidget {
         ),
         label: Text(
           localizations.addVault,
-          style: Theme.of(context)
-              .textTheme
-              .labelLarge
-              ?.copyWith(color: AppColorScheme.backgroundWhite),
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: AppColorScheme.backgroundWhite,
+          ),
         ),
       ),
     );
@@ -226,10 +226,9 @@ class _VaultCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   vaultName,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(letterSpacing: 0.2),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(letterSpacing: 0.2),
                 ),
               ),
 
@@ -264,7 +263,8 @@ class SwipeToDeleteBackground extends StatelessWidget {
             return Container(
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizing.paddingLarge),
+                horizontal: AppSizing.paddingLarge,
+              ),
               decoration: BoxDecoration(
                 color: AppColorScheme.error,
                 borderRadius: BorderRadius.circular(AppSizing.paddingSmall),

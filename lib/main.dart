@@ -32,9 +32,10 @@ void main() async {
   WidgetsBinding.instance.addObserver(AppLifecycleReactor());
 
   runApp(
-    ProviderScope(observers: [
-      if (kDebugMode) ProviderDebugLogger(),
-    ], child: const MyApp()),
+    ProviderScope(
+      observers: [if (kDebugMode) ProviderDebugLogger()],
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -42,18 +43,13 @@ class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(
-    BuildContext context,
-    WidgetRef ref,
-  ) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final routerConfig = ref.watch(navigationProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: AppConfig.appName,
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-      ],
+      localizationsDelegates: [AppLocalizations.delegate],
       theme: AppTheme.main,
       routerConfig: routerConfig,
     );

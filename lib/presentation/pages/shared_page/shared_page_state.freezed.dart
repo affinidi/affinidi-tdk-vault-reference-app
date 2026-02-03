@@ -12,7 +12,8 @@ part of 'shared_page_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$SharedPageState {
@@ -32,14 +33,16 @@ mixin _$SharedPageState {
 /// @nodoc
 abstract class $SharedPageStateCopyWith<$Res> {
   factory $SharedPageStateCopyWith(
-          SharedPageState value, $Res Function(SharedPageState) then) =
-      _$SharedPageStateCopyWithImpl<$Res, SharedPageState>;
+    SharedPageState value,
+    $Res Function(SharedPageState) then,
+  ) = _$SharedPageStateCopyWithImpl<$Res, SharedPageState>;
   @useResult
-  $Res call(
-      {bool isLoading,
-      List<SharedStorage> sharedStorages,
-      String? selectedProfileId,
-      Map<String, List<dynamic>> sharedFiles});
+  $Res call({
+    bool isLoading,
+    List<SharedStorage> sharedStorages,
+    String? selectedProfileId,
+    Map<String, List<dynamic>> sharedFiles,
+  });
 }
 
 /// @nodoc
@@ -62,40 +65,45 @@ class _$SharedPageStateCopyWithImpl<$Res, $Val extends SharedPageState>
     Object? selectedProfileId = freezed,
     Object? sharedFiles = null,
   }) {
-    return _then(_value.copyWith(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      sharedStorages: null == sharedStorages
-          ? _value.sharedStorages
-          : sharedStorages // ignore: cast_nullable_to_non_nullable
-              as List<SharedStorage>,
-      selectedProfileId: freezed == selectedProfileId
-          ? _value.selectedProfileId
-          : selectedProfileId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      sharedFiles: null == sharedFiles
-          ? _value.sharedFiles
-          : sharedFiles // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<dynamic>>,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            isLoading: null == isLoading
+                ? _value.isLoading
+                : isLoading // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            sharedStorages: null == sharedStorages
+                ? _value.sharedStorages
+                : sharedStorages // ignore: cast_nullable_to_non_nullable
+                      as List<SharedStorage>,
+            selectedProfileId: freezed == selectedProfileId
+                ? _value.selectedProfileId
+                : selectedProfileId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            sharedFiles: null == sharedFiles
+                ? _value.sharedFiles
+                : sharedFiles // ignore: cast_nullable_to_non_nullable
+                      as Map<String, List<dynamic>>,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$SharedPageStateImplCopyWith<$Res>
     implements $SharedPageStateCopyWith<$Res> {
-  factory _$$SharedPageStateImplCopyWith(_$SharedPageStateImpl value,
-          $Res Function(_$SharedPageStateImpl) then) =
-      __$$SharedPageStateImplCopyWithImpl<$Res>;
+  factory _$$SharedPageStateImplCopyWith(
+    _$SharedPageStateImpl value,
+    $Res Function(_$SharedPageStateImpl) then,
+  ) = __$$SharedPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool isLoading,
-      List<SharedStorage> sharedStorages,
-      String? selectedProfileId,
-      Map<String, List<dynamic>> sharedFiles});
+  $Res call({
+    bool isLoading,
+    List<SharedStorage> sharedStorages,
+    String? selectedProfileId,
+    Map<String, List<dynamic>> sharedFiles,
+  });
 }
 
 /// @nodoc
@@ -103,8 +111,9 @@ class __$$SharedPageStateImplCopyWithImpl<$Res>
     extends _$SharedPageStateCopyWithImpl<$Res, _$SharedPageStateImpl>
     implements _$$SharedPageStateImplCopyWith<$Res> {
   __$$SharedPageStateImplCopyWithImpl(
-      _$SharedPageStateImpl _value, $Res Function(_$SharedPageStateImpl) _then)
-      : super(_value, _then);
+    _$SharedPageStateImpl _value,
+    $Res Function(_$SharedPageStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of SharedPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -116,37 +125,39 @@ class __$$SharedPageStateImplCopyWithImpl<$Res>
     Object? selectedProfileId = freezed,
     Object? sharedFiles = null,
   }) {
-    return _then(_$SharedPageStateImpl(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      sharedStorages: null == sharedStorages
-          ? _value._sharedStorages
-          : sharedStorages // ignore: cast_nullable_to_non_nullable
-              as List<SharedStorage>,
-      selectedProfileId: freezed == selectedProfileId
-          ? _value.selectedProfileId
-          : selectedProfileId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      sharedFiles: null == sharedFiles
-          ? _value._sharedFiles
-          : sharedFiles // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<dynamic>>,
-    ));
+    return _then(
+      _$SharedPageStateImpl(
+        isLoading: null == isLoading
+            ? _value.isLoading
+            : isLoading // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        sharedStorages: null == sharedStorages
+            ? _value._sharedStorages
+            : sharedStorages // ignore: cast_nullable_to_non_nullable
+                  as List<SharedStorage>,
+        selectedProfileId: freezed == selectedProfileId
+            ? _value.selectedProfileId
+            : selectedProfileId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        sharedFiles: null == sharedFiles
+            ? _value._sharedFiles
+            : sharedFiles // ignore: cast_nullable_to_non_nullable
+                  as Map<String, List<dynamic>>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$SharedPageStateImpl implements _SharedPageState {
-  const _$SharedPageStateImpl(
-      {this.isLoading = false,
-      final List<SharedStorage> sharedStorages = const [],
-      this.selectedProfileId,
-      final Map<String, List<dynamic>> sharedFiles = const {}})
-      : _sharedStorages = sharedStorages,
-        _sharedFiles = sharedFiles;
+  const _$SharedPageStateImpl({
+    this.isLoading = false,
+    final List<SharedStorage> sharedStorages = const [],
+    this.selectedProfileId,
+    final Map<String, List<dynamic>> sharedFiles = const {},
+  }) : _sharedStorages = sharedStorages,
+       _sharedFiles = sharedFiles;
 
   @override
   @JsonKey()
@@ -183,21 +194,26 @@ class _$SharedPageStateImpl implements _SharedPageState {
             other is _$SharedPageStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
-            const DeepCollectionEquality()
-                .equals(other._sharedStorages, _sharedStorages) &&
+            const DeepCollectionEquality().equals(
+              other._sharedStorages,
+              _sharedStorages,
+            ) &&
             (identical(other.selectedProfileId, selectedProfileId) ||
                 other.selectedProfileId == selectedProfileId) &&
-            const DeepCollectionEquality()
-                .equals(other._sharedFiles, _sharedFiles));
+            const DeepCollectionEquality().equals(
+              other._sharedFiles,
+              _sharedFiles,
+            ));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      isLoading,
-      const DeepCollectionEquality().hash(_sharedStorages),
-      selectedProfileId,
-      const DeepCollectionEquality().hash(_sharedFiles));
+    runtimeType,
+    isLoading,
+    const DeepCollectionEquality().hash(_sharedStorages),
+    selectedProfileId,
+    const DeepCollectionEquality().hash(_sharedFiles),
+  );
 
   /// Create a copy of SharedPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -206,15 +222,18 @@ class _$SharedPageStateImpl implements _SharedPageState {
   @pragma('vm:prefer-inline')
   _$$SharedPageStateImplCopyWith<_$SharedPageStateImpl> get copyWith =>
       __$$SharedPageStateImplCopyWithImpl<_$SharedPageStateImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _SharedPageState implements SharedPageState {
-  const factory _SharedPageState(
-      {final bool isLoading,
-      final List<SharedStorage> sharedStorages,
-      final String? selectedProfileId,
-      final Map<String, List<dynamic>> sharedFiles}) = _$SharedPageStateImpl;
+  const factory _SharedPageState({
+    final bool isLoading,
+    final List<SharedStorage> sharedStorages,
+    final String? selectedProfileId,
+    final Map<String, List<dynamic>> sharedFiles,
+  }) = _$SharedPageStateImpl;
 
   @override
   bool get isLoading;

@@ -26,17 +26,15 @@ import 'shared_credentials_page_controller.dart';
 
 class SharedCredentialsPage extends HookConsumerWidget {
   static String get routePath => MyCredentialsRoutePath.base;
-  const SharedCredentialsPage({
-    super.key,
-    required this.profileId,
-  });
+  const SharedCredentialsPage({super.key, required this.profileId});
 
   final String profileId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider =
-        sharedCredentialsPageControllerProvider(profileId: profileId);
+    final provider = sharedCredentialsPageControllerProvider(
+      profileId: profileId,
+    );
     final controller = ref.read(provider.notifier);
 
     return Scaffold(
@@ -84,13 +82,16 @@ class _MyCredentialsContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final claimedCredentials = ref.watch(
-        sharedCredentialsPageControllerProvider(profileId: profileId).select(
-      (state) => state.digitalCredentials,
-    ));
-    final credentialServiceState =
-        ref.watch(credentialServiceProvider(profileId: profileId));
+      sharedCredentialsPageControllerProvider(
+        profileId: profileId,
+      ).select((state) => state.digitalCredentials),
+    );
+    final credentialServiceState = ref.watch(
+      credentialServiceProvider(profileId: profileId),
+    );
     final controller = ref.watch(
-        sharedCredentialsPageControllerProvider(profileId: profileId).notifier);
+      sharedCredentialsPageControllerProvider(profileId: profileId).notifier,
+    );
 
     void showCredentialOptions(DigitalCredential digitalCredential) async {
       if (!context.mounted) return;
@@ -98,11 +99,12 @@ class _MyCredentialsContent extends ConsumerWidget {
       final selectedOption = await OptionsPicker.show(
         useRootNavigator: true,
         context: context,
-        options: [
-          CredentialOption.share,
-        ],
-        itemLeadingBuilder: (option) => SvgPicture.asset(option.svgAssetName,
-            width: AppSizing.iconMedium, height: AppSizing.iconMedium),
+        options: [CredentialOption.share],
+        itemLeadingBuilder: (option) => SvgPicture.asset(
+          option.svgAssetName,
+          width: AppSizing.iconMedium,
+          height: AppSizing.iconMedium,
+        ),
         itemTitleBuilder: (option) => Text(localizations.option(option.name)),
       );
 
@@ -114,8 +116,10 @@ class _MyCredentialsContent extends ConsumerWidget {
 
       switch (selectedOption) {
         default:
-          await shareCredential(digitalCredential,
-              sharePositionOrigin: context.sharePositionOrigin);
+          await shareCredential(
+            digitalCredential,
+            sharePositionOrigin: context.sharePositionOrigin,
+          );
       }
     }
 
@@ -132,9 +136,10 @@ class _MyCredentialsContent extends ConsumerWidget {
             EmptyStateWidget(
               description: localizations.credentialsEmptyStateDescription,
               image: SvgPicture.asset(
-                  'assets/images/illustration-credentials.svg',
-                  width: 164,
-                  height: 81.8),
+                'assets/images/illustration-credentials.svg',
+                width: 164,
+                height: 81.8,
+              ),
             ),
           ],
         ),
@@ -179,10 +184,12 @@ class _MyCredentialsContent extends ConsumerWidget {
     );
   }
 
-  Future<void> shareCredential(DigitalCredential digitalCredential,
-      {required Rect sharePositionOrigin}) async {
-    final credentialJsonString =
-        digitalCredential.verifiableCredential.toString();
+  Future<void> shareCredential(
+    DigitalCredential digitalCredential, {
+    required Rect sharePositionOrigin,
+  }) async {
+    final credentialJsonString = digitalCredential.verifiableCredential
+        .toString();
     final tempDir = await getTemporaryDirectory();
     final tempFile = io.File('${tempDir.path}/credential.json');
     await tempFile.writeAsString(credentialJsonString);

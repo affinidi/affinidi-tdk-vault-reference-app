@@ -65,14 +65,18 @@ class AsyncLoadingStatus extends HookConsumerWidget
     }
 
     void showErrorWidgetIfNeeded(Object exception, StackTrace stackTrace) {
-      String? localizedErrorMessage = makeLocalizedErrorMessage(exception,
-          stackTrace, (error) => errorLocalizer(localizations, error));
+      String? localizedErrorMessage = makeLocalizedErrorMessage(
+        exception,
+        stackTrace,
+        (error) => errorLocalizer(localizations, error),
+      );
       if (localizedErrorMessage == null ||
           errorText.value == localizedErrorMessage) {
         return;
       }
 
-      shouldShowRetryButton.value = ((offlineRetry != null) &&
+      shouldShowRetryButton.value =
+          ((offlineRetry != null) &&
           (exception is AppException) &&
           exception.type == AppExceptionType.offline);
       errorText.value = localizedErrorMessage;
@@ -98,56 +102,52 @@ class AsyncLoadingStatus extends HookConsumerWidget
     return isShowingProgress.value
         ? Center(
             child: Padding(
-            padding: EdgeInsets.all(AppSizing.paddingMedium),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 16,
-              children: [
-                CircularProgressIndicator(),
-                if (loadingDescription != null &&
-                    loadingDescription!.isNotEmpty)
-                  Text(loadingDescription!),
-              ],
+              padding: EdgeInsets.all(AppSizing.paddingMedium),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 16,
+                children: [
+                  CircularProgressIndicator(),
+                  if (loadingDescription != null &&
+                      loadingDescription!.isNotEmpty)
+                    Text(loadingDescription!),
+                ],
+              ),
             ),
-          ))
+          )
         : errorText.value != null
-            ? Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(AppSizing.paddingRegular),
-                  child: Column(
-                    spacing: 24,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        errorText.value ?? localizations.errorMessage('other'),
-                        textAlign: TextAlign.center,
-                      ),
-                      if (shouldShowRetryButton.value)
-                        _RetryButton(
-                            onPressed: offlineRetry!,
-                            text: localizations.retryActionText),
-                    ],
+        ? Center(
+            child: Padding(
+              padding: const EdgeInsets.all(AppSizing.paddingRegular),
+              child: Column(
+                spacing: 24,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    errorText.value ?? localizations.errorMessage('other'),
+                    textAlign: TextAlign.center,
                   ),
-                ),
-              )
-            : child;
+                  if (shouldShowRetryButton.value)
+                    _RetryButton(
+                      onPressed: offlineRetry!,
+                      text: localizations.retryActionText,
+                    ),
+                ],
+              ),
+            ),
+          )
+        : child;
   }
 }
 
 class _RetryButton extends StatelessWidget {
-  const _RetryButton({
-    required this.onPressed,
-    required this.text,
-  });
+  const _RetryButton({required this.onPressed, required this.text});
 
   final void Function() onPressed;
   final String text;
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton(
-      onPressed: onPressed,
-      child: Text(text),
-    );
+    return FilledButton(onPressed: onPressed, child: Text(text));
   }
 }

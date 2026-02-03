@@ -6,7 +6,7 @@ extension NodeDates on Item {
     final createdAtDate = createdAt.toLocal();
     return [
       DateFormat.yMMMd(localeName).format(createdAtDate),
-      DateFormat.Hms(localeName).format(createdAtDate)
+      DateFormat.Hms(localeName).format(createdAtDate),
     ].join(' ');
   }
 }

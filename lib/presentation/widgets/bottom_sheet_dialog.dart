@@ -24,16 +24,15 @@ class BottomSheetDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AnimatedPadding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.viewInsetsOf(context).bottom,
-      ),
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
       duration: const Duration(milliseconds: 100),
       curve: Curves.decelerate,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(AppSizing.paddingMedium),
         child: Container(
           constraints: BoxConstraints(
-              maxHeight: MediaQuery.sizeOf(context).height * 0.9),
+            maxHeight: MediaQuery.sizeOf(context).height * 0.9,
+          ),
           child: Stack(
             children: [
               SingleChildScrollView(
@@ -48,22 +47,24 @@ class BottomSheetDialog extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: AppSizing.paddingLarge,
-                            vertical: AppSizing.paddingXLarge),
+                          horizontal: AppSizing.paddingLarge,
+                          vertical: AppSizing.paddingXLarge,
+                        ),
                         child: body,
                       ),
                       if (actions.isNotEmpty) ...[
                         Divider(height: 1),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: AppSizing.paddingLarge,
-                              vertical: AppSizing.paddingMedium),
+                            horizontal: AppSizing.paddingLarge,
+                            vertical: AppSizing.paddingMedium,
+                          ),
                           child: Row(
                             mainAxisAlignment: actionsAlignment,
                             children: actions,
                           ),
                         ),
-                      ]
+                      ],
                     ],
                   ),
                 ),
@@ -79,22 +80,26 @@ class BottomSheetDialog extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.fromLTRB(
-                              AppSizing.paddingLarge,
-                              AppSizing.paddingSmall,
-                              AppSizing.paddingSmall,
-                              AppSizing.paddingXSmall),
+                            AppSizing.paddingLarge,
+                            AppSizing.paddingSmall,
+                            AppSizing.paddingSmall,
+                            AppSizing.paddingXSmall,
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(title!,
-                                  style: titleStyle ??
-                                      Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall),
+                              Text(
+                                title!,
+                                style:
+                                    titleStyle ??
+                                    Theme.of(context).textTheme.headlineSmall,
+                              ),
                               IconButton(
-                                  onPressed: onCancel,
-                                  icon: SvgPicture.asset(
-                                      'assets/icons/icon-close.svg'))
+                                onPressed: onCancel,
+                                icon: SvgPicture.asset(
+                                  'assets/icons/icon-close.svg',
+                                ),
+                              ),
                             ],
                           ),
                         ),

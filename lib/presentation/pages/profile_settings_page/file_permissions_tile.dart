@@ -13,8 +13,10 @@ class FilePermissionsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
     return ListTile(
-      title: Text(localizations.setFilePermissions,
-          style: Theme.of(context).textTheme.titleLarge),
+      title: Text(
+        localizations.setFilePermissions,
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
       trailing: const Icon(Icons.chevron_right),
       onTap: () {
         showModalBottomSheet(
@@ -22,7 +24,8 @@ class FilePermissionsTile extends StatelessWidget {
           isScrollControlled: true,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-                top: Radius.circular(AppSizing.paddingLarge)),
+              top: Radius.circular(AppSizing.paddingLarge),
+            ),
           ),
           builder: (context) => FileSettingsBottomSheet(profileId: profileId),
         );

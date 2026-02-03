@@ -15,31 +15,33 @@ part 'shared_files_page_controller.g.dart';
 class SharedFilesPageController extends _$SharedFilesPageController {
   SharedFilesPageController() : super();
 
-  final loadingController =
-      AsyncLoadingController.provider('sharedFilesPageLoadingController');
-  final fileUploadController =
-      AsyncLoadingController.provider('sharedFilesPageFileUploadingController');
+  final loadingController = AsyncLoadingController.provider(
+    'sharedFilesPageLoadingController',
+  );
+  final fileUploadController = AsyncLoadingController.provider(
+    'sharedFilesPageFileUploadingController',
+  );
 
   @override
-  SharedFilesPageState build(
-      {required String? parentNodeId, required String profileId}) {
+  SharedFilesPageState build({
+    required String? parentNodeId,
+    required String profileId,
+  }) {
     final provider = storageServiceProvider(
-        parentNodeId: parentNodeId, profileId: profileId);
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
     Future(() async {
       state = state.copyWith(isLoading: true);
       await ref.read(provider.notifier).listItems(isSharedProfile: true);
       state = state.copyWith(isLoading: false);
     });
 
-    ref.listen(
-      provider.select((state) => state.items),
-      (previous, next) {
-        Future(() {
-          state = state.copyWith(items: next);
-        });
-      },
-      fireImmediately: true,
-    );
+    ref.listen(provider.select((state) => state.items), (previous, next) {
+      Future(() {
+        state = state.copyWith(items: next);
+      });
+    }, fireImmediately: true);
 
     return SharedFilesPageState(isLoading: true);
   }
@@ -59,7 +61,9 @@ class SharedFilesPageController extends _$SharedFilesPageController {
           );
 
       if (validFiles.isNotEmpty) {
-        await ref.read(fileUploadServiceProvider.notifier).uploadFiles(
+        await ref
+            .read(fileUploadServiceProvider.notifier)
+            .uploadFiles(
               files: validFiles,
               parentNodeId: parentNodeId,
               profileId: profileId,
@@ -72,13 +76,13 @@ class SharedFilesPageController extends _$SharedFilesPageController {
   Future<void> downloadFile(Item item) async {
     ref.read(fileUploadController.notifier).start(() async {
       await ref
-          .read(storageServiceProvider(
-                  parentNodeId: parentNodeId, profileId: profileId)
-              .notifier)
-          .getFileContent(
-            fileId: item.id,
-            isSharedProfile: true,
-          );
+          .read(
+            storageServiceProvider(
+              parentNodeId: parentNodeId,
+              profileId: profileId,
+            ).notifier,
+          )
+          .getFileContent(fileId: item.id, isSharedProfile: true);
     });
   }
 
@@ -86,10 +90,7 @@ class SharedFilesPageController extends _$SharedFilesPageController {
     final navigation = ref.read(navigationServiceProvider);
 
     String path;
-    path = ProfilesRoutePath.sharedProfileFilePreview(
-      profileId,
-      node.id,
-    );
+    path = ProfilesRoutePath.sharedProfileFilePreview(profileId, node.id);
 
     navigation.push(path);
   }

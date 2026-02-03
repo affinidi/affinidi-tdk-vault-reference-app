@@ -95,26 +95,31 @@ class CreateVaultPage extends HookConsumerWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                  left: AppSizing.paddingMedium,
-                  right: AppSizing.paddingLarge,
-                  top: AppSizing.paddingSmall,
-                  bottom: AppSizing.paddingRegular),
+                left: AppSizing.paddingMedium,
+                right: AppSizing.paddingLarge,
+                top: AppSizing.paddingSmall,
+                bottom: AppSizing.paddingRegular,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: AppSizing.paddingXXLarge,
-                        left: AppSizing.paddingSmall),
+                      top: AppSizing.paddingXXLarge,
+                      left: AppSizing.paddingSmall,
+                    ),
                     child: Text(
                       localizations.createYourVault.substring(
-                          0, localizations.createYourVault.lastIndexOf(' ')),
+                        0,
+                        localizations.createYourVault.lastIndexOf(' '),
+                      ),
                       style: AppTheme.headingXLarge,
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: AppSizing.paddingSmall),
+                    padding: const EdgeInsets.only(
+                      left: AppSizing.paddingSmall,
+                    ),
                     child: SimpleInfoWidget(
                       text: localizations.createYourVault
                           .split(' ')
@@ -129,10 +134,7 @@ class CreateVaultPage extends HookConsumerWidget {
               ),
             ),
             // Separator
-            Container(
-              height: 1.0,
-              color: AppColorScheme.divider,
-            ),
+            Container(height: 1.0, color: AppColorScheme.divider),
             // Form content
             Expanded(
               child: SingleChildScrollView(
@@ -168,10 +170,11 @@ class CreateVaultPage extends HookConsumerWidget {
                                     color: isVaultNameFocused.value
                                         ? AppColorScheme.formFieldBorderFocused
                                         : AppColorScheme
-                                            .formFieldBorderUnfocused,
+                                              .formFieldBorderUnfocused,
                                   ),
                                   borderRadius: BorderRadius.circular(
-                                      AppSizing.paddingSmall),
+                                    AppSizing.paddingSmall,
+                                  ),
                                 ),
                                 child: Focus(
                                   onFocusChange: (hasFocus) {
@@ -186,10 +189,12 @@ class CreateVaultPage extends HookConsumerWidget {
                                       hintText:
                                           localizations.giveYourVaultAName,
                                       hintStyle: TextStyle(
-                                          color: Colors.grey.shade400),
+                                        color: Colors.grey.shade400,
+                                      ),
                                       border: InputBorder.none,
                                       contentPadding: const EdgeInsets.all(
-                                          AppSizing.paddingRegular),
+                                        AppSizing.paddingRegular,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -211,10 +216,11 @@ class CreateVaultPage extends HookConsumerWidget {
                                     color: isPassphraseFocused.value
                                         ? AppColorScheme.formFieldBorderFocused
                                         : AppColorScheme
-                                            .formFieldBorderUnfocused,
+                                              .formFieldBorderUnfocused,
                                   ),
                                   borderRadius: BorderRadius.circular(
-                                      AppSizing.paddingSmall),
+                                    AppSizing.paddingSmall,
+                                  ),
                                 ),
                                 child: Focus(
                                   onFocusChange: (hasFocus) {
@@ -229,10 +235,12 @@ class CreateVaultPage extends HookConsumerWidget {
                                     decoration: InputDecoration(
                                       hintText: localizations.chooseAPassphrase,
                                       hintStyle: TextStyle(
-                                          color: Colors.grey.shade400),
+                                        color: Colors.grey.shade400,
+                                      ),
                                       border: InputBorder.none,
                                       contentPadding: const EdgeInsets.all(
-                                          AppSizing.paddingRegular),
+                                        AppSizing.paddingRegular,
+                                      ),
                                       suffixIcon: IconButton(
                                         icon: Icon(
                                           isPasswordVisible.value
@@ -256,9 +264,7 @@ class CreateVaultPage extends HookConsumerWidget {
                             children: [
                               Radio<SeedMode>(
                                 value: SeedMode.generate,
-                                key: Key(
-                                  'radio_${SeedMode.generate.name}',
-                                ),
+                                key: Key('radio_${SeedMode.generate.name}'),
                                 groupValue: state.seedMode,
                                 onChanged: (value) {
                                   controller.updateSeedMode(value!);
@@ -282,9 +288,7 @@ class CreateVaultPage extends HookConsumerWidget {
                             children: [
                               Radio<SeedMode>(
                                 value: SeedMode.useExisting,
-                                key: Key(
-                                  'radio_${SeedMode.useExisting.name}',
-                                ),
+                                key: Key('radio_${SeedMode.useExisting.name}'),
                                 groupValue: state.seedMode,
                                 onChanged: (value) {
                                   controller.updateSeedMode(value!);
@@ -307,7 +311,8 @@ class CreateVaultPage extends HookConsumerWidget {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                          localizations.existingSeedMessage),
+                                        localizations.existingSeedMessage,
+                                      ),
                                       backgroundColor:
                                           AppColorScheme.backgroundDark,
                                     ),
@@ -345,12 +350,13 @@ class CreateVaultPage extends HookConsumerWidget {
                                     border: Border.all(
                                       color: isSeedFocused.value
                                           ? AppColorScheme
-                                              .formFieldBorderFocused
+                                                .formFieldBorderFocused
                                           : AppColorScheme
-                                              .formFieldBorderUnfocused,
+                                                .formFieldBorderUnfocused,
                                     ),
                                     borderRadius: BorderRadius.circular(
-                                        AppSizing.paddingSmall),
+                                      AppSizing.paddingSmall,
+                                    ),
                                   ),
                                   child: Focus(
                                     onFocusChange: (hasFocus) {
@@ -359,16 +365,17 @@ class CreateVaultPage extends HookConsumerWidget {
                                     child: TextField(
                                       controller: seedController,
                                       obscureText: !isSeedVisible.value,
-                                      onChanged: (_) => field.didChange(
-                                        seedController.text,
-                                      ),
+                                      onChanged: (_) =>
+                                          field.didChange(seedController.text),
                                       decoration: InputDecoration(
                                         hintText: localizations.enterSeedHint,
                                         hintStyle: TextStyle(
-                                            color: Colors.grey.shade400),
+                                          color: Colors.grey.shade400,
+                                        ),
                                         border: InputBorder.none,
                                         contentPadding: const EdgeInsets.all(
-                                            AppSizing.paddingRegular),
+                                          AppSizing.paddingRegular,
+                                        ),
                                         suffixIcon: IconButton(
                                           icon: Icon(
                                             isSeedVisible.value
@@ -393,27 +400,29 @@ class CreateVaultPage extends HookConsumerWidget {
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              onPressed:
-                                  state.isFormValid ? () => proceed() : null,
+                              onPressed: state.isFormValid
+                                  ? () => proceed()
+                                  : null,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: state.isFormValid
                                     ? AppTheme.colorScheme.primary
                                     : Colors.grey.shade300,
                                 foregroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
-                                    vertical: AppSizing.paddingMedium),
+                                  vertical: AppSizing.paddingMedium,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(
-                                      AppSizing.paddingXXLarge),
+                                    AppSizing.paddingXXLarge,
+                                  ),
                                 ),
                               ),
                               child: Text(
                                 localizations.createVault,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
+                                style: Theme.of(context).textTheme.bodyLarge
                                     ?.copyWith(
-                                        color: AppColorScheme.backgroundWhite),
+                                      color: AppColorScheme.backgroundWhite,
+                                    ),
                               ),
                             ),
                           ),

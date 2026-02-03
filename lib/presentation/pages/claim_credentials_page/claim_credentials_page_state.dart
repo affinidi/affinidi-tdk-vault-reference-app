@@ -3,12 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'claim_credentials_page_state.freezed.dart';
 
-enum CredentialOfferFetchStatus {
-  initial,
-  loading,
-  success,
-  error,
-}
+enum CredentialOfferFetchStatus { initial, loading, success, error }
 
 @Freezed(fromJson: false, toJson: false)
 class ClaimCredentialsPageState with _$ClaimCredentialsPageState {
