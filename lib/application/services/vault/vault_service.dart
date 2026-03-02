@@ -26,6 +26,7 @@ class VaultService extends _$VaultService {
   VaultService() : super();
 
   int _accountIndex = 0;
+  static final Map<String, Database> _edgeDatabases = {};
 
   @override
   VaultServiceState build() {
@@ -136,9 +137,9 @@ class VaultService extends _$VaultService {
   /// Resets the current vault session in memory.
   ///
   /// Clears the `currentVault` and `currentVaultId` state.
-  void resetCurrentVault() {
+  Future<void> resetCurrentVault() async {
     log('Reseting current vault...', name: 'VaultService');
-
+    await _disposeCurrentVaultResources();
     state = state.copyWith(
       currentVault: null,
       currentVaultId: null,
@@ -187,6 +188,7 @@ class VaultService extends _$VaultService {
     required String profileId,
     required String toDid,
     Permissions permissions = Permissions.all,
+    DateTime? expiresAt,
   }) async {
     if (state.currentVault == null) {
       throw AppException(
@@ -198,6 +200,7 @@ class VaultService extends _$VaultService {
       profileId: profileId,
       toDid: toDid,
       permissions: permissions,
+      expiresAt: expiresAt,
     );
   }
 
@@ -238,25 +241,95 @@ class VaultService extends _$VaultService {
     );
   }
 
-  /// Gets the next available account index by finding the highest used index
+  /// Shares an item (file/folder) with another user
+  Future<void> shareItem({
+    required String profileId,
+    required String nodeId,
+    required String toDid,
+    required Permissions permissions,
+    DateTime? expiresAt,
+  }) async {
+    if (state.currentVault == null) {
+      throw AppException(
+        message: 'Vault not initialized',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+    final policy = await state.currentVault!.getItemPermissionsPolicy(
+      profileId: profileId,
+      granteeDid: toDid,
+    );
+    policy.addPermission([nodeId], [permissions], expiresAt: expiresAt);
+    await state.currentVault!.setItemAccess(
+      profileId: profileId,
+      granteeDid: toDid,
+      policy: policy,
+    );
+  }
+
+  /// Revokes access to a shared item (file/folder)
+  Future<void> revokeItemAccess({
+    required String profileId,
+    required String nodeId,
+    required String granteeDid,
+  }) async {
+    if (state.currentVault == null) {
+      throw AppException(
+        message: 'Vault not initialized',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+    try {
+      final policy = await state.currentVault!.getItemPermissionsPolicy(
+        profileId: profileId,
+        granteeDid: granteeDid,
+      );
+      policy.removePermission([nodeId], []);
+      await state.currentVault!.setItemAccess(
+        profileId: profileId,
+        granteeDid: granteeDid,
+        policy: policy,
+      );
+    } catch (e) {
+      if (e is AppException) {
+        rethrow;
+      }
+      throw AppException(
+        message: 'Failed to revoke item access: $e',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+  }
+
+  /// Gets access permissions for a specific item
+  Future<List<ItemPermission>> getItemAccess({
+    required String profileId,
+    required String granteeDid,
+  }) async {
+    if (state.currentVault == null) {
+      throw AppException(
+        message: 'Vault not initialized',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+    return await state.currentVault!.getItemAccess(
+      profileId: profileId,
+      granteeDid: granteeDid,
+    );
+  }
+
   int _getNextAccountIndex(List<Profile> profiles) {
     if (profiles.isEmpty) {
       return 0;
     }
-    // Find the highest account index used
     final highestIndex = profiles.fold(
         0,
         (previousValue, element) =>
             math.max(previousValue, element.accountIndex));
-    // Return the next available index
     return highestIndex + 1;
   }
 
   /// Checks if a vault already exists for the given base64 seed.
-  ///
-  /// [base64Seed]: The encoded seed string to check against.
-  ///
-  /// Returns `true` if a vault exists, `false` otherwise.
   bool _doesVaultWithSeedExist({
     required String base64Seed,
   }) {
@@ -266,31 +339,51 @@ class VaultService extends _$VaultService {
 
   /// Creates a platform-specific database
   static Future<Database> _createPlatformDatabase(String repositoryId) async {
+    final cached = _edgeDatabases[repositoryId];
+    if (cached != null) {
+      return cached;
+    }
     final cleanRepositoryId =
         repositoryId.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
     final databaseName = 'edge_profiles_$cleanRepositoryId.db';
 
-    log('Database not found in cache, creating new one', name: 'VaultService');
-
     try {
       if (kIsWeb) {
         log('Creating web database', name: 'VaultService');
-        return await DatabaseConfig.createDatabase(
+        final database = await DatabaseConfig.createDatabase(
           databaseName: databaseName,
         );
-      } else {
-        log('Creating native database', name: 'VaultService');
-        final documentsDir = await getApplicationDocumentsDirectory();
-        log('Documents directory: ${documentsDir.path}', name: 'VaultService');
-        return await DatabaseConfig.createDatabase(
-          databaseName: databaseName,
-          directory: documentsDir.path,
-        );
+        _edgeDatabases[repositoryId] = database;
+        return database;
       }
+      log('Creating native database', name: 'VaultService');
+      final documentsDir = await getApplicationDocumentsDirectory();
+      log('Documents directory: ${documentsDir.path}', name: 'VaultService');
+      final database = await DatabaseConfig.createDatabase(
+        databaseName: databaseName,
+        directory: documentsDir.path,
+      );
+      _edgeDatabases[repositoryId] = database;
+      return database;
     } catch (e, stackTrace) {
       log('Error creating database: $e', name: 'VaultService');
       log('Stack trace: $stackTrace', name: 'VaultService');
       rethrow;
+    }
+  }
+
+  Future<void> _disposeCurrentVaultResources() async {
+    final vaultId = state.currentVaultId;
+    final vault = state.currentVault;
+    if (vault != null) {
+      await (vault as dynamic).dispose();
+    }
+    if (vaultId != null) {
+      final edgeRepositoryId = '${vaultId}_edge_repository';
+      final db = _edgeDatabases.remove(edgeRepositoryId);
+      if (db != null) {
+        await db.close();
+      }
     }
   }
 }

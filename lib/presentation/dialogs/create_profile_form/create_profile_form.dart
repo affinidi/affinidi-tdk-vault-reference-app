@@ -161,7 +161,7 @@ class CreateProfileForm extends ConsumerWidget {
                                         ?.copyWith(fontWeight: FontWeight.w600)
                                         .copyWith(
                                             color:
-                                                AppColorScheme.backgroundWhite),
+                                                AppColorScheme.backgroundBlack),
                                   ),
                                 ),
                               ),
@@ -333,14 +333,24 @@ class _RadioTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSelected = value == groupValue;
+    final iconColor =
+        isSelected ? AppTheme.colorScheme.primary : AppColorScheme.textPrimary;
+
     return Row(
       children: [
-        Radio<ProfileType>(
+        InkWell(
           key: Key('${KeyConstants.keyRadio}_${value.name}'),
-          value: value,
-          groupValue: groupValue,
-          onChanged: onChanged,
-          activeColor: AppTheme.colorScheme.primary,
+          borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+          onTap: () => onChanged(value),
+          child: Padding(
+            padding: const EdgeInsets.all(AppSizing.paddingXSmall),
+            child: Icon(
+              isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
+              color: iconColor,
+              size: AppSizing.iconSmall + 4,
+            ),
+          ),
         ),
         const SizedBox(width: AppSizing.paddingSmall),
         Expanded(

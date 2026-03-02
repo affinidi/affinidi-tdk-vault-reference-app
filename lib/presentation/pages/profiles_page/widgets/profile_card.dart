@@ -25,46 +25,81 @@ class ProfileCard extends HookConsumerWidget {
         ref.watch(profileTypeProvider(profile.profileRepositoryId));
 
     return Card(
-      color: AppColorScheme.backgroundWhite,
-      elevation: 4,
+      elevation: 12,
+      shadowColor: Colors.black.withValues(alpha: 0.6),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSizing.paddingRegular),
       ),
-      child: InkWell(
-        onTap: () => onSelected(profile),
-        borderRadius: BorderRadius.circular(AppSizing.paddingRegular),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSizing.paddingLarge),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              profileType == ProfileType.affinidiCloud
-                  ? SvgPicture.asset(
-                      'assets/icons/affinidi-cloud.svg',
-                      width: AppSizing.iconLarge,
-                      height: AppSizing.iconLarge,
-                    )
-                  : SvgPicture.asset(
-                      'assets/icons/drift-profile.svg',
-                      width: AppSizing.iconLarge,
-                      height: AppSizing.iconLarge,
-                    ),
-              const SizedBox(height: AppSizing.paddingMedium),
-              Text(
-                profile.name,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              const SizedBox(height: AppSizing.paddingXSmall),
-              if (profile.description != null &&
-                  profile.description!.isNotEmpty)
-                Text(
-                  profile.description!,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: AppColorScheme.textSecondary),
-                ),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF1A1A1A),
+              Color(0xFF2A2A2A),
+              Color(0xFF1F1F1F),
             ],
+            stops: [0.0, 0.5, 1.0],
+          ),
+          borderRadius: BorderRadius.circular(AppSizing.paddingRegular),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.1),
+            width: 1,
+          ),
+        ),
+        child: InkWell(
+          onTap: () => onSelected(profile),
+          borderRadius: BorderRadius.circular(AppSizing.paddingRegular),
+          child: Padding(
+            padding: const EdgeInsets.all(AppSizing.paddingLarge),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    profileType == ProfileType.affinidiCloud
+                        ? SvgPicture.asset(
+                            'assets/icons/affinidi-cloud.svg',
+                            width: AppSizing.iconLarge,
+                            height: AppSizing.iconLarge,
+                          )
+                        : SvgPicture.asset(
+                            'assets/icons/drift-profile.svg',
+                            width: AppSizing.iconLarge,
+                            height: AppSizing.iconLarge,
+                          ),
+                    const SizedBox(width: AppSizing.paddingSmall),
+                    Text(
+                      profileType == ProfileType.affinidiCloud
+                          ? 'Storage: Affinidi Cloud'
+                          : 'Storage: Local Drift',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppColorScheme.textSecondary,
+                            fontSize: 11,
+                          ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSizing.paddingMedium),
+                Text(
+                  profile.name,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: Colors.white,
+                      ),
+                ),
+                const SizedBox(height: AppSizing.paddingXSmall),
+                if (profile.description != null &&
+                    profile.description!.isNotEmpty)
+                  Text(
+                    profile.description!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: AppColorScheme.textSecondary),
+                  ),
+              ],
+            ),
           ),
         ),
       ),

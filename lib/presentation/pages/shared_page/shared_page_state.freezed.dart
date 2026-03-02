@@ -21,6 +21,8 @@ mixin _$SharedPageState {
   String? get selectedProfileId => throw _privateConstructorUsedError;
   Map<String, List<dynamic>> get sharedFiles =>
       throw _privateConstructorUsedError;
+  List<GranularAccessItem> get granularAccessItems =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of SharedPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -39,7 +41,8 @@ abstract class $SharedPageStateCopyWith<$Res> {
       {bool isLoading,
       List<SharedStorage> sharedStorages,
       String? selectedProfileId,
-      Map<String, List<dynamic>> sharedFiles});
+      Map<String, List<dynamic>> sharedFiles,
+      List<GranularAccessItem> granularAccessItems});
 }
 
 /// @nodoc
@@ -61,6 +64,7 @@ class _$SharedPageStateCopyWithImpl<$Res, $Val extends SharedPageState>
     Object? sharedStorages = null,
     Object? selectedProfileId = freezed,
     Object? sharedFiles = null,
+    Object? granularAccessItems = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -79,6 +83,10 @@ class _$SharedPageStateCopyWithImpl<$Res, $Val extends SharedPageState>
           ? _value.sharedFiles
           : sharedFiles // ignore: cast_nullable_to_non_nullable
               as Map<String, List<dynamic>>,
+      granularAccessItems: null == granularAccessItems
+          ? _value.granularAccessItems
+          : granularAccessItems // ignore: cast_nullable_to_non_nullable
+              as List<GranularAccessItem>,
     ) as $Val);
   }
 }
@@ -95,7 +103,8 @@ abstract class _$$SharedPageStateImplCopyWith<$Res>
       {bool isLoading,
       List<SharedStorage> sharedStorages,
       String? selectedProfileId,
-      Map<String, List<dynamic>> sharedFiles});
+      Map<String, List<dynamic>> sharedFiles,
+      List<GranularAccessItem> granularAccessItems});
 }
 
 /// @nodoc
@@ -115,6 +124,7 @@ class __$$SharedPageStateImplCopyWithImpl<$Res>
     Object? sharedStorages = null,
     Object? selectedProfileId = freezed,
     Object? sharedFiles = null,
+    Object? granularAccessItems = null,
   }) {
     return _then(_$SharedPageStateImpl(
       isLoading: null == isLoading
@@ -133,6 +143,10 @@ class __$$SharedPageStateImplCopyWithImpl<$Res>
           ? _value._sharedFiles
           : sharedFiles // ignore: cast_nullable_to_non_nullable
               as Map<String, List<dynamic>>,
+      granularAccessItems: null == granularAccessItems
+          ? _value._granularAccessItems
+          : granularAccessItems // ignore: cast_nullable_to_non_nullable
+              as List<GranularAccessItem>,
     ));
   }
 }
@@ -144,9 +158,11 @@ class _$SharedPageStateImpl implements _SharedPageState {
       {this.isLoading = false,
       final List<SharedStorage> sharedStorages = const [],
       this.selectedProfileId,
-      final Map<String, List<dynamic>> sharedFiles = const {}})
+      final Map<String, List<dynamic>> sharedFiles = const {},
+      final List<GranularAccessItem> granularAccessItems = const []})
       : _sharedStorages = sharedStorages,
-        _sharedFiles = sharedFiles;
+        _sharedFiles = sharedFiles,
+        _granularAccessItems = granularAccessItems;
 
   @override
   @JsonKey()
@@ -171,9 +187,19 @@ class _$SharedPageStateImpl implements _SharedPageState {
     return EqualUnmodifiableMapView(_sharedFiles);
   }
 
+  final List<GranularAccessItem> _granularAccessItems;
+  @override
+  @JsonKey()
+  List<GranularAccessItem> get granularAccessItems {
+    if (_granularAccessItems is EqualUnmodifiableListView)
+      return _granularAccessItems;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_granularAccessItems);
+  }
+
   @override
   String toString() {
-    return 'SharedPageState(isLoading: $isLoading, sharedStorages: $sharedStorages, selectedProfileId: $selectedProfileId, sharedFiles: $sharedFiles)';
+    return 'SharedPageState(isLoading: $isLoading, sharedStorages: $sharedStorages, selectedProfileId: $selectedProfileId, sharedFiles: $sharedFiles, granularAccessItems: $granularAccessItems)';
   }
 
   @override
@@ -188,7 +214,9 @@ class _$SharedPageStateImpl implements _SharedPageState {
             (identical(other.selectedProfileId, selectedProfileId) ||
                 other.selectedProfileId == selectedProfileId) &&
             const DeepCollectionEquality()
-                .equals(other._sharedFiles, _sharedFiles));
+                .equals(other._sharedFiles, _sharedFiles) &&
+            const DeepCollectionEquality()
+                .equals(other._granularAccessItems, _granularAccessItems));
   }
 
   @override
@@ -197,7 +225,8 @@ class _$SharedPageStateImpl implements _SharedPageState {
       isLoading,
       const DeepCollectionEquality().hash(_sharedStorages),
       selectedProfileId,
-      const DeepCollectionEquality().hash(_sharedFiles));
+      const DeepCollectionEquality().hash(_sharedFiles),
+      const DeepCollectionEquality().hash(_granularAccessItems));
 
   /// Create a copy of SharedPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -211,10 +240,12 @@ class _$SharedPageStateImpl implements _SharedPageState {
 
 abstract class _SharedPageState implements SharedPageState {
   const factory _SharedPageState(
-      {final bool isLoading,
-      final List<SharedStorage> sharedStorages,
-      final String? selectedProfileId,
-      final Map<String, List<dynamic>> sharedFiles}) = _$SharedPageStateImpl;
+          {final bool isLoading,
+          final List<SharedStorage> sharedStorages,
+          final String? selectedProfileId,
+          final Map<String, List<dynamic>> sharedFiles,
+          final List<GranularAccessItem> granularAccessItems}) =
+      _$SharedPageStateImpl;
 
   @override
   bool get isLoading;
@@ -224,6 +255,8 @@ abstract class _SharedPageState implements SharedPageState {
   String? get selectedProfileId;
   @override
   Map<String, List<dynamic>> get sharedFiles;
+  @override
+  List<GranularAccessItem> get granularAccessItems;
 
   /// Create a copy of SharedPageState
   /// with the given fields replaced by the non-null parameter values.

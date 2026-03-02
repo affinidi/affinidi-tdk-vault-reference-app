@@ -58,7 +58,7 @@ class VaultsPageController extends _$VaultsPageController {
   Future<void> selectVault(String vaultId) async {
     log('Select vault: $vaultId');
     final vaultService = ref.read(vaultServiceProvider.notifier);
-    vaultService.resetCurrentVault();
+    await vaultService.resetCurrentVault();
   }
 
   void addVault(String vaultId, Vault vault) {

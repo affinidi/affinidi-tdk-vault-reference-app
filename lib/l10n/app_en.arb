@@ -60,7 +60,7 @@
   "@renameActionText": {
     "type": "text"
   },
-  "option": "{option, select, rename{Rename} preview{Preview} delete{Delete} share{Share} other{Unknown}}",
+  "option": "{option, select, rename{Rename} preview{Preview} delete{Delete} share{Share} manageAccess{Manage Access} other{}}",
   "@option": {
     "type": "text",
     "placeholders": {
@@ -514,6 +514,13 @@
       "storageId": {}
     }
   },
+  "sharedFromNodeLabel": "Shared from: {ownerProfileName}",
+  "@sharedFromNodeLabel": {
+    "type": "text",
+    "placeholders": {
+      "ownerProfileName": {}
+    }
+  },
   "storageTypeLabel": "Storage Type: {storageType}",
   "@storageTypeLabel": {
     "type": "text",
@@ -772,7 +779,7 @@
   "@infoVault": {
     "type": "text"
   },
-  "infoVaultDescription": "Vault is a secure digital wallet that allows you to manage your digital identities, personal documents, and store credentials securely, such as verified identity VC and certificates. It protects the data stored in the vault with end-to-end encryption.\n\nAffinidi TDK - Vault does not track the list of vaults created, including their name and passphrase—it is handled by the app and persisted using the device's local storage (the reference app uses Drift for the local storage layer).",
+  "infoVaultDescription": "**Vault** is a secure digital wallet that allows you to manage your digital identities, personal documents, and store credentials securely, such as verified identity VC and certificates. It protects the data stored in the vault with end-to-end encryption.\n\nAffinidi TDK - Vault does not track the list of vaults created, including their name and passphrase—it is handled by the app and persisted using the device's local storage (the reference app uses Drift for the local storage layer).",
   "@infoVaultDescription": {
     "type": "text"
   },
@@ -788,7 +795,7 @@
   "@infoSeed": {
     "type": "text"
   },
-  "infoSeedDescription": "A seed is a bit string used as an initial input to generate a sequence of pseudo-random numbers to create cryptographic keys. The Vault TDK uses a 32-byte string to create a vault.\n\nGenerate Random Seed option creates a 32-byte string as input to create and initialise a new vault.\n\nExisting Seed option allows you to create the vault with the same set of cryptographic key pairs created from another device and sync cloud profiles from the same vault.",
+  "infoSeedDescription": "A **seed** is a bit string used as an initial input to generate a sequence of pseudo-random numbers to create cryptographic keys. The Vault TDK uses a 32-byte string to create a vault.\n\nGenerate Random **Seed** option creates a 32-byte string as input to create and initialise a new vault.\n\nExisting **Seed** option allows you to create the vault with the same set of cryptographic key pairs created from another device and sync cloud profiles from the same vault.",
   "@infoSeedDescription": {
     "type": "text"
   },
@@ -796,7 +803,7 @@
   "@infoProfile": {
     "type": "text"
   },
-  "infoProfileDescription": "A profile represents your digital identity. It allows you to manage credentials and personal files related to your profile, including sharing your profile with other users. \n\nEach profile has its own Decentralised Identifier (DID).",
+  "infoProfileDescription": "A **profile** represents your digital identity. It allows you to manage credentials and personal files related to your **profile**, including sharing your **profile** with other users. \n\nEach **profile** has its own Decentralised Identifier (DID).",
   "@infoProfileDescription": {
     "type": "text"
   },
@@ -812,7 +819,7 @@
   "@infoCredential": {
     "type": "text"
   },
-  "infoCredentialDescription": "The claimed credential is a Verifiable Credential (VC) that contains a set of claims about the subject and metadata, including the cryptographical proof of who issued it, ensuring authenticity and tamper-evident. It is a W3C (World Wide Web Consortium) standard for digitally representing and exchanging credentials in a secure, privacy-preserving, and machine-verifiable manner. \n\nAn example of a credential is a university issuing you a completion certificate, attesting that you have completed the course.",
+  "infoCredentialDescription": "The **claimed credential** is a Verifiable Credential (VC) that contains a set of claims about the subject and metadata, including the cryptographical proof of who issued it, ensuring authenticity and tamper-evident. It is a W3C (World Wide Web Consortium) standard for digitally representing and exchanging credentials in a secure, privacy-preserving, and machine-verifiable manner. \n\nAn example of a credential is a university issuing you a completion certificate, attesting that you have completed the course.",
   "@infoVault": {
     "type": "text"
   },
@@ -820,7 +827,7 @@
   "@infoVault": {
     "type": "text"
   },
-  "infoShareContentDescription": "The shared content contains data shared by another user through the profile sharing process using your Decentralised Identifier (DID). Depending on the permission set by the other user who shared it, you can write or read-only on the shared content.",
+  "infoShareContentDescription": "The **shared content** contains data shared by another user through the profile sharing process using your Decentralised Identifier (DID). Depending on the permission set by the other user who shared it, you can write or read-only on the shared content.",
   "infoAccessManagement": "What is Access Management?",
   "@infoAccessManagement": {
     "type": "text"
@@ -934,5 +941,15 @@
   "snippetDescDeleteProfile": "Delete Profile (Interface)",
   "snippetDescDeleteProfileVFS": "Delete Profile (Cloud)",
   "snippetDescDeleteProfileDrift": "Delete Profile (Local Storage)",
-  "snippetDescRevokeAccess": "Revoked Shared Profile Access"
+  "snippetDescRevokeAccess": "Revoked Shared Profile Access",
+  "shareFile": "Share File/Folder",
+  "fileSharedMessage": "File has been shared successfully",
+  "errorSharingFile": "Error sharing file",
+  "manageAccess": "Manage Access",
+  "timeLimitLabel": "Set time limit",
+  "selectDateLabel": "Select date",
+  "selectTimeLabel": "Select time",
+  "accessRevokedMessage": "Access revoked successfully",
+  "errorRevokingAccess": "Error revoking access",
+  "noSharedAccessesForNode": "No shared accesses for this file/folder."
 }

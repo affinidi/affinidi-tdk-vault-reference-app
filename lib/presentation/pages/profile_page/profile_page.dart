@@ -7,6 +7,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../navigation/flows/profiles/profiles_route_constants.dart';
 import '../../../navigation/navigation_provider.dart';
+import '../../themes/app_color_scheme.dart';
+import '../../themes/app_theme.dart';
 import 'profile_page_controller.dart';
 import '../../widgets/profile/profile_app_bar.dart';
 import '../../widgets/tdk_app_bar.dart';
@@ -47,9 +49,10 @@ class ProfilePage extends HookConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColorScheme.backgroundBlack,
       resizeToAvoidBottomInset: false,
       appBar: TdkAppBar(
+        title: profile?.name ?? '',
         showBackButton: true,
         onBackPressed: () => navigation.go(
           ProfilesRoutePath.base,
@@ -74,9 +77,17 @@ class ProfilePage extends HookConsumerWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColorScheme.backgroundBlack,
         currentIndex: navigationShell.currentIndex,
         onTap: (index) => navigationShell.goBranch(index),
+        selectedItemColor: AppTheme.colorScheme.primary,
+        unselectedItemColor: AppColorScheme.textSecondary,
+        selectedLabelStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
+              color: AppTheme.colorScheme.primary,
+            ),
+        unselectedLabelStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
+              color: AppColorScheme.textSecondary,
+            ),
         items: navigationItems
             .map(
               (item) => BottomNavigationBarItem(

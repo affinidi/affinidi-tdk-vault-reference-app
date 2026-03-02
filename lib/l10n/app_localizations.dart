@@ -187,7 +187,7 @@ abstract class AppLocalizations {
   /// No description provided for @option.
   ///
   /// In en, this message translates to:
-  /// **'{option, select, rename{Rename} preview{Preview} delete{Delete} share{Share} other{Unknown}}'**
+  /// **'{option, select, rename{Rename} preview{Preview} delete{Delete} share{Share} manageAccess{Manage Access} other{}}'**
   String option(String option);
 
   /// No description provided for @errorMessage.
@@ -802,6 +802,12 @@ abstract class AppLocalizations {
   /// **'Shared from: {storageId}'**
   String sharedFromLabel(Object storageId);
 
+  /// No description provided for @sharedFromNodeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared from: {ownerProfileName}'**
+  String sharedFromNodeLabel(Object ownerProfileName);
+
   /// No description provided for @storageTypeLabel.
   ///
   /// In en, this message translates to:
@@ -1291,7 +1297,7 @@ abstract class AppLocalizations {
   /// No description provided for @infoVaultDescription.
   ///
   /// In en, this message translates to:
-  /// **'Vault is a secure digital wallet that allows you to manage your digital identities, personal documents, and store credentials securely, such as verified identity VC and certificates. It protects the data stored in the vault with end-to-end encryption.\n\nAffinidi TDK - Vault does not track the list of vaults created, including their name and passphrase—it is handled by the app and persisted using the device\'s local storage (the reference app uses Drift for the local storage layer).'**
+  /// **'**Vault** is a secure digital wallet that allows you to manage your digital identities, personal documents, and store credentials securely, such as verified identity VC and certificates. It protects the data stored in the vault with end-to-end encryption.\n\nAffinidi TDK - Vault does not track the list of vaults created, including their name and passphrase—it is handled by the app and persisted using the device\'s local storage (the reference app uses Drift for the local storage layer).'**
   String get infoVaultDescription;
 
   /// No description provided for @infoVaultAttr.
@@ -1315,7 +1321,7 @@ abstract class AppLocalizations {
   /// No description provided for @infoSeedDescription.
   ///
   /// In en, this message translates to:
-  /// **'A seed is a bit string used as an initial input to generate a sequence of pseudo-random numbers to create cryptographic keys. The Vault TDK uses a 32-byte string to create a vault.\n\nGenerate Random Seed option creates a 32-byte string as input to create and initialise a new vault.\n\nExisting Seed option allows you to create the vault with the same set of cryptographic key pairs created from another device and sync cloud profiles from the same vault.'**
+  /// **'A **seed** is a bit string used as an initial input to generate a sequence of pseudo-random numbers to create cryptographic keys. The Vault TDK uses a 32-byte string to create a vault.\n\nGenerate Random **Seed** option creates a 32-byte string as input to create and initialise a new vault.\n\nExisting **Seed** option allows you to create the vault with the same set of cryptographic key pairs created from another device and sync cloud profiles from the same vault.'**
   String get infoSeedDescription;
 
   /// No description provided for @infoProfile.
@@ -1327,7 +1333,7 @@ abstract class AppLocalizations {
   /// No description provided for @infoProfileDescription.
   ///
   /// In en, this message translates to:
-  /// **'A profile represents your digital identity. It allows you to manage credentials and personal files related to your profile, including sharing your profile with other users. \n\nEach profile has its own Decentralised Identifier (DID).'**
+  /// **'A **profile** represents your digital identity. It allows you to manage credentials and personal files related to your **profile**, including sharing your **profile** with other users. \n\nEach **profile** has its own Decentralised Identifier (DID).'**
   String get infoProfileDescription;
 
   /// No description provided for @infoProfileStorage.
@@ -1351,7 +1357,7 @@ abstract class AppLocalizations {
   /// No description provided for @infoCredentialDescription.
   ///
   /// In en, this message translates to:
-  /// **'The claimed credential is a Verifiable Credential (VC) that contains a set of claims about the subject and metadata, including the cryptographical proof of who issued it, ensuring authenticity and tamper-evident. It is a W3C (World Wide Web Consortium) standard for digitally representing and exchanging credentials in a secure, privacy-preserving, and machine-verifiable manner. \n\nAn example of a credential is a university issuing you a completion certificate, attesting that you have completed the course.'**
+  /// **'The **claimed credential** is a Verifiable Credential (VC) that contains a set of claims about the subject and metadata, including the cryptographical proof of who issued it, ensuring authenticity and tamper-evident. It is a W3C (World Wide Web Consortium) standard for digitally representing and exchanging credentials in a secure, privacy-preserving, and machine-verifiable manner. \n\nAn example of a credential is a university issuing you a completion certificate, attesting that you have completed the course.'**
   String get infoCredentialDescription;
 
   /// No description provided for @infoShareContent.
@@ -1363,7 +1369,7 @@ abstract class AppLocalizations {
   /// No description provided for @infoShareContentDescription.
   ///
   /// In en, this message translates to:
-  /// **'The shared content contains data shared by another user through the profile sharing process using your Decentralised Identifier (DID). Depending on the permission set by the other user who shared it, you can write or read-only on the shared content.'**
+  /// **'The **shared content** contains data shared by another user through the profile sharing process using your Decentralised Identifier (DID). Depending on the permission set by the other user who shared it, you can write or read-only on the shared content.'**
   String get infoShareContentDescription;
 
   /// No description provided for @infoAccessManagement.
@@ -1617,6 +1623,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Revoked Shared Profile Access'**
   String get snippetDescRevokeAccess;
+
+  /// No description provided for @shareFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Share File/Folder'**
+  String get shareFile;
+
+  /// No description provided for @fileSharedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'File has been shared successfully'**
+  String get fileSharedMessage;
+
+  /// No description provided for @errorSharingFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Error sharing file'**
+  String get errorSharingFile;
+
+  /// No description provided for @manageAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Access'**
+  String get manageAccess;
+
+  /// No description provided for @timeLimitLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Set time limit'**
+  String get timeLimitLabel;
+
+  /// No description provided for @selectDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select date'**
+  String get selectDateLabel;
+
+  /// No description provided for @selectTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select time'**
+  String get selectTimeLabel;
+
+  /// No description provided for @accessRevokedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Access revoked successfully'**
+  String get accessRevokedMessage;
+
+  /// No description provided for @errorRevokingAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Error revoking access'**
+  String get errorRevokingAccess;
+
+  /// No description provided for @noSharedAccessesForNode.
+  ///
+  /// In en, this message translates to:
+  /// **'No shared accesses for this file/folder.'**
+  String get noSharedAccessesForNode;
 }
 
 class _AppLocalizationsDelegate
@@ -1644,9 +1710,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

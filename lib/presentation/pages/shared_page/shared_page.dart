@@ -24,11 +24,14 @@ class SharedPage extends ConsumerWidget {
     final state = ref.watch(provider);
     final navigation = ref.read(navigationServiceProvider);
 
+    final hasSharedContent =
+        state.sharedStorages.isNotEmpty || state.granularAccessItems.isNotEmpty;
+
     return Scaffold(
-      backgroundColor: AppColorScheme.backgroundWhite,
+      backgroundColor: AppColorScheme.backgroundBlack,
       body: state.isLoading
           ? const Center(child: CircularProgressIndicator())
-          : state.sharedStorages.isEmpty
+          : !hasSharedContent
               ? Center(
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -58,25 +61,58 @@ class SharedPage extends ConsumerWidget {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ]))
-              : ListView.builder(
+              : ListView(
                   padding: const EdgeInsets.all(AppSizing.paddingMedium),
-                  itemCount: state.sharedStorages.length,
-                  itemBuilder: (context, index) {
-                    final storage = state.sharedStorages[index];
-                    return SharedProfileCard(
-                      title: localizations.sharedFromLabel(storage.id),
-                      subtitle: localizations
-                          .storageTypeLabel(storage.runtimeType.toString()),
-                      onPressed: () {
-                        navigation.push(
-                          ProfilesRoutePath.profileSharedProfileDetailsFiles(
-                            profileId,
-                            storage.id,
-                          ),
-                        );
-                      },
-                    );
-                  },
+                  children: [
+                    // Profile-shared storages
+                    ...state.sharedStorages.map((storage) {
+                      return SharedProfileCard(
+                        title: localizations.sharedFromLabel(storage.id),
+                        subtitle: localizations
+                            .storageTypeLabel(storage.runtimeType.toString()),
+                        onPressed: () {
+                          navigation.push(
+                            ProfilesRoutePath.profileSharedProfileDetailsFiles(
+                              profileId,
+                              storage.id,
+                            ),
+                          );
+                        },
+                      );
+                    }),
+                    // Granular access items
+                    ...state.granularAccessItems.map((item) {
+                      String permissionsText = '';
+                      if (item.rights.contains('vfsRead') &&
+                          item.rights.contains('vfsWrite')) {
+                        permissionsText = localizations.canWriteLabel;
+                      } else if (item.rights.contains('vfsRead')) {
+                        permissionsText = localizations.canViewOnlyLabel;
+                      } else {
+                        permissionsText = item.rights.join(', ');
+                      }
+
+                      return SharedProfileCard(
+                        title: localizations
+                            .sharedFromNodeLabel(item.ownerProfileName),
+                        subtitle: '${item.nodeName} • $permissionsText',
+                        onPressed: () {
+                          if (item.isFolder) {
+                            navigation.push(
+                              '${ProfilesRoutePath.profileMyFiles(item.ownerProfileId)}?folder=${item.nodeId}',
+                            );
+                          } else {
+                            navigation.push(
+                              ProfilesRoutePath.profileFilePreview(
+                                item.ownerProfileId,
+                                item.nodeId,
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    }),
+                  ],
                 ),
     );
   }

@@ -26,8 +26,15 @@ class AccessManagementPage extends ConsumerWidget {
     final controller = ref.watch(controllerProvider.notifier);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColorScheme.backgroundBlack,
       appBar: TdkAppBar(
+        titleWidget: SimpleInfoWidget(
+          text: localizations.accessManagementLabel,
+          dialogTitle: localizations.infoAccessManagement,
+          dialogContent: localizations.infoAccessManagementDescription,
+          textStyle: AppTheme.headingLarge,
+        ),
+        showBackButton: true,
         actions: [
           CodeSnippetWidget(
             title: localizations.snippetDescRevokeAccess,
@@ -37,41 +44,12 @@ class AccessManagementPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          // Header section
-          Padding(
-            padding: const EdgeInsets.only(
-              left: AppSizing.paddingSmall,
-              right: AppSizing.paddingLarge,
-              top: AppSizing.paddingSmall,
-              bottom: AppSizing.paddingRegular,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: AppSizing.paddingSmall),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: AppSizing.paddingRegular),
-                    child: SimpleInfoWidget(
-                      text: localizations.accessManagementLabel,
-                      dialogTitle: localizations.infoAccessManagement,
-                      dialogContent:
-                          localizations.infoAccessManagementDescription,
-                      textStyle: AppTheme.headingLarge,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: AppSizing.paddingMedium),
-              ],
-            ),
-          ),
+          const SizedBox(height: AppSizing.paddingSmall),
           // Table header
           Container(
             padding: const EdgeInsets.all(AppSizing.paddingMedium),
             decoration: const BoxDecoration(
-              color: Color(0xFFF8F9FA),
+              color: AppColorScheme.backgroundBlack,
               border: Border(
                 bottom: BorderSide(color: AppColorScheme.divider),
               ),

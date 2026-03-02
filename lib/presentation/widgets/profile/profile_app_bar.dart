@@ -43,7 +43,7 @@ class ProfileAppBar extends ConsumerWidget {
     final navigation = ref.read(navigationServiceProvider);
 
     return Container(
-      color: Colors.white,
+      color: AppColorScheme.backgroundBlack,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -75,8 +75,14 @@ class ProfileAppBar extends ConsumerWidget {
                     if (result == 'shared' && context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                            content: Text(localizations?.profileSharedMessage ??
-                                'Profile has been shared')),
+                          content: Text(
+                            localizations?.profileSharedMessage ??
+                                'Profile has been shared',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: AppColorScheme.backgroundDark,
+                          behavior: SnackBarBehavior.fixed,
+                        ),
                       );
                     }
                   },
@@ -151,6 +157,101 @@ class ProfileAppBar extends ConsumerWidget {
   }
 }
 
+class _PermissionTile extends StatelessWidget {
+  const _PermissionTile({
+    super.key,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final color =
+        selected ? AppTheme.colorScheme.primary : AppColorScheme.textSecondary;
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingXSmall),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              selected ? Icons.radio_button_checked : Icons.radio_button_off,
+              color: color,
+              size: AppSizing.iconSmall + 2,
+            ),
+            const SizedBox(width: AppSizing.paddingSmall),
+            Expanded(
+              child: Text(
+                label,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: color),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CheckboxTile extends StatelessWidget {
+  const _CheckboxTile({
+    required this.label,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final String label;
+  final bool value;
+  final ValueChanged<bool?>? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final color =
+        value ? AppTheme.colorScheme.primary : AppColorScheme.textSecondary;
+
+    return InkWell(
+      onTap: onChanged == null ? null : () => onChanged!(!value),
+      borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingXSmall),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Checkbox(
+              value: value,
+              onChanged: onChanged,
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+              side: BorderSide(color: color),
+              activeColor: AppTheme.colorScheme.primary,
+            ),
+            const SizedBox(width: AppSizing.paddingSmall),
+            Expanded(
+              child: Text(
+                label,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: color),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class ShareProfileBottomSheet extends ConsumerStatefulWidget {
   final String profileId;
   final WidgetRef ref;
@@ -174,6 +275,9 @@ class _ShareProfileBottomSheetState
 
   bool isLoading = false;
   Permissions? selectedPermission = Permissions.read;
+  bool hasTimeLimit = false;
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
   ValueNotifier<String>? loadingMessageNotifier;
 
   @override
@@ -201,7 +305,7 @@ class _ShareProfileBottomSheetState
         child: Container(
           padding: const EdgeInsets.all(AppSizing.paddingLarge),
           decoration: BoxDecoration(
-            color: AppColorScheme.backgroundWhite,
+            color: AppColorScheme.backgroundBlack,
             borderRadius: BorderRadius.circular(AppSizing.paddingMedium),
           ),
           child: SizedBox(
@@ -230,9 +334,41 @@ class _ShareProfileBottomSheetState
     final controller =
         widget.ref.read(profileSharingControllerProvider.notifier);
     controller.selectProfile(widget.profileId);
+    DateTime? expiresAt;
+    if (hasTimeLimit && selectedDate != null) {
+      final date = selectedDate!;
+      final time = selectedTime ?? const TimeOfDay(hour: 23, minute: 59);
+      final localDateTime = DateTime(
+        date.year,
+        date.month,
+        date.day,
+        time.hour,
+        time.minute,
+      );
+      final nowUtc = DateTime.now().toUtc();
+      final expiresAtUtc = localDateTime.toUtc();
+      if (expiresAtUtc.isBefore(nowUtc)) {
+        setState(() => isLoading = false);
+        if (mounted) Navigator.of(context).pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              widget.localizations!.errorSharingFile,
+              style: const TextStyle(color: AppColorScheme.textPrimary),
+            ),
+            backgroundColor: AppColorScheme.backgroundDark,
+            behavior: SnackBarBehavior.fixed,
+          ),
+        );
+        return;
+      }
+      expiresAt = expiresAtUtc;
+    }
+
     await controller.shareAndAutoAccept(
       receiverDid: didValue,
       permissions: selectedPermission!,
+      expiresAt: expiresAt,
       onMessage: (message) {
         final messageService = widget.ref.read(messageServiceProvider);
         final localizedMessage =
@@ -320,37 +456,92 @@ class _ShareProfileBottomSheetState
               textStyle: Theme.of(context).textTheme.labelLarge,
             ),
             const SizedBox(height: AppSizing.paddingSmall),
-            RadioListTile<Permissions>(
-              title: Text(
-                localizations.canViewOnlyLabel,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              value: Permissions.read,
-              groupValue: selectedPermission,
-              onChanged: isLoading
+            _PermissionTile(
+              label: localizations.canViewOnlyLabel,
+              selected: selectedPermission == Permissions.read,
+              onTap: isLoading
                   ? null
-                  : (value) {
-                      setState(() => selectedPermission = value);
-                    },
-              contentPadding: EdgeInsets.zero,
-              visualDensity: VisualDensity(horizontal: -4),
+                  : () => setState(() => selectedPermission = Permissions.read),
             ),
-            RadioListTile<Permissions>(
+            _PermissionTile(
               key: Key(KeyConstants.keyCanWriteRadio),
-              title: Text(
-                localizations.canWriteLabel,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              value: Permissions.all,
-              groupValue: selectedPermission,
+              label: localizations.canWriteLabel,
+              selected: selectedPermission == Permissions.all,
+              onTap: isLoading
+                  ? null
+                  : () => setState(() => selectedPermission = Permissions.all),
+            ),
+            const SizedBox(height: AppSizing.paddingLarge),
+            _CheckboxTile(
+              label: localizations.timeLimitLabel,
+              value: hasTimeLimit,
               onChanged: isLoading
                   ? null
                   : (value) {
-                      setState(() => selectedPermission = value);
+                      setState(() {
+                        hasTimeLimit = value ?? false;
+                        if (!hasTimeLimit) {
+                          selectedDate = null;
+                          selectedTime = null;
+                        }
+                      });
                     },
-              contentPadding: EdgeInsets.zero,
-              visualDensity: VisualDensity(horizontal: -4),
             ),
+            if (hasTimeLimit) ...[
+              const SizedBox(height: AppSizing.paddingMedium),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: isLoading
+                          ? null
+                          : () async {
+                              final now = DateTime.now();
+                              final today =
+                                  DateTime(now.year, now.month, now.day);
+                              final picked = await showDatePicker(
+                                context: context,
+                                initialDate: selectedDate ?? now,
+                                firstDate: today,
+                                lastDate: DateTime(now.year + 10),
+                              );
+                              if (picked != null) {
+                                setState(() => selectedDate = picked);
+                              }
+                            },
+                      icon: const Icon(Icons.calendar_today, size: 18),
+                      label: Text(
+                        selectedDate != null
+                            ? '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}'
+                            : localizations.selectDateLabel,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: AppSizing.paddingMedium),
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: isLoading
+                          ? null
+                          : () async {
+                              final picked = await showTimePicker(
+                                context: context,
+                                initialTime: selectedTime ?? TimeOfDay.now(),
+                              );
+                              if (picked != null) {
+                                setState(() => selectedTime = picked);
+                              }
+                            },
+                      icon: const Icon(Icons.access_time, size: 18),
+                      label: Text(
+                        selectedTime != null
+                            ? selectedTime!.format(context)
+                            : localizations.selectTimeLabel,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
             Center(
                 child: SimpleInfoWidget(
               text: localizations.infoShareFlow,

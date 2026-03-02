@@ -15,6 +15,7 @@ import '../../dialogs/create_folder_form/create_folder_form.dart';
 import '../../files_explorer/widgets/files_explorer.dart';
 import '../../files_explorer/widgets/files_explorer_navigation/files_explorer_breadcrumb_controller.dart';
 import '../../files_explorer/widgets/files_explorer_navigation/files_explorer_navigation.dart';
+import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
 import '../../widgets/loading_status/async_loading_status.dart';
 import '../../widgets/loading_status/modal_async_loading_status.dart';
@@ -111,7 +112,14 @@ class MyFilesPage extends HookConsumerWidget {
       } catch (e) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(e.toString())),
+            SnackBar(
+              content: Text(
+                e.toString(),
+                style: const TextStyle(color: Colors.white),
+              ),
+              backgroundColor: AppColorScheme.backgroundDark,
+              behavior: SnackBarBehavior.fixed,
+            ),
           );
         }
       }
@@ -119,7 +127,7 @@ class MyFilesPage extends HookConsumerWidget {
 
     return SafeArea(
       child: ColoredBox(
-        color: Colors.white,
+        color: AppColorScheme.backgroundBlack,
         child: Column(
           children: [
             ModalAsyncLoadingStatus(

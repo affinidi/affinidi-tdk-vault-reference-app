@@ -49,7 +49,7 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
-        color: AppColorScheme.backgroundWhite,
+        color: AppColorScheme.backgroundBlack,
         borderRadius: const BorderRadius.vertical(
             top: Radius.circular(AppSizing.paddingMedium)),
       ),
@@ -92,37 +92,16 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(height: AppSizing.paddingRegular),
-                    Row(
-                      children: [
-                        Radio<int>(
-                          value: 0,
-                          groupValue: formatOption.value,
-                          onChanged: (v) => formatOption.value = v ?? 0,
-                          activeColor: AppTheme.colorScheme.primary,
-                        ),
-                        const SizedBox(width: AppSizing.paddingSmall),
-                        Text(
-                          localizations.acceptAllFormats,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ],
+                    _RadioTile(
+                      label: localizations.acceptAllFormats,
+                      selected: formatOption.value == 0,
+                      onTap: () => formatOption.value = 0,
                     ),
                     const SizedBox(height: AppSizing.paddingSmall),
-                    Row(
-                      children: [
-                        Radio<int>(
-                          value: 1,
-                          groupValue: formatOption.value,
-                          onChanged: (v) => formatOption.value = v ?? 1,
-                          activeColor: AppTheme.colorScheme.primary,
-                        ),
-                        const SizedBox(width: AppSizing.paddingSmall),
-                        Text(
-                          localizations.specifyAllowedFormats,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        const SizedBox(width: AppSizing.paddingSmall),
-                      ],
+                    _RadioTile(
+                      label: localizations.specifyAllowedFormats,
+                      selected: formatOption.value == 1,
+                      onTap: () => formatOption.value = 1,
                     ),
                     const SizedBox(height: AppSizing.paddingLarge),
 
@@ -170,7 +149,7 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                             ),
                             child: IconButton(
                               icon: const Icon(Icons.add,
-                                  color: AppColorScheme.backgroundWhite,
+                                  color: AppColorScheme.backgroundBlack,
                                   size: AppSizing.iconSmall),
                               onPressed: () {
                                 final value = formatInputController.text
@@ -250,7 +229,7 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                           child: FilledButton(
                             onPressed: () => navigation.pop(),
                             style: FilledButton.styleFrom(
-                              backgroundColor: AppColorScheme.backgroundWhite,
+                              backgroundColor: AppColorScheme.backgroundBlack,
                               foregroundColor: AppColorScheme.textPrimary,
                               side: const BorderSide(
                                   color:
@@ -291,15 +270,22 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
-                                            content: Text(
-                                                localizations.settingsSaved)),
+                                          content: Text(
+                                            localizations.settingsSaved,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
+                                          backgroundColor:
+                                              AppColorScheme.backgroundDark,
+                                          behavior: SnackBarBehavior.fixed,
+                                        ),
                                       );
                                     }
                                   },
                             style: FilledButton.styleFrom(
                               backgroundColor:
                                   Theme.of(context).colorScheme.primary,
-                              foregroundColor: AppColorScheme.backgroundWhite,
+                              foregroundColor: AppColorScheme.backgroundBlack,
                               minimumSize: const Size.fromHeight(
                                   AppSizing.paddingXXLarge),
                             ),
@@ -310,7 +296,7 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
                                       valueColor: AlwaysStoppedAnimation<Color>(
-                                          AppColorScheme.backgroundWhite),
+                                          AppColorScheme.backgroundBlack),
                                     ),
                                   )
                                 : Text(
@@ -321,7 +307,7 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                                         ?.copyWith(
                                             fontWeight: FontWeight.w600,
                                             color:
-                                                AppColorScheme.backgroundWhite),
+                                                AppColorScheme.backgroundBlack),
                                   ),
                           ),
                         ),
@@ -330,6 +316,52 @@ class FileSettingsBottomSheet extends HookConsumerWidget {
                     const SizedBox(height: AppSizing.paddingLarge),
                   ],
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RadioTile extends StatelessWidget {
+  const _RadioTile({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final color =
+        selected ? AppTheme.colorScheme.primary : AppColorScheme.textSecondary;
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppSizing.paddingXSmall),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              selected ? Icons.radio_button_checked : Icons.radio_button_off,
+              color: color,
+              size: AppSizing.iconSmall + 2,
+            ),
+            const SizedBox(width: AppSizing.paddingSmall),
+            Expanded(
+              child: Text(
+                label,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: color),
               ),
             ),
           ],

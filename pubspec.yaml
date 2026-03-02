@@ -1,23 +1,24 @@
 name: tdk_reference_app
 description: "A reference application that demonstrates the sample usage of the Affinidi TDK - Vault package to guide you through integrating it into your projects."
 publish_to: "none"
-version: 1.0.0+1
+version: 1.1.0+2
 
 environment:
   sdk: ^3.5.4
 dependencies:
   affinidi_tdk_claim_verifiable_credential: ^1.4.0
   affinidi_tdk_cryptography: ^2.4.0
-  affinidi_tdk_vault: ^1.11.2
-  affinidi_tdk_vault_data_manager: ^1.10.2
+  affinidi_tdk_vault: ^1.15.0
+  affinidi_tdk_vault_data_manager: ^1.14.0
   affinidi_tdk_vault_edge_drift_provider: ^1.1.0
   affinidi_tdk_vault_edge_provider: ^1.1.0
-  affinidi_tdk_vault_flutter_utils: ^1.10.2
+  affinidi_tdk_vault_flutter_utils: ^1.14.0
   collection: ^1.19.0
   cross_file: ^0.3.4+2
   crypto: ^3.0.6
   cupertino_icons: ^1.0.8
   dio: ^5.8.0+1
+  dotted_border: ^2.1.0
   drift: ^2.26.1
   file_picker: ^8.1.7
   flutter:
@@ -72,6 +73,7 @@ dev_dependencies:
 dependency_overrides:
   clock: 1.1.1
   ssi: ^2.2.0
+
 flutter:
   uses-material-design: true
   generate: true
