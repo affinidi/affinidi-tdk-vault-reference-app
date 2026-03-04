@@ -44,6 +44,10 @@ class ProfilePage extends HookConsumerWidget {
           localizedLabel: localizations.shared,
           icon: Icons.share,
         ),
+        NavigationItem(
+          localizedLabel: localizations.vdspShare,
+          icon: Icons.mobile_screen_share_outlined,
+        ),
       ],
       [localizations],
     );
