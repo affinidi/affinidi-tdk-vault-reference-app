@@ -42,6 +42,10 @@ class ProfilePage extends HookConsumerWidget {
           localizedLabel: localizations.shared,
           icon: Icons.share,
         ),
+        NavigationItem(
+          localizedLabel: localizations.vdspShare,
+          icon: Icons.mobile_screen_share_outlined,
+        ),
       ],
       [localizations],
     );
@@ -74,6 +78,7 @@ class ProfilePage extends HookConsumerWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         currentIndex: navigationShell.currentIndex,
         onTap: (index) => navigationShell.goBranch(index),

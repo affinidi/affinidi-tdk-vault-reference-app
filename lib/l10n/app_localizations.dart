@@ -62,7 +62,7 @@ import 'app_localizations_en.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -85,11 +85,11 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
@@ -723,6 +723,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Shared'**
   String get shared;
+
+  /// No description provided for @vdspShare.
+  ///
+  /// In en, this message translates to:
+  /// **'VDSP Share'**
+  String get vdspShare;
 
   /// No description provided for @openPDF.
   ///
@@ -1509,6 +1515,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'shared content'**
   String get targetKeywordSharedContent;
+
+  /// No description provided for @vdspShareCredentialsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'VDSP Share Credentials'**
+  String get vdspShareCredentialsTitle;
+
+  /// No description provided for @scanVerifierQrCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Verifier QR Code'**
+  String get scanVerifierQrCode;
 
   /// No description provided for @snippetDescCreateVault.
   ///

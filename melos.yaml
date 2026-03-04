@@ -26,3 +26,4 @@ scripts:
     run: sh scripts/generate_localized_files.sh
     exec:
       concurrency: 1
+sdkPath: .fvm/flutter_sdk

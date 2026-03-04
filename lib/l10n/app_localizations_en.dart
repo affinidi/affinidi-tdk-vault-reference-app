@@ -380,6 +380,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shared => 'Shared';
 
   @override
+  String get vdspShare => 'VDSP Share';
+
+  @override
   String get openPDF => 'Open PDF in new tab';
 
   @override
@@ -814,6 +817,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get targetKeywordSharedContent => 'shared content';
+
+  @override
+  String get vdspShareCredentialsTitle => 'VDSP Share Credentials';
+
+  @override
+  String get scanVerifierQrCode => 'Scan Verifier QR Code';
 
   @override
   String get snippetDescCreateVault => 'Create Vault';

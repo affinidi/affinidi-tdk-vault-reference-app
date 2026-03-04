@@ -21,8 +21,9 @@ class ProfileCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileType =
-        ref.watch(profileTypeProvider(profile.profileRepositoryId));
+    final profileType = ref.watch(
+      profileTypeProvider(profile.profileRepositoryId),
+    );
 
     return Card(
       color: AppColorScheme.backgroundWhite,
@@ -50,19 +51,15 @@ class ProfileCard extends HookConsumerWidget {
                       height: AppSizing.iconLarge,
                     ),
               const SizedBox(height: AppSizing.paddingMedium),
-              Text(
-                profile.name,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
+              Text(profile.name, style: Theme.of(context).textTheme.titleSmall),
               const SizedBox(height: AppSizing.paddingXSmall),
               if (profile.description != null &&
                   profile.description!.isNotEmpty)
                 Text(
                   profile.description!,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: AppColorScheme.textSecondary),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColorScheme.textSecondary,
+                  ),
                 ),
             ],
           ),

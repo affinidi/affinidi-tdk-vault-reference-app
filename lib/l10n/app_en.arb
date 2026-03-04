@@ -450,6 +450,10 @@
   "@shared": {
     "type": "text"
   },
+  "vdspShare": "VDSP Share",
+  "@vdspShare": {
+    "type": "text"
+  },
   "openPDF": "Open PDF in new tab",
   "@openPDF": {
     "type": "text"
@@ -917,6 +921,17 @@
   "@targetKeywordSharedContent": {
     "type": "text"
   },
+
+  "vdspShareCredentialsTitle": "VDSP Share Credentials",
+  "@vdspShareCredentialsTitle": {
+    "type": "text"
+  },
+
+  "scanVerifierQrCode": "Scan Verifier QR Code",
+  "@scanVerifierQrCode": {
+    "type": "text"
+  },
+
   "snippetDescCreateVault": "Create Vault",
   "snippetDescGenRandSeed": "Generate Random Seed",
   "snippetDescOpenVault": "Open Vault Instance",

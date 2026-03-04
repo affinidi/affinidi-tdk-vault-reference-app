@@ -25,7 +25,9 @@ import '../presentation/pages/shared_credentials_page/shared_credentials_page.da
 import '../presentation/pages/shared_files_page/shared_files_page.dart';
 import '../presentation/pages/shared_profile_details_page/shared_profile_details_page.dart';
 
+import '../presentation/pages/vdsp_share_credentials_page/vdsp_share_credentials_page.dart';
 import 'flows/app_routes.dart';
+import 'flows/vdsp_share_credentials/vdsp_share_credentials_constants.dart';
 import 'navigation_service.dart';
 
 part 'navigation_provider.g.dart';
@@ -134,6 +136,17 @@ GoRouter navigation(Ref ref) {
                                 state.pathParameters[ProfilesRouteParams.id]!,
                           ),
                         ),
+                      ],
+                    ),
+                    StatefulShellBranch(
+                      routes: [
+                        GoRoute(
+                            path: VdspShareCredentialsRoutePath.base,
+                            builder: (context, state) =>
+                                VdspShareCredentialsPage(
+                                  profileId: state
+                                      .pathParameters[ProfilesRouteParams.id]!,
+                                )),
                       ],
                     ),
                   ],
