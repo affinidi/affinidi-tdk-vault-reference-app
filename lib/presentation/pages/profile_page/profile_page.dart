@@ -79,12 +79,12 @@ class ProfilePage extends HookConsumerWidget {
         onTap: (index) => navigationShell.goBranch(index),
         selectedItemColor: AppTheme.colorScheme.primary,
         unselectedItemColor: AppColorScheme.textSecondary,
-        selectedLabelStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: AppTheme.colorScheme.primary,
-            ),
-        unselectedLabelStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: AppColorScheme.textSecondary,
-            ),
+        selectedLabelStyle: Theme.of(
+          context,
+        ).textTheme.labelMedium?.copyWith(color: AppTheme.colorScheme.primary),
+        unselectedLabelStyle: Theme.of(
+          context,
+        ).textTheme.labelMedium?.copyWith(color: AppColorScheme.textSecondary),
         items: navigationItems
             .map(
               (item) => BottomNavigationBarItem(

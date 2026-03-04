@@ -21,8 +21,9 @@ class ProfileCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileType =
-        ref.watch(profileTypeProvider(profile.profileRepositoryId));
+    final profileType = ref.watch(
+      profileTypeProvider(profile.profileRepositoryId),
+    );
 
     return Card(
       elevation: 12,
@@ -35,11 +36,7 @@ class ProfileCard extends HookConsumerWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF1A1A1A),
-              Color(0xFF2A2A2A),
-              Color(0xFF1F1F1F),
-            ],
+            colors: [Color(0xFF1A1A1A), Color(0xFF2A2A2A), Color(0xFF1F1F1F)],
             stops: [0.0, 0.5, 1.0],
           ),
           borderRadius: BorderRadius.circular(AppSizing.paddingRegular),
@@ -75,28 +72,27 @@ class ProfileCard extends HookConsumerWidget {
                           ? 'Storage: Affinidi Cloud'
                           : 'Storage: Local Drift',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: AppColorScheme.textSecondary,
-                            fontSize: 11,
-                          ),
+                        color: AppColorScheme.textSecondary,
+                        fontSize: 11,
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: AppSizing.paddingMedium),
                 Text(
                   profile.name,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: Colors.white,
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(color: Colors.white),
                 ),
                 const SizedBox(height: AppSizing.paddingXSmall),
                 if (profile.description != null &&
                     profile.description!.isNotEmpty)
                   Text(
                     profile.description!,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(color: AppColorScheme.textSecondary),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColorScheme.textSecondary,
+                    ),
                   ),
               ],
             ),
