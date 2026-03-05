@@ -87,28 +87,31 @@ class MyFilesPageControllerFamily extends Family<MyFilesPageState> {
 }
 
 /// See also [MyFilesPageController].
-class MyFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<
-    MyFilesPageController, MyFilesPageState> {
+class MyFilesPageControllerProvider
+    extends
+        AutoDisposeNotifierProviderImpl<
+          MyFilesPageController,
+          MyFilesPageState
+        > {
   /// See also [MyFilesPageController].
   MyFilesPageControllerProvider({
     required String? parentNodeId,
     required String profileId,
   }) : this._internal(
-          () => MyFilesPageController()
-            ..parentNodeId = parentNodeId
-            ..profileId = profileId,
-          from: myFilesPageControllerProvider,
-          name: r'myFilesPageControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$myFilesPageControllerHash,
-          dependencies: MyFilesPageControllerFamily._dependencies,
-          allTransitiveDependencies:
-              MyFilesPageControllerFamily._allTransitiveDependencies,
-          parentNodeId: parentNodeId,
-          profileId: profileId,
-        );
+         () => MyFilesPageController()
+           ..parentNodeId = parentNodeId
+           ..profileId = profileId,
+         from: myFilesPageControllerProvider,
+         name: r'myFilesPageControllerProvider',
+         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+             ? null
+             : _$myFilesPageControllerHash,
+         dependencies: MyFilesPageControllerFamily._dependencies,
+         allTransitiveDependencies:
+             MyFilesPageControllerFamily._allTransitiveDependencies,
+         parentNodeId: parentNodeId,
+         profileId: profileId,
+       );
 
   MyFilesPageControllerProvider._internal(
     super._createNotifier, {
@@ -125,13 +128,8 @@ class MyFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<
   final String profileId;
 
   @override
-  MyFilesPageState runNotifierBuild(
-    covariant MyFilesPageController notifier,
-  ) {
-    return notifier.build(
-      parentNodeId: parentNodeId,
-      profileId: profileId,
-    );
+  MyFilesPageState runNotifierBuild(covariant MyFilesPageController notifier) {
+    return notifier.build(parentNodeId: parentNodeId, profileId: profileId);
   }
 
   @override
@@ -155,7 +153,7 @@ class MyFilesPageControllerProvider extends AutoDisposeNotifierProviderImpl<
 
   @override
   AutoDisposeNotifierProviderElement<MyFilesPageController, MyFilesPageState>
-      createElement() {
+  createElement() {
     return _MyFilesPageControllerProviderElement(this);
   }
 
@@ -188,8 +186,12 @@ mixin MyFilesPageControllerRef
 }
 
 class _MyFilesPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<MyFilesPageController,
-        MyFilesPageState> with MyFilesPageControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          MyFilesPageController,
+          MyFilesPageState
+        >
+    with MyFilesPageControllerRef {
   _MyFilesPageControllerProviderElement(super.provider);
 
   @override
@@ -198,5 +200,6 @@ class _MyFilesPageControllerProviderElement
   @override
   String get profileId => (origin as MyFilesPageControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

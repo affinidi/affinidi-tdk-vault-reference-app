@@ -24,11 +24,14 @@ abstract class ProfilesRoutePath {
   static String sharedProfileFilePreview(String id, String nodeId) =>
       '$base/$id/$shared/$myFiles/$preview/$nodeId';
   static String profileSharedProfileDetailsFiles(
-          String profileId, String sharedProfileId) =>
-      '$base/$profileId/$shared/$sharedProfileId/files';
+    String profileId,
+    String sharedProfileId,
+  ) => '$base/$profileId/$shared/$sharedProfileId/files';
   static String profileSharedProfileDetailsFolderPath(
-          String profileId, String sharedProfileId, String folderId) =>
-      '$base/$profileId/$shared/$sharedProfileId/files?folder=$folderId';
+    String profileId,
+    String sharedProfileId,
+    String folderId,
+  ) => '$base/$profileId/$shared/$sharedProfileId/files?folder=$folderId';
 }
 
 abstract class ProfilesRouteName {

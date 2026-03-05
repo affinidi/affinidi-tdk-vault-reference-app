@@ -13,8 +13,9 @@ class RenameFileFormController extends _$RenameFileFormController {
   RenameFileFormController() : super();
 
   late TextEditingController fileNameController;
-  final loadingController =
-      AsyncLoadingController.provider('renameFileFormLoadingController');
+  final loadingController = AsyncLoadingController.provider(
+    'renameFileFormLoadingController',
+  );
 
   @override
   RenameFileFormState build({
@@ -27,7 +28,8 @@ class RenameFileFormController extends _$RenameFileFormController {
     void fileNameListener() {
       Future(() {
         state = state.copyWith(
-            isRenameButtonEnabled: fileNameController.text.trim().isNotEmpty);
+          isRenameButtonEnabled: fileNameController.text.trim().isNotEmpty,
+        );
       });
     }
 
@@ -39,17 +41,22 @@ class RenameFileFormController extends _$RenameFileFormController {
     });
 
     return RenameFileFormState(
-        isRenameButtonEnabled: item.name.trim().isNotEmpty);
+      isRenameButtonEnabled: item.name.trim().isNotEmpty,
+    );
   }
 
-  Future<void> rename(
-      {required void Function() onSuccess,
-      bool isSharedProfile = false}) async {
+  Future<void> rename({
+    required void Function() onSuccess,
+    bool isSharedProfile = false,
+  }) async {
     await ref.read(loadingController.notifier).start(() async {
       await ref
-          .read(storageServiceProvider(
-                  parentNodeId: parentNodeId, profileId: profileId)
-              .notifier)
+          .read(
+            storageServiceProvider(
+              parentNodeId: parentNodeId,
+              profileId: profileId,
+            ).notifier,
+          )
           .renameFile(
             itemId: item.id,
             newName: fileNameController.text,

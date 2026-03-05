@@ -55,8 +55,9 @@ class VaultService extends _$VaultService {
         : _generateRandomSeed();
     final base64Seed = base64Encode(seed);
 
-    final isVaultAlreadyExisting =
-        _doesVaultWithSeedExist(base64Seed: base64Seed);
+    final isVaultAlreadyExisting = _doesVaultWithSeedExist(
+      base64Seed: base64Seed,
+    );
     if (isVaultAlreadyExisting) {
       throw AppException(
         message: 'Vault already exists on this device.',
@@ -77,13 +78,11 @@ class VaultService extends _$VaultService {
 
     await vault.ensureInitialized();
 
-    state = state.copyWith(
-      currentVault: vault,
-      currentVaultId: vaultId,
-    );
+    state = state.copyWith(currentVault: vault, currentVaultId: vaultId);
 
-    final vaultsManagerService =
-        ref.read(vaultsManagerServiceProvider.notifier);
+    final vaultsManagerService = ref.read(
+      vaultsManagerServiceProvider.notifier,
+    );
     await vaultsManagerService.loadVaultAvailability();
 
     final profiles = await vault.listProfiles();
@@ -101,22 +100,22 @@ class VaultService extends _$VaultService {
     final vaultsManagerServiceState = ref.read(vaultsManagerServiceProvider);
     final vaultRegistry = vaultsManagerServiceState.vaultRegistry;
 
-    final vault = await ref.read(_openVaultProvider(
-      vaultId,
-    ).future);
+    final vault = await ref.read(_openVaultProvider(vaultId).future);
     await vault.ensureInitialized();
 
     final vaultEntry = vaultRegistry[vaultId];
     if (vaultEntry == null) {
       throw AppException(
-          message: 'No vault entry found for the given vaultId',
-          type: AppExceptionType.invalidVaultId);
+        message: 'No vault entry found for the given vaultId',
+        type: AppExceptionType.invalidVaultId,
+      );
     }
 
     if (vaultEntry.password != password) {
       throw AppException(
-          message: 'Incorrect password for the selected vault',
-          type: AppExceptionType.invalidPassword);
+        message: 'Incorrect password for the selected vault',
+        type: AppExceptionType.invalidPassword,
+      );
     }
 
     state = state.copyWith(
@@ -140,10 +139,7 @@ class VaultService extends _$VaultService {
   Future<void> resetCurrentVault() async {
     log('Reseting current vault...', name: 'VaultService');
     await _disposeCurrentVaultResources();
-    state = state.copyWith(
-      currentVault: null,
-      currentVaultId: null,
-    );
+    state = state.copyWith(currentVault: null, currentVaultId: null);
     log('Finished resetting current vault', name: 'VaultService');
   }
 
@@ -161,8 +157,10 @@ class VaultService extends _$VaultService {
     await keyStore.setSeed(seed);
 
     // Create both VFS and Edge repositories
-    final profileRepositories =
-        await _createProfileRepositories(vaultStorageKey, keyStore);
+    final profileRepositories = await _createProfileRepositories(
+      vaultStorageKey,
+      keyStore,
+    );
 
     // Set default to VFS
     final vfsRepositoryId = '${vaultStorageKey}_affinidi_cloud_repository';
@@ -323,16 +321,14 @@ class VaultService extends _$VaultService {
       return 0;
     }
     final highestIndex = profiles.fold(
-        0,
-        (previousValue, element) =>
-            math.max(previousValue, element.accountIndex));
+      0,
+      (previousValue, element) => math.max(previousValue, element.accountIndex),
+    );
     return highestIndex + 1;
   }
 
   /// Checks if a vault already exists for the given base64 seed.
-  bool _doesVaultWithSeedExist({
-    required String base64Seed,
-  }) {
+  bool _doesVaultWithSeedExist({required String base64Seed}) {
     final vaultRegistry = ref.read(vaultsManagerServiceProvider).vaultRegistry;
     return vaultRegistry.values.any((entry) => entry.base64Seed == base64Seed);
   }
@@ -343,8 +339,10 @@ class VaultService extends _$VaultService {
     if (cached != null) {
       return cached;
     }
-    final cleanRepositoryId =
-        repositoryId.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
+    final cleanRepositoryId = repositoryId.replaceAll(
+      RegExp(r'[^a-zA-Z0-9]'),
+      '_',
+    );
     final databaseName = 'edge_profiles_$cleanRepositoryId.db';
 
     try {
@@ -391,26 +389,34 @@ class VaultService extends _$VaultService {
 /// Creates profile repositories for both VFS and Edge storage
 /// Edge repositories are created with shared database for all Edge profiles
 Future<Map<String, ProfileRepository>> _createProfileRepositories(
-    String vaultId, FlutterSecureVaultStore keyStore) async {
+  String vaultId,
+  FlutterSecureVaultStore keyStore,
+) async {
   final profileRepositories = <String, ProfileRepository>{};
 
   try {
     // Always create VFS repository (cloud-based, no local storage)
     final vfsRepositoryId = '${vaultId}_affinidi_cloud_repository';
-    log('Creating VFS repository with ID: $vfsRepositoryId',
-        name: 'VaultService');
-    profileRepositories[vfsRepositoryId] =
-        VfsProfileRepository(vfsRepositoryId);
+    log(
+      'Creating VFS repository with ID: $vfsRepositoryId',
+      name: 'VaultService',
+    );
+    profileRepositories[vfsRepositoryId] = VfsProfileRepository(
+      vfsRepositoryId,
+    );
     log('VFS repository created', name: 'VaultService');
 
     // Create Edge repository with shared database for all Edge profiles
     final edgeRepositoryId = '${vaultId}_edge_repository';
-    log('Creating Edge repository with ID: $edgeRepositoryId',
-        name: 'VaultService');
+    log(
+      'Creating Edge repository with ID: $edgeRepositoryId',
+      name: 'VaultService',
+    );
 
     // Create database using platform-specific method
-    final database =
-        await VaultService._createPlatformDatabase(edgeRepositoryId);
+    final database = await VaultService._createPlatformDatabase(
+      edgeRepositoryId,
+    );
 
     // Create encryption service
     final encryptionService = EdgeEncryptionService(vaultStore: keyStore);
@@ -428,8 +434,10 @@ Future<Map<String, ProfileRepository>> _createProfileRepositories(
     profileRepositories[edgeRepositoryId] = edgeRepository;
     log('Edge repository created', name: 'VaultService');
 
-    log('Final repositories: ${profileRepositories.keys}',
-        name: 'VaultService');
+    log(
+      'Final repositories: ${profileRepositories.keys}',
+      name: 'VaultService',
+    );
     return profileRepositories;
   } catch (e, stackTrace) {
     log('Error in _createProfileRepositories: $e', name: 'VaultService');
@@ -466,35 +474,37 @@ Uint8List _deriveSeedFromString(String input) {
 /// [repositoryId]: The unique ID of the repository.
 ///
 /// Returns a [Database] instance, either for web or native platform.
-final _createVaultProvider = FutureProvider.family<Vault, OpenVaultParams>(
-  (ref, param) async {
-    try {
-      // Get stored vault's seed from storage
-      final vaultSeed = param.base64Seed;
-      final vaultId = param.vaultId;
+final _createVaultProvider = FutureProvider.family<Vault, OpenVaultParams>((
+  ref,
+  param,
+) async {
+  try {
+    // Get stored vault's seed from storage
+    final vaultSeed = param.base64Seed;
+    final vaultId = param.vaultId;
 
-      final keyStore = FlutterSecureVaultStore(vaultId);
-      await keyStore.setSeed(base64Decode(vaultSeed));
+    final keyStore = FlutterSecureVaultStore(vaultId);
+    await keyStore.setSeed(base64Decode(vaultSeed));
 
-      // Content key will be created automatically by EdgeEncryptionService when needed
-      final profileRepositories =
-          await _createProfileRepositories(vaultId, keyStore);
+    // Content key will be created automatically by EdgeEncryptionService when needed
+    final profileRepositories = await _createProfileRepositories(
+      vaultId,
+      keyStore,
+    );
 
-      await ref.read(vaultsManagerServiceProvider.notifier).addVault(param);
+    await ref.read(vaultsManagerServiceProvider.notifier).addVault(param);
 
-      return Vault.fromVaultStore(
-        keyStore,
-        profileRepositories: profileRepositories,
-        defaultProfileRepositoryId: '${vaultId}_affinidi_cloud_repository',
-      );
-    } catch (e, st) {
-      log('Error creating vault [$param.vaultId]: $e', name: 'VaultService');
-      log('Stack trace: $st', name: 'VaultService');
-      rethrow;
-    }
-  },
-  name: '_createVaultProvider',
-);
+    return Vault.fromVaultStore(
+      keyStore,
+      profileRepositories: profileRepositories,
+      defaultProfileRepositoryId: '${vaultId}_affinidi_cloud_repository',
+    );
+  } catch (e, st) {
+    log('Error creating vault [$param.vaultId]: $e', name: 'VaultService');
+    log('Stack trace: $st', name: 'VaultService');
+    rethrow;
+  }
+}, name: '_createVaultProvider');
 
 /// A [FutureProvider.family] that opens and returns a [Vault] instance for the given [vaultId].
 ///
@@ -505,44 +515,45 @@ final _createVaultProvider = FutureProvider.family<Vault, OpenVaultParams>(
 /// - Constructs the [Vault] using [Vault.fromVaultStore].
 ///
 /// Throws an [Exception] if the vault entry or seed is not found.
-final _openVaultProvider = FutureProvider.family<Vault, String>(
-  (ref, vaultId) async {
-    try {
-      final vaultRegistry =
-          ref.read(vaultsManagerServiceProvider).vaultRegistry;
+final _openVaultProvider = FutureProvider.family<Vault, String>((
+  ref,
+  vaultId,
+) async {
+  try {
+    final vaultRegistry = ref.read(vaultsManagerServiceProvider).vaultRegistry;
 
-      final vaultEntry = vaultRegistry[vaultId];
-      if (vaultEntry == null) {
-        throw AppException(
-          message: 'No vault entry found for given vaultId',
-          type: AppExceptionType.invalidVaultId,
-        );
-      }
-
-      final keyStore = FlutterSecureVaultStore(vaultId);
-
-      final existingSeed = await keyStore.getSeed();
-
-      if (existingSeed == null) {
-        throw AppException(
-          message: 'No seed found in secure storage for vault: $vaultId',
-          type: AppExceptionType.seedNotFound,
-        );
-      }
-
-      final profileRepositories =
-          await _createProfileRepositories(vaultId, keyStore);
-
-      return Vault.fromVaultStore(
-        keyStore,
-        profileRepositories: profileRepositories,
-        defaultProfileRepositoryId: '${vaultId}_affinidi_cloud_repository',
+    final vaultEntry = vaultRegistry[vaultId];
+    if (vaultEntry == null) {
+      throw AppException(
+        message: 'No vault entry found for given vaultId',
+        type: AppExceptionType.invalidVaultId,
       );
-    } catch (e, st) {
-      log('Error opening vault for vaultId: $e', name: 'VaultService');
-      log('Stack trace: $st', name: 'VaultService');
-      rethrow;
     }
-  },
-  name: 'openVaultProvider',
-);
+
+    final keyStore = FlutterSecureVaultStore(vaultId);
+
+    final existingSeed = await keyStore.getSeed();
+
+    if (existingSeed == null) {
+      throw AppException(
+        message: 'No seed found in secure storage for vault: $vaultId',
+        type: AppExceptionType.seedNotFound,
+      );
+    }
+
+    final profileRepositories = await _createProfileRepositories(
+      vaultId,
+      keyStore,
+    );
+
+    return Vault.fromVaultStore(
+      keyStore,
+      profileRepositories: profileRepositories,
+      defaultProfileRepositoryId: '${vaultId}_affinidi_cloud_repository',
+    );
+  } catch (e, st) {
+    log('Error opening vault for vaultId: $e', name: 'VaultService');
+    log('Stack trace: $st', name: 'VaultService');
+    rethrow;
+  }
+}, name: 'openVaultProvider');

@@ -6,11 +6,7 @@ class ErrorPage extends StatelessWidget {
   final Exception? error;
   final VoidCallback? onRetry;
 
-  const ErrorPage({
-    super.key,
-    this.error,
-    this.onRetry,
-  });
+  const ErrorPage({super.key, this.error, this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +20,7 @@ class ErrorPage extends StatelessWidget {
           children: [
             Text(error?.toString() ?? localizations.unknownError),
             const SizedBox(height: AppSizing.paddingMedium),
-            ElevatedButton(
-              onPressed: onRetry,
-              child: Text(localizations.back),
-            ),
+            ElevatedButton(onPressed: onRetry, child: Text(localizations.back)),
           ],
         ),
       ),

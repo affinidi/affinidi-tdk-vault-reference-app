@@ -29,16 +29,18 @@ class ManageAccessState {
   }
 }
 
-final manageNodeAccessProvider = StateNotifierProvider.family<
-    ManageNodeAccessNotifier,
-    AsyncValue<ManageAccessState>,
-    ({String profileId, String nodeId})>((ref, args) {
-  return ManageNodeAccessNotifier(
-    ref,
-    profileId: args.profileId,
-    nodeId: args.nodeId,
-  );
-});
+final manageNodeAccessProvider =
+    StateNotifierProvider.family<
+      ManageNodeAccessNotifier,
+      AsyncValue<ManageAccessState>,
+      ({String profileId, String nodeId})
+    >((ref, args) {
+      return ManageNodeAccessNotifier(
+        ref,
+        profileId: args.profileId,
+        nodeId: args.nodeId,
+      );
+    });
 
 class ManageNodeAccessNotifier
     extends StateNotifier<AsyncValue<ManageAccessState>> {
@@ -59,14 +61,12 @@ class ManageNodeAccessNotifier
   Future<void> refresh({bool force = false}) =>
       _load(force: force, keepPrevious: true);
 
-  Future<void> _load({
-    required bool force,
-    required bool keepPrevious,
-  }) async {
+  Future<void> _load({required bool force, required bool keepPrevious}) async {
     final previous = state.valueOrNull;
     final lastFetchedAt = previous?.fetchedAt;
 
-    final isFresh = lastFetchedAt != null &&
+    final isFresh =
+        lastFetchedAt != null &&
         DateTime.now().difference(lastFetchedAt) < _cacheDuration;
     if (!force && isFresh) return;
 

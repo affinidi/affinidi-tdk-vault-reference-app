@@ -5,12 +5,13 @@ class AppColorScheme {
     primary: Color(0xff007aff), // #040822
   );
 
-  static final dark = ColorScheme.fromSeed(
-    seedColor: Colors.blue,
-    brightness: Brightness.dark,
-  ).copyWith(
-    primary: Color(0xff007aff), // #040822
-  );
+  static final dark =
+      ColorScheme.fromSeed(
+        seedColor: Colors.blue,
+        brightness: Brightness.dark,
+      ).copyWith(
+        primary: Color(0xff007aff), // #040822
+      );
 
   // Form field colors - Using dark theme
   static const Color formFieldBorderFocused = Color(0xff0467f1);

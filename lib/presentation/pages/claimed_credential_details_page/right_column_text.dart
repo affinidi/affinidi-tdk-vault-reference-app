@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RightColumnText extends StatelessWidget {
-  const RightColumnText({
-    super.key,
-    required this.fieldValue,
-  });
+  const RightColumnText({super.key, required this.fieldValue});
 
   final String fieldValue;
 
@@ -13,9 +10,7 @@ class RightColumnText extends StatelessWidget {
     return Text(
       fieldValue,
       maxLines: 1,
-      style: TextStyle(
-        fontSize: 12,
-      ),
+      style: TextStyle(fontSize: 12),
       overflow: TextOverflow.ellipsis,
     );
   }

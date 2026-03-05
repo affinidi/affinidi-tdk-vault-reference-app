@@ -27,7 +27,8 @@ class ClaimedCredentialDetailsPage extends StatelessWidget {
         title: localizations.credentialDetails,
         actions: [],
         body: ClaimedCredentialDetailsPage(
-            verifiableCredential: verifiableCredential),
+          verifiableCredential: verifiableCredential,
+        ),
         onCancel: () {
           if (!context.mounted) return;
 
@@ -39,8 +40,6 @@ class ClaimedCredentialDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CredentialTreeView(
-      verifiableCredential: verifiableCredential,
-    );
+    return CredentialTreeView(verifiableCredential: verifiableCredential);
   }
 }

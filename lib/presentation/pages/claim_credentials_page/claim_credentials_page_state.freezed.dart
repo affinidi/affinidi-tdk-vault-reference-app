@@ -12,7 +12,8 @@ part of 'claim_credentials_page_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$ClaimCredentialsPageState {
@@ -34,22 +35,26 @@ mixin _$ClaimCredentialsPageState {
 
 /// @nodoc
 abstract class $ClaimCredentialsPageStateCopyWith<$Res> {
-  factory $ClaimCredentialsPageStateCopyWith(ClaimCredentialsPageState value,
-          $Res Function(ClaimCredentialsPageState) then) =
-      _$ClaimCredentialsPageStateCopyWithImpl<$Res, ClaimCredentialsPageState>;
+  factory $ClaimCredentialsPageStateCopyWith(
+    ClaimCredentialsPageState value,
+    $Res Function(ClaimCredentialsPageState) then,
+  ) = _$ClaimCredentialsPageStateCopyWithImpl<$Res, ClaimCredentialsPageState>;
   @useResult
-  $Res call(
-      {OID4VCIClaimContext? claimContext,
-      VerifiableCredential? verifiableCredential,
-      Uri? offerUri,
-      String profileId,
-      CredentialOfferFetchStatus fetchStatus,
-      String? fetchErrorMessage});
+  $Res call({
+    OID4VCIClaimContext? claimContext,
+    VerifiableCredential? verifiableCredential,
+    Uri? offerUri,
+    String profileId,
+    CredentialOfferFetchStatus fetchStatus,
+    String? fetchErrorMessage,
+  });
 }
 
 /// @nodoc
-class _$ClaimCredentialsPageStateCopyWithImpl<$Res,
-        $Val extends ClaimCredentialsPageState>
+class _$ClaimCredentialsPageStateCopyWithImpl<
+  $Res,
+  $Val extends ClaimCredentialsPageState
+>
     implements $ClaimCredentialsPageStateCopyWith<$Res> {
   _$ClaimCredentialsPageStateCopyWithImpl(this._value, this._then);
 
@@ -70,32 +75,35 @@ class _$ClaimCredentialsPageStateCopyWithImpl<$Res,
     Object? fetchStatus = null,
     Object? fetchErrorMessage = freezed,
   }) {
-    return _then(_value.copyWith(
-      claimContext: freezed == claimContext
-          ? _value.claimContext
-          : claimContext // ignore: cast_nullable_to_non_nullable
-              as OID4VCIClaimContext?,
-      verifiableCredential: freezed == verifiableCredential
-          ? _value.verifiableCredential
-          : verifiableCredential // ignore: cast_nullable_to_non_nullable
-              as VerifiableCredential?,
-      offerUri: freezed == offerUri
-          ? _value.offerUri
-          : offerUri // ignore: cast_nullable_to_non_nullable
-              as Uri?,
-      profileId: null == profileId
-          ? _value.profileId
-          : profileId // ignore: cast_nullable_to_non_nullable
-              as String,
-      fetchStatus: null == fetchStatus
-          ? _value.fetchStatus
-          : fetchStatus // ignore: cast_nullable_to_non_nullable
-              as CredentialOfferFetchStatus,
-      fetchErrorMessage: freezed == fetchErrorMessage
-          ? _value.fetchErrorMessage
-          : fetchErrorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            claimContext: freezed == claimContext
+                ? _value.claimContext
+                : claimContext // ignore: cast_nullable_to_non_nullable
+                      as OID4VCIClaimContext?,
+            verifiableCredential: freezed == verifiableCredential
+                ? _value.verifiableCredential
+                : verifiableCredential // ignore: cast_nullable_to_non_nullable
+                      as VerifiableCredential?,
+            offerUri: freezed == offerUri
+                ? _value.offerUri
+                : offerUri // ignore: cast_nullable_to_non_nullable
+                      as Uri?,
+            profileId: null == profileId
+                ? _value.profileId
+                : profileId // ignore: cast_nullable_to_non_nullable
+                      as String,
+            fetchStatus: null == fetchStatus
+                ? _value.fetchStatus
+                : fetchStatus // ignore: cast_nullable_to_non_nullable
+                      as CredentialOfferFetchStatus,
+            fetchErrorMessage: freezed == fetchErrorMessage
+                ? _value.fetchErrorMessage
+                : fetchErrorMessage // ignore: cast_nullable_to_non_nullable
+                      as String?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -103,29 +111,33 @@ class _$ClaimCredentialsPageStateCopyWithImpl<$Res,
 abstract class _$$ClaimCredentialsPageStateImplCopyWith<$Res>
     implements $ClaimCredentialsPageStateCopyWith<$Res> {
   factory _$$ClaimCredentialsPageStateImplCopyWith(
-          _$ClaimCredentialsPageStateImpl value,
-          $Res Function(_$ClaimCredentialsPageStateImpl) then) =
-      __$$ClaimCredentialsPageStateImplCopyWithImpl<$Res>;
+    _$ClaimCredentialsPageStateImpl value,
+    $Res Function(_$ClaimCredentialsPageStateImpl) then,
+  ) = __$$ClaimCredentialsPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {OID4VCIClaimContext? claimContext,
-      VerifiableCredential? verifiableCredential,
-      Uri? offerUri,
-      String profileId,
-      CredentialOfferFetchStatus fetchStatus,
-      String? fetchErrorMessage});
+  $Res call({
+    OID4VCIClaimContext? claimContext,
+    VerifiableCredential? verifiableCredential,
+    Uri? offerUri,
+    String profileId,
+    CredentialOfferFetchStatus fetchStatus,
+    String? fetchErrorMessage,
+  });
 }
 
 /// @nodoc
 class __$$ClaimCredentialsPageStateImplCopyWithImpl<$Res>
-    extends _$ClaimCredentialsPageStateCopyWithImpl<$Res,
-        _$ClaimCredentialsPageStateImpl>
+    extends
+        _$ClaimCredentialsPageStateCopyWithImpl<
+          $Res,
+          _$ClaimCredentialsPageStateImpl
+        >
     implements _$$ClaimCredentialsPageStateImplCopyWith<$Res> {
   __$$ClaimCredentialsPageStateImplCopyWithImpl(
-      _$ClaimCredentialsPageStateImpl _value,
-      $Res Function(_$ClaimCredentialsPageStateImpl) _then)
-      : super(_value, _then);
+    _$ClaimCredentialsPageStateImpl _value,
+    $Res Function(_$ClaimCredentialsPageStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ClaimCredentialsPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -139,46 +151,48 @@ class __$$ClaimCredentialsPageStateImplCopyWithImpl<$Res>
     Object? fetchStatus = null,
     Object? fetchErrorMessage = freezed,
   }) {
-    return _then(_$ClaimCredentialsPageStateImpl(
-      claimContext: freezed == claimContext
-          ? _value.claimContext
-          : claimContext // ignore: cast_nullable_to_non_nullable
-              as OID4VCIClaimContext?,
-      verifiableCredential: freezed == verifiableCredential
-          ? _value.verifiableCredential
-          : verifiableCredential // ignore: cast_nullable_to_non_nullable
-              as VerifiableCredential?,
-      offerUri: freezed == offerUri
-          ? _value.offerUri
-          : offerUri // ignore: cast_nullable_to_non_nullable
-              as Uri?,
-      profileId: null == profileId
-          ? _value.profileId
-          : profileId // ignore: cast_nullable_to_non_nullable
-              as String,
-      fetchStatus: null == fetchStatus
-          ? _value.fetchStatus
-          : fetchStatus // ignore: cast_nullable_to_non_nullable
-              as CredentialOfferFetchStatus,
-      fetchErrorMessage: freezed == fetchErrorMessage
-          ? _value.fetchErrorMessage
-          : fetchErrorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$ClaimCredentialsPageStateImpl(
+        claimContext: freezed == claimContext
+            ? _value.claimContext
+            : claimContext // ignore: cast_nullable_to_non_nullable
+                  as OID4VCIClaimContext?,
+        verifiableCredential: freezed == verifiableCredential
+            ? _value.verifiableCredential
+            : verifiableCredential // ignore: cast_nullable_to_non_nullable
+                  as VerifiableCredential?,
+        offerUri: freezed == offerUri
+            ? _value.offerUri
+            : offerUri // ignore: cast_nullable_to_non_nullable
+                  as Uri?,
+        profileId: null == profileId
+            ? _value.profileId
+            : profileId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        fetchStatus: null == fetchStatus
+            ? _value.fetchStatus
+            : fetchStatus // ignore: cast_nullable_to_non_nullable
+                  as CredentialOfferFetchStatus,
+        fetchErrorMessage: freezed == fetchErrorMessage
+            ? _value.fetchErrorMessage
+            : fetchErrorMessage // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$ClaimCredentialsPageStateImpl extends _ClaimCredentialsPageState {
-  _$ClaimCredentialsPageStateImpl(
-      {this.claimContext,
-      this.verifiableCredential,
-      this.offerUri,
-      required this.profileId,
-      this.fetchStatus = CredentialOfferFetchStatus.initial,
-      this.fetchErrorMessage})
-      : super._();
+  _$ClaimCredentialsPageStateImpl({
+    this.claimContext,
+    this.verifiableCredential,
+    this.offerUri,
+    required this.profileId,
+    this.fetchStatus = CredentialOfferFetchStatus.initial,
+    this.fetchErrorMessage,
+  }) : super._();
 
   @override
   final OID4VCIClaimContext? claimContext;
@@ -220,13 +234,14 @@ class _$ClaimCredentialsPageStateImpl extends _ClaimCredentialsPageState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      claimContext,
-      verifiableCredential,
-      offerUri,
-      profileId,
-      fetchStatus,
-      fetchErrorMessage);
+    runtimeType,
+    claimContext,
+    verifiableCredential,
+    offerUri,
+    profileId,
+    fetchStatus,
+    fetchErrorMessage,
+  );
 
   /// Create a copy of ClaimCredentialsPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -234,18 +249,21 @@ class _$ClaimCredentialsPageStateImpl extends _ClaimCredentialsPageState {
   @override
   @pragma('vm:prefer-inline')
   _$$ClaimCredentialsPageStateImplCopyWith<_$ClaimCredentialsPageStateImpl>
-      get copyWith => __$$ClaimCredentialsPageStateImplCopyWithImpl<
-          _$ClaimCredentialsPageStateImpl>(this, _$identity);
+  get copyWith =>
+      __$$ClaimCredentialsPageStateImplCopyWithImpl<
+        _$ClaimCredentialsPageStateImpl
+      >(this, _$identity);
 }
 
 abstract class _ClaimCredentialsPageState extends ClaimCredentialsPageState {
-  factory _ClaimCredentialsPageState(
-      {final OID4VCIClaimContext? claimContext,
-      final VerifiableCredential? verifiableCredential,
-      final Uri? offerUri,
-      required final String profileId,
-      final CredentialOfferFetchStatus fetchStatus,
-      final String? fetchErrorMessage}) = _$ClaimCredentialsPageStateImpl;
+  factory _ClaimCredentialsPageState({
+    final OID4VCIClaimContext? claimContext,
+    final VerifiableCredential? verifiableCredential,
+    final Uri? offerUri,
+    required final String profileId,
+    final CredentialOfferFetchStatus fetchStatus,
+    final String? fetchErrorMessage,
+  }) = _$ClaimCredentialsPageStateImpl;
   _ClaimCredentialsPageState._() : super._();
 
   @override
@@ -266,5 +284,5 @@ abstract class _ClaimCredentialsPageState extends ClaimCredentialsPageState {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ClaimCredentialsPageStateImplCopyWith<_$ClaimCredentialsPageStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

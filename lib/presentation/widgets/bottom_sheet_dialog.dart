@@ -28,8 +28,9 @@ class BottomSheetDialog extends StatelessWidget {
     final content = ClipRRect(
       borderRadius: BorderRadius.circular(AppSizing.paddingMedium),
       child: Container(
-        constraints:
-            BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.9),
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.sizeOf(context).height * 0.9,
+        ),
         child: Stack(
           children: [
             SingleChildScrollView(
@@ -44,22 +45,24 @@ class BottomSheetDialog extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: AppSizing.paddingLarge,
-                          vertical: AppSizing.paddingXLarge),
+                        horizontal: AppSizing.paddingLarge,
+                        vertical: AppSizing.paddingXLarge,
+                      ),
                       child: body,
                     ),
                     if (actions.isNotEmpty) ...[
                       Divider(height: 1),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: AppSizing.paddingLarge,
-                            vertical: AppSizing.paddingMedium),
+                          horizontal: AppSizing.paddingLarge,
+                          vertical: AppSizing.paddingMedium,
+                        ),
                         child: Row(
                           mainAxisAlignment: actionsAlignment,
                           children: actions,
                         ),
                       ),
-                    ]
+                    ],
                   ],
                 ),
               ),
@@ -75,25 +78,30 @@ class BottomSheetDialog extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.fromLTRB(
-                            AppSizing.paddingLarge,
-                            AppSizing.paddingSmall,
-                            AppSizing.paddingSmall,
-                            AppSizing.paddingXSmall),
+                          AppSizing.paddingLarge,
+                          AppSizing.paddingSmall,
+                          AppSizing.paddingSmall,
+                          AppSizing.paddingXSmall,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(title!,
-                                style: titleStyle ??
-                                    Theme.of(context).textTheme.headlineSmall),
+                            Text(
+                              title!,
+                              style:
+                                  titleStyle ??
+                                  Theme.of(context).textTheme.headlineSmall,
+                            ),
                             IconButton(
-                                onPressed: onCancel,
-                                icon: SvgPicture.asset(
-                                  'assets/icons/icon-close.svg',
-                                  colorFilter: const ColorFilter.mode(
-                                    Colors.white,
-                                    BlendMode.srcIn,
-                                  ),
-                                ))
+                              onPressed: onCancel,
+                              icon: SvgPicture.asset(
+                                'assets/icons/icon-close.svg',
+                                colorFilter: const ColorFilter.mode(
+                                  Colors.white,
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -110,9 +118,7 @@ class BottomSheetDialog extends StatelessWidget {
     if (!applyViewInsets) return content;
 
     return AnimatedPadding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.viewInsetsOf(context).bottom,
-      ),
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
       duration: const Duration(milliseconds: 100),
       curve: Curves.decelerate,
       child: content,

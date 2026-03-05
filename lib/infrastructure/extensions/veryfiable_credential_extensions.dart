@@ -3,10 +3,10 @@ import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 
 extension VerifiableCredentialExtensions on VerifiableCredential {
-  String? get displayName => type.firstWhereOrNull((item) => ![
-        'VerifiableCredential',
-        'VerifiedIdentityDocument',
-      ].contains(item));
+  String? get displayName => type.firstWhereOrNull(
+    (item) =>
+        !['VerifiableCredential', 'VerifiedIdentityDocument'].contains(item),
+  );
 
   String? formattedIssuanceDate(String localeName) {
     final localDate = validFrom?.toLocal();

@@ -12,7 +12,8 @@ part of 'profile_settings_page_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$ProfileSettingsPageState {
@@ -29,16 +30,19 @@ mixin _$ProfileSettingsPageState {
 
 /// @nodoc
 abstract class $ProfileSettingsPageStateCopyWith<$Res> {
-  factory $ProfileSettingsPageStateCopyWith(ProfileSettingsPageState value,
-          $Res Function(ProfileSettingsPageState) then) =
-      _$ProfileSettingsPageStateCopyWithImpl<$Res, ProfileSettingsPageState>;
+  factory $ProfileSettingsPageStateCopyWith(
+    ProfileSettingsPageState value,
+    $Res Function(ProfileSettingsPageState) then,
+  ) = _$ProfileSettingsPageStateCopyWithImpl<$Res, ProfileSettingsPageState>;
   @useResult
   $Res call({bool isSaving, Profile? profile, Set<int> revokingIds});
 }
 
 /// @nodoc
-class _$ProfileSettingsPageStateCopyWithImpl<$Res,
-        $Val extends ProfileSettingsPageState>
+class _$ProfileSettingsPageStateCopyWithImpl<
+  $Res,
+  $Val extends ProfileSettingsPageState
+>
     implements $ProfileSettingsPageStateCopyWith<$Res> {
   _$ProfileSettingsPageStateCopyWithImpl(this._value, this._then);
 
@@ -56,20 +60,23 @@ class _$ProfileSettingsPageStateCopyWithImpl<$Res,
     Object? profile = freezed,
     Object? revokingIds = null,
   }) {
-    return _then(_value.copyWith(
-      isSaving: null == isSaving
-          ? _value.isSaving
-          : isSaving // ignore: cast_nullable_to_non_nullable
-              as bool,
-      profile: freezed == profile
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
-              as Profile?,
-      revokingIds: null == revokingIds
-          ? _value.revokingIds
-          : revokingIds // ignore: cast_nullable_to_non_nullable
-              as Set<int>,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            isSaving: null == isSaving
+                ? _value.isSaving
+                : isSaving // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            profile: freezed == profile
+                ? _value.profile
+                : profile // ignore: cast_nullable_to_non_nullable
+                      as Profile?,
+            revokingIds: null == revokingIds
+                ? _value.revokingIds
+                : revokingIds // ignore: cast_nullable_to_non_nullable
+                      as Set<int>,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -77,9 +84,9 @@ class _$ProfileSettingsPageStateCopyWithImpl<$Res,
 abstract class _$$ProfileSettingsPageStateImplCopyWith<$Res>
     implements $ProfileSettingsPageStateCopyWith<$Res> {
   factory _$$ProfileSettingsPageStateImplCopyWith(
-          _$ProfileSettingsPageStateImpl value,
-          $Res Function(_$ProfileSettingsPageStateImpl) then) =
-      __$$ProfileSettingsPageStateImplCopyWithImpl<$Res>;
+    _$ProfileSettingsPageStateImpl value,
+    $Res Function(_$ProfileSettingsPageStateImpl) then,
+  ) = __$$ProfileSettingsPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool isSaving, Profile? profile, Set<int> revokingIds});
@@ -87,13 +94,16 @@ abstract class _$$ProfileSettingsPageStateImplCopyWith<$Res>
 
 /// @nodoc
 class __$$ProfileSettingsPageStateImplCopyWithImpl<$Res>
-    extends _$ProfileSettingsPageStateCopyWithImpl<$Res,
-        _$ProfileSettingsPageStateImpl>
+    extends
+        _$ProfileSettingsPageStateCopyWithImpl<
+          $Res,
+          _$ProfileSettingsPageStateImpl
+        >
     implements _$$ProfileSettingsPageStateImplCopyWith<$Res> {
   __$$ProfileSettingsPageStateImplCopyWithImpl(
-      _$ProfileSettingsPageStateImpl _value,
-      $Res Function(_$ProfileSettingsPageStateImpl) _then)
-      : super(_value, _then);
+    _$ProfileSettingsPageStateImpl _value,
+    $Res Function(_$ProfileSettingsPageStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ProfileSettingsPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -104,31 +114,33 @@ class __$$ProfileSettingsPageStateImplCopyWithImpl<$Res>
     Object? profile = freezed,
     Object? revokingIds = null,
   }) {
-    return _then(_$ProfileSettingsPageStateImpl(
-      isSaving: null == isSaving
-          ? _value.isSaving
-          : isSaving // ignore: cast_nullable_to_non_nullable
-              as bool,
-      profile: freezed == profile
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
-              as Profile?,
-      revokingIds: null == revokingIds
-          ? _value._revokingIds
-          : revokingIds // ignore: cast_nullable_to_non_nullable
-              as Set<int>,
-    ));
+    return _then(
+      _$ProfileSettingsPageStateImpl(
+        isSaving: null == isSaving
+            ? _value.isSaving
+            : isSaving // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        profile: freezed == profile
+            ? _value.profile
+            : profile // ignore: cast_nullable_to_non_nullable
+                  as Profile?,
+        revokingIds: null == revokingIds
+            ? _value._revokingIds
+            : revokingIds // ignore: cast_nullable_to_non_nullable
+                  as Set<int>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$ProfileSettingsPageStateImpl implements _ProfileSettingsPageState {
-  const _$ProfileSettingsPageStateImpl(
-      {this.isSaving = false,
-      this.profile,
-      final Set<int> revokingIds = const {}})
-      : _revokingIds = revokingIds;
+  const _$ProfileSettingsPageStateImpl({
+    this.isSaving = false,
+    this.profile,
+    final Set<int> revokingIds = const {},
+  }) : _revokingIds = revokingIds;
 
   @override
   @JsonKey()
@@ -157,13 +169,19 @@ class _$ProfileSettingsPageStateImpl implements _ProfileSettingsPageState {
             (identical(other.isSaving, isSaving) ||
                 other.isSaving == isSaving) &&
             (identical(other.profile, profile) || other.profile == profile) &&
-            const DeepCollectionEquality()
-                .equals(other._revokingIds, _revokingIds));
+            const DeepCollectionEquality().equals(
+              other._revokingIds,
+              _revokingIds,
+            ));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isSaving, profile,
-      const DeepCollectionEquality().hash(_revokingIds));
+  int get hashCode => Object.hash(
+    runtimeType,
+    isSaving,
+    profile,
+    const DeepCollectionEquality().hash(_revokingIds),
+  );
 
   /// Create a copy of ProfileSettingsPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -171,15 +189,18 @@ class _$ProfileSettingsPageStateImpl implements _ProfileSettingsPageState {
   @override
   @pragma('vm:prefer-inline')
   _$$ProfileSettingsPageStateImplCopyWith<_$ProfileSettingsPageStateImpl>
-      get copyWith => __$$ProfileSettingsPageStateImplCopyWithImpl<
-          _$ProfileSettingsPageStateImpl>(this, _$identity);
+  get copyWith =>
+      __$$ProfileSettingsPageStateImplCopyWithImpl<
+        _$ProfileSettingsPageStateImpl
+      >(this, _$identity);
 }
 
 abstract class _ProfileSettingsPageState implements ProfileSettingsPageState {
-  const factory _ProfileSettingsPageState(
-      {final bool isSaving,
-      final Profile? profile,
-      final Set<int> revokingIds}) = _$ProfileSettingsPageStateImpl;
+  const factory _ProfileSettingsPageState({
+    final bool isSaving,
+    final Profile? profile,
+    final Set<int> revokingIds,
+  }) = _$ProfileSettingsPageStateImpl;
 
   @override
   bool get isSaving;
@@ -193,5 +214,5 @@ abstract class _ProfileSettingsPageState implements ProfileSettingsPageState {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProfileSettingsPageStateImplCopyWith<_$ProfileSettingsPageStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

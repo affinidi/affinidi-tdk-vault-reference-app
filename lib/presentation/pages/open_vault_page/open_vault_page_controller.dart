@@ -26,10 +26,9 @@ class OpenVaultPageController extends _$OpenVaultPageController {
   }) async {
     state = true;
     try {
-      await ref.read(vaultServiceProvider.notifier).open(
-            password: password,
-            vaultId: vaultId,
-          );
+      await ref
+          .read(vaultServiceProvider.notifier)
+          .open(password: password, vaultId: vaultId);
       onSuccess.call();
     } catch (e, st) {
       String errorMessage = 'An error occurred while opening the vault';

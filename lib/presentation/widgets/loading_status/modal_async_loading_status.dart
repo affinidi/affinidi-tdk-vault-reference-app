@@ -45,7 +45,8 @@ class ModalAsyncLoadingStatus extends HookConsumerWidget
                 const CircularProgressIndicator(),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: AppSizing.paddingRegular),
+                    horizontal: AppSizing.paddingRegular,
+                  ),
                   child: Text(loadingMessage ?? localizations.loading),
                 ),
               ],
@@ -57,10 +58,16 @@ class ModalAsyncLoadingStatus extends HookConsumerWidget
   }
 
   void _showErrorDialog(
-      BuildContext context, Object exception, StackTrace stackTrace) {
+    BuildContext context,
+    Object exception,
+    StackTrace stackTrace,
+  ) {
     final localizations = AppLocalizations.of(context)!;
     String? localizedErrorMessage = makeLocalizedErrorMessage(
-        exception, stackTrace, (error) => errorLocalizer(localizations, error));
+      exception,
+      stackTrace,
+      (error) => errorLocalizer(localizations, error),
+    );
     if (localizedErrorMessage == null) return;
 
     showDialog<void>(
@@ -70,7 +77,9 @@ class ModalAsyncLoadingStatus extends HookConsumerWidget
         return AlertDialog(
           content: Text(localizedErrorMessage),
           actionsPadding: const EdgeInsets.only(
-              right: AppSizing.paddingSmall, bottom: AppSizing.paddingSmall),
+            right: AppSizing.paddingSmall,
+            bottom: AppSizing.paddingSmall,
+          ),
           contentPadding: const EdgeInsets.all(AppSizing.paddingLarge),
           actions: <Widget>[
             TextButton(

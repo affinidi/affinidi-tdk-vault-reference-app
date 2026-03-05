@@ -11,16 +11,19 @@ String _$createVaultPageControllerHash() =>
 
 /// See also [CreateVaultPageController].
 @ProviderFor(CreateVaultPageController)
-final createVaultPageControllerProvider = AutoDisposeNotifierProvider<
-    CreateVaultPageController, CreateVaultPageState>.internal(
-  CreateVaultPageController.new,
-  name: r'createVaultPageControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$createVaultPageControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final createVaultPageControllerProvider =
+    AutoDisposeNotifierProvider<
+      CreateVaultPageController,
+      CreateVaultPageState
+    >.internal(
+      CreateVaultPageController.new,
+      name: r'createVaultPageControllerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$createVaultPageControllerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$CreateVaultPageController = AutoDisposeNotifier<CreateVaultPageState>;
 // ignore_for_file: type=lint

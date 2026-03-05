@@ -30,24 +30,26 @@ class RenameFolderForm extends ConsumerWidget {
     String? parentNodeId,
     required String profileId,
     bool isSharedProfile = false,
-  }) =>
-      showModalBottomSheet(
-        useRootNavigator: true,
-        isScrollControlled: true,
-        context: context,
-        builder: (context) => RenameFolderForm(
-          folder: folder,
-          parentNodeId: parentNodeId,
-          profileId: profileId,
-          isSharedProfile: isSharedProfile,
-        ),
-      );
+  }) => showModalBottomSheet(
+    useRootNavigator: true,
+    isScrollControlled: true,
+    context: context,
+    builder: (context) => RenameFolderForm(
+      folder: folder,
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+      isSharedProfile: isSharedProfile,
+    ),
+  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final provider = renameFolderFormControllerProvider(
-        item: folder, parentNodeId: parentNodeId, profileId: profileId);
+      item: folder,
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
     final controller = ref.read(provider.notifier);
     final textController = controller.folderNameController;
     final navigation = ref.read(navigationServiceProvider);
@@ -107,9 +109,10 @@ class RenameFolderForm extends ConsumerWidget {
                   labelText: localizations.folderName,
                   hintText: localizations.folderName,
                   suffix: _ClearButton(
-                      folder: folder,
-                      parentNodeId: parentNodeId,
-                      profileId: profileId),
+                    folder: folder,
+                    parentNodeId: parentNodeId,
+                    profileId: profileId,
+                  ),
                 ),
                 onSubmitted: (value) {
                   if (value.trim().isNotEmpty) {
@@ -140,21 +143,23 @@ class _ClearButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = renameFolderFormControllerProvider(
-        item: folder, parentNodeId: parentNodeId, profileId: profileId);
+      item: folder,
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
     final controller = ref.read(provider.notifier);
-    final isRenameButtonEnabled =
-        ref.watch(provider.select((state) => state.isRenameButtonEnabled));
+    final isRenameButtonEnabled = ref.watch(
+      provider.select((state) => state.isRenameButtonEnabled),
+    );
 
     return isRenameButtonEnabled
         ? GestureDetector(
             onTap: () => controller.clearName(),
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizing.paddingSmall),
-              child: Icon(
-                Icons.cancel_rounded,
-                size: 16,
+                horizontal: AppSizing.paddingSmall,
               ),
+              child: Icon(Icons.cancel_rounded, size: 16),
             ),
           )
         : SizedBox.shrink();
@@ -178,10 +183,14 @@ class _RenameButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final provider = renameFolderFormControllerProvider(
-        item: folder, parentNodeId: parentNodeId, profileId: profileId);
+      item: folder,
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
 
-    final isRenameButtonEnabled =
-        ref.watch(provider.select((state) => state.isRenameButtonEnabled));
+    final isRenameButtonEnabled = ref.watch(
+      provider.select((state) => state.isRenameButtonEnabled),
+    );
 
     return FilledButton(
       onPressed: isRenameButtonEnabled ? () => onRenameFolder() : null,

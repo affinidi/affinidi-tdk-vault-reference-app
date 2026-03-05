@@ -7,8 +7,6 @@ part 'file_preview_page_state.freezed.dart';
 
 @Freezed(fromJson: false, toJson: false)
 class FilePreviewPageState with _$FilePreviewPageState {
-  factory FilePreviewPageState({
-    Uint8List? data,
-    DocumentType? documentType,
-  }) = _FilePreviewPageState;
+  factory FilePreviewPageState({Uint8List? data, DocumentType? documentType}) =
+      _FilePreviewPageState;
 }

@@ -34,9 +34,7 @@ abstract class _$ProfilePageController
     extends BuildlessAutoDisposeNotifier<ProfilePageState> {
   late final String profileId;
 
-  ProfilePageState build({
-    required String profileId,
-  });
+  ProfilePageState build({required String profileId});
 }
 
 /// See also [ProfilePageController].
@@ -49,21 +47,15 @@ class ProfilePageControllerFamily extends Family<ProfilePageState> {
   const ProfilePageControllerFamily();
 
   /// See also [ProfilePageController].
-  ProfilePageControllerProvider call({
-    required String profileId,
-  }) {
-    return ProfilePageControllerProvider(
-      profileId: profileId,
-    );
+  ProfilePageControllerProvider call({required String profileId}) {
+    return ProfilePageControllerProvider(profileId: profileId);
   }
 
   @override
   ProfilePageControllerProvider getProviderOverride(
     covariant ProfilePageControllerProvider provider,
   ) {
-    return call(
-      profileId: provider.profileId,
-    );
+    return call(profileId: provider.profileId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -82,24 +74,26 @@ class ProfilePageControllerFamily extends Family<ProfilePageState> {
 }
 
 /// See also [ProfilePageController].
-class ProfilePageControllerProvider extends AutoDisposeNotifierProviderImpl<
-    ProfilePageController, ProfilePageState> {
+class ProfilePageControllerProvider
+    extends
+        AutoDisposeNotifierProviderImpl<
+          ProfilePageController,
+          ProfilePageState
+        > {
   /// See also [ProfilePageController].
-  ProfilePageControllerProvider({
-    required String profileId,
-  }) : this._internal(
-          () => ProfilePageController()..profileId = profileId,
-          from: profilePageControllerProvider,
-          name: r'profilePageControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$profilePageControllerHash,
-          dependencies: ProfilePageControllerFamily._dependencies,
-          allTransitiveDependencies:
-              ProfilePageControllerFamily._allTransitiveDependencies,
-          profileId: profileId,
-        );
+  ProfilePageControllerProvider({required String profileId})
+    : this._internal(
+        () => ProfilePageController()..profileId = profileId,
+        from: profilePageControllerProvider,
+        name: r'profilePageControllerProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$profilePageControllerHash,
+        dependencies: ProfilePageControllerFamily._dependencies,
+        allTransitiveDependencies:
+            ProfilePageControllerFamily._allTransitiveDependencies,
+        profileId: profileId,
+      );
 
   ProfilePageControllerProvider._internal(
     super._createNotifier, {
@@ -114,12 +108,8 @@ class ProfilePageControllerProvider extends AutoDisposeNotifierProviderImpl<
   final String profileId;
 
   @override
-  ProfilePageState runNotifierBuild(
-    covariant ProfilePageController notifier,
-  ) {
-    return notifier.build(
-      profileId: profileId,
-    );
+  ProfilePageState runNotifierBuild(covariant ProfilePageController notifier) {
+    return notifier.build(profileId: profileId);
   }
 
   @override
@@ -140,7 +130,7 @@ class ProfilePageControllerProvider extends AutoDisposeNotifierProviderImpl<
 
   @override
   AutoDisposeNotifierProviderElement<ProfilePageController, ProfilePageState>
-      createElement() {
+  createElement() {
     return _ProfilePageControllerProviderElement(this);
   }
 
@@ -168,12 +158,17 @@ mixin ProfilePageControllerRef
 }
 
 class _ProfilePageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<ProfilePageController,
-        ProfilePageState> with ProfilePageControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          ProfilePageController,
+          ProfilePageState
+        >
+    with ProfilePageControllerRef {
   _ProfilePageControllerProviderElement(super.provider);
 
   @override
   String get profileId => (origin as ProfilePageControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

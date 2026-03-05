@@ -34,9 +34,7 @@ abstract class _$SharedPageController
     extends BuildlessAutoDisposeNotifier<SharedPageState> {
   late final String profileId;
 
-  SharedPageState build({
-    required String profileId,
-  });
+  SharedPageState build({required String profileId});
 }
 
 /// See also [SharedPageController].
@@ -49,21 +47,15 @@ class SharedPageControllerFamily extends Family<SharedPageState> {
   const SharedPageControllerFamily();
 
   /// See also [SharedPageController].
-  SharedPageControllerProvider call({
-    required String profileId,
-  }) {
-    return SharedPageControllerProvider(
-      profileId: profileId,
-    );
+  SharedPageControllerProvider call({required String profileId}) {
+    return SharedPageControllerProvider(profileId: profileId);
   }
 
   @override
   SharedPageControllerProvider getProviderOverride(
     covariant SharedPageControllerProvider provider,
   ) {
-    return call(
-      profileId: provider.profileId,
-    );
+    return call(profileId: provider.profileId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -82,24 +74,23 @@ class SharedPageControllerFamily extends Family<SharedPageState> {
 }
 
 /// See also [SharedPageController].
-class SharedPageControllerProvider extends AutoDisposeNotifierProviderImpl<
-    SharedPageController, SharedPageState> {
+class SharedPageControllerProvider
+    extends
+        AutoDisposeNotifierProviderImpl<SharedPageController, SharedPageState> {
   /// See also [SharedPageController].
-  SharedPageControllerProvider({
-    required String profileId,
-  }) : this._internal(
-          () => SharedPageController()..profileId = profileId,
-          from: sharedPageControllerProvider,
-          name: r'sharedPageControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$sharedPageControllerHash,
-          dependencies: SharedPageControllerFamily._dependencies,
-          allTransitiveDependencies:
-              SharedPageControllerFamily._allTransitiveDependencies,
-          profileId: profileId,
-        );
+  SharedPageControllerProvider({required String profileId})
+    : this._internal(
+        () => SharedPageController()..profileId = profileId,
+        from: sharedPageControllerProvider,
+        name: r'sharedPageControllerProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$sharedPageControllerHash,
+        dependencies: SharedPageControllerFamily._dependencies,
+        allTransitiveDependencies:
+            SharedPageControllerFamily._allTransitiveDependencies,
+        profileId: profileId,
+      );
 
   SharedPageControllerProvider._internal(
     super._createNotifier, {
@@ -114,12 +105,8 @@ class SharedPageControllerProvider extends AutoDisposeNotifierProviderImpl<
   final String profileId;
 
   @override
-  SharedPageState runNotifierBuild(
-    covariant SharedPageController notifier,
-  ) {
-    return notifier.build(
-      profileId: profileId,
-    );
+  SharedPageState runNotifierBuild(covariant SharedPageController notifier) {
+    return notifier.build(profileId: profileId);
   }
 
   @override
@@ -140,7 +127,7 @@ class SharedPageControllerProvider extends AutoDisposeNotifierProviderImpl<
 
   @override
   AutoDisposeNotifierProviderElement<SharedPageController, SharedPageState>
-      createElement() {
+  createElement() {
     return _SharedPageControllerProviderElement(this);
   }
 
@@ -168,12 +155,17 @@ mixin SharedPageControllerRef
 }
 
 class _SharedPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<SharedPageController,
-        SharedPageState> with SharedPageControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          SharedPageController,
+          SharedPageState
+        >
+    with SharedPageControllerRef {
   _SharedPageControllerProviderElement(super.provider);
 
   @override
   String get profileId => (origin as SharedPageControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

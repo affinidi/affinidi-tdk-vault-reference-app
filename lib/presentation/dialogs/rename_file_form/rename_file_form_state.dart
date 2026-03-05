@@ -4,7 +4,6 @@ part 'rename_file_form_state.freezed.dart';
 
 @Freezed(fromJson: false, toJson: false)
 class RenameFileFormState with _$RenameFileFormState {
-  factory RenameFileFormState({
-    required bool isRenameButtonEnabled,
-  }) = _RenameFileFormState;
+  factory RenameFileFormState({required bool isRenameButtonEnabled}) =
+      _RenameFileFormState;
 }

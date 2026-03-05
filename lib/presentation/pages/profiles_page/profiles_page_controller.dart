@@ -11,8 +11,9 @@ part 'profiles_page_controller.g.dart';
 class ProfilesPageController extends _$ProfilesPageController {
   ProfilesPageController() : super();
 
-  final loadingController =
-      AsyncLoadingController.provider('profilesPageLoadingController');
+  final loadingController = AsyncLoadingController.provider(
+    'profilesPageLoadingController',
+  );
 
   /// Initializes the controller state.
   ///
@@ -28,9 +29,7 @@ class ProfilesPageController extends _$ProfilesPageController {
       profileServiceProvider.select((state) => state.profiles),
       (previous, next) {
         Future.microtask(() {
-          state = state.copyWith(
-            profiles: next,
-          );
+          state = state.copyWith(profiles: next);
         });
       },
       fireImmediately: true,
@@ -55,7 +54,9 @@ class ProfilesPageController extends _$ProfilesPageController {
   /// Internal method that loads profiles with a loading indicator.
   void _loadProfiles() {
     Future.microtask(() {
-      ref.read(loadingController.notifier).start(
+      ref
+          .read(loadingController.notifier)
+          .start(
             () async =>
                 await ref.read(profileServiceProvider.notifier).getProfiles(),
           );

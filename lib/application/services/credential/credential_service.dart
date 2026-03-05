@@ -26,8 +26,9 @@ class CredentialService extends _$CredentialService {
   /// Lazily initializes and returns the [CredentialStorage] repository
   /// for the current profile by reading from the [_vaultCredentialServiceProvider].
   Future<CredentialStorage> _getCredentialsRepository() async {
-    _credentialsRepository ??=
-        await ref.read(_vaultCredentialServiceProvider(profileId).future);
+    _credentialsRepository ??= await ref.read(
+      _vaultCredentialServiceProvider(profileId).future,
+    );
     return _credentialsRepository!;
   }
 
@@ -47,8 +48,9 @@ class CredentialService extends _$CredentialService {
 
     for (final profile in profiles) {
       try {
-        final sharedStorage =
-            profile.sharedStorages.firstWhere((s) => s.id == profileId);
+        final sharedStorage = profile.sharedStorages.firstWhere(
+          (s) => s.id == profileId,
+        );
         return sharedStorage;
       } catch (e) {
         // Continue to next profile if shared storage not found
@@ -79,8 +81,9 @@ class CredentialService extends _$CredentialService {
     // Determine the starting point for the requested page
     final validIndex =
         pageIndex > 0 && pageIndex - 1 < state.lastEvaluatedItemIdStack.length;
-    final startItemId =
-        validIndex ? state.lastEvaluatedItemIdStack[pageIndex - 1] : null;
+    final startItemId = validIndex
+        ? state.lastEvaluatedItemIdStack[pageIndex - 1]
+        : null;
 
     final result = await credentialRepository.listCredentials(
       limit: limit,
@@ -111,11 +114,13 @@ class CredentialService extends _$CredentialService {
   /// Saves a new [VerifiableCredential] and refreshes the list of credentials.
   ///
   /// [verifiableCredential] the crential to be saved
-  Future<void> saveCredential(
-      {required VerifiableCredential verifiableCredential}) async {
+  Future<void> saveCredential({
+    required VerifiableCredential verifiableCredential,
+  }) async {
     final credentialRepository = await _getCredentialsRepository();
     await credentialRepository.saveCredential(
-        verifiableCredential: verifiableCredential);
+      verifiableCredential: verifiableCredential,
+    );
     await Future.delayed(const Duration(seconds: 2)); // Allow backend to sync
     await getClaimedCredentials();
   }
@@ -160,24 +165,23 @@ class CredentialService extends _$CredentialService {
 /// Provides the [CredentialStorage] instance for a given [profileId]
 /// by resolving the correct Vault profile.
 final _vaultCredentialServiceProvider =
-    FutureProvider.family<CredentialStorage, String>((
-  ref,
-  profileId,
-) async {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
+    FutureProvider.family<CredentialStorage, String>((ref, profileId) async {
+      final vaultServiceState = ref.read(vaultServiceProvider);
+      final vault = vaultServiceState.currentVault;
 
-  if (vault == null) {
-    throw AppException(
-        message: 'You must open a Vault to retrieve profiles',
-        type: AppExceptionType.other);
-  }
+      if (vault == null) {
+        throw AppException(
+          message: 'You must open a Vault to retrieve profiles',
+          type: AppExceptionType.other,
+        );
+      }
 
-  final profiles = await vault.listProfiles();
-  final defaultProfile =
-      profiles.firstWhereOrNull((profile) => profile.id == profileId);
-  return defaultProfile!.defaultCredentialStorage!;
-}, name: 'vaultCredentialServiceProvider');
+      final profiles = await vault.listProfiles();
+      final defaultProfile = profiles.firstWhereOrNull(
+        (profile) => profile.id == profileId,
+      );
+      return defaultProfile!.defaultCredentialStorage!;
+    }, name: 'vaultCredentialServiceProvider');
 
 /// Placeholder class for future implementation.
 class OID4VCIClaimVerifiableCredentialService {}

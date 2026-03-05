@@ -4,10 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CloudIndicator extends StatelessWidget {
   final double size;
 
-  const CloudIndicator({
-    super.key,
-    required this.size,
-  });
+  const CloudIndicator({super.key, required this.size});
 
   @override
   Widget build(BuildContext context) {

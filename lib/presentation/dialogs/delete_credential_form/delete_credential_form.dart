@@ -22,22 +22,23 @@ class DeleteCredentialForm extends ConsumerWidget {
     required BuildContext context,
     required DigitalCredential digitalCredential,
     required String profileId,
-  }) =>
-      showModalBottomSheet(
-        useRootNavigator: true,
-        isScrollControlled: true,
-        context: context,
-        builder: (context) => DeleteCredentialForm(
-          digitalCredential: digitalCredential,
-          profileId: profileId,
-        ),
-      );
+  }) => showModalBottomSheet(
+    useRootNavigator: true,
+    isScrollControlled: true,
+    context: context,
+    builder: (context) => DeleteCredentialForm(
+      digitalCredential: digitalCredential,
+      profileId: profileId,
+    ),
+  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final provider = deleteCredentialFormControllerProvider(digitalCredential,
-        profileId: profileId);
+    final provider = deleteCredentialFormControllerProvider(
+      digitalCredential,
+      profileId: profileId,
+    );
     final controller = ref.read(provider.notifier);
     final navigation = ref.read(navigationServiceProvider);
 

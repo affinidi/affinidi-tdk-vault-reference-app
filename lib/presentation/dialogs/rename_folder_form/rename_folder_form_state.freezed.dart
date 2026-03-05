@@ -12,7 +12,8 @@ part of 'rename_folder_form_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$RenameFolderFormState {
@@ -27,16 +28,19 @@ mixin _$RenameFolderFormState {
 
 /// @nodoc
 abstract class $RenameFolderFormStateCopyWith<$Res> {
-  factory $RenameFolderFormStateCopyWith(RenameFolderFormState value,
-          $Res Function(RenameFolderFormState) then) =
-      _$RenameFolderFormStateCopyWithImpl<$Res, RenameFolderFormState>;
+  factory $RenameFolderFormStateCopyWith(
+    RenameFolderFormState value,
+    $Res Function(RenameFolderFormState) then,
+  ) = _$RenameFolderFormStateCopyWithImpl<$Res, RenameFolderFormState>;
   @useResult
   $Res call({bool isRenameButtonEnabled});
 }
 
 /// @nodoc
-class _$RenameFolderFormStateCopyWithImpl<$Res,
-        $Val extends RenameFolderFormState>
+class _$RenameFolderFormStateCopyWithImpl<
+  $Res,
+  $Val extends RenameFolderFormState
+>
     implements $RenameFolderFormStateCopyWith<$Res> {
   _$RenameFolderFormStateCopyWithImpl(this._value, this._then);
 
@@ -49,15 +53,16 @@ class _$RenameFolderFormStateCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? isRenameButtonEnabled = null,
-  }) {
-    return _then(_value.copyWith(
-      isRenameButtonEnabled: null == isRenameButtonEnabled
-          ? _value.isRenameButtonEnabled
-          : isRenameButtonEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+  $Res call({Object? isRenameButtonEnabled = null}) {
+    return _then(
+      _value.copyWith(
+            isRenameButtonEnabled: null == isRenameButtonEnabled
+                ? _value.isRenameButtonEnabled
+                : isRenameButtonEnabled // ignore: cast_nullable_to_non_nullable
+                      as bool,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -65,9 +70,9 @@ class _$RenameFolderFormStateCopyWithImpl<$Res,
 abstract class _$$RenameFolderFormStateImplCopyWith<$Res>
     implements $RenameFolderFormStateCopyWith<$Res> {
   factory _$$RenameFolderFormStateImplCopyWith(
-          _$RenameFolderFormStateImpl value,
-          $Res Function(_$RenameFolderFormStateImpl) then) =
-      __$$RenameFolderFormStateImplCopyWithImpl<$Res>;
+    _$RenameFolderFormStateImpl value,
+    $Res Function(_$RenameFolderFormStateImpl) then,
+  ) = __$$RenameFolderFormStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool isRenameButtonEnabled});
@@ -75,26 +80,27 @@ abstract class _$$RenameFolderFormStateImplCopyWith<$Res>
 
 /// @nodoc
 class __$$RenameFolderFormStateImplCopyWithImpl<$Res>
-    extends _$RenameFolderFormStateCopyWithImpl<$Res,
-        _$RenameFolderFormStateImpl>
+    extends
+        _$RenameFolderFormStateCopyWithImpl<$Res, _$RenameFolderFormStateImpl>
     implements _$$RenameFolderFormStateImplCopyWith<$Res> {
-  __$$RenameFolderFormStateImplCopyWithImpl(_$RenameFolderFormStateImpl _value,
-      $Res Function(_$RenameFolderFormStateImpl) _then)
-      : super(_value, _then);
+  __$$RenameFolderFormStateImplCopyWithImpl(
+    _$RenameFolderFormStateImpl _value,
+    $Res Function(_$RenameFolderFormStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of RenameFolderFormState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? isRenameButtonEnabled = null,
-  }) {
-    return _then(_$RenameFolderFormStateImpl(
-      isRenameButtonEnabled: null == isRenameButtonEnabled
-          ? _value.isRenameButtonEnabled
-          : isRenameButtonEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+  $Res call({Object? isRenameButtonEnabled = null}) {
+    return _then(
+      _$RenameFolderFormStateImpl(
+        isRenameButtonEnabled: null == isRenameButtonEnabled
+            ? _value.isRenameButtonEnabled
+            : isRenameButtonEnabled // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
   }
 }
 
@@ -129,8 +135,11 @@ class _$RenameFolderFormStateImpl implements _RenameFolderFormState {
   @override
   @pragma('vm:prefer-inline')
   _$$RenameFolderFormStateImplCopyWith<_$RenameFolderFormStateImpl>
-      get copyWith => __$$RenameFolderFormStateImplCopyWithImpl<
-          _$RenameFolderFormStateImpl>(this, _$identity);
+  get copyWith =>
+      __$$RenameFolderFormStateImplCopyWithImpl<_$RenameFolderFormStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _RenameFolderFormState implements RenameFolderFormState {
@@ -145,5 +154,5 @@ abstract class _RenameFolderFormState implements RenameFolderFormState {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RenameFolderFormStateImplCopyWith<_$RenameFolderFormStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

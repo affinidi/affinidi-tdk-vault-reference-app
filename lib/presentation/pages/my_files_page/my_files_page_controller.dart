@@ -15,33 +15,36 @@ part 'my_files_page_controller.g.dart';
 class MyFilesPageController extends _$MyFilesPageController {
   MyFilesPageController() : super();
 
-  final loadingController =
-      AsyncLoadingController.provider('myFilesPageLoadingController');
-  final fileUploadController =
-      AsyncLoadingController.provider('myFilesPageFileUploadingController');
-  final downloadingController =
-      AsyncLoadingController.provider('myFilesPageDownloadingController');
+  final loadingController = AsyncLoadingController.provider(
+    'myFilesPageLoadingController',
+  );
+  final fileUploadController = AsyncLoadingController.provider(
+    'myFilesPageFileUploadingController',
+  );
+  final downloadingController = AsyncLoadingController.provider(
+    'myFilesPageDownloadingController',
+  );
 
   @override
-  MyFilesPageState build(
-      {required String? parentNodeId, required String profileId}) {
+  MyFilesPageState build({
+    required String? parentNodeId,
+    required String profileId,
+  }) {
     final provider = storageServiceProvider(
-        parentNodeId: parentNodeId, profileId: profileId);
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
     Future(() async {
       state = state.copyWith(isLoading: true);
       await ref.read(provider.notifier).listItems();
       state = state.copyWith(isLoading: false);
     });
 
-    ref.listen(
-      provider.select((state) => state.items),
-      (previous, next) {
-        Future(() {
-          state = state.copyWith(items: next);
-        });
-      },
-      fireImmediately: true,
-    );
+    ref.listen(provider.select((state) => state.items), (previous, next) {
+      Future(() {
+        state = state.copyWith(items: next);
+      });
+    }, fireImmediately: true);
 
     return MyFilesPageState(isLoading: true);
   }
@@ -58,7 +61,9 @@ class MyFilesPageController extends _$MyFilesPageController {
           );
 
       if (validFiles.isNotEmpty) {
-        await ref.read(fileUploadServiceProvider.notifier).uploadFiles(
+        await ref
+            .read(fileUploadServiceProvider.notifier)
+            .uploadFiles(
               files: validFiles,
               parentNodeId: parentNodeId,
               profileId: profileId,
@@ -71,12 +76,13 @@ class MyFilesPageController extends _$MyFilesPageController {
   Future<void> downloadFile(Item item) async {
     ref.read(downloadingController.notifier).start(() async {
       await ref
-          .read(storageServiceProvider(
-                  parentNodeId: parentNodeId, profileId: profileId)
-              .notifier)
-          .getFileContent(
-            fileId: item.id,
-          );
+          .read(
+            storageServiceProvider(
+              parentNodeId: parentNodeId,
+              profileId: profileId,
+            ).notifier,
+          )
+          .getFileContent(fileId: item.id);
     });
   }
 
@@ -84,10 +90,7 @@ class MyFilesPageController extends _$MyFilesPageController {
     final navigation = ref.read(navigationServiceProvider);
 
     String path;
-    path = ProfilesRoutePath.profileFilePreview(
-      profileId,
-      node.id,
-    );
+    path = ProfilesRoutePath.profileFilePreview(profileId, node.id);
 
     navigation.push(path);
   }

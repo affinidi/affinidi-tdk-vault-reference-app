@@ -34,9 +34,7 @@ abstract class _$ClaimCredentialsPageController
     extends BuildlessAutoDisposeNotifier<ClaimCredentialsPageState> {
   late final String profileId;
 
-  ClaimCredentialsPageState build({
-    required String profileId,
-  });
+  ClaimCredentialsPageState build({required String profileId});
 }
 
 /// See also [ClaimCredentialsPageController].
@@ -51,21 +49,15 @@ class ClaimCredentialsPageControllerFamily
   const ClaimCredentialsPageControllerFamily();
 
   /// See also [ClaimCredentialsPageController].
-  ClaimCredentialsPageControllerProvider call({
-    required String profileId,
-  }) {
-    return ClaimCredentialsPageControllerProvider(
-      profileId: profileId,
-    );
+  ClaimCredentialsPageControllerProvider call({required String profileId}) {
+    return ClaimCredentialsPageControllerProvider(profileId: profileId);
   }
 
   @override
   ClaimCredentialsPageControllerProvider getProviderOverride(
     covariant ClaimCredentialsPageControllerProvider provider,
   ) {
-    return call(
-      profileId: provider.profileId,
-    );
+    return call(profileId: provider.profileId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -85,24 +77,25 @@ class ClaimCredentialsPageControllerFamily
 
 /// See also [ClaimCredentialsPageController].
 class ClaimCredentialsPageControllerProvider
-    extends AutoDisposeNotifierProviderImpl<ClaimCredentialsPageController,
-        ClaimCredentialsPageState> {
+    extends
+        AutoDisposeNotifierProviderImpl<
+          ClaimCredentialsPageController,
+          ClaimCredentialsPageState
+        > {
   /// See also [ClaimCredentialsPageController].
-  ClaimCredentialsPageControllerProvider({
-    required String profileId,
-  }) : this._internal(
-          () => ClaimCredentialsPageController()..profileId = profileId,
-          from: claimCredentialsPageControllerProvider,
-          name: r'claimCredentialsPageControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$claimCredentialsPageControllerHash,
-          dependencies: ClaimCredentialsPageControllerFamily._dependencies,
-          allTransitiveDependencies:
-              ClaimCredentialsPageControllerFamily._allTransitiveDependencies,
-          profileId: profileId,
-        );
+  ClaimCredentialsPageControllerProvider({required String profileId})
+    : this._internal(
+        () => ClaimCredentialsPageController()..profileId = profileId,
+        from: claimCredentialsPageControllerProvider,
+        name: r'claimCredentialsPageControllerProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$claimCredentialsPageControllerHash,
+        dependencies: ClaimCredentialsPageControllerFamily._dependencies,
+        allTransitiveDependencies:
+            ClaimCredentialsPageControllerFamily._allTransitiveDependencies,
+        profileId: profileId,
+      );
 
   ClaimCredentialsPageControllerProvider._internal(
     super._createNotifier, {
@@ -120,9 +113,7 @@ class ClaimCredentialsPageControllerProvider
   ClaimCredentialsPageState runNotifierBuild(
     covariant ClaimCredentialsPageController notifier,
   ) {
-    return notifier.build(
-      profileId: profileId,
-    );
+    return notifier.build(profileId: profileId);
   }
 
   @override
@@ -142,8 +133,11 @@ class ClaimCredentialsPageControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<ClaimCredentialsPageController,
-      ClaimCredentialsPageState> createElement() {
+  AutoDisposeNotifierProviderElement<
+    ClaimCredentialsPageController,
+    ClaimCredentialsPageState
+  >
+  createElement() {
     return _ClaimCredentialsPageControllerProviderElement(this);
   }
 
@@ -171,13 +165,18 @@ mixin ClaimCredentialsPageControllerRef
 }
 
 class _ClaimCredentialsPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<ClaimCredentialsPageController,
-        ClaimCredentialsPageState> with ClaimCredentialsPageControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          ClaimCredentialsPageController,
+          ClaimCredentialsPageState
+        >
+    with ClaimCredentialsPageControllerRef {
   _ClaimCredentialsPageControllerProviderElement(super.provider);
 
   @override
   String get profileId =>
       (origin as ClaimCredentialsPageControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

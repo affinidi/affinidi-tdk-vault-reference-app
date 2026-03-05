@@ -150,10 +150,7 @@ class ShareNodeBottomSheet extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    localizations.shareFile,
-                    style: AppTheme.headingMedium,
-                  ),
+                  Text(localizations.shareFile, style: AppTheme.headingMedium),
                   const SizedBox(height: AppSizing.paddingMedium),
                   SimpleInfoWidget(
                     text: '${localizations.recipientDidLabel}*',
@@ -170,31 +167,36 @@ class ShareNodeBottomSheet extends HookConsumerWidget {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       hintText: localizations.recipientDidHint,
-                      hintStyle: Theme.of(context)
-                          .textTheme
-                          .bodySmall
+                      hintStyle: Theme.of(context).textTheme.bodySmall
                           ?.copyWith(fontWeight: FontWeight.w600)
                           .copyWith(color: AppColorScheme.textPrimary),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColorScheme.formFieldBorderUnfocused),
-                        borderRadius:
-                            BorderRadius.circular(AppSizing.paddingXSmall),
+                          color: AppColorScheme.formFieldBorderUnfocused,
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          AppSizing.paddingXSmall,
+                        ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColorScheme.formFieldBorderUnfocused),
-                        borderRadius:
-                            BorderRadius.circular(AppSizing.paddingXSmall),
+                          color: AppColorScheme.formFieldBorderUnfocused,
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          AppSizing.paddingXSmall,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColorScheme.formFieldBorderUnfocused),
-                        borderRadius:
-                            BorderRadius.circular(AppSizing.paddingXSmall),
+                          color: AppColorScheme.formFieldBorderUnfocused,
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          AppSizing.paddingXSmall,
+                        ),
                       ),
-                      contentPadding:
-                          const EdgeInsets.all(AppSizing.paddingMedium),
+                      contentPadding: const EdgeInsets.all(
+                        AppSizing.paddingMedium,
+                      ),
                     ),
                   ),
                   const SizedBox(height: AppSizing.paddingLarge),
@@ -286,7 +288,8 @@ class ShareNodeBottomSheet extends HookConsumerWidget {
                           style: TextButton.styleFrom(
                             foregroundColor: AppColorScheme.textPrimary,
                             padding: const EdgeInsets.symmetric(
-                                vertical: AppSizing.paddingRegular),
+                              vertical: AppSizing.paddingRegular,
+                            ),
                           ),
                           child: Text(localizations.cancelActionText),
                         ),
@@ -333,8 +336,9 @@ class _PermissionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color =
-        selected ? AppColorScheme.textPrimary : AppColorScheme.textSecondary;
+    final color = selected
+        ? AppColorScheme.textPrimary
+        : AppColorScheme.textSecondary;
 
     return InkWell(
       onTap: enabled ? onSelect : null,
@@ -351,10 +355,9 @@ class _PermissionTile extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: color),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: color),
               ),
             ),
           ],

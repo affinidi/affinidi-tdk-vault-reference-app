@@ -46,9 +46,7 @@ Future<ClaimCredentialRepository> claimCredentialRepository(
 }
 
 class ClaimCredentialRepositoryImpl implements ClaimCredentialRepository {
-  ClaimCredentialRepositoryImpl({
-    required this.credentialsClient,
-  });
+  ClaimCredentialRepositoryImpl({required this.credentialsClient});
   final OID4VCIClaimVerifiableCredentialService credentialsClient;
 
   @override
@@ -60,8 +58,6 @@ class ClaimCredentialRepositoryImpl implements ClaimCredentialRepository {
   Future<VerifiableCredential> claimCredentials({
     required OID4VCIClaimContext claimContext,
   }) {
-    return credentialsClient.claimCredential(
-      claimContext: claimContext,
-    );
+    return credentialsClient.claimCredential(claimContext: claimContext);
   }
 }

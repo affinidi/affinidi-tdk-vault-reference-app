@@ -31,9 +31,10 @@ class SplashPage extends ConsumerWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
-              left: AppSizing.paddingXLarge,
-              top: AppSizing.paddingXXLarge,
-              bottom: AppSizing.paddingXLarge),
+            left: AppSizing.paddingXLarge,
+            top: AppSizing.paddingXXLarge,
+            bottom: AppSizing.paddingXLarge,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -48,15 +49,17 @@ class SplashPage extends ConsumerWidget {
                 children: [
                   Text(
                     localizations.reference,
-                    style: AppTheme.headingXLarge
-                        .copyWith(color: AppColorScheme.backgroundWhite),
+                    style: AppTheme.headingXLarge.copyWith(
+                      color: AppColorScheme.backgroundWhite,
+                    ),
                   ),
                   Text(
                     localizations.app,
                     style: AppTheme.headingLarge.copyWith(
-                        color: AppColorScheme.backgroundWhite,
-                        height: 1.0,
-                        letterSpacing: -0.2),
+                      color: AppColorScheme.backgroundWhite,
+                      height: 1.0,
+                      letterSpacing: -0.2,
+                    ),
                   ),
                 ],
               ),
@@ -72,9 +75,10 @@ class SplashPage extends ConsumerWidget {
                   Text(
                     localizations.builtWithAffinidiVaultTdk,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColorScheme.backgroundWhite,
-                        height: 1.29,
-                        letterSpacing: 0.2),
+                      color: AppColorScheme.backgroundWhite,
+                      height: 1.29,
+                      letterSpacing: 0.2,
+                    ),
                   ),
                 ],
               ),

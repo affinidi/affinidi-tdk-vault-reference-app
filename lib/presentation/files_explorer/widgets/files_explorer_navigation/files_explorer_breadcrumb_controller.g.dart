@@ -34,9 +34,7 @@ abstract class _$FilesExplorerBreadcrumbController
     extends BuildlessAutoDisposeNotifier<Map<String, String>> {
   late final String screenKey;
 
-  Map<String, String> build(
-    String screenKey,
-  );
+  Map<String, String> build(String screenKey);
 }
 
 /// See also [FilesExplorerBreadcrumbController].
@@ -51,21 +49,15 @@ class FilesExplorerBreadcrumbControllerFamily
   const FilesExplorerBreadcrumbControllerFamily();
 
   /// See also [FilesExplorerBreadcrumbController].
-  FilesExplorerBreadcrumbControllerProvider call(
-    String screenKey,
-  ) {
-    return FilesExplorerBreadcrumbControllerProvider(
-      screenKey,
-    );
+  FilesExplorerBreadcrumbControllerProvider call(String screenKey) {
+    return FilesExplorerBreadcrumbControllerProvider(screenKey);
   }
 
   @override
   FilesExplorerBreadcrumbControllerProvider getProviderOverride(
     covariant FilesExplorerBreadcrumbControllerProvider provider,
   ) {
-    return call(
-      provider.screenKey,
-    );
+    return call(provider.screenKey);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -85,24 +77,25 @@ class FilesExplorerBreadcrumbControllerFamily
 
 /// See also [FilesExplorerBreadcrumbController].
 class FilesExplorerBreadcrumbControllerProvider
-    extends AutoDisposeNotifierProviderImpl<FilesExplorerBreadcrumbController,
-        Map<String, String>> {
+    extends
+        AutoDisposeNotifierProviderImpl<
+          FilesExplorerBreadcrumbController,
+          Map<String, String>
+        > {
   /// See also [FilesExplorerBreadcrumbController].
-  FilesExplorerBreadcrumbControllerProvider(
-    String screenKey,
-  ) : this._internal(
-          () => FilesExplorerBreadcrumbController()..screenKey = screenKey,
-          from: filesExplorerBreadcrumbControllerProvider,
-          name: r'filesExplorerBreadcrumbControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$filesExplorerBreadcrumbControllerHash,
-          dependencies: FilesExplorerBreadcrumbControllerFamily._dependencies,
-          allTransitiveDependencies: FilesExplorerBreadcrumbControllerFamily
-              ._allTransitiveDependencies,
-          screenKey: screenKey,
-        );
+  FilesExplorerBreadcrumbControllerProvider(String screenKey)
+    : this._internal(
+        () => FilesExplorerBreadcrumbController()..screenKey = screenKey,
+        from: filesExplorerBreadcrumbControllerProvider,
+        name: r'filesExplorerBreadcrumbControllerProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$filesExplorerBreadcrumbControllerHash,
+        dependencies: FilesExplorerBreadcrumbControllerFamily._dependencies,
+        allTransitiveDependencies:
+            FilesExplorerBreadcrumbControllerFamily._allTransitiveDependencies,
+        screenKey: screenKey,
+      );
 
   FilesExplorerBreadcrumbControllerProvider._internal(
     super._createNotifier, {
@@ -120,9 +113,7 @@ class FilesExplorerBreadcrumbControllerProvider
   Map<String, String> runNotifierBuild(
     covariant FilesExplorerBreadcrumbController notifier,
   ) {
-    return notifier.build(
-      screenKey,
-    );
+    return notifier.build(screenKey);
   }
 
   @override
@@ -142,8 +133,11 @@ class FilesExplorerBreadcrumbControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<FilesExplorerBreadcrumbController,
-      Map<String, String>> createElement() {
+  AutoDisposeNotifierProviderElement<
+    FilesExplorerBreadcrumbController,
+    Map<String, String>
+  >
+  createElement() {
     return _FilesExplorerBreadcrumbControllerProviderElement(this);
   }
 
@@ -171,14 +165,18 @@ mixin FilesExplorerBreadcrumbControllerRef
 }
 
 class _FilesExplorerBreadcrumbControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<
-        FilesExplorerBreadcrumbController,
-        Map<String, String>> with FilesExplorerBreadcrumbControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          FilesExplorerBreadcrumbController,
+          Map<String, String>
+        >
+    with FilesExplorerBreadcrumbControllerRef {
   _FilesExplorerBreadcrumbControllerProviderElement(super.provider);
 
   @override
   String get screenKey =>
       (origin as FilesExplorerBreadcrumbControllerProvider).screenKey;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

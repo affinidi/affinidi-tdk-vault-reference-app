@@ -45,15 +45,16 @@ class OpenVaultPage extends HookConsumerWidget {
     void proceed() async {
       HapticFeedback.lightImpact();
       await controller.openVault(
-          password: passwordController.text,
-          onSuccess: () {
-            if (!context.mounted) return;
-            navigation.go(ProfilesRoutePath.base);
-          },
-          vaultId: vaultId ?? '',
-          onError: (errorMessage) {
-            errorText.value = errorMessage;
-          });
+        password: passwordController.text,
+        onSuccess: () {
+          if (!context.mounted) return;
+          navigation.go(ProfilesRoutePath.base);
+        },
+        vaultId: vaultId ?? '',
+        onError: (errorMessage) {
+          errorText.value = errorMessage;
+        },
+      );
     }
 
     return Scaffold(
@@ -90,10 +91,9 @@ class OpenVaultPage extends HookConsumerWidget {
                   children: [
                     Text(
                       '${localizations.vaultPassphrase}*',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.w600),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: AppSizing.paddingSmall),
                     FormField<String>(
@@ -105,8 +105,9 @@ class OpenVaultPage extends HookConsumerWidget {
                                   ? AppColorScheme.backgroundWhite
                                   : AppColorScheme.formFieldBorderUnfocused,
                             ),
-                            borderRadius:
-                                BorderRadius.circular(AppSizing.paddingSmall),
+                            borderRadius: BorderRadius.circular(
+                              AppSizing.paddingSmall,
+                            ),
                           ),
                           child: Focus(
                             onFocusChange: (hasFocus) {
@@ -131,7 +132,8 @@ class OpenVaultPage extends HookConsumerWidget {
                                 ),
                                 border: InputBorder.none,
                                 contentPadding: const EdgeInsets.all(
-                                    AppSizing.paddingRegular),
+                                  AppSizing.paddingRegular,
+                                ),
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     isPasswordVisible.value
@@ -170,17 +172,19 @@ class OpenVaultPage extends HookConsumerWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
                               (isPassphraseEntered.value && !isLoading)
-                                  ? AppTheme.colorScheme.primary
-                                  : Colors.grey.shade300,
+                              ? AppTheme.colorScheme.primary
+                              : Colors.grey.shade300,
                           foregroundColor:
                               (isPassphraseEntered.value && !isLoading)
-                                  ? AppColorScheme.backgroundBlack
-                                  : const Color(0xFF9CA3AF),
+                              ? AppColorScheme.backgroundBlack
+                              : const Color(0xFF9CA3AF),
                           padding: const EdgeInsets.symmetric(
-                              vertical: AppSizing.paddingMedium),
+                            vertical: AppSizing.paddingMedium,
+                          ),
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(AppSizing.paddingXXLarge),
+                            borderRadius: BorderRadius.circular(
+                              AppSizing.paddingXXLarge,
+                            ),
                           ),
                           splashFactory: InkRipple.splashFactory,
                         ),
@@ -194,24 +198,21 @@ class OpenVaultPage extends HookConsumerWidget {
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
                                       valueColor: AlwaysStoppedAnimation<Color>(
-                                          Colors.white),
+                                        Colors.white,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
                                     localizations.openingVault,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
+                                    style: Theme.of(context).textTheme.bodyLarge
                                         ?.copyWith(color: Colors.white),
                                   ),
                                 ],
                               )
                             : Text(
                                 localizations.accessVaultActionLabel,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
+                                style: Theme.of(context).textTheme.bodyLarge
                                     ?.copyWith(color: Colors.white),
                               ),
                       ),

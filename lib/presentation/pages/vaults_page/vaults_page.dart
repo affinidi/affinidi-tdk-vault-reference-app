@@ -42,9 +42,11 @@ class VaultsPage extends ConsumerWidget {
           children: [
             Text(
               localizations.myVaults.substring(
-                  0,
-                  localizations.myVaults.indexOf(
-                      localizations.myVaults.split(' ').skip(1).join(' '))),
+                0,
+                localizations.myVaults.indexOf(
+                  localizations.myVaults.split(' ').skip(1).join(' '),
+                ),
+              ),
               style: AppTheme.headingLarge,
             ),
             SimpleInfoWidget(
@@ -70,79 +72,81 @@ class VaultsPage extends ConsumerWidget {
               child: vaultPageState.isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : vaultEntries.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.lock_outline,
-                                  size: AppSizing.iconXXLarge,
-                                  color: theme.colorScheme.primary),
-                              const SizedBox(height: AppSizing.paddingMedium),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: AppSizing.paddingXXLarge),
-                                child: Text(
-                                  localizations.vaultsEmptyMessage,
-                                  textAlign: TextAlign.center,
-                                  style: theme.textTheme.titleMedium,
-                                ),
-                              ),
-                            ],
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.lock_outline,
+                            size: AppSizing.iconXXLarge,
+                            color: theme.colorScheme.primary,
                           ),
-                        )
-                      : ListView.builder(
-                          padding: const EdgeInsets.all(AppSizing.paddingLarge),
-                          itemCount: vaultEntries.length,
-                          itemBuilder: (context, index) {
-                            final entry = vaultEntries[index];
-                            final vaultName =
-                                vaultRegistry[entry.key]?.vaultName;
-                            final vault = entry.value;
-                            final seed = entry.key;
+                          const SizedBox(height: AppSizing.paddingMedium),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppSizing.paddingXXLarge,
+                            ),
+                            child: Text(
+                              localizations.vaultsEmptyMessage,
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.titleMedium,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.all(AppSizing.paddingLarge),
+                      itemCount: vaultEntries.length,
+                      itemBuilder: (context, index) {
+                        final entry = vaultEntries[index];
+                        final vaultName = vaultRegistry[entry.key]?.vaultName;
+                        final vault = entry.value;
+                        final seed = entry.key;
 
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: AppSizing.paddingRegular),
-                              child: Dismissible(
-                                key: ValueKey(entry.key),
-                                direction: DismissDirection.endToStart,
-                                dismissThresholds: const {
-                                  DismissDirection.startToEnd: 0.4,
-                                },
-                                background: SwipeToDeleteBackground(),
-                                confirmDismiss: (_) async {
-                                  final currentVaultId = ref
-                                      .read(vaultServiceProvider)
-                                      .currentVaultId;
-                                  if (currentVaultId == seed) {
-                                    await ref
-                                        .read(vaultServiceProvider.notifier)
-                                        .resetCurrentVault();
-                                  }
-                                  await ref
-                                      .read(
-                                          vaultsPageControllerProvider.notifier)
-                                      .deleteVault(seed);
-                                  return true;
-                                },
-                                child: _VaultCard(
-                                  vaultName: vaultName ?? '',
-                                  vault: vault,
-                                  onSelected: (vault) async {
-                                    await ref
-                                        .read(vaultsPageControllerProvider
-                                            .notifier)
-                                        .selectVault(seed);
-                                    if (!context.mounted) return;
-                                    navigation.push(
-                                      VaultsRoutePath.openVaultWithId(seed),
-                                    );
-                                  },
-                                ),
-                              ),
-                            );
-                          }),
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: AppSizing.paddingRegular,
+                          ),
+                          child: Dismissible(
+                            key: ValueKey(entry.key),
+                            direction: DismissDirection.endToStart,
+                            dismissThresholds: const {
+                              DismissDirection.startToEnd: 0.4,
+                            },
+                            background: SwipeToDeleteBackground(),
+                            confirmDismiss: (_) async {
+                              final currentVaultId = ref
+                                  .read(vaultServiceProvider)
+                                  .currentVaultId;
+                              if (currentVaultId == seed) {
+                                await ref
+                                    .read(vaultServiceProvider.notifier)
+                                    .resetCurrentVault();
+                              }
+                              await ref
+                                  .read(vaultsPageControllerProvider.notifier)
+                                  .deleteVault(seed);
+                              return true;
+                            },
+                            child: _VaultCard(
+                              vaultName: vaultName ?? '',
+                              vault: vault,
+                              onSelected: (vault) async {
+                                await ref
+                                    .read(vaultsPageControllerProvider.notifier)
+                                    .selectVault(seed);
+                                if (!context.mounted) return;
+                                navigation.push(
+                                  VaultsRoutePath.openVaultWithId(seed),
+                                );
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ),
             ),
           ],
         ),
@@ -159,14 +163,15 @@ class VaultsPage extends ConsumerWidget {
         elevation: 8,
         highlightElevation: 12,
         extendedPadding: const EdgeInsets.symmetric(
-            horizontal: AppSizing.paddingMedium,
-            vertical: AppSizing.paddingMedium),
+          horizontal: AppSizing.paddingMedium,
+          vertical: AppSizing.paddingMedium,
+        ),
         label: Text(
           localizations.addVault,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: AppColorScheme.backgroundBlack,
-                fontWeight: FontWeight.bold,
-              ),
+            color: AppColorScheme.backgroundBlack,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -197,11 +202,7 @@ class _VaultCard extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF1A1A1A),
-              Color(0xFF2A2A2A),
-              Color(0xFF1F1F1F),
-            ],
+            colors: [Color(0xFF1A1A1A), Color(0xFF2A2A2A), Color(0xFF1F1F1F)],
             stops: [0.0, 0.5, 1.0],
           ),
           borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
@@ -232,10 +233,9 @@ class _VaultCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     vaultName,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(letterSpacing: 0.2),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(letterSpacing: 0.2),
                   ),
                 ),
 
@@ -271,7 +271,8 @@ class SwipeToDeleteBackground extends StatelessWidget {
             return Container(
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizing.paddingLarge),
+                horizontal: AppSizing.paddingLarge,
+              ),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
                 borderRadius: BorderRadius.circular(AppSizing.paddingSmall),

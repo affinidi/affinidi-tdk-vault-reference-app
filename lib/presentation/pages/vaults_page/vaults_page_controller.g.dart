@@ -13,14 +13,14 @@ String _$vaultsPageControllerHash() =>
 @ProviderFor(VaultsPageController)
 final vaultsPageControllerProvider =
     AutoDisposeNotifierProvider<VaultsPageController, VaultsPageState>.internal(
-  VaultsPageController.new,
-  name: r'vaultsPageControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$vaultsPageControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      VaultsPageController.new,
+      name: r'vaultsPageControllerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$vaultsPageControllerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$VaultsPageController = AutoDisposeNotifier<VaultsPageState>;
 // ignore_for_file: type=lint

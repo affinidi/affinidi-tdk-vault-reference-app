@@ -12,13 +12,14 @@ String _$vaultServiceHash() => r'015b8959c1b0e17d9f2350a1aea77f9564fa7868';
 @ProviderFor(VaultService)
 final vaultServiceProvider =
     NotifierProvider<VaultService, VaultServiceState>.internal(
-  VaultService.new,
-  name: r'vaultServiceProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$vaultServiceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      VaultService.new,
+      name: r'vaultServiceProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$vaultServiceHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$VaultService = Notifier<VaultServiceState>;
 // ignore_for_file: type=lint

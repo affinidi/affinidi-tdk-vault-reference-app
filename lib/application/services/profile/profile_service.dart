@@ -68,8 +68,11 @@ class ProfileService extends _$ProfileService {
       final repositoryId =
           '${_getCurrentVaultId()}_${profileType.value}_repository';
       final profileRepository = await _getProfileRepository(
-          vault, repositoryId, profileType,
-          profileName: name);
+        vault,
+        repositoryId,
+        profileType,
+        profileName: name,
+      );
 
       try {
         await profileRepository.createProfile(
@@ -83,13 +86,17 @@ class ProfileService extends _$ProfileService {
 
       await getProfiles();
     } on TdkException catch (e) {
-      log('TDK Exception during profile creation: ${e.message}',
-          name: 'ProfileService');
+      log(
+        'TDK Exception during profile creation: ${e.message}',
+        name: 'ProfileService',
+      );
       log('TDK Exception code: ${e.code}', name: 'ProfileService');
       _handleTdkException(e);
     } catch (e, stackTrace) {
-      log('Unexpected error during profile creation: $e',
-          name: 'ProfileService');
+      log(
+        'Unexpected error during profile creation: $e',
+        name: 'ProfileService',
+      );
       log('Stack trace: $stackTrace', name: 'ProfileService');
       throw AppException(
         message: 'Failed to create profile: ${e.toString()}',
@@ -111,8 +118,10 @@ class ProfileService extends _$ProfileService {
   Future<void> deleteProfile(Profile profile) async {
     final vault = _getCurrentVault();
 
-    log('Checking if profile is empty before deletion: ${profile.name}',
-        name: 'ProfileService');
+    log(
+      'Checking if profile is empty before deletion: ${profile.name}',
+      name: 'ProfileService',
+    );
 
     try {
       await _validateProfileIsEmpty(profile);
@@ -199,10 +208,7 @@ class ProfileService extends _$ProfileService {
       profile.name = name;
       profile.description = description;
 
-      await profileRepository.updateProfile(
-        profile,
-        cancelToken: cancelToken,
-      );
+      await profileRepository.updateProfile(profile, cancelToken: cancelToken);
 
       log('Profile update completed successfully', name: 'ProfileService');
     } catch (e, stackTrace) {
@@ -257,13 +263,17 @@ class ProfileService extends _$ProfileService {
 
   /// Validates that a profile can be created with the given parameters.
   Future<void> _validateProfileCreation(
-      Vault vault, String name, ProfileType profileType) async {
+    Vault vault,
+    String name,
+    ProfileType profileType,
+  ) async {
     await vault.ensureInitialized();
 
     // Check if profile with same name already exists
     final existingProfiles = await vault.listProfiles();
-    final existingProfile =
-        existingProfiles.where((p) => p.name == name).toList();
+    final existingProfile = existingProfiles
+        .where((p) => p.name == name)
+        .toList();
 
     if (existingProfile.isNotEmpty) {
       throw AppException(
@@ -275,8 +285,11 @@ class ProfileService extends _$ProfileService {
 
   /// Gets the profile repository for the specified repository ID and profile type.
   Future<ProfileRepository> _getProfileRepository(
-      Vault vault, String repositoryId, ProfileType profileType,
-      {String? profileName}) async {
+    Vault vault,
+    String repositoryId,
+    ProfileType profileType, {
+    String? profileName,
+  }) async {
     await vault.ensureInitialized();
 
     final profileRepository = vault.profileRepositories[repositoryId];
@@ -334,13 +347,17 @@ class ProfileService extends _$ProfileService {
       );
     }
 
-    log('Profile "${profile.name}" is empty and can be deleted',
-        name: 'ProfileService');
+    log(
+      'Profile "${profile.name}" is empty and can be deleted',
+      name: 'ProfileService',
+    );
   }
 
   /// Deletes the profile from its repository.
   Future<void> _deleteProfileFromRepository(
-      Vault vault, Profile profile) async {
+    Vault vault,
+    Profile profile,
+  ) async {
     final profileRepository =
         vault.profileRepositories[profile.profileRepositoryId];
 
@@ -352,23 +369,26 @@ class ProfileService extends _$ProfileService {
       );
     }
 
-    log('Deleting profile from repository: ${profile.profileRepositoryId}',
-        name: 'ProfileService');
+    log(
+      'Deleting profile from repository: ${profile.profileRepositoryId}',
+      name: 'ProfileService',
+    );
     await profileRepository.deleteProfile(profile);
     log('Profile deleted successfully', name: 'ProfileService');
   }
 
   /// Retrieves all items in a folder.
   Future<List<Item>> _getFolderItems(Profile profile, String folderId) async {
-    final items =
-        await profile.defaultFileStorage?.getFolder(folderId: folderId);
+    final items = await profile.defaultFileStorage?.getFolder(
+      folderId: folderId,
+    );
     return items?.items ?? [];
   }
 
   /// Retrieves all credentials for a profile.
   Future<List<DigitalCredential>> _getCredentials(Profile profile) async {
-    final credentials =
-        await profile.defaultCredentialStorage?.listCredentials();
+    final credentials = await profile.defaultCredentialStorage
+        ?.listCredentials();
     return credentials?.items ?? [];
   }
 

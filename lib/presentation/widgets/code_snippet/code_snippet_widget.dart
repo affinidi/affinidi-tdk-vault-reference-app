@@ -26,10 +26,7 @@ class CodeSnippetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
     return IconButton(
-      icon: const Icon(
-        Icons.code,
-        size: 30,
-      ),
+      icon: const Icon(Icons.code, size: 30),
       onPressed: () => _showCodeSnippetOverlay(context),
       tooltip: localizations.viewCodeSnippetsActionText,
     );
@@ -63,10 +60,12 @@ class _CodeSnippetOverlay extends StatefulWidget {
       return '';
     }
 
-    final allTdk =
-        codeLocations!.every((loc) => loc.filePath.startsWith('http'));
-    final allLocal =
-        codeLocations!.every((loc) => !loc.filePath.startsWith('http'));
+    final allTdk = codeLocations!.every(
+      (loc) => loc.filePath.startsWith('http'),
+    );
+    final allLocal = codeLocations!.every(
+      (loc) => !loc.filePath.startsWith('http'),
+    );
 
     if (allTdk) {
       return 'TDK Implementation';
@@ -108,18 +107,22 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
         final codeParts = <String>[];
         for (final location in widget.codeLocations!) {
           try {
-            final code = await location.getCode(localizations).timeout(
+            final code = await location
+                .getCode(localizations)
+                .timeout(
                   const Duration(seconds: 5),
                   onTimeout: () =>
                       '${localizations.timeoutLoadingCodeMessage} ${location.filePath}',
                 );
 
             codeParts.add(
-                ' /*****\n  Purpose: ${location.description}\n  Location: ${location.filePath}#L${location.startLine}\n *****/');
+              ' /*****\n  Purpose: ${location.description}\n  Location: ${location.filePath}#L${location.startLine}\n *****/',
+            );
             codeParts.add(code);
           } catch (e) {
             codeParts.add(
-                '${localizations.errorLoadingCodeMessage} ${location.filePath}: $e');
+              '${localizations.errorLoadingCodeMessage} ${location.filePath}: $e',
+            );
           }
         }
         allCode = codeParts.join('\n\n');
@@ -127,10 +130,7 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
 
       if (mounted) {
         setState(() {
-          codeController = CodeController(
-            text: allCode,
-            language: dart,
-          );
+          codeController = CodeController(text: allCode, language: dart);
           isLoading = false;
         });
       }
@@ -152,9 +152,7 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
     return Dialog.fullscreen(
       backgroundColor: Colors.transparent,
       child: Container(
-        decoration: BoxDecoration(
-          color: AppColorScheme.backgroundBlack,
-        ),
+        decoration: BoxDecoration(color: AppColorScheme.backgroundBlack),
         child: Column(
           children: [
             Container(
@@ -162,10 +160,7 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
               decoration: BoxDecoration(
                 color: AppColorScheme.backgroundBlack,
                 border: Border(
-                  bottom: BorderSide(
-                    color: AppColorScheme.divider,
-                    width: 1.0,
-                  ),
+                  bottom: BorderSide(color: AppColorScheme.divider, width: 1.0),
                 ),
               ),
               child: Row(
@@ -175,18 +170,13 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          widget.title,
-                          style: AppTheme.headingMedium,
-                        ),
+                        Text(widget.title, style: AppTheme.headingMedium),
                         if (widget._implementationType.isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.only(top: 4.0),
                             child: Text(
                               widget._implementationType,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
+                              style: Theme.of(context).textTheme.bodySmall
                                   ?.copyWith(
                                     color: AppColorScheme.textSecondary,
                                   ),
@@ -199,7 +189,8 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
                     icon: Icon(isCodeCopied ? Icons.check : Icons.copy),
                     onPressed: () async {
                       await Clipboard.setData(
-                          ClipboardData(text: codeController!.text));
+                        ClipboardData(text: codeController!.text),
+                      );
                       setState(() {
                         isCodeCopied = true;
                       });
@@ -216,31 +207,28 @@ class _CodeSnippetOverlayState extends State<_CodeSnippetOverlay> {
               child: Container(
                 margin: const EdgeInsets.all(AppSizing.paddingMedium),
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColorScheme.divider,
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: AppColorScheme.divider, width: 1.0),
                   borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
                 ),
                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
-                    child: isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : CodeTheme(
-                            data: CodeThemeData(styles: monokaiSublimeTheme),
-                            child: CodeField(
-                              controller: codeController!,
-                              readOnly: true,
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      color: Colors.white,
-                                      fontFamily: 'SourceCode'),
-                              gutterStyle: GutterStyle.none,
-                              expands: true,
-                            ),
-                          )),
+                  borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
+                  child: isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : CodeTheme(
+                          data: CodeThemeData(styles: monokaiSublimeTheme),
+                          child: CodeField(
+                            controller: codeController!,
+                            readOnly: true,
+                            textStyle: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Colors.white,
+                                  fontFamily: 'SourceCode',
+                                ),
+                            gutterStyle: GutterStyle.none,
+                            expands: true,
+                          ),
+                        ),
+                ),
               ),
             ),
           ],

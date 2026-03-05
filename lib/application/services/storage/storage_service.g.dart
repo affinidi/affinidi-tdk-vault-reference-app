@@ -47,21 +47,15 @@ class SharedStoragesFamily extends Family<AsyncValue<List<SharedStorage>>> {
   /// Provider that returns all shared storages for a given profile.
   ///
   /// Copied from [sharedStorages].
-  SharedStoragesProvider call(
-    String profileId,
-  ) {
-    return SharedStoragesProvider(
-      profileId,
-    );
+  SharedStoragesProvider call(String profileId) {
+    return SharedStoragesProvider(profileId);
   }
 
   @override
   SharedStoragesProvider getProviderOverride(
     covariant SharedStoragesProvider provider,
   ) {
-    return call(
-      provider.profileId,
-    );
+    return call(provider.profileId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -87,24 +81,19 @@ class SharedStoragesProvider
   /// Provider that returns all shared storages for a given profile.
   ///
   /// Copied from [sharedStorages].
-  SharedStoragesProvider(
-    String profileId,
-  ) : this._internal(
-          (ref) => sharedStorages(
-            ref as SharedStoragesRef,
-            profileId,
-          ),
-          from: sharedStoragesProvider,
-          name: r'sharedStoragesProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$sharedStoragesHash,
-          dependencies: SharedStoragesFamily._dependencies,
-          allTransitiveDependencies:
-              SharedStoragesFamily._allTransitiveDependencies,
-          profileId: profileId,
-        );
+  SharedStoragesProvider(String profileId)
+    : this._internal(
+        (ref) => sharedStorages(ref as SharedStoragesRef, profileId),
+        from: sharedStoragesProvider,
+        name: r'sharedStoragesProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$sharedStoragesHash,
+        dependencies: SharedStoragesFamily._dependencies,
+        allTransitiveDependencies:
+            SharedStoragesFamily._allTransitiveDependencies,
+        profileId: profileId,
+      );
 
   SharedStoragesProvider._internal(
     super._createNotifier, {
@@ -191,21 +180,15 @@ class SharedStorageByIdFamily extends Family<AsyncValue<SharedStorage>> {
   /// Provider that returns a specific shared storage by ID.
   ///
   /// Copied from [sharedStorageById].
-  SharedStorageByIdProvider call(
-    String storageId,
-  ) {
-    return SharedStorageByIdProvider(
-      storageId,
-    );
+  SharedStorageByIdProvider call(String storageId) {
+    return SharedStorageByIdProvider(storageId);
   }
 
   @override
   SharedStorageByIdProvider getProviderOverride(
     covariant SharedStorageByIdProvider provider,
   ) {
-    return call(
-      provider.storageId,
-    );
+    return call(provider.storageId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -231,24 +214,19 @@ class SharedStorageByIdProvider
   /// Provider that returns a specific shared storage by ID.
   ///
   /// Copied from [sharedStorageById].
-  SharedStorageByIdProvider(
-    String storageId,
-  ) : this._internal(
-          (ref) => sharedStorageById(
-            ref as SharedStorageByIdRef,
-            storageId,
-          ),
-          from: sharedStorageByIdProvider,
-          name: r'sharedStorageByIdProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$sharedStorageByIdHash,
-          dependencies: SharedStorageByIdFamily._dependencies,
-          allTransitiveDependencies:
-              SharedStorageByIdFamily._allTransitiveDependencies,
-          storageId: storageId,
-        );
+  SharedStorageByIdProvider(String storageId)
+    : this._internal(
+        (ref) => sharedStorageById(ref as SharedStorageByIdRef, storageId),
+        from: sharedStorageByIdProvider,
+        name: r'sharedStorageByIdProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$sharedStorageByIdHash,
+        dependencies: SharedStorageByIdFamily._dependencies,
+        allTransitiveDependencies:
+            SharedStorageByIdFamily._allTransitiveDependencies,
+        storageId: storageId,
+      );
 
   SharedStorageByIdProvider._internal(
     super._createNotifier, {
@@ -336,21 +314,15 @@ class SharedStorageFilesFamily extends Family<AsyncValue<List<dynamic>>> {
   /// Provider that returns files from a shared storage.
   ///
   /// Copied from [sharedStorageFiles].
-  SharedStorageFilesProvider call(
-    String storageId,
-  ) {
-    return SharedStorageFilesProvider(
-      storageId,
-    );
+  SharedStorageFilesProvider call(String storageId) {
+    return SharedStorageFilesProvider(storageId);
   }
 
   @override
   SharedStorageFilesProvider getProviderOverride(
     covariant SharedStorageFilesProvider provider,
   ) {
-    return call(
-      provider.storageId,
-    );
+    return call(provider.storageId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -376,24 +348,19 @@ class SharedStorageFilesProvider
   /// Provider that returns files from a shared storage.
   ///
   /// Copied from [sharedStorageFiles].
-  SharedStorageFilesProvider(
-    String storageId,
-  ) : this._internal(
-          (ref) => sharedStorageFiles(
-            ref as SharedStorageFilesRef,
-            storageId,
-          ),
-          from: sharedStorageFilesProvider,
-          name: r'sharedStorageFilesProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$sharedStorageFilesHash,
-          dependencies: SharedStorageFilesFamily._dependencies,
-          allTransitiveDependencies:
-              SharedStorageFilesFamily._allTransitiveDependencies,
-          storageId: storageId,
-        );
+  SharedStorageFilesProvider(String storageId)
+    : this._internal(
+        (ref) => sharedStorageFiles(ref as SharedStorageFilesRef, storageId),
+        from: sharedStorageFilesProvider,
+        name: r'sharedStorageFilesProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$sharedStorageFilesHash,
+        dependencies: SharedStorageFilesFamily._dependencies,
+        allTransitiveDependencies:
+            SharedStorageFilesFamily._allTransitiveDependencies,
+        storageId: storageId,
+      );
 
   SharedStorageFilesProvider._internal(
     super._createNotifier, {
@@ -579,8 +546,9 @@ class StorageServiceFamily extends Family<StorageServiceState> {
 /// automatically handling the differences between storage implementations.
 ///
 /// Copied from [StorageService].
-class StorageServiceProvider extends AutoDisposeNotifierProviderImpl<
-    StorageService, StorageServiceState> {
+class StorageServiceProvider
+    extends
+        AutoDisposeNotifierProviderImpl<StorageService, StorageServiceState> {
   /// Service responsible for managing file storage operations within a vault profile.
   ///
   /// This service provides functionality to:
@@ -598,21 +566,20 @@ class StorageServiceProvider extends AutoDisposeNotifierProviderImpl<
     required String? parentNodeId,
     required String profileId,
   }) : this._internal(
-          () => StorageService()
-            ..parentNodeId = parentNodeId
-            ..profileId = profileId,
-          from: storageServiceProvider,
-          name: r'storageServiceProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$storageServiceHash,
-          dependencies: StorageServiceFamily._dependencies,
-          allTransitiveDependencies:
-              StorageServiceFamily._allTransitiveDependencies,
-          parentNodeId: parentNodeId,
-          profileId: profileId,
-        );
+         () => StorageService()
+           ..parentNodeId = parentNodeId
+           ..profileId = profileId,
+         from: storageServiceProvider,
+         name: r'storageServiceProvider',
+         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+             ? null
+             : _$storageServiceHash,
+         dependencies: StorageServiceFamily._dependencies,
+         allTransitiveDependencies:
+             StorageServiceFamily._allTransitiveDependencies,
+         parentNodeId: parentNodeId,
+         profileId: profileId,
+       );
 
   StorageServiceProvider._internal(
     super._createNotifier, {
@@ -629,13 +596,8 @@ class StorageServiceProvider extends AutoDisposeNotifierProviderImpl<
   final String profileId;
 
   @override
-  StorageServiceState runNotifierBuild(
-    covariant StorageService notifier,
-  ) {
-    return notifier.build(
-      parentNodeId: parentNodeId,
-      profileId: profileId,
-    );
+  StorageServiceState runNotifierBuild(covariant StorageService notifier) {
+    return notifier.build(parentNodeId: parentNodeId, profileId: profileId);
   }
 
   @override
@@ -659,7 +621,7 @@ class StorageServiceProvider extends AutoDisposeNotifierProviderImpl<
 
   @override
   AutoDisposeNotifierProviderElement<StorageService, StorageServiceState>
-      createElement() {
+  createElement() {
     return _StorageServiceProviderElement(this);
   }
 
@@ -690,8 +652,10 @@ mixin StorageServiceRef on AutoDisposeNotifierProviderRef<StorageServiceState> {
   String get profileId;
 }
 
-class _StorageServiceProviderElement extends AutoDisposeNotifierProviderElement<
-    StorageService, StorageServiceState> with StorageServiceRef {
+class _StorageServiceProviderElement
+    extends
+        AutoDisposeNotifierProviderElement<StorageService, StorageServiceState>
+    with StorageServiceRef {
   _StorageServiceProviderElement(super.provider);
 
   @override
@@ -699,5 +663,6 @@ class _StorageServiceProviderElement extends AutoDisposeNotifierProviderElement<
   @override
   String get profileId => (origin as StorageServiceProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
