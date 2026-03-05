@@ -41,6 +41,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get okActionText => 'ok';
 
   @override
+  String get confirmActionText => 'Confirm';
+
+  @override
   String get renameFileTitle => 'Rename file';
 
   @override
@@ -360,6 +363,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteActionText => 'Delete';
 
   @override
+  String get selectActionText => 'Select';
+
+  @override
   String get deleteProfileLoadingMessage => 'Deleting profile...';
 
   @override
@@ -382,6 +388,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vdspShare => 'VDSP Share';
+
+  @override
+  String get scanNewVerifierButtonLabel => 'Scan new Verifier';
 
   @override
   String get openPDF => 'Open PDF in new tab';
@@ -829,6 +838,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scanVerifierQrCode => 'Scan Verifier QR Code';
+
+  @override
+  String get incomingVdspRequest => 'Incoming VDSP Request';
+
+  @override
+  String get verierRequestForCredential =>
+      'The verifier is requesting for a credential.';
+
+  @override
+  String get allowVdspRequestQuestion => 'Do you want to allow this request?';
+
+  @override
+  String get enableVdspButtonLabel => 'Enable VDSP';
+
+  @override
+  String get disableVdspButtonLabel => 'Disable VDSP';
 
   @override
   String get snippetDescCreateVault => 'Create Vault';

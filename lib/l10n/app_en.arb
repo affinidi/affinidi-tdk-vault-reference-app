@@ -40,6 +40,12 @@
   "@okActionText": {
     "type": "text"
   },
+
+  "confirmActionText": "Confirm",
+  "@confirmActionText": {
+    "type": "text"
+  },
+
   "renameFileTitle": "Rename file",
   "@renameFileTitle": {
     "type": "text"
@@ -422,6 +428,12 @@
   "@deleteActionText": {
     "type": "text"
   },
+
+  "selectActionText": "Select",
+  "@selectActionText": {
+    "type": "text"
+  },
+
   "deleteProfileLoadingMessage": "Deleting profile...",
   "@deleteProfileLoadingMessage": {
     "type": "text"
@@ -454,6 +466,12 @@
   "@vdspShare": {
     "type": "text"
   },
+
+  "scanNewVerifierButtonLabel": "Scan new Verifier",
+  "@scanNewVerifierButtonLabel": {
+    "type": "text"
+  },
+
   "openPDF": "Open PDF in new tab",
   "@openPDF": {
     "type": "text"
@@ -936,6 +954,31 @@
 
   "scanVerifierQrCode": "Scan Verifier QR Code",
   "@scanVerifierQrCode": {
+    "type": "text"
+  },
+
+  "incomingVdspRequest": "Incoming VDSP Request",
+  "@incomingVdspRequest": {
+    "type": "text"
+  },
+
+  "verierRequestForCredential": "The verifier is requesting for a credential.",
+  "@verierRequestForCredential": {
+    "type": "text"
+  },
+
+  "allowVdspRequestQuestion": "Do you want to allow this request?",
+  "@allowVdspRequestQuestion": {
+    "type": "text"
+  },
+
+  "enableVdspButtonLabel": "Enable VDSP",
+  "@enableVdspButtonLabel": {
+    "type": "text"
+  },
+
+  "disableVdspButtonLabel": "Disable VDSP",
+  "@disableVdspButtonLabel": {
     "type": "text"
   },
 
