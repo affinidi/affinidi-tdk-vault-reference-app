@@ -39,9 +39,14 @@ class TdkAppBar extends StatelessWidget implements PreferredSizeWidget {
             onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
             color: AppColorScheme.textPrimary,
           ),
-          Text(
-            leadingTitle!,
-            style: AppTheme.headingMedium,
+          SizedBox(
+            width: 60,
+            child: Text(
+              leadingTitle!,
+              style: AppTheme.headingMedium,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
         ],
       );
@@ -57,7 +62,7 @@ class TdkAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColorScheme.backgroundBlack,
       elevation: elevation,
       leading: leadingWidget,
-      leadingWidth: leadingTitle != null ? null : 56,
+      leadingWidth: leadingTitle != null ? 120 : 56,
       centerTitle: shouldCenterTitle,
       title: titleWidget ??
           (title != null
