@@ -1,10 +1,6 @@
-// ignore: depend_on_referenced_packages
-import 'package:affinidi_tdk_didcomm_mediator_client/affinidi_tdk_didcomm_mediator_client.dart'
-    hide CredentialFormat;
+import 'package:affinidi_tdk_didcomm_mediator_client/affinidi_tdk_didcomm_mediator_client.dart';
 import 'dart:async';
-import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vdsp/affinidi_tdk_vdsp.dart';
-import 'package:didcomm/didcomm.dart' hide AccessListAddMessage;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ssi/ssi.dart';
 import 'package:uuid/uuid.dart';
@@ -54,6 +50,8 @@ class ProfilesPageController extends _$ProfilesPageController {
       fireImmediately: true,
     );
 
+    _registerDispose();
+
     return ProfilesPageState();
   }
 
@@ -94,7 +92,7 @@ class ProfilesPageController extends _$ProfilesPageController {
   /// Starts the VDSP Flow by initializing the DIDComm Mediator Client, creating
   /// an AccessListAddMessage to configure the ACL with the verifierDid and finally
   /// sending the ACL configuration via the DIDComm Mediator Client.
-  Future<void> startVdspFlow(String verifierDid) async {
+  Future<void> allowNewVerifier(String verifierDid) async {
     final vault = ref.read(vaultServiceProvider).currentVault;
 
     final ownDidDocument = await vault!.didManager.getDidDocument();

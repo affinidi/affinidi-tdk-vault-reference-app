@@ -154,6 +154,12 @@ abstract class AppLocalizations {
   /// **'ok'**
   String get okActionText;
 
+  /// No description provided for @confirmActionText.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirmActionText;
+
   /// No description provided for @renameFileTitle.
   ///
   /// In en, this message translates to:
@@ -682,6 +688,12 @@ abstract class AppLocalizations {
   /// **'Delete'**
   String get deleteActionText;
 
+  /// No description provided for @selectActionText.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get selectActionText;
+
   /// No description provided for @deleteProfileLoadingMessage.
   ///
   /// In en, this message translates to:
@@ -729,6 +741,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'VDSP Share'**
   String get vdspShare;
+
+  /// No description provided for @scanNewVerifierButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan new Verifier'**
+  String get scanNewVerifierButtonLabel;
 
   /// No description provided for @openPDF.
   ///
@@ -1527,6 +1545,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Scan Verifier QR Code'**
   String get scanVerifierQrCode;
+
+  /// No description provided for @incomingVdspRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming VDSP Request'**
+  String get incomingVdspRequest;
+
+  /// No description provided for @verierRequestForCredential.
+  ///
+  /// In en, this message translates to:
+  /// **'The verifier is requesting for a credential.'**
+  String get verierRequestForCredential;
+
+  /// No description provided for @allowVdspRequestQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to allow this request?'**
+  String get allowVdspRequestQuestion;
+
+  /// No description provided for @enableVdspButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable VDSP'**
+  String get enableVdspButtonLabel;
+
+  /// No description provided for @disableVdspButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable VDSP'**
+  String get disableVdspButtonLabel;
 
   /// No description provided for @snippetDescCreateVault.
   ///
