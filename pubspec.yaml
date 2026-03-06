@@ -52,7 +52,7 @@ dependencies:
   riverpod_annotation: ^2.6.1
   share_plus: ^7.2.1
   sqlite3_flutter_libs: ^0.5.15
-  ssi: ^3.4.0
+  ssi: ^3.5.0 # ssi >= 3.6.0 currently depends on intl ^0.19.0, but flutter_localizations (from the Flutter SDK) pins intl to 0.20.2; until ssi relaxes its intl constraint keep ssi on 3.5.0 to avoid pub version-solver errors.
   stack_trace: ^1.12.0
   syncfusion_flutter_pdfviewer: ^28.2.12
   universal_html: ^2.2.4
