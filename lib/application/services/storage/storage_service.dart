@@ -36,8 +36,10 @@ class StorageService extends _$StorageService {
   String? _currentParentNodeId;
 
   @override
-  StorageServiceState build(
-      {required String? parentNodeId, required String profileId}) {
+  StorageServiceState build({
+    required String? parentNodeId,
+    required String profileId,
+  }) {
     _currentParentNodeId = parentNodeId;
     return StorageServiceState();
   }
@@ -47,11 +49,13 @@ class StorageService extends _$StorageService {
   /// Throws [AppException] if the storage repository cannot be accessed.
   Future<void> listItems({bool isSharedProfile = false}) async {
     try {
-      final storageRepository =
-          await _getUnifiedRepository(isSharedProfile: isSharedProfile);
+      final storageRepository = await _getUnifiedRepository(
+        isSharedProfile: isSharedProfile,
+      );
       final folderId = _getFolderId(storageRepository);
-      final paginatedList =
-          await storageRepository.getFolder(folderId: folderId);
+      final paginatedList = await storageRepository.getFolder(
+        folderId: folderId,
+      );
       state = state.copyWith(items: paginatedList.items);
     } catch (e, st) {
       _handleStorageError(e, st, 'Failed to list items');
@@ -73,8 +77,9 @@ class StorageService extends _$StorageService {
     required String newName,
     bool isSharedProfile = false,
   }) async {
-    final storageRepository =
-        await _getUnifiedRepository(isSharedProfile: isSharedProfile);
+    final storageRepository = await _getUnifiedRepository(
+      isSharedProfile: isSharedProfile,
+    );
 
     try {
       await storageRepository.renameFile(fileId: itemId, newName: newName);
@@ -91,15 +96,20 @@ class StorageService extends _$StorageService {
   /// Throws [AppException] if:
   /// - A folder with the same name already exists
   /// - The operation fails for other reasons
-  Future<void> createFolder(
-      {required String folderName, bool isSharedProfile = false}) async {
-    final storageRepository =
-        await _getUnifiedRepository(isSharedProfile: isSharedProfile);
+  Future<void> createFolder({
+    required String folderName,
+    bool isSharedProfile = false,
+  }) async {
+    final storageRepository = await _getUnifiedRepository(
+      isSharedProfile: isSharedProfile,
+    );
 
     try {
       final parentFolderId = _getParentFolderId(storageRepository);
       await storageRepository.createFolder(
-          parentFolderId: parentFolderId, folderName: folderName);
+        parentFolderId: parentFolderId,
+        folderName: folderName,
+      );
       await listItems(isSharedProfile: isSharedProfile);
     } catch (e, st) {
       _handleStorageError(e, st, 'Failed to create folder');
@@ -115,8 +125,9 @@ class StorageService extends _$StorageService {
   /// - The folder cannot be found
   /// - The operation fails for other reasons
   Future<void> deleteFolder({required String folderId}) async {
-    final storageRepository =
-        await _getUnifiedRepository(isSharedProfile: false);
+    final storageRepository = await _getUnifiedRepository(
+      isSharedProfile: false,
+    );
 
     try {
       await storageRepository.deleteFolder(folderId: folderId);
@@ -132,10 +143,13 @@ class StorageService extends _$StorageService {
   ///
   /// Throws [FileUploadException] if any files fail to upload.
   /// Throws [AppException] if the upload operation fails completely.
-  Future<void> uploadFiles(
-      {required List<XFile> files, bool isSharedProfile = false}) async {
-    final storageRepository =
-        await _getUnifiedRepository(isSharedProfile: isSharedProfile);
+  Future<void> uploadFiles({
+    required List<XFile> files,
+    bool isSharedProfile = false,
+  }) async {
+    final storageRepository = await _getUnifiedRepository(
+      isSharedProfile: isSharedProfile,
+    );
     final parentFolderId = _getParentFolderId(storageRepository);
 
     try {
@@ -177,10 +191,13 @@ class StorageService extends _$StorageService {
   /// [itemId] - The item ID (unused parameter, kept for compatibility)
   ///
   /// Throws [AppException] if the file cannot be deleted.
-  Future<void> deleteFile(
-      {required String fileId, required String itemId}) async {
-    final storageRepository =
-        await _getUnifiedRepository(isSharedProfile: false);
+  Future<void> deleteFile({
+    required String fileId,
+    required String itemId,
+  }) async {
+    final storageRepository = await _getUnifiedRepository(
+      isSharedProfile: false,
+    );
 
     try {
       await storageRepository.deleteFile(fileId: fileId);
@@ -202,8 +219,9 @@ class StorageService extends _$StorageService {
   }) async {
     try {
       state = state.copyWith(fileData: null);
-      final storageRepository =
-          await _getUnifiedRepository(isSharedProfile: isSharedProfile);
+      final storageRepository = await _getUnifiedRepository(
+        isSharedProfile: isSharedProfile,
+      );
       final data = await storageRepository.getFileContent(fileId: fileId);
       state = state.copyWith(fileData: Uint8List.fromList(data));
     } catch (e, st) {
@@ -225,12 +243,15 @@ class StorageService extends _$StorageService {
     required String newName,
     bool isSharedProfile = false,
   }) async {
-    final storageRepository =
-        await _getUnifiedRepository(isSharedProfile: isSharedProfile);
+    final storageRepository = await _getUnifiedRepository(
+      isSharedProfile: isSharedProfile,
+    );
 
     try {
       await storageRepository.renameFolder(
-          folderId: folderId, newName: newName);
+        folderId: folderId,
+        newName: newName,
+      );
       await listItems(isSharedProfile: isSharedProfile);
     } catch (e, st) {
       _handleStorageError(e, st, 'Failed to rename folder');
@@ -241,15 +262,18 @@ class StorageService extends _$StorageService {
 
   /// Gets the storage repository for the current profile or shared profile
   ///
-  Future<BaseStorageRepository> _getUnifiedRepository(
-      {required bool isSharedProfile}) async {
+  Future<BaseStorageRepository> _getUnifiedRepository({
+    required bool isSharedProfile,
+  }) async {
     if (isSharedProfile) {
-      _sharedStorageRepository ??=
-          await ref.read(_vaultSharedStorageServiceProvider(profileId).future);
+      _sharedStorageRepository ??= await ref.read(
+        _vaultSharedStorageServiceProvider(profileId).future,
+      );
       return SharedStorageAdapter(_sharedStorageRepository!);
     } else {
-      _storageRepository ??=
-          await ref.read(_vaultStorageServiceProvider(profileId).future);
+      _storageRepository ??= await ref.read(
+        _vaultStorageServiceProvider(profileId).future,
+      );
       return FileStorageAdapter(_storageRepository!);
     }
   }
@@ -277,7 +301,10 @@ class StorageService extends _$StorageService {
 
   /// Handles storage-related errors and converts them to AppExceptions.
   void _handleStorageError(
-      dynamic error, StackTrace stackTrace, String operation) {
+    dynamic error,
+    StackTrace stackTrace,
+    String operation,
+  ) {
     if (error is TdkException) {
       Error.throwWithStackTrace(error, stackTrace);
     }
@@ -306,70 +333,73 @@ class StorageService extends _$StorageService {
 }
 
 /// Provider that creates a FileStorage instance for a given profile.
-final _vaultStorageServiceProvider =
-    FutureProvider.family<FileStorage, String>((ref, profileId) async {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
+final _vaultStorageServiceProvider = FutureProvider.family<FileStorage, String>(
+  (ref, profileId) async {
+    final vaultServiceState = ref.read(vaultServiceProvider);
+    final vault = vaultServiceState.currentVault;
 
-  if (vault == null) {
-    throw AppException(
-      message: 'Vault not initialized',
-      type: AppExceptionType.other,
-    );
-  }
+    if (vault == null) {
+      throw AppException(
+        message: 'Vault not initialized',
+        type: AppExceptionType.other,
+      );
+    }
 
-  final profiles = await vault.listProfiles();
-  final profile = profiles.firstWhereOrNull((p) => p.id == profileId);
+    final profiles = await vault.listProfiles();
+    final profile = profiles.firstWhereOrNull((p) => p.id == profileId);
 
-  if (profile == null) {
-    throw AppException(
-      message: 'Profile not found in vault',
-      type: AppExceptionType.other,
-    );
-  }
+    if (profile == null) {
+      throw AppException(
+        message: 'Profile not found in vault',
+        type: AppExceptionType.other,
+      );
+    }
 
-  final fileStorage = profile.defaultFileStorage;
-  if (fileStorage == null) {
-    throw AppException(
-      message: 'File storage not available for profile',
-      type: AppExceptionType.other,
-    );
-  }
+    final fileStorage = profile.defaultFileStorage;
+    if (fileStorage == null) {
+      throw AppException(
+        message: 'File storage not available for profile',
+        type: AppExceptionType.other,
+      );
+    }
 
-  return fileStorage;
-}, name: 'vaultStorageServiceProvider');
+    return fileStorage;
+  },
+  name: 'vaultStorageServiceProvider',
+);
 
 /// Provider that creates a FileStorage instance for a given profile.
 final _vaultSharedStorageServiceProvider =
     FutureProvider.family<SharedStorage, String>((ref, profileId) async {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
+      final vaultServiceState = ref.read(vaultServiceProvider);
+      final vault = vaultServiceState.currentVault;
 
-  if (vault == null) {
-    throw AppException(
-      message: 'Vault not initialized',
-      type: AppExceptionType.other,
-    );
-  }
+      if (vault == null) {
+        throw AppException(
+          message: 'Vault not initialized',
+          type: AppExceptionType.other,
+        );
+      }
 
-  final profiles = await vault.listProfiles();
+      final profiles = await vault.listProfiles();
 
-  for (final profile in profiles) {
-    try {
-      final sharedStorage =
-          profile.sharedStorages.firstWhere((s) => s.id == profileId);
-      return sharedStorage;
-    } catch (e) {
-      // Continue to next profile if shared storage not found
-      continue;
-    }
-  }
+      for (final profile in profiles) {
+        try {
+          final sharedStorage = profile.sharedStorages.firstWhere(
+            (s) => s.id == profileId,
+          );
+          return sharedStorage;
+        } catch (e) {
+          // Continue to next profile if shared storage not found
+          continue;
+        }
+      }
 
-  throw AppException(
-    message: 'Cannot find shared storage',
-    type: AppExceptionType.other,
-  );
-}, name: 'vaultSharedStorageServiceProvider');
+      throw AppException(
+        message: 'Cannot find shared storage',
+        type: AppExceptionType.other,
+      );
+    }, name: 'vaultSharedStorageServiceProvider');
 
 /// Provider that returns all shared storages for a given profile.
 @riverpod
@@ -416,8 +446,9 @@ Future<SharedStorage> sharedStorageById(Ref ref, String storageId) async {
 
   for (final profile in profiles) {
     try {
-      final sharedStorage =
-          profile.sharedStorages.firstWhere((s) => s.id == storageId);
+      final sharedStorage = profile.sharedStorages.firstWhere(
+        (s) => s.id == storageId,
+      );
       return sharedStorage;
     } catch (e) {
       // Continue to next profile if shared storage not found
@@ -434,8 +465,9 @@ Future<SharedStorage> sharedStorageById(Ref ref, String storageId) async {
 /// Provider that returns files from a shared storage.
 @riverpod
 Future<List<dynamic>> sharedStorageFiles(Ref ref, String storageId) async {
-  final sharedStorage =
-      await ref.watch(sharedStorageByIdProvider(storageId).future);
+  final sharedStorage = await ref.watch(
+    sharedStorageByIdProvider(storageId).future,
+  );
   final items = await sharedStorage.getFolder();
   return items.items;
 }

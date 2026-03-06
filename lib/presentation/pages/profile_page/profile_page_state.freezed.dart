@@ -12,7 +12,8 @@ part of 'profile_page_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$ProfilePageState {
@@ -28,8 +29,9 @@ mixin _$ProfilePageState {
 /// @nodoc
 abstract class $ProfilePageStateCopyWith<$Res> {
   factory $ProfilePageStateCopyWith(
-          ProfilePageState value, $Res Function(ProfilePageState) then) =
-      _$ProfilePageStateCopyWithImpl<$Res, ProfilePageState>;
+    ProfilePageState value,
+    $Res Function(ProfilePageState) then,
+  ) = _$ProfilePageStateCopyWithImpl<$Res, ProfilePageState>;
   @useResult
   $Res call({Profile? profile});
 }
@@ -48,24 +50,26 @@ class _$ProfilePageStateCopyWithImpl<$Res, $Val extends ProfilePageState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? profile = freezed,
-  }) {
-    return _then(_value.copyWith(
-      profile: freezed == profile
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
-              as Profile?,
-    ) as $Val);
+  $Res call({Object? profile = freezed}) {
+    return _then(
+      _value.copyWith(
+            profile: freezed == profile
+                ? _value.profile
+                : profile // ignore: cast_nullable_to_non_nullable
+                      as Profile?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$ProfilePageStateImplCopyWith<$Res>
     implements $ProfilePageStateCopyWith<$Res> {
-  factory _$$ProfilePageStateImplCopyWith(_$ProfilePageStateImpl value,
-          $Res Function(_$ProfilePageStateImpl) then) =
-      __$$ProfilePageStateImplCopyWithImpl<$Res>;
+  factory _$$ProfilePageStateImplCopyWith(
+    _$ProfilePageStateImpl value,
+    $Res Function(_$ProfilePageStateImpl) then,
+  ) = __$$ProfilePageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Profile? profile});
@@ -75,23 +79,24 @@ abstract class _$$ProfilePageStateImplCopyWith<$Res>
 class __$$ProfilePageStateImplCopyWithImpl<$Res>
     extends _$ProfilePageStateCopyWithImpl<$Res, _$ProfilePageStateImpl>
     implements _$$ProfilePageStateImplCopyWith<$Res> {
-  __$$ProfilePageStateImplCopyWithImpl(_$ProfilePageStateImpl _value,
-      $Res Function(_$ProfilePageStateImpl) _then)
-      : super(_value, _then);
+  __$$ProfilePageStateImplCopyWithImpl(
+    _$ProfilePageStateImpl _value,
+    $Res Function(_$ProfilePageStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ProfilePageState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? profile = freezed,
-  }) {
-    return _then(_$ProfilePageStateImpl(
-      profile: freezed == profile
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
-              as Profile?,
-    ));
+  $Res call({Object? profile = freezed}) {
+    return _then(
+      _$ProfilePageStateImpl(
+        profile: freezed == profile
+            ? _value.profile
+            : profile // ignore: cast_nullable_to_non_nullable
+                  as Profile?,
+      ),
+    );
   }
 }
 
@@ -126,7 +131,9 @@ class _$ProfilePageStateImpl implements _ProfilePageState {
   @pragma('vm:prefer-inline')
   _$$ProfilePageStateImplCopyWith<_$ProfilePageStateImpl> get copyWith =>
       __$$ProfilePageStateImplCopyWithImpl<_$ProfilePageStateImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _ProfilePageState implements ProfilePageState {

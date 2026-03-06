@@ -4,7 +4,6 @@ part 'create_folder_form_state.freezed.dart';
 
 @Freezed(fromJson: false, toJson: false)
 class CreateFolderFormState with _$CreateFolderFormState {
-  factory CreateFolderFormState({
-    required bool isCreateFolderButtonEnabled,
-  }) = _CreateFolderFormState;
+  factory CreateFolderFormState({required bool isCreateFolderButtonEnabled}) =
+      _CreateFolderFormState;
 }

@@ -32,88 +32,95 @@ class SharedPage extends ConsumerWidget {
       body: state.isLoading
           ? const Center(child: CircularProgressIndicator())
           : !hasSharedContent
-              ? Center(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                      Text(
-                        localizations.noSharedContentAvailable.substring(
-                            0,
-                            localizations.noSharedContentAvailable.indexOf(
-                                localizations.targetKeywordSharedContent)),
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium,
+          ? Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    localizations.noSharedContentAvailable.substring(
+                      0,
+                      localizations.noSharedContentAvailable.indexOf(
+                        localizations.targetKeywordSharedContent,
                       ),
-                      SimpleInfoWidget(
-                        text: localizations.targetKeywordSharedContent,
-                        dialogTitle: localizations.infoShareContent,
-                        dialogContent:
-                            localizations.infoShareContentDescription,
-                        textStyle: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      Text(
-                        localizations.noSharedContentAvailable.substring(
-                            localizations.noSharedContentAvailable.lastIndexOf(
-                                    localizations.targetKeywordSharedContent) +
-                                localizations.targetKeywordSharedContent.length,
-                            localizations.noSharedContentAvailable.length),
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ]))
-              : ListView(
-                  padding: const EdgeInsets.all(AppSizing.paddingMedium),
-                  children: [
-                    // Profile-shared storages
-                    ...state.sharedStorages.map((storage) {
-                      return SharedProfileCard(
-                        title: localizations.sharedFromLabel(storage.id),
-                        subtitle: localizations
-                            .storageTypeLabel(storage.runtimeType.toString()),
-                        onPressed: () {
-                          navigation.push(
-                            ProfilesRoutePath.profileSharedProfileDetailsFiles(
-                              profileId,
-                              storage.id,
-                            ),
-                          );
-                        },
+                    ),
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  SimpleInfoWidget(
+                    text: localizations.targetKeywordSharedContent,
+                    dialogTitle: localizations.infoShareContent,
+                    dialogContent: localizations.infoShareContentDescription,
+                    textStyle: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  Text(
+                    localizations.noSharedContentAvailable.substring(
+                      localizations.noSharedContentAvailable.lastIndexOf(
+                            localizations.targetKeywordSharedContent,
+                          ) +
+                          localizations.targetKeywordSharedContent.length,
+                      localizations.noSharedContentAvailable.length,
+                    ),
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ),
+            )
+          : ListView(
+              padding: const EdgeInsets.all(AppSizing.paddingMedium),
+              children: [
+                // Profile-shared storages
+                ...state.sharedStorages.map((storage) {
+                  return SharedProfileCard(
+                    title: localizations.sharedFromLabel(storage.id),
+                    subtitle: localizations.storageTypeLabel(
+                      storage.runtimeType.toString(),
+                    ),
+                    onPressed: () {
+                      navigation.push(
+                        ProfilesRoutePath.profileSharedProfileDetailsFiles(
+                          profileId,
+                          storage.id,
+                        ),
                       );
-                    }),
-                    // Granular access items
-                    ...state.granularAccessItems.map((item) {
-                      String permissionsText = '';
-                      if (item.rights.contains('vfsRead') &&
-                          item.rights.contains('vfsWrite')) {
-                        permissionsText = localizations.canWriteLabel;
-                      } else if (item.rights.contains('vfsRead')) {
-                        permissionsText = localizations.canViewOnlyLabel;
-                      } else {
-                        permissionsText = item.rights.join(', ');
-                      }
+                    },
+                  );
+                }),
+                // Granular access items
+                ...state.granularAccessItems.map((item) {
+                  String permissionsText = '';
+                  if (item.rights.contains('vfsRead') &&
+                      item.rights.contains('vfsWrite')) {
+                    permissionsText = localizations.canWriteLabel;
+                  } else if (item.rights.contains('vfsRead')) {
+                    permissionsText = localizations.canViewOnlyLabel;
+                  } else {
+                    permissionsText = item.rights.join(', ');
+                  }
 
-                      return SharedProfileCard(
-                        title: localizations
-                            .sharedFromNodeLabel(item.ownerProfileName),
-                        subtitle: '${item.nodeName} • $permissionsText',
-                        onPressed: () {
-                          if (item.isFolder) {
-                            navigation.push(
-                              '${ProfilesRoutePath.profileMyFiles(item.ownerProfileId)}?folder=${item.nodeId}',
-                            );
-                          } else {
-                            navigation.push(
-                              ProfilesRoutePath.profileFilePreview(
-                                item.ownerProfileId,
-                                item.nodeId,
-                              ),
-                            );
-                          }
-                        },
-                      );
-                    }),
-                  ],
-                ),
+                  return SharedProfileCard(
+                    title: localizations.sharedFromNodeLabel(
+                      item.ownerProfileName,
+                    ),
+                    subtitle: '${item.nodeName} • $permissionsText',
+                    onPressed: () {
+                      if (item.isFolder) {
+                        navigation.push(
+                          '${ProfilesRoutePath.profileMyFiles(item.ownerProfileId)}?folder=${item.nodeId}',
+                        );
+                      } else {
+                        navigation.push(
+                          ProfilesRoutePath.profileFilePreview(
+                            item.ownerProfileId,
+                            item.nodeId,
+                          ),
+                        );
+                      }
+                    },
+                  );
+                }),
+              ],
+            ),
     );
   }
 }

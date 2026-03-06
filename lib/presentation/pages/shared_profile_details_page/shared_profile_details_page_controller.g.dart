@@ -90,28 +90,30 @@ class SharedProfileDetailsPageControllerFamily
 
 /// See also [SharedProfileDetailsPageController].
 class SharedProfileDetailsPageControllerProvider
-    extends AutoDisposeNotifierProviderImpl<SharedProfileDetailsPageController,
-        SharedProfileDetailsPageState> {
+    extends
+        AutoDisposeNotifierProviderImpl<
+          SharedProfileDetailsPageController,
+          SharedProfileDetailsPageState
+        > {
   /// See also [SharedProfileDetailsPageController].
   SharedProfileDetailsPageControllerProvider({
     required String? parentNodeId,
     required String profileId,
   }) : this._internal(
-          () => SharedProfileDetailsPageController()
-            ..parentNodeId = parentNodeId
-            ..profileId = profileId,
-          from: sharedProfileDetailsPageControllerProvider,
-          name: r'sharedProfileDetailsPageControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$sharedProfileDetailsPageControllerHash,
-          dependencies: SharedProfileDetailsPageControllerFamily._dependencies,
-          allTransitiveDependencies: SharedProfileDetailsPageControllerFamily
-              ._allTransitiveDependencies,
-          parentNodeId: parentNodeId,
-          profileId: profileId,
-        );
+         () => SharedProfileDetailsPageController()
+           ..parentNodeId = parentNodeId
+           ..profileId = profileId,
+         from: sharedProfileDetailsPageControllerProvider,
+         name: r'sharedProfileDetailsPageControllerProvider',
+         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+             ? null
+             : _$sharedProfileDetailsPageControllerHash,
+         dependencies: SharedProfileDetailsPageControllerFamily._dependencies,
+         allTransitiveDependencies: SharedProfileDetailsPageControllerFamily
+             ._allTransitiveDependencies,
+         parentNodeId: parentNodeId,
+         profileId: profileId,
+       );
 
   SharedProfileDetailsPageControllerProvider._internal(
     super._createNotifier, {
@@ -131,10 +133,7 @@ class SharedProfileDetailsPageControllerProvider
   SharedProfileDetailsPageState runNotifierBuild(
     covariant SharedProfileDetailsPageController notifier,
   ) {
-    return notifier.build(
-      parentNodeId: parentNodeId,
-      profileId: profileId,
-    );
+    return notifier.build(parentNodeId: parentNodeId, profileId: profileId);
   }
 
   @override
@@ -157,8 +156,11 @@ class SharedProfileDetailsPageControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<SharedProfileDetailsPageController,
-      SharedProfileDetailsPageState> createElement() {
+  AutoDisposeNotifierProviderElement<
+    SharedProfileDetailsPageController,
+    SharedProfileDetailsPageState
+  >
+  createElement() {
     return _SharedProfileDetailsPageControllerProviderElement(this);
   }
 
@@ -191,8 +193,11 @@ mixin SharedProfileDetailsPageControllerRef
 }
 
 class _SharedProfileDetailsPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<
-        SharedProfileDetailsPageController, SharedProfileDetailsPageState>
+    extends
+        AutoDisposeNotifierProviderElement<
+          SharedProfileDetailsPageController,
+          SharedProfileDetailsPageState
+        >
     with SharedProfileDetailsPageControllerRef {
   _SharedProfileDetailsPageControllerProviderElement(super.provider);
 
@@ -203,5 +208,6 @@ class _SharedProfileDetailsPageControllerProviderElement
   String get profileId =>
       (origin as SharedProfileDetailsPageControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

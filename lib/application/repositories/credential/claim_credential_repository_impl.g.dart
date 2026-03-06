@@ -41,24 +41,15 @@ class ClaimCredentialRepositoryFamily
   const ClaimCredentialRepositoryFamily();
 
   /// See also [claimCredentialRepository].
-  ClaimCredentialRepositoryProvider call(
-    String vaultId,
-    int accountIndex,
-  ) {
-    return ClaimCredentialRepositoryProvider(
-      vaultId,
-      accountIndex,
-    );
+  ClaimCredentialRepositoryProvider call(String vaultId, int accountIndex) {
+    return ClaimCredentialRepositoryProvider(vaultId, accountIndex);
   }
 
   @override
   ClaimCredentialRepositoryProvider getProviderOverride(
     covariant ClaimCredentialRepositoryProvider provider,
   ) {
-    return call(
-      provider.vaultId,
-      provider.accountIndex,
-    );
+    return call(provider.vaultId, provider.accountIndex);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -80,27 +71,24 @@ class ClaimCredentialRepositoryFamily
 class ClaimCredentialRepositoryProvider
     extends AutoDisposeFutureProvider<ClaimCredentialRepository> {
   /// See also [claimCredentialRepository].
-  ClaimCredentialRepositoryProvider(
-    String vaultId,
-    int accountIndex,
-  ) : this._internal(
-          (ref) => claimCredentialRepository(
-            ref as ClaimCredentialRepositoryRef,
-            vaultId,
-            accountIndex,
-          ),
-          from: claimCredentialRepositoryProvider,
-          name: r'claimCredentialRepositoryProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$claimCredentialRepositoryHash,
-          dependencies: ClaimCredentialRepositoryFamily._dependencies,
-          allTransitiveDependencies:
-              ClaimCredentialRepositoryFamily._allTransitiveDependencies,
-          vaultId: vaultId,
-          accountIndex: accountIndex,
-        );
+  ClaimCredentialRepositoryProvider(String vaultId, int accountIndex)
+    : this._internal(
+        (ref) => claimCredentialRepository(
+          ref as ClaimCredentialRepositoryRef,
+          vaultId,
+          accountIndex,
+        ),
+        from: claimCredentialRepositoryProvider,
+        name: r'claimCredentialRepositoryProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$claimCredentialRepositoryHash,
+        dependencies: ClaimCredentialRepositoryFamily._dependencies,
+        allTransitiveDependencies:
+            ClaimCredentialRepositoryFamily._allTransitiveDependencies,
+        vaultId: vaultId,
+        accountIndex: accountIndex,
+      );
 
   ClaimCredentialRepositoryProvider._internal(
     super._createNotifier, {
@@ -119,8 +107,9 @@ class ClaimCredentialRepositoryProvider
   @override
   Override overrideWith(
     FutureOr<ClaimCredentialRepository> Function(
-            ClaimCredentialRepositoryRef provider)
-        create,
+      ClaimCredentialRepositoryRef provider,
+    )
+    create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -181,5 +170,6 @@ class _ClaimCredentialRepositoryProviderElement
   int get accountIndex =>
       (origin as ClaimCredentialRepositoryProvider).accountIndex;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

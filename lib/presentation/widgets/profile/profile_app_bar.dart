@@ -92,8 +92,9 @@ class ProfileAppBar extends ConsumerWidget {
                   icon: const Icon(Icons.settings_outlined),
                   tooltip: localizations?.shareProfile ?? 'Settings',
                   onPressed: () {
-                    navigation
-                        .push(ProfilesRoutePath.profileSettings(profileId));
+                    navigation.push(
+                      ProfilesRoutePath.profileSettings(profileId),
+                    );
                   },
                 ),
               ],
@@ -128,10 +129,7 @@ class ProfileAppBar extends ConsumerWidget {
                             ),
                     ),
                     const SizedBox(width: AppSizing.paddingMedium),
-                    Text(
-                      profileName,
-                      style: AppTheme.headingMedium,
-                    ),
+                    Text(profileName, style: AppTheme.headingMedium),
                   ],
                 ),
                 Column(
@@ -171,8 +169,9 @@ class _PermissionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color =
-        selected ? AppTheme.colorScheme.primary : AppColorScheme.textSecondary;
+    final color = selected
+        ? AppTheme.colorScheme.primary
+        : AppColorScheme.textSecondary;
 
     return InkWell(
       onTap: onTap,
@@ -191,10 +190,9 @@ class _PermissionTile extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: color),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: color),
               ),
             ),
           ],
@@ -217,8 +215,9 @@ class _CheckboxTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color =
-        value ? AppTheme.colorScheme.primary : AppColorScheme.textSecondary;
+    final color = value
+        ? AppTheme.colorScheme.primary
+        : AppColorScheme.textSecondary;
 
     return InkWell(
       onTap: onChanged == null ? null : () => onChanged!(!value),
@@ -239,10 +238,9 @@ class _CheckboxTile extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: color),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: color),
               ),
             ),
           ],
@@ -296,8 +294,9 @@ class _ShareProfileBottomSheetState
     final navigation = ref.read(navigationServiceProvider);
 
     setState(() => isLoading = true);
-    loadingMessageNotifier =
-        ValueNotifier<String>(widget.localizations!.sharingProfileMessage);
+    loadingMessageNotifier = ValueNotifier<String>(
+      widget.localizations!.sharingProfileMessage,
+    );
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -331,8 +330,9 @@ class _ShareProfileBottomSheetState
       ),
     );
     final didValue = didController.text.trim();
-    final controller =
-        widget.ref.read(profileSharingControllerProvider.notifier);
+    final controller = widget.ref.read(
+      profileSharingControllerProvider.notifier,
+    );
     controller.selectProfile(widget.profileId);
     DateTime? expiresAt;
     if (hasTimeLimit && selectedDate != null) {
@@ -371,8 +371,10 @@ class _ShareProfileBottomSheetState
       expiresAt: expiresAt,
       onMessage: (message) {
         final messageService = widget.ref.read(messageServiceProvider);
-        final localizedMessage =
-            messageService.getLocalizedMessage(message, widget.localizations!);
+        final localizedMessage = messageService.getLocalizedMessage(
+          message,
+          widget.localizations!,
+        );
         loadingMessageNotifier!.value = localizedMessage;
       },
     );
@@ -398,7 +400,8 @@ class _ShareProfileBottomSheetState
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(AppSizing.iconSmall)),
+            top: Radius.circular(AppSizing.iconSmall),
+          ),
         ),
         padding: const EdgeInsets.all(AppSizing.paddingLarge),
         child: Column(
@@ -423,24 +426,25 @@ class _ShareProfileBottomSheetState
               controller: didController,
               decoration: InputDecoration(
                 hintText: localizations.recipientDidHint,
-                hintStyle: Theme.of(context)
-                    .textTheme
-                    .bodySmall
+                hintStyle: Theme.of(context).textTheme.bodySmall
                     ?.copyWith(fontWeight: FontWeight.w600)
                     .copyWith(color: AppColorScheme.backgroundDark),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
-                      color: AppColorScheme.formFieldBorderUnfocused),
+                    color: AppColorScheme.formFieldBorderUnfocused,
+                  ),
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                      color: AppColorScheme.formFieldBorderUnfocused),
+                    color: AppColorScheme.formFieldBorderUnfocused,
+                  ),
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                      color: AppColorScheme.formFieldBorderUnfocused),
+                    color: AppColorScheme.formFieldBorderUnfocused,
+                  ),
                   borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
                 ),
                 contentPadding: const EdgeInsets.all(AppSizing.paddingMedium),
@@ -497,8 +501,11 @@ class _ShareProfileBottomSheetState
                           ? null
                           : () async {
                               final now = DateTime.now();
-                              final today =
-                                  DateTime(now.year, now.month, now.day);
+                              final today = DateTime(
+                                now.year,
+                                now.month,
+                                now.day,
+                              );
                               final picked = await showDatePicker(
                                 context: context,
                                 initialDate: selectedDate ?? now,
@@ -543,12 +550,13 @@ class _ShareProfileBottomSheetState
               ),
             ],
             Center(
-                child: SimpleInfoWidget(
-              text: localizations.infoShareFlow,
-              dialogTitle: localizations.infoShareFlow,
-              dialogContent: localizations.infoShareFlowDescription,
-              textStyle: Theme.of(context).textTheme.bodySmall,
-            )),
+              child: SimpleInfoWidget(
+                text: localizations.infoShareFlow,
+                dialogTitle: localizations.infoShareFlow,
+                dialogContent: localizations.infoShareFlowDescription,
+                textStyle: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
             const SizedBox(height: AppSizing.paddingLarge),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -562,7 +570,8 @@ class _ShareProfileBottomSheetState
                     style: TextButton.styleFrom(
                       foregroundColor: AppColorScheme.textPrimary,
                       padding: const EdgeInsets.symmetric(
-                          vertical: AppSizing.paddingRegular),
+                        vertical: AppSizing.paddingRegular,
+                      ),
                     ),
                     child: Text(localizations.cancelActionText),
                   ),
@@ -570,8 +579,9 @@ class _ShareProfileBottomSheetState
                 Expanded(
                   child: CodeSnippetWidget(
                     title: localizations.lblCSShareProfile,
-                    codeLocations:
-                        CodeSnippetLocations.shareProfileSnippets(context),
+                    codeLocations: CodeSnippetLocations.shareProfileSnippets(
+                      context,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -585,7 +595,10 @@ class _ShareProfileBottomSheetState
                             width: AppSizing.iconSmall,
                             height: AppSizing.iconSmall,
                             child: CircularProgressIndicator(
-                                strokeWidth: 2, color: Colors.white))
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
                         : Text(localizations.shareProfile),
                   ),
                 ),

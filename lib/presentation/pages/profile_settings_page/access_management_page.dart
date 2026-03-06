@@ -12,10 +12,7 @@ import '../../widgets/code_snippet/code_snippet_locations.dart';
 import 'profile_settings_page_controller.dart';
 
 class AccessManagementPage extends ConsumerWidget {
-  const AccessManagementPage({
-    super.key,
-    required this.profileId,
-  });
+  const AccessManagementPage({super.key, required this.profileId});
 
   final String profileId;
 
@@ -50,9 +47,7 @@ class AccessManagementPage extends ConsumerWidget {
             padding: const EdgeInsets.all(AppSizing.paddingMedium),
             decoration: const BoxDecoration(
               color: AppColorScheme.backgroundBlack,
-              border: Border(
-                bottom: BorderSide(color: AppColorScheme.divider),
-              ),
+              border: Border(bottom: BorderSide(color: AppColorScheme.divider)),
             ),
             child: Row(
               children: [
@@ -60,10 +55,9 @@ class AccessManagementPage extends ConsumerWidget {
                   width: 80,
                   child: Text(
                     localizations.profileIdHeader,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(color: AppColorScheme.textPrimary),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColorScheme.textPrimary,
+                    ),
                   ),
                 ),
                 SizedBox(width: AppSizing.paddingSmall),
@@ -97,29 +91,31 @@ class AccessManagementPage extends ConsumerWidget {
           Expanded(
             child: Consumer(
               builder: (context, ref, child) {
-                final sharedAccessesAsync =
-                    ref.watch(sharedProfileAccessesProvider(profileId));
+                final sharedAccessesAsync = ref.watch(
+                  sharedProfileAccessesProvider(profileId),
+                );
                 return sharedAccessesAsync.when(
                   data: (sharedList) {
                     if (sharedList.isEmpty) {
                       return Padding(
-                          padding:
-                              const EdgeInsets.all(AppSizing.paddingMedium),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  localizations.noSharedDidsForProfile,
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
+                        padding: const EdgeInsets.all(AppSizing.paddingMedium),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                              child: Text(
+                                localizations.noSharedDidsForProfile,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
-                            ],
-                          ));
+                            ),
+                          ],
+                        ),
+                      );
                     }
-                    final revokingIds = ref.watch(controllerProvider
-                        .select((state) => state.revokingIds));
+                    final revokingIds = ref.watch(
+                      controllerProvider.select((state) => state.revokingIds),
+                    );
                     return ListView.separated(
                       itemCount: sharedList.length,
                       separatorBuilder: (_, __) => const Divider(
@@ -130,8 +126,9 @@ class AccessManagementPage extends ConsumerWidget {
                         final entry = sharedList[index];
                         final isRevoking = revokingIds.contains(entry.id);
                         return Container(
-                          padding:
-                              const EdgeInsets.all(AppSizing.paddingMedium),
+                          padding: const EdgeInsets.all(
+                            AppSizing.paddingMedium,
+                          ),
                           child: Row(
                             children: [
                               SizedBox(
@@ -172,7 +169,8 @@ class AccessManagementPage extends ConsumerWidget {
                                           width: AppSizing.iconSmall,
                                           height: AppSizing.iconSmall,
                                           child: CircularProgressIndicator(
-                                              strokeWidth: 2),
+                                            strokeWidth: 2,
+                                          ),
                                         ),
                                       )
                                     : IconButton(
@@ -205,10 +203,9 @@ class AccessManagementPage extends ConsumerWidget {
                   error: (error, stack) => Center(
                     child: Text(
                       localizations.genericError(error),
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: AppColorScheme.textSecondary),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: AppColorScheme.textSecondary,
+                      ),
                     ),
                   ),
                 );

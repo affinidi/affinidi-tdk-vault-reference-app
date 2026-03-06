@@ -39,20 +39,30 @@ class DeleteProfileConfirmationController
           type: AppExceptionType.missingProfile,
         ),
       );
-      log('Attempting to delete profile:  [32m${profileToDelete.name} (${profileToDelete.id}) [0m',
-          name: 'DeleteProfileConfirmationController');
+      log(
+        'Attempting to delete profile:  [32m${profileToDelete.name} (${profileToDelete.id}) [0m',
+        name: 'DeleteProfileConfirmationController',
+      );
       await profileService.deleteProfile(profileToDelete);
-      log('Profile deletion completed successfully',
-          name: 'DeleteProfileConfirmationController');
-      state =
-          state.copyWith(isLoading: false, errorMessage: null, success: true);
-    } catch (e) {
-      log('Error deleting profile: $e',
-          name: 'DeleteProfileConfirmationController');
+      log(
+        'Profile deletion completed successfully',
+        name: 'DeleteProfileConfirmationController',
+      );
       state = state.copyWith(
-          isLoading: false,
-          errorMessage: 'Profile Not Deleted',
-          success: false);
+        isLoading: false,
+        errorMessage: null,
+        success: true,
+      );
+    } catch (e) {
+      log(
+        'Error deleting profile: $e',
+        name: 'DeleteProfileConfirmationController',
+      );
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: 'Profile Not Deleted',
+        success: false,
+      );
     }
   }
 }

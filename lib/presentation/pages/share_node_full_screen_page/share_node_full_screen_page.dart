@@ -167,17 +167,15 @@ class ShareNodeFullScreenPage extends HookConsumerWidget {
     }
 
     return Scaffold(
-      appBar: TdkAppBar(
-        showBackButton: true,
-        title: localizations.shareFile,
-      ),
+      appBar: TdkAppBar(showBackButton: true, title: localizations.shareFile),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.only(
             left: AppSizing.paddingLarge,
             right: AppSizing.paddingLarge,
             top: AppSizing.paddingLarge,
-            bottom: AppSizing.paddingLarge +
+            bottom:
+                AppSizing.paddingLarge +
                 MediaQuery.of(context).viewInsets.bottom,
           ),
           child: Column(
@@ -197,28 +195,32 @@ class ShareNodeFullScreenPage extends HookConsumerWidget {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   hintText: localizations.recipientDidHint,
-                  hintStyle: Theme.of(context)
-                      .textTheme
-                      .bodySmall
+                  hintStyle: Theme.of(context).textTheme.bodySmall
                       ?.copyWith(fontWeight: FontWeight.w600)
                       .copyWith(color: AppColorScheme.textPrimary),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: AppColorScheme.formFieldBorderUnfocused),
-                    borderRadius:
-                        BorderRadius.circular(AppSizing.paddingXSmall),
+                      color: AppColorScheme.formFieldBorderUnfocused,
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      AppSizing.paddingXSmall,
+                    ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: AppColorScheme.formFieldBorderUnfocused),
-                    borderRadius:
-                        BorderRadius.circular(AppSizing.paddingXSmall),
+                      color: AppColorScheme.formFieldBorderUnfocused,
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      AppSizing.paddingXSmall,
+                    ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: AppColorScheme.formFieldBorderUnfocused),
-                    borderRadius:
-                        BorderRadius.circular(AppSizing.paddingXSmall),
+                      color: AppColorScheme.formFieldBorderUnfocused,
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      AppSizing.paddingXSmall,
+                    ),
                   ),
                   contentPadding: const EdgeInsets.all(AppSizing.paddingMedium),
                 ),
@@ -301,7 +303,8 @@ class ShareNodeFullScreenPage extends HookConsumerWidget {
                       style: TextButton.styleFrom(
                         foregroundColor: AppColorScheme.textPrimary,
                         padding: const EdgeInsets.symmetric(
-                            vertical: AppSizing.paddingRegular),
+                          vertical: AppSizing.paddingRegular,
+                        ),
                       ),
                       child: Text(localizations.cancelActionText),
                     ),
@@ -310,8 +313,8 @@ class ShareNodeFullScreenPage extends HookConsumerWidget {
                     child: FilledButton(
                       onPressed:
                           isLoading.value || didController.text.trim().isEmpty
-                              ? null
-                              : handleShare,
+                          ? null
+                          : handleShare,
                       child: isLoading.value
                           ? const SizedBox(
                               width: AppSizing.iconSmall,

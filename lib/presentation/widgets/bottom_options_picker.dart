@@ -17,10 +17,11 @@ class BottomOptionsPicker<T> extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(
-            AppSizing.paddingSmall,
-            AppSizing.paddingSmall,
-            AppSizing.paddingSmall,
-            AppSizing.paddingMedium),
+          AppSizing.paddingSmall,
+          AppSizing.paddingSmall,
+          AppSizing.paddingSmall,
+          AppSizing.paddingMedium,
+        ),
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: options.length,

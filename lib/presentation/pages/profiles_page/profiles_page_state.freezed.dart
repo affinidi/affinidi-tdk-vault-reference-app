@@ -12,7 +12,8 @@ part of 'profiles_page_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$ProfilesPageState {
@@ -28,8 +29,9 @@ mixin _$ProfilesPageState {
 /// @nodoc
 abstract class $ProfilesPageStateCopyWith<$Res> {
   factory $ProfilesPageStateCopyWith(
-          ProfilesPageState value, $Res Function(ProfilesPageState) then) =
-      _$ProfilesPageStateCopyWithImpl<$Res, ProfilesPageState>;
+    ProfilesPageState value,
+    $Res Function(ProfilesPageState) then,
+  ) = _$ProfilesPageStateCopyWithImpl<$Res, ProfilesPageState>;
   @useResult
   $Res call({List<Profile>? profiles});
 }
@@ -48,24 +50,26 @@ class _$ProfilesPageStateCopyWithImpl<$Res, $Val extends ProfilesPageState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? profiles = freezed,
-  }) {
-    return _then(_value.copyWith(
-      profiles: freezed == profiles
-          ? _value.profiles
-          : profiles // ignore: cast_nullable_to_non_nullable
-              as List<Profile>?,
-    ) as $Val);
+  $Res call({Object? profiles = freezed}) {
+    return _then(
+      _value.copyWith(
+            profiles: freezed == profiles
+                ? _value.profiles
+                : profiles // ignore: cast_nullable_to_non_nullable
+                      as List<Profile>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$ProfilesPageStateImplCopyWith<$Res>
     implements $ProfilesPageStateCopyWith<$Res> {
-  factory _$$ProfilesPageStateImplCopyWith(_$ProfilesPageStateImpl value,
-          $Res Function(_$ProfilesPageStateImpl) then) =
-      __$$ProfilesPageStateImplCopyWithImpl<$Res>;
+  factory _$$ProfilesPageStateImplCopyWith(
+    _$ProfilesPageStateImpl value,
+    $Res Function(_$ProfilesPageStateImpl) then,
+  ) = __$$ProfilesPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<Profile>? profiles});
@@ -75,23 +79,24 @@ abstract class _$$ProfilesPageStateImplCopyWith<$Res>
 class __$$ProfilesPageStateImplCopyWithImpl<$Res>
     extends _$ProfilesPageStateCopyWithImpl<$Res, _$ProfilesPageStateImpl>
     implements _$$ProfilesPageStateImplCopyWith<$Res> {
-  __$$ProfilesPageStateImplCopyWithImpl(_$ProfilesPageStateImpl _value,
-      $Res Function(_$ProfilesPageStateImpl) _then)
-      : super(_value, _then);
+  __$$ProfilesPageStateImplCopyWithImpl(
+    _$ProfilesPageStateImpl _value,
+    $Res Function(_$ProfilesPageStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ProfilesPageState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? profiles = freezed,
-  }) {
-    return _then(_$ProfilesPageStateImpl(
-      profiles: freezed == profiles
-          ? _value._profiles
-          : profiles // ignore: cast_nullable_to_non_nullable
-              as List<Profile>?,
-    ));
+  $Res call({Object? profiles = freezed}) {
+    return _then(
+      _$ProfilesPageStateImpl(
+        profiles: freezed == profiles
+            ? _value._profiles
+            : profiles // ignore: cast_nullable_to_non_nullable
+                  as List<Profile>?,
+      ),
+    );
   }
 }
 
@@ -99,7 +104,7 @@ class __$$ProfilesPageStateImplCopyWithImpl<$Res>
 
 class _$ProfilesPageStateImpl implements _ProfilesPageState {
   _$ProfilesPageStateImpl({final List<Profile>? profiles})
-      : _profiles = profiles;
+    : _profiles = profiles;
 
   final List<Profile>? _profiles;
   @override
@@ -135,7 +140,9 @@ class _$ProfilesPageStateImpl implements _ProfilesPageState {
   @pragma('vm:prefer-inline')
   _$$ProfilesPageStateImplCopyWith<_$ProfilesPageStateImpl> get copyWith =>
       __$$ProfilesPageStateImplCopyWithImpl<_$ProfilesPageStateImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _ProfilesPageState implements ProfilesPageState {

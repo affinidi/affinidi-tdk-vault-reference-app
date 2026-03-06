@@ -28,8 +28,9 @@ class ManageNodeAccess extends HookConsumerWidget {
     final revokingDids = useState<Set<String>>({});
     final accessKey = (profileId: profileId, nodeId: nodeId);
     final accessState = ref.watch(manageNodeAccessProvider(accessKey));
-    final accessNotifier =
-        ref.read(manageNodeAccessProvider(accessKey).notifier);
+    final accessNotifier = ref.read(
+      manageNodeAccessProvider(accessKey).notifier,
+    );
 
     Future<void> revokeAccess(String granteeDid) async {
       revokingDids.value = {...revokingDids.value, granteeDid};
@@ -87,8 +88,10 @@ class ManageNodeAccess extends HookConsumerWidget {
         return null;
       }
 
-      final mappedPermissions =
-          rights.map(mapRight).whereType<Permissions>().toSet();
+      final mappedPermissions = rights
+          .map(mapRight)
+          .whereType<Permissions>()
+          .toSet();
       final hasAll = mappedPermissions.contains(Permissions.all);
       final hasWrite = hasAll || mappedPermissions.contains(Permissions.write);
       final hasRead = hasAll || mappedPermissions.contains(Permissions.read);
@@ -111,9 +114,7 @@ class ManageNodeAccess extends HookConsumerWidget {
       return Container(
         padding: const EdgeInsets.all(AppSizing.paddingMedium),
         decoration: const BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: AppColorScheme.divider),
-          ),
+          border: Border(bottom: BorderSide(color: AppColorScheme.divider)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,10 +123,9 @@ class ManageNodeAccess extends HookConsumerWidget {
               flex: 3,
               child: Text(
                 localizations.didHeader,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(fontSize: 11),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(fontSize: 11),
               ),
             ),
             const SizedBox(width: AppSizing.paddingSmall),
@@ -133,10 +133,9 @@ class ManageNodeAccess extends HookConsumerWidget {
               flex: 2,
               child: Text(
                 localizations.permissionsHeader,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(fontSize: 11),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(fontSize: 11),
               ),
             ),
             const SizedBox(width: AppSizing.paddingSmall),
@@ -144,10 +143,9 @@ class ManageNodeAccess extends HookConsumerWidget {
               flex: 2,
               child: Text(
                 localizations.expiryDate,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(fontSize: 11),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(fontSize: 11),
               ),
             ),
             const SizedBox(width: AppSizing.paddingSmall),
@@ -155,10 +153,9 @@ class ManageNodeAccess extends HookConsumerWidget {
               width: 50,
               child: Text(
                 localizations.actionHeader,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(fontSize: 11),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(fontSize: 11),
               ),
             ),
           ],
@@ -198,14 +195,13 @@ class ManageNodeAccess extends HookConsumerWidget {
             Expanded(
               child: ListView.separated(
                 itemCount: entries.length,
-                separatorBuilder: (_, __) => const Divider(
-                  height: 1,
-                  color: AppColorScheme.divider,
-                ),
+                separatorBuilder: (_, __) =>
+                    const Divider(height: 1, color: AppColorScheme.divider),
                 itemBuilder: (context, index) {
                   final entry = entries[index];
-                  final isRevoking =
-                      revokingDids.value.contains(entry.granteeDid);
+                  final isRevoking = revokingDids.value.contains(
+                    entry.granteeDid,
+                  );
 
                   return Padding(
                     padding: const EdgeInsets.all(AppSizing.paddingMedium),
@@ -216,10 +212,9 @@ class ManageNodeAccess extends HookConsumerWidget {
                           flex: 3,
                           child: Text(
                             entry.granteeDid,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(fontSize: 11),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodySmall?.copyWith(fontSize: 11),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -229,10 +224,9 @@ class ManageNodeAccess extends HookConsumerWidget {
                           flex: 2,
                           child: Text(
                             formatPermissions(entry.permission.rights),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(fontSize: 11),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodySmall?.copyWith(fontSize: 11),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -244,10 +238,9 @@ class ManageNodeAccess extends HookConsumerWidget {
                             entry.permission.expiresAt != null
                                 ? formatExpiration(entry.permission.expiresAt)
                                 : localizations.neverExpires,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(fontSize: 11),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodySmall?.copyWith(fontSize: 11),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -261,7 +254,8 @@ class ManageNodeAccess extends HookConsumerWidget {
                                     width: AppSizing.iconSmall,
                                     height: AppSizing.iconSmall,
                                     child: CircularProgressIndicator(
-                                        strokeWidth: 2),
+                                      strokeWidth: 2,
+                                    ),
                                   ),
                                 )
                               : IconButton(

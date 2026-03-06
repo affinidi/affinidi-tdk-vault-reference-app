@@ -88,28 +88,30 @@ class CreateFolderFormControllerFamily extends Family<CreateFolderFormState> {
 
 /// See also [CreateFolderFormController].
 class CreateFolderFormControllerProvider
-    extends AutoDisposeNotifierProviderImpl<CreateFolderFormController,
-        CreateFolderFormState> {
+    extends
+        AutoDisposeNotifierProviderImpl<
+          CreateFolderFormController,
+          CreateFolderFormState
+        > {
   /// See also [CreateFolderFormController].
   CreateFolderFormControllerProvider({
     String? parentNodeId,
     required String profileId,
   }) : this._internal(
-          () => CreateFolderFormController()
-            ..parentNodeId = parentNodeId
-            ..profileId = profileId,
-          from: createFolderFormControllerProvider,
-          name: r'createFolderFormControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$createFolderFormControllerHash,
-          dependencies: CreateFolderFormControllerFamily._dependencies,
-          allTransitiveDependencies:
-              CreateFolderFormControllerFamily._allTransitiveDependencies,
-          parentNodeId: parentNodeId,
-          profileId: profileId,
-        );
+         () => CreateFolderFormController()
+           ..parentNodeId = parentNodeId
+           ..profileId = profileId,
+         from: createFolderFormControllerProvider,
+         name: r'createFolderFormControllerProvider',
+         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+             ? null
+             : _$createFolderFormControllerHash,
+         dependencies: CreateFolderFormControllerFamily._dependencies,
+         allTransitiveDependencies:
+             CreateFolderFormControllerFamily._allTransitiveDependencies,
+         parentNodeId: parentNodeId,
+         profileId: profileId,
+       );
 
   CreateFolderFormControllerProvider._internal(
     super._createNotifier, {
@@ -129,10 +131,7 @@ class CreateFolderFormControllerProvider
   CreateFolderFormState runNotifierBuild(
     covariant CreateFolderFormController notifier,
   ) {
-    return notifier.build(
-      parentNodeId: parentNodeId,
-      profileId: profileId,
-    );
+    return notifier.build(parentNodeId: parentNodeId, profileId: profileId);
   }
 
   @override
@@ -155,8 +154,11 @@ class CreateFolderFormControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<CreateFolderFormController,
-      CreateFolderFormState> createElement() {
+  AutoDisposeNotifierProviderElement<
+    CreateFolderFormController,
+    CreateFolderFormState
+  >
+  createElement() {
     return _CreateFolderFormControllerProviderElement(this);
   }
 
@@ -189,8 +191,12 @@ mixin CreateFolderFormControllerRef
 }
 
 class _CreateFolderFormControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<CreateFolderFormController,
-        CreateFolderFormState> with CreateFolderFormControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          CreateFolderFormController,
+          CreateFolderFormState
+        >
+    with CreateFolderFormControllerRef {
   _CreateFolderFormControllerProviderElement(super.provider);
 
   @override
@@ -200,5 +206,6 @@ class _CreateFolderFormControllerProviderElement
   String get profileId =>
       (origin as CreateFolderFormControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

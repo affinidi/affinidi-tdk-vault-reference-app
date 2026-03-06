@@ -97,8 +97,12 @@ class FilePreviewPageControllerFamily extends Family<FilePreviewPageState> {
 }
 
 /// See also [FilePreviewPageController].
-class FilePreviewPageControllerProvider extends AutoDisposeNotifierProviderImpl<
-    FilePreviewPageController, FilePreviewPageState> {
+class FilePreviewPageControllerProvider
+    extends
+        AutoDisposeNotifierProviderImpl<
+          FilePreviewPageController,
+          FilePreviewPageState
+        > {
   /// See also [FilePreviewPageController].
   FilePreviewPageControllerProvider({
     required String nodeId,
@@ -106,25 +110,24 @@ class FilePreviewPageControllerProvider extends AutoDisposeNotifierProviderImpl<
     String? parentNodeId,
     bool isSharedProfile = false,
   }) : this._internal(
-          () => FilePreviewPageController()
-            ..nodeId = nodeId
-            ..profileId = profileId
-            ..parentNodeId = parentNodeId
-            ..isSharedProfile = isSharedProfile,
-          from: filePreviewPageControllerProvider,
-          name: r'filePreviewPageControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$filePreviewPageControllerHash,
-          dependencies: FilePreviewPageControllerFamily._dependencies,
-          allTransitiveDependencies:
-              FilePreviewPageControllerFamily._allTransitiveDependencies,
-          nodeId: nodeId,
-          profileId: profileId,
-          parentNodeId: parentNodeId,
-          isSharedProfile: isSharedProfile,
-        );
+         () => FilePreviewPageController()
+           ..nodeId = nodeId
+           ..profileId = profileId
+           ..parentNodeId = parentNodeId
+           ..isSharedProfile = isSharedProfile,
+         from: filePreviewPageControllerProvider,
+         name: r'filePreviewPageControllerProvider',
+         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+             ? null
+             : _$filePreviewPageControllerHash,
+         dependencies: FilePreviewPageControllerFamily._dependencies,
+         allTransitiveDependencies:
+             FilePreviewPageControllerFamily._allTransitiveDependencies,
+         nodeId: nodeId,
+         profileId: profileId,
+         parentNodeId: parentNodeId,
+         isSharedProfile: isSharedProfile,
+       );
 
   FilePreviewPageControllerProvider._internal(
     super._createNotifier, {
@@ -180,8 +183,11 @@ class FilePreviewPageControllerProvider extends AutoDisposeNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeNotifierProviderElement<FilePreviewPageController,
-      FilePreviewPageState> createElement() {
+  AutoDisposeNotifierProviderElement<
+    FilePreviewPageController,
+    FilePreviewPageState
+  >
+  createElement() {
     return _FilePreviewPageControllerProviderElement(this);
   }
 
@@ -224,8 +230,12 @@ mixin FilePreviewPageControllerRef
 }
 
 class _FilePreviewPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<FilePreviewPageController,
-        FilePreviewPageState> with FilePreviewPageControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          FilePreviewPageController,
+          FilePreviewPageState
+        >
+    with FilePreviewPageControllerRef {
   _FilePreviewPageControllerProviderElement(super.provider);
 
   @override
@@ -240,5 +250,6 @@ class _FilePreviewPageControllerProviderElement
   bool get isSharedProfile =>
       (origin as FilePreviewPageControllerProvider).isSharedProfile;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -26,23 +26,24 @@ class CreateFolderForm extends ConsumerWidget {
     String? parentNodeId,
     required String profileId,
     bool isSharedProfile = false,
-  }) =>
-      showModalBottomSheet(
-        useRootNavigator: true,
-        isScrollControlled: true,
-        context: context,
-        builder: (context) => CreateFolderForm(
-          parentNodeId: parentNodeId,
-          profileId: profileId,
-          isSharedProfile: isSharedProfile,
-        ),
-      );
+  }) => showModalBottomSheet(
+    useRootNavigator: true,
+    isScrollControlled: true,
+    context: context,
+    builder: (context) => CreateFolderForm(
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+      isSharedProfile: isSharedProfile,
+    ),
+  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final provider = createFolderFormControllerProvider(
-        parentNodeId: parentNodeId, profileId: profileId);
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
     final controller = ref.read(provider.notifier);
     final textController = controller.folderNameController;
     final navigation = ref.read(navigationServiceProvider);
@@ -75,9 +76,10 @@ class CreateFolderForm extends ConsumerWidget {
           child: Text(localizations.cancelActionText),
         ),
         _CreateFolderButton(
-            parentNodeId: parentNodeId,
-            profileId: profileId,
-            onCreateFolder: onCreateFolder),
+          parentNodeId: parentNodeId,
+          profileId: profileId,
+          onCreateFolder: onCreateFolder,
+        ),
       ],
       body: Column(
         children: [
@@ -97,7 +99,9 @@ class CreateFolderForm extends ConsumerWidget {
                   labelText: localizations.folderName,
                   hintText: localizations.folderName,
                   suffix: _ClearButton(
-                      parentNodeId: parentNodeId, profileId: profileId),
+                    parentNodeId: parentNodeId,
+                    profileId: profileId,
+                  ),
                 ),
                 onSubmitted: (value) {
                   if (value.trim().isNotEmpty) {
@@ -123,21 +127,22 @@ class _ClearButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = createFolderFormControllerProvider(
-        parentNodeId: parentNodeId, profileId: profileId);
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
     final controller = ref.read(provider.notifier);
-    final isCreateFolderButtonEnabled = ref
-        .watch(provider.select((state) => state.isCreateFolderButtonEnabled));
+    final isCreateFolderButtonEnabled = ref.watch(
+      provider.select((state) => state.isCreateFolderButtonEnabled),
+    );
 
     return isCreateFolderButtonEnabled
         ? GestureDetector(
             onTap: () => controller.clearName(),
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizing.paddingSmall),
-              child: Icon(
-                Icons.cancel_rounded,
-                size: AppSizing.iconXSmall,
+                horizontal: AppSizing.paddingSmall,
               ),
+              child: Icon(Icons.cancel_rounded, size: AppSizing.iconXSmall),
             ),
           )
         : SizedBox.shrink();
@@ -159,10 +164,13 @@ class _CreateFolderButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final provider = createFolderFormControllerProvider(
-        parentNodeId: parentNodeId, profileId: profileId);
+      parentNodeId: parentNodeId,
+      profileId: profileId,
+    );
 
-    final isCreateFolderButtonEnabled = ref
-        .watch(provider.select((state) => state.isCreateFolderButtonEnabled));
+    final isCreateFolderButtonEnabled = ref.watch(
+      provider.select((state) => state.isCreateFolderButtonEnabled),
+    );
 
     return FilledButton(
       key: Key(KeyConstants.keyCreateFolderSubmitButton),

@@ -34,9 +34,7 @@ abstract class _$MyCredentialsPageController
     extends BuildlessAutoDisposeNotifier<MyCredentialsPageState> {
   late final String profileId;
 
-  MyCredentialsPageState build({
-    required String profileId,
-  });
+  MyCredentialsPageState build({required String profileId});
 }
 
 /// See also [MyCredentialsPageController].
@@ -49,21 +47,15 @@ class MyCredentialsPageControllerFamily extends Family<MyCredentialsPageState> {
   const MyCredentialsPageControllerFamily();
 
   /// See also [MyCredentialsPageController].
-  MyCredentialsPageControllerProvider call({
-    required String profileId,
-  }) {
-    return MyCredentialsPageControllerProvider(
-      profileId: profileId,
-    );
+  MyCredentialsPageControllerProvider call({required String profileId}) {
+    return MyCredentialsPageControllerProvider(profileId: profileId);
   }
 
   @override
   MyCredentialsPageControllerProvider getProviderOverride(
     covariant MyCredentialsPageControllerProvider provider,
   ) {
-    return call(
-      profileId: provider.profileId,
-    );
+    return call(profileId: provider.profileId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -83,24 +75,25 @@ class MyCredentialsPageControllerFamily extends Family<MyCredentialsPageState> {
 
 /// See also [MyCredentialsPageController].
 class MyCredentialsPageControllerProvider
-    extends AutoDisposeNotifierProviderImpl<MyCredentialsPageController,
-        MyCredentialsPageState> {
+    extends
+        AutoDisposeNotifierProviderImpl<
+          MyCredentialsPageController,
+          MyCredentialsPageState
+        > {
   /// See also [MyCredentialsPageController].
-  MyCredentialsPageControllerProvider({
-    required String profileId,
-  }) : this._internal(
-          () => MyCredentialsPageController()..profileId = profileId,
-          from: myCredentialsPageControllerProvider,
-          name: r'myCredentialsPageControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$myCredentialsPageControllerHash,
-          dependencies: MyCredentialsPageControllerFamily._dependencies,
-          allTransitiveDependencies:
-              MyCredentialsPageControllerFamily._allTransitiveDependencies,
-          profileId: profileId,
-        );
+  MyCredentialsPageControllerProvider({required String profileId})
+    : this._internal(
+        () => MyCredentialsPageController()..profileId = profileId,
+        from: myCredentialsPageControllerProvider,
+        name: r'myCredentialsPageControllerProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$myCredentialsPageControllerHash,
+        dependencies: MyCredentialsPageControllerFamily._dependencies,
+        allTransitiveDependencies:
+            MyCredentialsPageControllerFamily._allTransitiveDependencies,
+        profileId: profileId,
+      );
 
   MyCredentialsPageControllerProvider._internal(
     super._createNotifier, {
@@ -118,9 +111,7 @@ class MyCredentialsPageControllerProvider
   MyCredentialsPageState runNotifierBuild(
     covariant MyCredentialsPageController notifier,
   ) {
-    return notifier.build(
-      profileId: profileId,
-    );
+    return notifier.build(profileId: profileId);
   }
 
   @override
@@ -140,8 +131,11 @@ class MyCredentialsPageControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<MyCredentialsPageController,
-      MyCredentialsPageState> createElement() {
+  AutoDisposeNotifierProviderElement<
+    MyCredentialsPageController,
+    MyCredentialsPageState
+  >
+  createElement() {
     return _MyCredentialsPageControllerProviderElement(this);
   }
 
@@ -169,13 +163,18 @@ mixin MyCredentialsPageControllerRef
 }
 
 class _MyCredentialsPageControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<MyCredentialsPageController,
-        MyCredentialsPageState> with MyCredentialsPageControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          MyCredentialsPageController,
+          MyCredentialsPageState
+        >
+    with MyCredentialsPageControllerRef {
   _MyCredentialsPageControllerProviderElement(super.provider);
 
   @override
   String get profileId =>
       (origin as MyCredentialsPageControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

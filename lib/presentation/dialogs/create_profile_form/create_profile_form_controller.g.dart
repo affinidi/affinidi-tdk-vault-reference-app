@@ -11,18 +11,21 @@ String _$createProfileFormControllerHash() =>
 
 /// See also [CreateProfileFormController].
 @ProviderFor(CreateProfileFormController)
-final createProfileFormControllerProvider = AutoDisposeNotifierProvider<
-    CreateProfileFormController, CreateProfileFormState>.internal(
-  CreateProfileFormController.new,
-  name: r'createProfileFormControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$createProfileFormControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final createProfileFormControllerProvider =
+    AutoDisposeNotifierProvider<
+      CreateProfileFormController,
+      CreateProfileFormState
+    >.internal(
+      CreateProfileFormController.new,
+      name: r'createProfileFormControllerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$createProfileFormControllerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
-typedef _$CreateProfileFormController
-    = AutoDisposeNotifier<CreateProfileFormState>;
+typedef _$CreateProfileFormController =
+    AutoDisposeNotifier<CreateProfileFormState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

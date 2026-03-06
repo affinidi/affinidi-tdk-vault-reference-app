@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import '../themes/app_sizing.dart';
 
 class Modal {
-  static void open(
-    BuildContext context, {
-    required Widget child,
-  }) {
+  static void open(BuildContext context, {required Widget child}) {
     showGeneralDialog(
       barrierLabel: 'Dismiss',
       barrierDismissible: true,
@@ -18,12 +15,8 @@ class Modal {
               borderRadius: BorderRadius.all(Radius.circular(8)),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.9,
-                decoration: const BoxDecoration(
-                  color: Color(0xffffffff),
-                ),
-                child: Material(
-                  child: child,
-                ),
+                decoration: const BoxDecoration(color: Color(0xffffffff)),
+                child: Material(child: child),
               ),
             ),
           ),

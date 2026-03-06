@@ -12,7 +12,8 @@ part of 'my_files_page_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$MyFilesPageState {
@@ -29,8 +30,9 @@ mixin _$MyFilesPageState {
 /// @nodoc
 abstract class $MyFilesPageStateCopyWith<$Res> {
   factory $MyFilesPageStateCopyWith(
-          MyFilesPageState value, $Res Function(MyFilesPageState) then) =
-      _$MyFilesPageStateCopyWithImpl<$Res, MyFilesPageState>;
+    MyFilesPageState value,
+    $Res Function(MyFilesPageState) then,
+  ) = _$MyFilesPageStateCopyWithImpl<$Res, MyFilesPageState>;
   @useResult
   $Res call({bool isLoading, List<Item>? items});
 }
@@ -49,29 +51,30 @@ class _$MyFilesPageStateCopyWithImpl<$Res, $Val extends MyFilesPageState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? isLoading = null,
-    Object? items = freezed,
-  }) {
-    return _then(_value.copyWith(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      items: freezed == items
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<Item>?,
-    ) as $Val);
+  $Res call({Object? isLoading = null, Object? items = freezed}) {
+    return _then(
+      _value.copyWith(
+            isLoading: null == isLoading
+                ? _value.isLoading
+                : isLoading // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            items: freezed == items
+                ? _value.items
+                : items // ignore: cast_nullable_to_non_nullable
+                      as List<Item>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$MyFilesPageStateImplCopyWith<$Res>
     implements $MyFilesPageStateCopyWith<$Res> {
-  factory _$$MyFilesPageStateImplCopyWith(_$MyFilesPageStateImpl value,
-          $Res Function(_$MyFilesPageStateImpl) then) =
-      __$$MyFilesPageStateImplCopyWithImpl<$Res>;
+  factory _$$MyFilesPageStateImplCopyWith(
+    _$MyFilesPageStateImpl value,
+    $Res Function(_$MyFilesPageStateImpl) then,
+  ) = __$$MyFilesPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool isLoading, List<Item>? items});
@@ -81,28 +84,28 @@ abstract class _$$MyFilesPageStateImplCopyWith<$Res>
 class __$$MyFilesPageStateImplCopyWithImpl<$Res>
     extends _$MyFilesPageStateCopyWithImpl<$Res, _$MyFilesPageStateImpl>
     implements _$$MyFilesPageStateImplCopyWith<$Res> {
-  __$$MyFilesPageStateImplCopyWithImpl(_$MyFilesPageStateImpl _value,
-      $Res Function(_$MyFilesPageStateImpl) _then)
-      : super(_value, _then);
+  __$$MyFilesPageStateImplCopyWithImpl(
+    _$MyFilesPageStateImpl _value,
+    $Res Function(_$MyFilesPageStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of MyFilesPageState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? isLoading = null,
-    Object? items = freezed,
-  }) {
-    return _then(_$MyFilesPageStateImpl(
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      items: freezed == items
-          ? _value._items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<Item>?,
-    ));
+  $Res call({Object? isLoading = null, Object? items = freezed}) {
+    return _then(
+      _$MyFilesPageStateImpl(
+        isLoading: null == isLoading
+            ? _value.isLoading
+            : isLoading // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        items: freezed == items
+            ? _value._items
+            : items // ignore: cast_nullable_to_non_nullable
+                  as List<Item>?,
+      ),
+    );
   }
 }
 
@@ -110,7 +113,7 @@ class __$$MyFilesPageStateImplCopyWithImpl<$Res>
 
 class _$MyFilesPageStateImpl implements _MyFilesPageState {
   _$MyFilesPageStateImpl({this.isLoading = false, final List<Item>? items})
-      : _items = items;
+    : _items = items;
 
   @override
   @JsonKey()
@@ -142,7 +145,10 @@ class _$MyFilesPageStateImpl implements _MyFilesPageState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, isLoading, const DeepCollectionEquality().hash(_items));
+    runtimeType,
+    isLoading,
+    const DeepCollectionEquality().hash(_items),
+  );
 
   /// Create a copy of MyFilesPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -151,7 +157,9 @@ class _$MyFilesPageStateImpl implements _MyFilesPageState {
   @pragma('vm:prefer-inline')
   _$$MyFilesPageStateImplCopyWith<_$MyFilesPageStateImpl> get copyWith =>
       __$$MyFilesPageStateImplCopyWithImpl<_$MyFilesPageStateImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _MyFilesPageState implements MyFilesPageState {

@@ -12,7 +12,8 @@ part of 'credential_service_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$CredentialServiceState {
@@ -31,19 +32,23 @@ mixin _$CredentialServiceState {
 
 /// @nodoc
 abstract class $CredentialServiceStateCopyWith<$Res> {
-  factory $CredentialServiceStateCopyWith(CredentialServiceState value,
-          $Res Function(CredentialServiceState) then) =
-      _$CredentialServiceStateCopyWithImpl<$Res, CredentialServiceState>;
+  factory $CredentialServiceStateCopyWith(
+    CredentialServiceState value,
+    $Res Function(CredentialServiceState) then,
+  ) = _$CredentialServiceStateCopyWithImpl<$Res, CredentialServiceState>;
   @useResult
-  $Res call(
-      {List<DigitalCredential>? claimedCredentials,
-      List<String?> lastEvaluatedItemIdStack,
-      int currentPageIndex});
+  $Res call({
+    List<DigitalCredential>? claimedCredentials,
+    List<String?> lastEvaluatedItemIdStack,
+    int currentPageIndex,
+  });
 }
 
 /// @nodoc
-class _$CredentialServiceStateCopyWithImpl<$Res,
-        $Val extends CredentialServiceState>
+class _$CredentialServiceStateCopyWithImpl<
+  $Res,
+  $Val extends CredentialServiceState
+>
     implements $CredentialServiceStateCopyWith<$Res> {
   _$CredentialServiceStateCopyWithImpl(this._value, this._then);
 
@@ -61,20 +66,23 @@ class _$CredentialServiceStateCopyWithImpl<$Res,
     Object? lastEvaluatedItemIdStack = null,
     Object? currentPageIndex = null,
   }) {
-    return _then(_value.copyWith(
-      claimedCredentials: freezed == claimedCredentials
-          ? _value.claimedCredentials
-          : claimedCredentials // ignore: cast_nullable_to_non_nullable
-              as List<DigitalCredential>?,
-      lastEvaluatedItemIdStack: null == lastEvaluatedItemIdStack
-          ? _value.lastEvaluatedItemIdStack
-          : lastEvaluatedItemIdStack // ignore: cast_nullable_to_non_nullable
-              as List<String?>,
-      currentPageIndex: null == currentPageIndex
-          ? _value.currentPageIndex
-          : currentPageIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            claimedCredentials: freezed == claimedCredentials
+                ? _value.claimedCredentials
+                : claimedCredentials // ignore: cast_nullable_to_non_nullable
+                      as List<DigitalCredential>?,
+            lastEvaluatedItemIdStack: null == lastEvaluatedItemIdStack
+                ? _value.lastEvaluatedItemIdStack
+                : lastEvaluatedItemIdStack // ignore: cast_nullable_to_non_nullable
+                      as List<String?>,
+            currentPageIndex: null == currentPageIndex
+                ? _value.currentPageIndex
+                : currentPageIndex // ignore: cast_nullable_to_non_nullable
+                      as int,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -82,26 +90,27 @@ class _$CredentialServiceStateCopyWithImpl<$Res,
 abstract class _$$CredentialServiceStateImplCopyWith<$Res>
     implements $CredentialServiceStateCopyWith<$Res> {
   factory _$$CredentialServiceStateImplCopyWith(
-          _$CredentialServiceStateImpl value,
-          $Res Function(_$CredentialServiceStateImpl) then) =
-      __$$CredentialServiceStateImplCopyWithImpl<$Res>;
+    _$CredentialServiceStateImpl value,
+    $Res Function(_$CredentialServiceStateImpl) then,
+  ) = __$$CredentialServiceStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<DigitalCredential>? claimedCredentials,
-      List<String?> lastEvaluatedItemIdStack,
-      int currentPageIndex});
+  $Res call({
+    List<DigitalCredential>? claimedCredentials,
+    List<String?> lastEvaluatedItemIdStack,
+    int currentPageIndex,
+  });
 }
 
 /// @nodoc
 class __$$CredentialServiceStateImplCopyWithImpl<$Res>
-    extends _$CredentialServiceStateCopyWithImpl<$Res,
-        _$CredentialServiceStateImpl>
+    extends
+        _$CredentialServiceStateCopyWithImpl<$Res, _$CredentialServiceStateImpl>
     implements _$$CredentialServiceStateImplCopyWith<$Res> {
   __$$CredentialServiceStateImplCopyWithImpl(
-      _$CredentialServiceStateImpl _value,
-      $Res Function(_$CredentialServiceStateImpl) _then)
-      : super(_value, _then);
+    _$CredentialServiceStateImpl _value,
+    $Res Function(_$CredentialServiceStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of CredentialServiceState
   /// with the given fields replaced by the non-null parameter values.
@@ -112,32 +121,34 @@ class __$$CredentialServiceStateImplCopyWithImpl<$Res>
     Object? lastEvaluatedItemIdStack = null,
     Object? currentPageIndex = null,
   }) {
-    return _then(_$CredentialServiceStateImpl(
-      claimedCredentials: freezed == claimedCredentials
-          ? _value._claimedCredentials
-          : claimedCredentials // ignore: cast_nullable_to_non_nullable
-              as List<DigitalCredential>?,
-      lastEvaluatedItemIdStack: null == lastEvaluatedItemIdStack
-          ? _value._lastEvaluatedItemIdStack
-          : lastEvaluatedItemIdStack // ignore: cast_nullable_to_non_nullable
-              as List<String?>,
-      currentPageIndex: null == currentPageIndex
-          ? _value.currentPageIndex
-          : currentPageIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
+    return _then(
+      _$CredentialServiceStateImpl(
+        claimedCredentials: freezed == claimedCredentials
+            ? _value._claimedCredentials
+            : claimedCredentials // ignore: cast_nullable_to_non_nullable
+                  as List<DigitalCredential>?,
+        lastEvaluatedItemIdStack: null == lastEvaluatedItemIdStack
+            ? _value._lastEvaluatedItemIdStack
+            : lastEvaluatedItemIdStack // ignore: cast_nullable_to_non_nullable
+                  as List<String?>,
+        currentPageIndex: null == currentPageIndex
+            ? _value.currentPageIndex
+            : currentPageIndex // ignore: cast_nullable_to_non_nullable
+                  as int,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$CredentialServiceStateImpl implements _CredentialServiceState {
-  _$CredentialServiceStateImpl(
-      {final List<DigitalCredential>? claimedCredentials,
-      final List<String?> lastEvaluatedItemIdStack = const [],
-      this.currentPageIndex = 0})
-      : _claimedCredentials = claimedCredentials,
-        _lastEvaluatedItemIdStack = lastEvaluatedItemIdStack;
+  _$CredentialServiceStateImpl({
+    final List<DigitalCredential>? claimedCredentials,
+    final List<String?> lastEvaluatedItemIdStack = const [],
+    this.currentPageIndex = 0,
+  }) : _claimedCredentials = claimedCredentials,
+       _lastEvaluatedItemIdStack = lastEvaluatedItemIdStack;
 
   final List<DigitalCredential>? _claimedCredentials;
   @override
@@ -160,7 +171,7 @@ class _$CredentialServiceStateImpl implements _CredentialServiceState {
     return EqualUnmodifiableListView(_lastEvaluatedItemIdStack);
   }
 
-// for pagination
+  // for pagination
   @override
   @JsonKey()
   final int currentPageIndex;
@@ -175,20 +186,25 @@ class _$CredentialServiceStateImpl implements _CredentialServiceState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CredentialServiceStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other._claimedCredentials, _claimedCredentials) &&
             const DeepCollectionEquality().equals(
-                other._lastEvaluatedItemIdStack, _lastEvaluatedItemIdStack) &&
+              other._claimedCredentials,
+              _claimedCredentials,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._lastEvaluatedItemIdStack,
+              _lastEvaluatedItemIdStack,
+            ) &&
             (identical(other.currentPageIndex, currentPageIndex) ||
                 other.currentPageIndex == currentPageIndex));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_claimedCredentials),
-      const DeepCollectionEquality().hash(_lastEvaluatedItemIdStack),
-      currentPageIndex);
+    runtimeType,
+    const DeepCollectionEquality().hash(_claimedCredentials),
+    const DeepCollectionEquality().hash(_lastEvaluatedItemIdStack),
+    currentPageIndex,
+  );
 
   /// Create a copy of CredentialServiceState
   /// with the given fields replaced by the non-null parameter values.
@@ -196,15 +212,19 @@ class _$CredentialServiceStateImpl implements _CredentialServiceState {
   @override
   @pragma('vm:prefer-inline')
   _$$CredentialServiceStateImplCopyWith<_$CredentialServiceStateImpl>
-      get copyWith => __$$CredentialServiceStateImplCopyWithImpl<
-          _$CredentialServiceStateImpl>(this, _$identity);
+  get copyWith =>
+      __$$CredentialServiceStateImplCopyWithImpl<_$CredentialServiceStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _CredentialServiceState implements CredentialServiceState {
-  factory _CredentialServiceState(
-      {final List<DigitalCredential>? claimedCredentials,
-      final List<String?> lastEvaluatedItemIdStack,
-      final int currentPageIndex}) = _$CredentialServiceStateImpl;
+  factory _CredentialServiceState({
+    final List<DigitalCredential>? claimedCredentials,
+    final List<String?> lastEvaluatedItemIdStack,
+    final int currentPageIndex,
+  }) = _$CredentialServiceStateImpl;
 
   @override
   List<DigitalCredential>? get claimedCredentials;
@@ -218,5 +238,5 @@ abstract class _CredentialServiceState implements CredentialServiceState {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CredentialServiceStateImplCopyWith<_$CredentialServiceStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

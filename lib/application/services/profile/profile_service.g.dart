@@ -47,21 +47,15 @@ class ProfileTypeFamily extends Family<ProfileType> {
   /// Provider that returns the profile type for a given profile ID.
   ///
   /// Copied from [profileType].
-  ProfileTypeProvider call(
-    String profileId,
-  ) {
-    return ProfileTypeProvider(
-      profileId,
-    );
+  ProfileTypeProvider call(String profileId) {
+    return ProfileTypeProvider(profileId);
   }
 
   @override
   ProfileTypeProvider getProviderOverride(
     covariant ProfileTypeProvider provider,
   ) {
-    return call(
-      provider.profileId,
-    );
+    return call(provider.profileId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -86,24 +80,18 @@ class ProfileTypeProvider extends AutoDisposeProvider<ProfileType> {
   /// Provider that returns the profile type for a given profile ID.
   ///
   /// Copied from [profileType].
-  ProfileTypeProvider(
-    String profileId,
-  ) : this._internal(
-          (ref) => profileType(
-            ref as ProfileTypeRef,
-            profileId,
-          ),
-          from: profileTypeProvider,
-          name: r'profileTypeProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$profileTypeHash,
-          dependencies: ProfileTypeFamily._dependencies,
-          allTransitiveDependencies:
-              ProfileTypeFamily._allTransitiveDependencies,
-          profileId: profileId,
-        );
+  ProfileTypeProvider(String profileId)
+    : this._internal(
+        (ref) => profileType(ref as ProfileTypeRef, profileId),
+        from: profileTypeProvider,
+        name: r'profileTypeProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$profileTypeHash,
+        dependencies: ProfileTypeFamily._dependencies,
+        allTransitiveDependencies: ProfileTypeFamily._allTransitiveDependencies,
+        profileId: profileId,
+      );
 
   ProfileTypeProvider._internal(
     super._createNotifier, {
@@ -118,9 +106,7 @@ class ProfileTypeProvider extends AutoDisposeProvider<ProfileType> {
   final String profileId;
 
   @override
-  Override overrideWith(
-    ProfileType Function(ProfileTypeRef provider) create,
-  ) {
+  Override overrideWith(ProfileType Function(ProfileTypeRef provider) create) {
     return ProviderOverride(
       origin: this,
       override: ProfileTypeProvider._internal(
@@ -162,7 +148,8 @@ mixin ProfileTypeRef on AutoDisposeProviderRef<ProfileType> {
 }
 
 class _ProfileTypeProviderElement
-    extends AutoDisposeProviderElement<ProfileType> with ProfileTypeRef {
+    extends AutoDisposeProviderElement<ProfileType>
+    with ProfileTypeRef {
   _ProfileTypeProviderElement(super.provider);
 
   @override
@@ -186,14 +173,14 @@ String _$profileServiceHash() => r'0b37908f5ef500b0424a579db02b525ad9da021f';
 @ProviderFor(ProfileService)
 final profileServiceProvider =
     AutoDisposeNotifierProvider<ProfileService, ProfileServiceState>.internal(
-  ProfileService.new,
-  name: r'profileServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$profileServiceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      ProfileService.new,
+      name: r'profileServiceProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$profileServiceHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$ProfileService = AutoDisposeNotifier<ProfileServiceState>;
 // ignore_for_file: type=lint

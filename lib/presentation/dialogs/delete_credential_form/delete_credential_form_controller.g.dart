@@ -35,10 +35,7 @@ abstract class _$DeleteCredentialFormController
   late final DigitalCredential digitalCredential;
   late final String profileId;
 
-  void build(
-    DigitalCredential digitalCredential, {
-    required String profileId,
-  });
+  void build(DigitalCredential digitalCredential, {required String profileId});
 }
 
 /// See also [DeleteCredentialFormController].
@@ -66,10 +63,7 @@ class DeleteCredentialFormControllerFamily extends Family<void> {
   DeleteCredentialFormControllerProvider getProviderOverride(
     covariant DeleteCredentialFormControllerProvider provider,
   ) {
-    return call(
-      provider.digitalCredential,
-      profileId: provider.profileId,
-    );
+    return call(provider.digitalCredential, profileId: provider.profileId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -89,28 +83,27 @@ class DeleteCredentialFormControllerFamily extends Family<void> {
 
 /// See also [DeleteCredentialFormController].
 class DeleteCredentialFormControllerProvider
-    extends AutoDisposeNotifierProviderImpl<DeleteCredentialFormController,
-        void> {
+    extends
+        AutoDisposeNotifierProviderImpl<DeleteCredentialFormController, void> {
   /// See also [DeleteCredentialFormController].
   DeleteCredentialFormControllerProvider(
     DigitalCredential digitalCredential, {
     required String profileId,
   }) : this._internal(
-          () => DeleteCredentialFormController()
-            ..digitalCredential = digitalCredential
-            ..profileId = profileId,
-          from: deleteCredentialFormControllerProvider,
-          name: r'deleteCredentialFormControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$deleteCredentialFormControllerHash,
-          dependencies: DeleteCredentialFormControllerFamily._dependencies,
-          allTransitiveDependencies:
-              DeleteCredentialFormControllerFamily._allTransitiveDependencies,
-          digitalCredential: digitalCredential,
-          profileId: profileId,
-        );
+         () => DeleteCredentialFormController()
+           ..digitalCredential = digitalCredential
+           ..profileId = profileId,
+         from: deleteCredentialFormControllerProvider,
+         name: r'deleteCredentialFormControllerProvider',
+         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+             ? null
+             : _$deleteCredentialFormControllerHash,
+         dependencies: DeleteCredentialFormControllerFamily._dependencies,
+         allTransitiveDependencies:
+             DeleteCredentialFormControllerFamily._allTransitiveDependencies,
+         digitalCredential: digitalCredential,
+         profileId: profileId,
+       );
 
   DeleteCredentialFormControllerProvider._internal(
     super._createNotifier, {
@@ -127,13 +120,8 @@ class DeleteCredentialFormControllerProvider
   final String profileId;
 
   @override
-  void runNotifierBuild(
-    covariant DeleteCredentialFormController notifier,
-  ) {
-    return notifier.build(
-      digitalCredential,
-      profileId: profileId,
-    );
+  void runNotifierBuild(covariant DeleteCredentialFormController notifier) {
+    return notifier.build(digitalCredential, profileId: profileId);
   }
 
   @override
@@ -157,7 +145,7 @@ class DeleteCredentialFormControllerProvider
 
   @override
   AutoDisposeNotifierProviderElement<DeleteCredentialFormController, void>
-      createElement() {
+  createElement() {
     return _DeleteCredentialFormControllerProviderElement(this);
   }
 
@@ -190,8 +178,9 @@ mixin DeleteCredentialFormControllerRef
 }
 
 class _DeleteCredentialFormControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<DeleteCredentialFormController,
-        void> with DeleteCredentialFormControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<DeleteCredentialFormController, void>
+    with DeleteCredentialFormControllerRef {
   _DeleteCredentialFormControllerProviderElement(super.provider);
 
   @override
@@ -201,5 +190,6 @@ class _DeleteCredentialFormControllerProviderElement
   String get profileId =>
       (origin as DeleteCredentialFormControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

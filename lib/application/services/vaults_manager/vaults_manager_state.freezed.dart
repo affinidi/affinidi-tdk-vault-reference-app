@@ -12,7 +12,8 @@ part of 'vaults_manager_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$VaultsManagerState {
@@ -32,14 +33,16 @@ mixin _$VaultsManagerState {
 /// @nodoc
 abstract class $VaultsManagerStateCopyWith<$Res> {
   factory $VaultsManagerStateCopyWith(
-          VaultsManagerState value, $Res Function(VaultsManagerState) then) =
-      _$VaultsManagerStateCopyWithImpl<$Res, VaultsManagerState>;
+    VaultsManagerState value,
+    $Res Function(VaultsManagerState) then,
+  ) = _$VaultsManagerStateCopyWithImpl<$Res, VaultsManagerState>;
   @useResult
-  $Res call(
-      {Map<String, OpenVaultParams> vaultRegistry,
-      bool isLoading,
-      bool isVaultAvailable,
-      String? errorMessage});
+  $Res call({
+    Map<String, OpenVaultParams> vaultRegistry,
+    bool isLoading,
+    bool isVaultAvailable,
+    String? errorMessage,
+  });
 }
 
 /// @nodoc
@@ -62,49 +65,55 @@ class _$VaultsManagerStateCopyWithImpl<$Res, $Val extends VaultsManagerState>
     Object? isVaultAvailable = null,
     Object? errorMessage = freezed,
   }) {
-    return _then(_value.copyWith(
-      vaultRegistry: null == vaultRegistry
-          ? _value.vaultRegistry
-          : vaultRegistry // ignore: cast_nullable_to_non_nullable
-              as Map<String, OpenVaultParams>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isVaultAvailable: null == isVaultAvailable
-          ? _value.isVaultAvailable
-          : isVaultAvailable // ignore: cast_nullable_to_non_nullable
-              as bool,
-      errorMessage: freezed == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            vaultRegistry: null == vaultRegistry
+                ? _value.vaultRegistry
+                : vaultRegistry // ignore: cast_nullable_to_non_nullable
+                      as Map<String, OpenVaultParams>,
+            isLoading: null == isLoading
+                ? _value.isLoading
+                : isLoading // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            isVaultAvailable: null == isVaultAvailable
+                ? _value.isVaultAvailable
+                : isVaultAvailable // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            errorMessage: freezed == errorMessage
+                ? _value.errorMessage
+                : errorMessage // ignore: cast_nullable_to_non_nullable
+                      as String?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$VaultsManagerStateImplCopyWith<$Res>
     implements $VaultsManagerStateCopyWith<$Res> {
-  factory _$$VaultsManagerStateImplCopyWith(_$VaultsManagerStateImpl value,
-          $Res Function(_$VaultsManagerStateImpl) then) =
-      __$$VaultsManagerStateImplCopyWithImpl<$Res>;
+  factory _$$VaultsManagerStateImplCopyWith(
+    _$VaultsManagerStateImpl value,
+    $Res Function(_$VaultsManagerStateImpl) then,
+  ) = __$$VaultsManagerStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {Map<String, OpenVaultParams> vaultRegistry,
-      bool isLoading,
-      bool isVaultAvailable,
-      String? errorMessage});
+  $Res call({
+    Map<String, OpenVaultParams> vaultRegistry,
+    bool isLoading,
+    bool isVaultAvailable,
+    String? errorMessage,
+  });
 }
 
 /// @nodoc
 class __$$VaultsManagerStateImplCopyWithImpl<$Res>
     extends _$VaultsManagerStateCopyWithImpl<$Res, _$VaultsManagerStateImpl>
     implements _$$VaultsManagerStateImplCopyWith<$Res> {
-  __$$VaultsManagerStateImplCopyWithImpl(_$VaultsManagerStateImpl _value,
-      $Res Function(_$VaultsManagerStateImpl) _then)
-      : super(_value, _then);
+  __$$VaultsManagerStateImplCopyWithImpl(
+    _$VaultsManagerStateImpl _value,
+    $Res Function(_$VaultsManagerStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of VaultsManagerState
   /// with the given fields replaced by the non-null parameter values.
@@ -116,36 +125,38 @@ class __$$VaultsManagerStateImplCopyWithImpl<$Res>
     Object? isVaultAvailable = null,
     Object? errorMessage = freezed,
   }) {
-    return _then(_$VaultsManagerStateImpl(
-      vaultRegistry: null == vaultRegistry
-          ? _value._vaultRegistry
-          : vaultRegistry // ignore: cast_nullable_to_non_nullable
-              as Map<String, OpenVaultParams>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isVaultAvailable: null == isVaultAvailable
-          ? _value.isVaultAvailable
-          : isVaultAvailable // ignore: cast_nullable_to_non_nullable
-              as bool,
-      errorMessage: freezed == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$VaultsManagerStateImpl(
+        vaultRegistry: null == vaultRegistry
+            ? _value._vaultRegistry
+            : vaultRegistry // ignore: cast_nullable_to_non_nullable
+                  as Map<String, OpenVaultParams>,
+        isLoading: null == isLoading
+            ? _value.isLoading
+            : isLoading // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        isVaultAvailable: null == isVaultAvailable
+            ? _value.isVaultAvailable
+            : isVaultAvailable // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        errorMessage: freezed == errorMessage
+            ? _value.errorMessage
+            : errorMessage // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$VaultsManagerStateImpl implements _VaultsManagerState {
-  const _$VaultsManagerStateImpl(
-      {final Map<String, OpenVaultParams> vaultRegistry = const {},
-      this.isLoading = false,
-      this.isVaultAvailable = false,
-      this.errorMessage})
-      : _vaultRegistry = vaultRegistry;
+  const _$VaultsManagerStateImpl({
+    final Map<String, OpenVaultParams> vaultRegistry = const {},
+    this.isLoading = false,
+    this.isVaultAvailable = false,
+    this.errorMessage,
+  }) : _vaultRegistry = vaultRegistry;
 
   final Map<String, OpenVaultParams> _vaultRegistry;
   @override
@@ -175,8 +186,10 @@ class _$VaultsManagerStateImpl implements _VaultsManagerState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$VaultsManagerStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other._vaultRegistry, _vaultRegistry) &&
+            const DeepCollectionEquality().equals(
+              other._vaultRegistry,
+              _vaultRegistry,
+            ) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isVaultAvailable, isVaultAvailable) ||
@@ -187,11 +200,12 @@ class _$VaultsManagerStateImpl implements _VaultsManagerState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_vaultRegistry),
-      isLoading,
-      isVaultAvailable,
-      errorMessage);
+    runtimeType,
+    const DeepCollectionEquality().hash(_vaultRegistry),
+    isLoading,
+    isVaultAvailable,
+    errorMessage,
+  );
 
   /// Create a copy of VaultsManagerState
   /// with the given fields replaced by the non-null parameter values.
@@ -200,15 +214,18 @@ class _$VaultsManagerStateImpl implements _VaultsManagerState {
   @pragma('vm:prefer-inline')
   _$$VaultsManagerStateImplCopyWith<_$VaultsManagerStateImpl> get copyWith =>
       __$$VaultsManagerStateImplCopyWithImpl<_$VaultsManagerStateImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _VaultsManagerState implements VaultsManagerState {
-  const factory _VaultsManagerState(
-      {final Map<String, OpenVaultParams> vaultRegistry,
-      final bool isLoading,
-      final bool isVaultAvailable,
-      final String? errorMessage}) = _$VaultsManagerStateImpl;
+  const factory _VaultsManagerState({
+    final Map<String, OpenVaultParams> vaultRegistry,
+    final bool isLoading,
+    final bool isVaultAvailable,
+    final String? errorMessage,
+  }) = _$VaultsManagerStateImpl;
 
   @override
   Map<String, OpenVaultParams> get vaultRegistry;

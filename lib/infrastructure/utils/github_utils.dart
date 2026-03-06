@@ -13,7 +13,9 @@ class GitHubUtils {
     // Use configured URLs for replacement
     if (AppConfig.githubRawUrl.isNotEmpty && AppConfig.githubUrl.isNotEmpty) {
       return githubUrl.replaceFirst(
-          AppConfig.githubUrl, AppConfig.githubRawUrl);
+        AppConfig.githubUrl,
+        AppConfig.githubRawUrl,
+      );
     }
 
     // Fallback: Convert GitHub web URLs to raw URLs

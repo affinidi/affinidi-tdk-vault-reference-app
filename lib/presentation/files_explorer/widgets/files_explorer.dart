@@ -36,7 +36,7 @@ class FilesExplorer extends ConsumerWidget {
   final String? parentNodeId;
   final String profileId;
   final void Function({required String folderName, required String folderId})
-      onFolderTap;
+  onFolderTap;
   final void Function(Item node) onPreviewFile;
   final List<Item>? nodes;
   final bool isLoading;
@@ -118,14 +118,9 @@ class FilesExplorer extends ConsumerWidget {
           option.svgAssetName,
           width: AppSizing.iconSmall,
           height: AppSizing.iconSmall,
-          colorFilter: const ColorFilter.mode(
-            Colors.white,
-            BlendMode.srcIn,
-          ),
+          colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
         ),
-        itemTitleBuilder: (option) => Text(
-          localizations.option(option.name),
-        ),
+        itemTitleBuilder: (option) => Text(localizations.option(option.name)),
       );
 
       if (selectedFileOption == null) return;
@@ -209,14 +204,9 @@ class FilesExplorer extends ConsumerWidget {
           option.svgAssetName,
           width: AppSizing.iconSmall,
           height: AppSizing.iconSmall,
-          colorFilter: const ColorFilter.mode(
-            Colors.white,
-            BlendMode.srcIn,
-          ),
+          colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
         ),
-        itemTitleBuilder: (option) => Text(
-          localizations.option(option.name),
-        ),
+        itemTitleBuilder: (option) => Text(localizations.option(option.name)),
       );
 
       log('selected: ${selectedFolderOption?.name}', name: 'FolderOptions');
@@ -241,22 +231,26 @@ class FilesExplorer extends ConsumerWidget {
 
     if (nodes!.isEmpty && !isLoading) {
       return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 42.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset('assets/images/illustration-no-files.svg',
-                  width: 156, height: 82),
-              const SizedBox(height: AppSizing.paddingLarge),
-              Center(
-                child: Text(
-                  localizations.filesEmptyStateDescription,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
+        padding: const EdgeInsets.symmetric(vertical: 42.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/images/illustration-no-files.svg',
+              width: 156,
+              height: 82,
+            ),
+            const SizedBox(height: AppSizing.paddingLarge),
+            Center(
+              child: Text(
+                localizations.filesEmptyStateDescription,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
-            ],
-          ));
+            ),
+          ],
+        ),
+      );
     }
 
     return Column(
@@ -264,9 +258,7 @@ class FilesExplorer extends ConsumerWidget {
         _Divider(),
         Expanded(
           child: isLoading
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
+              ? Center(child: CircularProgressIndicator())
               : ListView.separated(
                   itemCount: nodes!.length,
                   itemBuilder: (context, index) {
@@ -309,10 +301,8 @@ class _ListFolderTile extends ConsumerWidget {
   final void Function() onTapOptions;
   final String profileId;
   final String? parentNodeId;
-  final void Function({
-    required String folderName,
-    required String folderId,
-  }) onFolderTap;
+  final void Function({required String folderName, required String folderId})
+  onFolderTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -326,9 +316,7 @@ class _ListFolderTile extends ConsumerWidget {
       contentPadding: EdgeInsets.only(left: AppSizing.paddingRegular),
       leading: SvgPicture.asset('assets/icons/documents-2.svg'),
       title: Text(item.name),
-      subtitle: Text(item.formattedCreateDate(
-        localeName,
-      )),
+      subtitle: Text(item.formattedCreateDate(localeName)),
       trailing: IconButton(
         key: Key('${KeyConstants.keyOptionButton}_${item.name}'),
         onPressed: onTapOptions,
@@ -358,8 +346,9 @@ class _ListFileTile extends ConsumerWidget {
       onTap: onTap,
       contentPadding: EdgeInsets.only(left: AppSizing.paddingRegular),
       leading: Hero(
-          tag: item.id,
-          child: SvgPicture.asset('assets/icons/documents-3.svg')),
+        tag: item.id,
+        child: SvgPicture.asset('assets/icons/documents-3.svg'),
+      ),
       title: Text(item.name),
       subtitle: Text(item.formattedCreateDate(localeName)),
       trailing: IconButton(
@@ -375,9 +364,7 @@ class _Divider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSizing.paddingMedium,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppSizing.paddingMedium),
       child: Divider(height: 1),
     );
   }

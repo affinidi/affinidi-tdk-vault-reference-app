@@ -32,12 +32,7 @@ class SimpleInfoWidget extends StatelessWidget {
         borderType: BorderType.RRect,
         radius: Radius.circular(4),
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-        child: Text(
-          text,
-          style: textStyle?.copyWith(
-            color: Colors.white,
-          ),
-        ),
+        child: Text(text, style: textStyle?.copyWith(color: Colors.white)),
       ),
     );
   }
@@ -46,16 +41,14 @@ class SimpleInfoWidget extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        insetPadding:
-            EdgeInsets.symmetric(horizontal: AppSizing.paddingRegular),
+        insetPadding: EdgeInsets.symmetric(
+          horizontal: AppSizing.paddingRegular,
+        ),
         content: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(top: AppSizing.paddingRegular),
             child: dialogContentSpan != null
-                ? Text.rich(
-                    dialogContentSpan!,
-                    style: TextStyle(fontSize: 20),
-                  )
+                ? Text.rich(dialogContentSpan!, style: TextStyle(fontSize: 20))
                 : Text.rich(
                     _parseStyledText(dialogContent),
                     style: TextStyle(fontSize: 20),
@@ -65,8 +58,10 @@ class SimpleInfoWidget extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Got it',
-                style: TextStyle(fontWeight: FontWeight.w600)),
+            child: const Text(
+              'Got it',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
           ),
         ],
       ),
@@ -83,10 +78,12 @@ class SimpleInfoWidget extends StatelessWidget {
         spans.add(TextSpan(text: text.substring(lastMatchEnd, match.start)));
       }
 
-      spans.add(TextSpan(
-        text: match.group(1),
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ));
+      spans.add(
+        TextSpan(
+          text: match.group(1),
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      );
 
       lastMatchEnd = match.end;
     }

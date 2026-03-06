@@ -93,31 +93,33 @@ class DeleteFolderFormControllerFamily extends Family<DeleteFolderFormState> {
 
 /// See also [DeleteFolderFormController].
 class DeleteFolderFormControllerProvider
-    extends AutoDisposeNotifierProviderImpl<DeleteFolderFormController,
-        DeleteFolderFormState> {
+    extends
+        AutoDisposeNotifierProviderImpl<
+          DeleteFolderFormController,
+          DeleteFolderFormState
+        > {
   /// See also [DeleteFolderFormController].
   DeleteFolderFormControllerProvider({
     required Item folder,
     required String? parentNodeId,
     required String profileId,
   }) : this._internal(
-          () => DeleteFolderFormController()
-            ..folder = folder
-            ..parentNodeId = parentNodeId
-            ..profileId = profileId,
-          from: deleteFolderFormControllerProvider,
-          name: r'deleteFolderFormControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$deleteFolderFormControllerHash,
-          dependencies: DeleteFolderFormControllerFamily._dependencies,
-          allTransitiveDependencies:
-              DeleteFolderFormControllerFamily._allTransitiveDependencies,
-          folder: folder,
-          parentNodeId: parentNodeId,
-          profileId: profileId,
-        );
+         () => DeleteFolderFormController()
+           ..folder = folder
+           ..parentNodeId = parentNodeId
+           ..profileId = profileId,
+         from: deleteFolderFormControllerProvider,
+         name: r'deleteFolderFormControllerProvider',
+         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+             ? null
+             : _$deleteFolderFormControllerHash,
+         dependencies: DeleteFolderFormControllerFamily._dependencies,
+         allTransitiveDependencies:
+             DeleteFolderFormControllerFamily._allTransitiveDependencies,
+         folder: folder,
+         parentNodeId: parentNodeId,
+         profileId: profileId,
+       );
 
   DeleteFolderFormControllerProvider._internal(
     super._createNotifier, {
@@ -168,8 +170,11 @@ class DeleteFolderFormControllerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<DeleteFolderFormController,
-      DeleteFolderFormState> createElement() {
+  AutoDisposeNotifierProviderElement<
+    DeleteFolderFormController,
+    DeleteFolderFormState
+  >
+  createElement() {
     return _DeleteFolderFormControllerProviderElement(this);
   }
 
@@ -207,8 +212,12 @@ mixin DeleteFolderFormControllerRef
 }
 
 class _DeleteFolderFormControllerProviderElement
-    extends AutoDisposeNotifierProviderElement<DeleteFolderFormController,
-        DeleteFolderFormState> with DeleteFolderFormControllerRef {
+    extends
+        AutoDisposeNotifierProviderElement<
+          DeleteFolderFormController,
+          DeleteFolderFormState
+        >
+    with DeleteFolderFormControllerRef {
   _DeleteFolderFormControllerProviderElement(super.provider);
 
   @override
@@ -220,5 +229,6 @@ class _DeleteFolderFormControllerProviderElement
   String get profileId =>
       (origin as DeleteFolderFormControllerProvider).profileId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

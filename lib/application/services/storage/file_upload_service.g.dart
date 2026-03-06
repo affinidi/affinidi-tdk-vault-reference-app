@@ -14,14 +14,14 @@ String _$fileUploadServiceHash() => r'c51b832d9ab0370088e39b1010bac9049d60d5c3';
 @ProviderFor(FileUploadService)
 final fileUploadServiceProvider =
     AutoDisposeNotifierProvider<FileUploadService, void>.internal(
-  FileUploadService.new,
-  name: r'fileUploadServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$fileUploadServiceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      FileUploadService.new,
+      name: r'fileUploadServiceProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$fileUploadServiceHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$FileUploadService = AutoDisposeNotifier<void>;
 // ignore_for_file: type=lint

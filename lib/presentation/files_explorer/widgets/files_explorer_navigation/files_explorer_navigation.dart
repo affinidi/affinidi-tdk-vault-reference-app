@@ -28,9 +28,7 @@ class FilesExplorerNavigation extends ConsumerWidget {
     final localizations = AppLocalizations.of(context)!;
     final filesExplorerBreadcrumbrovider =
         filesExplorerBreadcrumbControllerProvider(screenKey);
-    final folderStack = ref.watch(
-      filesExplorerBreadcrumbrovider,
-    );
+    final folderStack = ref.watch(filesExplorerBreadcrumbrovider);
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,8 +38,9 @@ class FilesExplorerNavigation extends ConsumerWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: PopupMenuButton(
-              padding:
-                  EdgeInsets.symmetric(horizontal: AppSizing.paddingRegular),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSizing.paddingRegular,
+              ),
               icon: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,14 +52,12 @@ class FilesExplorerNavigation extends ConsumerWidget {
                       spacing: AppSizing.paddingSmall,
                       children: [
                         Flexible(
-                          child: _SelectedFolder(
-                            folderStack: folderStack,
-                          ),
+                          child: _SelectedFolder(folderStack: folderStack),
                         ),
                         Icon(
                           Icons.arrow_drop_down_circle_outlined,
                           size: AppSizing.iconMedium,
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -68,36 +65,44 @@ class FilesExplorerNavigation extends ConsumerWidget {
               ),
               onSelected: onSelected,
               itemBuilder: (context) => [
-                ...folderStack.keys
-                    .toList()
-                    .reversed
-                    .map((key) => PopupMenuItem(
-                        value: key,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          spacing: AppSizing.paddingSmall,
-                          children: [
-                            Expanded(
-                                child: Text(folderStack[key] ?? '',
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1)),
-                            SvgPicture.asset('assets/icons/documents-2.svg',
-                                width: AppSizing.iconMedium,
-                                height: AppSizing.iconMedium),
-                          ],
-                        ))),
-                PopupMenuItem(
-                    value: '',
+                ...folderStack.keys.toList().reversed.map(
+                  (key) => PopupMenuItem(
+                    value: key,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       spacing: AppSizing.paddingSmall,
                       children: [
-                        Text(localizations.home),
-                        SvgPicture.asset('assets/icons/documents-2.svg',
-                            width: AppSizing.iconMedium,
-                            height: AppSizing.iconMedium),
+                        Expanded(
+                          child: Text(
+                            folderStack[key] ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                        SvgPicture.asset(
+                          'assets/icons/documents-2.svg',
+                          width: AppSizing.iconMedium,
+                          height: AppSizing.iconMedium,
+                        ),
                       ],
-                    )),
+                    ),
+                  ),
+                ),
+                PopupMenuItem(
+                  value: '',
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    spacing: AppSizing.paddingSmall,
+                    children: [
+                      Text(localizations.home),
+                      SvgPicture.asset(
+                        'assets/icons/documents-2.svg',
+                        width: AppSizing.iconMedium,
+                        height: AppSizing.iconMedium,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -109,10 +114,7 @@ class FilesExplorerNavigation extends ConsumerWidget {
               key: Key(KeyConstants.keyCreateFolderButton),
               icon: SvgPicture.asset(
                 'assets/icons/icon-add-folder.svg',
-                colorFilter: ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
-                ),
+                colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
               ),
               onPressed: () => onCreateFolderPressed(),
             ),
@@ -120,15 +122,12 @@ class FilesExplorerNavigation extends ConsumerWidget {
               key: Key(KeyConstants.keyUploadFilesButton),
               icon: SvgPicture.asset(
                 'assets/icons/add-doc.svg',
-                colorFilter: ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
-                ),
+                colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
               ),
               onPressed: () => onUploadFilePressed(),
-            )
+            ),
           ],
-        )
+        ),
       ],
     );
   }

@@ -83,19 +83,22 @@ class GranularAccessService {
               );
 
               if (nodeInfo != null) {
-                sharedItems.add(GranularAccessItem(
-                  ownerProfileId: profile.id,
-                  ownerProfileName: profile.name,
-                  nodeId: nodeId,
-                  nodeName: nodeInfo['name'] as String,
-                  isFolder: nodeInfo['isFolder'] as bool,
-                  rights: permission.rights,
-                  expiresAt: permission.expiresAt,
-                ));
+                sharedItems.add(
+                  GranularAccessItem(
+                    ownerProfileId: profile.id,
+                    ownerProfileName: profile.name,
+                    nodeId: nodeId,
+                    nodeName: nodeInfo['name'] as String,
+                    isFolder: nodeInfo['isFolder'] as bool,
+                    rights: permission.rights,
+                    expiresAt: permission.expiresAt,
+                  ),
+                );
               }
             } catch (e, st) {
               debugPrint(
-                  'granular_access: failed to resolve node $nodeId for profile ${profile.id}: $e');
+                'granular_access: failed to resolve node $nodeId for profile ${profile.id}: $e',
+              );
               Error.throwWithStackTrace(e, st);
             }
           }
@@ -129,10 +132,7 @@ class GranularAccessService {
     );
 
     if (foundItem != null) {
-      return {
-        'name': foundItem.name,
-        'isFolder': foundItem is Folder,
-      };
+      return {'name': foundItem.name, 'isFolder': foundItem is Folder};
     }
 
     return null;

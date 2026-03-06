@@ -22,8 +22,9 @@ class SharedPageController extends _$SharedPageController {
       if (state.selectedProfileId == null) return;
       final selectedProfileId = state.selectedProfileId;
       // Load profile-shared storages
-      final sharedStorages =
-          await ref.read(sharedStoragesProvider(selectedProfileId!).future);
+      final sharedStorages = await ref.read(
+        sharedStoragesProvider(selectedProfileId!).future,
+      );
       final filesMap = <String, List<dynamic>>{};
       final activeStorages = <SharedStorage>[];
       for (final storage in sharedStorages) {
@@ -31,13 +32,15 @@ class SharedPageController extends _$SharedPageController {
           continue;
         }
         try {
-          final files =
-              await ref.read(sharedStorageFilesProvider(storage.id).future);
+          final files = await ref.read(
+            sharedStorageFilesProvider(storage.id).future,
+          );
           filesMap[storage.id] = files;
           activeStorages.add(storage);
         } catch (e) {
           final msg = e.toString();
-          final isExpired = msg.contains('unable_to_get_node_children') ||
+          final isExpired =
+              msg.contains('unable_to_get_node_children') ||
               msg.contains('HTTP 403');
           debugPrint('Error fetching files for ${storage.id}: $e');
           if (isExpired) {
