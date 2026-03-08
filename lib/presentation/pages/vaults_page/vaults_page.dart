@@ -103,7 +103,8 @@ class VaultsPage extends ConsumerWidget {
 
                             return Padding(
                               padding: const EdgeInsets.only(
-                                  bottom: AppSizing.paddingRegular),
+                                bottom: AppSizing.paddingRegular,
+                              ),
                               child: Dismissible(
                                 key: ValueKey(entry.key),
                                 direction: DismissDirection.endToStart,
@@ -130,10 +131,6 @@ class VaultsPage extends ConsumerWidget {
                                   vaultName: vaultName ?? '',
                                   vault: vault,
                                   onSelected: (vault) async {
-                                    await ref
-                                        .read(vaultsPageControllerProvider
-                                            .notifier)
-                                        .selectVault(seed);
                                     if (!context.mounted) return;
                                     navigation.push(
                                       VaultsRoutePath.openVaultWithId(seed),
@@ -142,7 +139,8 @@ class VaultsPage extends ConsumerWidget {
                                 ),
                               ),
                             );
-                          }),
+                          },
+                        ),
             ),
           ],
         ),

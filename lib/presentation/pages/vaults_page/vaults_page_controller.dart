@@ -55,12 +55,6 @@ class VaultsPageController extends _$VaultsPageController {
     await _loadVaults();
   }
 
-  Future<void> selectVault(String vaultId) async {
-    log('Select vault: $vaultId');
-    final vaultService = ref.read(vaultServiceProvider.notifier);
-    await vaultService.resetCurrentVault();
-  }
-
   void addVault(String vaultId, Vault vault) {
     state = state.copyWith(
       vaultsById: {...state.vaultsById, vaultId: vault},
