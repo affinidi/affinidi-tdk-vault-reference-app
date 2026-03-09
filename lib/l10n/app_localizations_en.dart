@@ -850,6 +850,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get disableVdspButtonLabel => 'Disable VDSP';
 
   @override
+  String get vaultSettingsPageHeader => 'Vault Settings';
+
+  @override
+  String get displayMessagingDidLabel => 'Display Messaging DID';
+
+  @override
+  String get toggleVdspListenerLabel => 'Enable/Disable VDSP Listener';
+
+  @override
+  String get scanNewVerifierLabel => 'Scan New Verifier';
+
+  @override
   String get snippetDescCreateVault => 'Create Vault';
 
   @override

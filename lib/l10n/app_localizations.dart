@@ -1576,6 +1576,30 @@ abstract class AppLocalizations {
   /// **'Disable VDSP'**
   String get disableVdspButtonLabel;
 
+  /// No description provided for @vaultSettingsPageHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Vault Settings'**
+  String get vaultSettingsPageHeader;
+
+  /// No description provided for @displayMessagingDidLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Display Messaging DID'**
+  String get displayMessagingDidLabel;
+
+  /// No description provided for @toggleVdspListenerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable/Disable VDSP Listener'**
+  String get toggleVdspListenerLabel;
+
+  /// No description provided for @scanNewVerifierLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan New Verifier'**
+  String get scanNewVerifierLabel;
+
   /// No description provided for @snippetDescCreateVault.
   ///
   /// In en, this message translates to:

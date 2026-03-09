@@ -975,6 +975,27 @@
     "type": "text"
   },
 
+  "vaultSettingsPageHeader": "Vault Settings",
+  "@vaultSettingsPageHeader": {
+    "type": "text"
+  },
+
+  "displayMessagingDidLabel": "Display Messaging DID",
+  "@displayMessagingDidLabel": {
+    "type": "text"
+  },
+
+  "toggleVdspListenerLabel": "Enable/Disable VDSP Listener",
+  "@toggleVdspListenerLabel": {
+    "type": "text"
+  },
+
+  "scanNewVerifierLabel": "Scan New Verifier",
+  "@scanNewVerifierLabel": {
+    "type": "text"
+  },
+  
+
   "snippetDescCreateVault": "Create Vault",
   "snippetDescGenRandSeed": "Generate Random Seed",
   "snippetDescOpenVault": "Open Vault Instance",
