@@ -16,46 +16,50 @@ import '../../widgets/vdsp/vdsp_listener.dart';
 import '../profiles_page/widgets/qr_scanner_page.dart';
 import '../profiles_page/widgets/vdsp_dialogs.dart'
     hide showScanConfirmationDialog, VdspDialogChoice;
+import 'vault_settings_page_controller.dart';
 
 class VaultSettingsPage extends ConsumerWidget {
   const VaultSettingsPage({super.key});
-
-  void handleScanNewVerifier(BuildContext context) async {
-    final scannedDid = await QrScannerPage.scan(context);
-
-    if (scannedDid == null) return;
-    final didReg = RegExp(r'^did:[a-z0-9]+:[a-zA-Z0-9.-]+(/.)?(#.)?$');
-
-    if (didReg.hasMatch(scannedDid)) {
-      if (!context.mounted) return;
-
-      final choice = await showScanConfirmationDialog(context, scannedDid);
-      if (choice != VdspDialogChoice.ok) return;
-
-      // await controller.allowNewVerifier(scannedDid);
-
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('A new verifier has been added to your allow list.'),
-          duration: Duration(seconds: 3),
-        ),
-      );
-    } else {
-      if (!context.mounted) return;
-
-      await showInvalidScannedQrCode(context);
-    }
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final navigation = ref.read(navigationServiceProvider);
+
+    final controller = ref.read(vaultSettingsPageControllerProvider.notifier);
+
     final vaultMessagingDid = ref
         .read(vaultServiceProvider)
         .currentVault
         ?.messagingDid;
+
+    void handleScanNewVerifier(BuildContext context) async {
+      final scannedDid = await QrScannerPage.scan(context);
+
+      if (scannedDid == null) return;
+      final didReg = RegExp(r'^did:[a-z0-9]+:[a-zA-Z0-9.-]+(/.)?(#.)?$');
+
+      if (didReg.hasMatch(scannedDid)) {
+        if (!context.mounted) return;
+
+        final choice = await showScanConfirmationDialog(context, scannedDid);
+        if (choice != VdspDialogChoice.ok) return;
+
+        await controller.whitelistVerifierDid(scannedDid);
+
+        if (!context.mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('A new verifier has been added to your allow list.'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      } else {
+        if (!context.mounted) return;
+
+        await showInvalidScannedQrCode(context);
+      }
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,

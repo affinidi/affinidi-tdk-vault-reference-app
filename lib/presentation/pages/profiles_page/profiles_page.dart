@@ -319,7 +319,8 @@ class ProfilesPage extends ConsumerWidget {
                 bottom: AppSizing.paddingRegular,
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
