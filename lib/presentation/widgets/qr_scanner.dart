@@ -4,13 +4,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../l10n/app_localizations.dart';
 
-class QrScannerPage extends HookConsumerWidget {
-  const QrScannerPage({super.key});
+class QrScanner extends HookConsumerWidget {
+  const QrScanner({super.key});
 
   static Future<String?> scan(BuildContext context) {
     return Navigator.of(
       context,
-    ).push<String>(MaterialPageRoute(builder: (_) => const QrScannerPage()));
+    ).push<String>(MaterialPageRoute(builder: (_) => const QrScanner()));
   }
 
   @override

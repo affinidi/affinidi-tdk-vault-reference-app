@@ -19,10 +19,10 @@ import '../../widgets/tdk_app_bar.dart';
 import '../../widgets/code_snippet/code_snippet_widget.dart';
 import '../../widgets/code_snippet/code_snippet_locations.dart';
 import '../../widgets/vdsp/vdsp_credential_selector.dart';
+import '../../widgets/vdsp/vdsp_dialogs.dart';
+import '../../widgets/vdsp/vdsp_profile_selector.dart';
 import 'profiles_page_controller.dart';
-import 'widgets/vdsp_profile_selector.dart';
 import 'widgets/profiles_list.dart';
-import 'widgets/vdsp_dialogs.dart';
 
 class ProfilesPage extends ConsumerWidget {
   const ProfilesPage({super.key});
@@ -91,7 +91,7 @@ class ProfilesPage extends ConsumerWidget {
             prettyPrint('User did not select any profile');
 
             if (!context.mounted) return;
-            showProfileSelectCanceledDialog(context);
+            showProfileSelector(context);
             // NOTE: Should we send back a response to the verifier that the user canceled?
             return;
           }
@@ -105,7 +105,14 @@ class ProfilesPage extends ConsumerWidget {
             prettyPrint('No credentials matching the holder`s profile.');
 
             if (!context.mounted) return;
-            showNoMatchingCredentialsDialog(context);
+            // showNoMatchingCredentialsDialog(context);
+            showMessageDialog(
+              context,
+              MessageDialog(
+                'No credentials found',
+                'No matching credentials found for the query provided.',
+              ),
+            );
 
             // NOTE: Should we send back a response to the verifier that there was no credentials matched?
             return;
