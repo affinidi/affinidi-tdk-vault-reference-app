@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../navigation/flows/profiles/profiles_route_constants.dart';
 import '../../../navigation/flows/vaults/vaults_route_constants.dart';
 import '../../../navigation/navigation_provider.dart';
 import '../../dialogs/create_profile_form/create_profile_form.dart';
@@ -17,6 +18,7 @@ import '../../widgets/loading_status/async_loading_status.dart';
 import '../../widgets/tdk_app_bar.dart';
 import '../../widgets/code_snippet/code_snippet_widget.dart';
 import '../../widgets/code_snippet/code_snippet_locations.dart';
+import '../../widgets/vdsp/vdsp_credential_selector.dart';
 import 'profiles_page_controller.dart';
 import 'widgets/vdsp_profile_selector.dart';
 import 'widgets/profiles_list.dart';
@@ -70,6 +72,8 @@ class ProfilesPage extends ConsumerWidget {
       vaultsManagerServiceProvider.select((state) => state.vaultRegistry),
     );
 
+    final navigation = ref.read(navigationServiceProvider);
+
     void handleVdspListenerEvents() {
       controller.vdspRequests.listen(
         (message) async {
@@ -108,95 +112,11 @@ class ProfilesPage extends ConsumerWidget {
             return;
           }
 
-          final selectedCredentials =
-              // TODO: Need to have a separate widget for this
-              // instead of using modal bottom sheet.
-              await showModalBottomSheet<List<dynamic>>(
-                context: context,
-                isScrollControlled: true,
-                builder: (ctx) {
-                  final creds =
-                      queryResult.verifiableCredentials ?? <dynamic>[];
-                  final selectedIndexes = <int>{};
-                  return StatefulBuilder(
-                    builder: (ctx, setState) {
-                      return SafeArea(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8.0,
-                                  horizontal: 20,
-                                ),
-                                child: Text(
-                                  'Select credentials to share',
-                                  style: Theme.of(ctx).textTheme.titleMedium,
-                                ),
-                              ),
-
-                              // TODO: TOO MUCH CLUTTER
-                              Flexible(
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: creds.length,
-                                  itemBuilder: (c, i) {
-                                    final cred = creds[i];
-                                    final types = getVcDetails(cred, 'type');
-                                    final issuer = getVcDetails(cred, 'issuer');
-                                    return CheckboxListTile(
-                                      value: selectedIndexes.contains(i),
-                                      onChanged: (v) {
-                                        setState(() {
-                                          if (v == true) {
-                                            selectedIndexes.add(i);
-                                          } else {
-                                            selectedIndexes.remove(i);
-                                          }
-                                        });
-                                      },
-                                      title: Text(types),
-                                      subtitle: issuer.isNotEmpty
-                                          ? Text(issuer)
-                                          : null,
-                                    );
-                                  },
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.of(ctx).pop(null),
-                                    child: const Text('Cancel'),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      final picked = selectedIndexes
-                                          .map((i) => creds[i])
-                                          .toList();
-                                      Navigator.of(ctx).pop(picked);
-                                    },
-                                    child: const Text('Share'),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 12),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              );
+          if (!context.mounted) return;
+          final selectedCredentials = await showCredentialSelection(
+            context,
+            queryResult.verifiableCredentials,
+          );
 
           if (selectedCredentials == null || selectedCredentials.isEmpty) {
             log(
@@ -211,7 +131,7 @@ class ProfilesPage extends ConsumerWidget {
 
           await controller.sendVdspDataResponse(
             requestMessage: message,
-            verifiableCredentials: queryResult.verifiableCredentials,
+            verifiableCredentials: selectedCredentials,
             profile: selectedProfile,
           );
 
@@ -278,11 +198,6 @@ class ProfilesPage extends ConsumerWidget {
         await showInvalidScannedQrCode(context);
       }
     }
-
-    // TODO: we need to display the MessagingDID somewhere.
-    // it can be obtained from vault.messagingDid.
-    // this is important for the verifier to whitelist or configureACL to allow
-    // the holder to send a message back to the verifier.
 
     return Scaffold(
       backgroundColor: AppColorScheme.backgroundBlack,
@@ -396,6 +311,41 @@ class ProfilesPage extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                left: AppSizing.paddingSmall,
+                right: AppSizing.paddingLarge,
+                top: AppSizing.paddingSmall,
+                bottom: AppSizing.paddingRegular,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: AppSizing.paddingRegular,
+                    ),
+                    child: Text(
+                      currentVaultId != null
+                          ? vaultRegistry[currentVaultId]?.vaultName ?? 'Vault'
+                          : 'Vault',
+                      style: AppTheme.headingXLarge,
+                    ),
+                  ),
+
+                  IconButton(
+                    icon: const Icon(Icons.settings_outlined),
+                    tooltip: localizations.vaultSettingsPageHeader,
+                    onPressed: () {
+                      navigation.push(
+                        '${ProfilesRoutePath.base}/${ProfilesRoutePath.vaultSettings}',
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Container(height: 1.0, color: AppColorScheme.divider),
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async {
