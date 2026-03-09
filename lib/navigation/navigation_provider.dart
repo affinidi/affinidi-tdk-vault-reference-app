@@ -24,10 +24,11 @@ import '../presentation/pages/error_page/error_page.dart';
 import '../presentation/pages/shared_credentials_page/shared_credentials_page.dart';
 import '../presentation/pages/shared_files_page/shared_files_page.dart';
 import '../presentation/pages/shared_profile_details_page/shared_profile_details_page.dart';
-
-import '../presentation/pages/vdsp_share_credentials_page/vdsp_share_credentials_page.dart';
+import '../presentation/pages/vault_settings_page/vault_settings_page.dart';
+// import '../presentation/pages/vdsp_share_credentials_page/vdsp_share_credentials_page.dart';
+// import 'flows/vdsp_share_credentials/vdsp_share_credentials_constants.dart';
 import 'flows/app_routes.dart';
-import 'flows/vdsp_share_credentials/vdsp_share_credentials_constants.dart';
+
 import 'navigation_service.dart';
 
 part 'navigation_provider.g.dart';
@@ -58,37 +59,37 @@ GoRouter navigation(Ref ref) {
   });
 
   // Listen vaultServiceProvider and trigger a refresh when it changes:
-  ref.listen<bool>(
-    vaultServiceProvider.select((s) => s.currentVault != null),
-    (previous, next) {
-      refreshListenable.value = !refreshListenable.value;
-    },
-  );
+  ref.listen<bool>(vaultServiceProvider.select((s) => s.currentVault != null), (
+    previous,
+    next,
+  ) {
+    refreshListenable.value = !refreshListenable.value;
+  });
 
   final defaultPath = VaultsRoutePath.base;
 
   final routes = [
     GoRoute(
       path: '/',
-      pageBuilder: (context, state) => MaterialPage(
-        key: state.pageKey,
-        child: const SplashPage(),
-      ),
+      pageBuilder: (context, state) =>
+          MaterialPage(key: state.pageKey, child: const SplashPage()),
     ),
     GoRoute(
       path: VaultsRoutePath.base,
-      pageBuilder: (context, state) => MaterialPage(
-        key: state.pageKey,
-        child: VaultsPage(),
-      ),
+      pageBuilder: (context, state) =>
+          MaterialPage(key: state.pageKey, child: VaultsPage()),
       routes: [
         GoRoute(
           path: ProfilesRouteName.base,
-          pageBuilder: (context, state) => MaterialPage(
-            key: state.pageKey,
-            child: ProfilesPage(),
-          ),
+          pageBuilder: (context, state) =>
+              MaterialPage(key: state.pageKey, child: ProfilesPage()),
           routes: [
+            // Route to Vault Settings!!!
+            GoRoute(
+              path: ProfilesRoutePath.vaultSettings,
+              builder: (context, state) => VaultSettingsPage(),
+            ),
+
             GoRoute(
               path: ':id',
               redirect: (context, state) {
@@ -138,17 +139,17 @@ GoRouter navigation(Ref ref) {
                         ),
                       ],
                     ),
-                    StatefulShellBranch(
-                      routes: [
-                        GoRoute(
-                            path: VdspShareCredentialsRoutePath.base,
-                            builder: (context, state) =>
-                                VdspShareCredentialsPage(
-                                  profileId: state
-                                      .pathParameters[ProfilesRouteParams.id]!,
-                                )),
-                      ],
-                    ),
+                    // StatefulShellBranch(
+                    //   routes: [
+                    //     GoRoute(
+                    //       path: VdspShareCredentialsRoutePath.base,
+                    //       builder: (context, state) => VdspShareCredentialsPage(
+                    //         profileId:
+                    //             state.pathParameters[ProfilesRouteParams.id]!,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
                 GoRoute(
@@ -161,8 +162,9 @@ GoRouter navigation(Ref ref) {
                       builder: (context, state, navigationShell) {
                         final profileId =
                             state.pathParameters[ProfilesRouteParams.id]!;
-                        final sharedProfileId = state.pathParameters[
-                            ProfilesRouteParams.sharedProfileId]!;
+                        final sharedProfileId =
+                            state.pathParameters[ProfilesRouteParams
+                                .sharedProfileId]!;
                         return SharedProfileDetailsPage(
                           profileId: profileId,
                           sharedProfileId: sharedProfileId,
@@ -175,8 +177,9 @@ GoRouter navigation(Ref ref) {
                             GoRoute(
                               path: ProfilesRoutePath.sharedProfileFiles,
                               builder: (context, state) => SharedFilesPage(
-                                profileId: state.pathParameters[
-                                    ProfilesRouteParams.sharedProfileId]!,
+                                profileId:
+                                    state.pathParameters[ProfilesRouteParams
+                                        .sharedProfileId]!,
                               ),
                             ),
                           ],
@@ -187,9 +190,10 @@ GoRouter navigation(Ref ref) {
                               path: ProfilesRoutePath.sharedProfileCredentials,
                               builder: (context, state) =>
                                   SharedCredentialsPage(
-                                profileId: state.pathParameters[
-                                    ProfilesRouteParams.sharedProfileId]!,
-                              ),
+                                    profileId:
+                                        state.pathParameters[ProfilesRouteParams
+                                            .sharedProfileId]!,
+                                  ),
                             ),
                           ],
                         ),
@@ -200,7 +204,8 @@ GoRouter navigation(Ref ref) {
                 GoRoute(
                   path: ProfilesRoutePath.settings,
                   builder: (context, state) => ProfileSettingsPage(
-                      profileId: state.pathParameters[ProfilesRouteParams.id]!),
+                    profileId: state.pathParameters[ProfilesRouteParams.id]!,
+                  ),
                 ),
               ],
             ),
