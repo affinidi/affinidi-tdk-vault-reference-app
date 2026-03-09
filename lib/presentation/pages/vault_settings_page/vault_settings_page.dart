@@ -1,6 +1,6 @@
-import 'package:didcomm/didcomm.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../application/services/vault/vault_service.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../navigation/flows/profiles/profiles_route_constants.dart';
@@ -10,83 +10,57 @@ import '../../themes/app_sizing.dart';
 import '../../themes/app_theme.dart';
 import '../../widgets/code_snippet/code_snippet_locations.dart';
 import '../../widgets/code_snippet/code_snippet_widget.dart';
-import '../../widgets/qr_scanner.dart';
 import '../../widgets/tdk_app_bar.dart';
 import '../../widgets/vdsp/vdsp_dialogs.dart';
 import '../../widgets/vdsp/vdsp_listener.dart';
-import 'vault_settings_page_controller.dart';
+import '../profiles_page/widgets/qr_scanner_page.dart';
+import '../profiles_page/widgets/vdsp_dialogs.dart'
+    hide showScanConfirmationDialog, VdspDialogChoice;
 
 class VaultSettingsPage extends ConsumerWidget {
   const VaultSettingsPage({super.key});
+
+  void handleScanNewVerifier(BuildContext context) async {
+    final scannedDid = await QrScannerPage.scan(context);
+
+    if (scannedDid == null) return;
+    final didReg = RegExp(r'^did:[a-z0-9]+:[a-zA-Z0-9.-]+(/.)?(#.)?$');
+
+    if (didReg.hasMatch(scannedDid)) {
+      if (!context.mounted) return;
+
+      final choice = await showScanConfirmationDialog(context, scannedDid);
+      if (choice != VdspDialogChoice.ok) return;
+
+      // await controller.allowNewVerifier(scannedDid);
+
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('A new verifier has been added to your allow list.'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else {
+      if (!context.mounted) return;
+
+      await showInvalidScannedQrCode(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
     final navigation = ref.read(navigationServiceProvider);
-
-    final controller = ref.read(vaultSettingsPageControllerProvider.notifier);
-
     final vaultMessagingDid = ref
         .read(vaultServiceProvider)
         .currentVault
         ?.messagingDid;
 
-    void handleScanNewVerifier(BuildContext context) async {
-      final scannedDid = await QrScanner.scan(context);
-
-      if (scannedDid == null) return;
-      final didReg = RegExp(r'^did:[a-z0-9]+:[a-zA-Z0-9.-]+(/.)?(#.)?$');
-
-      if (didReg.hasMatch(scannedDid)) {
-        if (!context.mounted) return;
-
-        final choice = await showScanConfirmationDialog(context, scannedDid);
-        if (choice != VdspDialogChoice.ok) return;
-
-        await controller.whitelistVerifierDid(scannedDid);
-
-        if (!context.mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('A new verifier has been added to your allow list.'),
-            duration: Duration(seconds: 3),
-          ),
-        );
-      } else {
-        if (!context.mounted) return;
-        await showMessageDialog(
-          context,
-          MessageDialog(
-            'Invalid QR Code',
-            'The QR Code scanned is invalid! Please ensure that the QR code contains a valid DID.',
-          ),
-        );
-      }
-    }
-
-    /// Handles the starting of VDSP listener
-    void onVdspListenerChange(bool state) async {
-      // TODO: This should update the vdsp listener state depending on the value
-      // of the toggle switch.
-      // if the value = true, it should start the VDSP listener.
-
-      // await controller.startVdspListener();
-      // handleVdspListenerEvents();
-
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("VDSP Listener ${state ? 'enabled' : 'disabled'}"),
-          duration: const Duration(seconds: 3),
-        ),
-      );
-    }
-
     return Scaffold(
-      backgroundColor: AppColorScheme.backgroundBlack,
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: TdkAppBar(
-        title: 'Vault Settings',
         showBackButton: true,
         onBackPressed: () => navigation.go(ProfilesRoutePath.base),
         actions: [
@@ -98,12 +72,37 @@ class VaultSettingsPage extends ConsumerWidget {
           ),
         ],
       ),
-
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: AppSizing.paddingMedium),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: AppSizing.paddingSmall,
+                right: AppSizing.paddingLarge,
+                top: AppSizing.paddingSmall,
+                bottom: AppSizing.paddingRegular,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: AppSizing.paddingMedium,
+                      top: AppSizing.paddingLarge,
+                    ),
+                    child: Text(
+                      localizations.vaultSettingsPageHeader,
+                      style: AppTheme.headingMedium,
+                    ),
+                  ),
+                  const SizedBox(height: AppSizing.paddingMedium),
+                  const Divider(height: 1, color: AppColorScheme.divider),
+                ],
+              ),
+            ),
+
+            Container(height: 1.0, color: AppColorScheme.divider),
 
             Expanded(
               child: ListView(
@@ -127,18 +126,7 @@ class VaultSettingsPage extends ConsumerWidget {
                     icon: Icons.on_device_training_outlined,
                     title: localizations.toggleVdspListenerLabel,
                     // TODO: use the vdspListenerState to be obtained somewhere
-                    onTap: () async {
-                      final vdspListenerState = await showVdspListenerSettings(
-                        context,
-                        true,
-                      );
-                      prettyPrint(
-                        'vdspListenerState',
-                        object: vdspListenerState,
-                      );
-
-                      onVdspListenerChange(vdspListenerState!);
-                    },
+                    onTap: () => showVdspListenerSettings(context, false),
                   ),
                   const SizedBox(height: AppSizing.paddingSmall),
 
@@ -178,7 +166,7 @@ class _SettingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      color: AppColorScheme.backgroundBlack,
+      color: AppColorScheme.backgroundWhite,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
         side: BorderSide(color: AppColorScheme.divider),
