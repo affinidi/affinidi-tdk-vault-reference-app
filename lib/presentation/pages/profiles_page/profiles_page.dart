@@ -22,7 +22,6 @@ import '../../widgets/vdsp/vdsp_credential_selector.dart';
 import 'profiles_page_controller.dart';
 import 'widgets/vdsp_profile_selector.dart';
 import 'widgets/profiles_list.dart';
-import 'widgets/qr_scanner_page.dart';
 import 'widgets/vdsp_dialogs.dart';
 
 class ProfilesPage extends ConsumerWidget {
@@ -171,34 +170,6 @@ class ProfilesPage extends ConsumerWidget {
       );
     }
 
-    void handleScanNewVerifier(BuildContext context) async {
-      final scannedDid = await QrScannerPage.scan(context);
-
-      if (scannedDid == null) return;
-      final didReg = RegExp(r'^did:[a-z0-9]+:[a-zA-Z0-9.-]+(/.)?(#.)?$');
-
-      if (didReg.hasMatch(scannedDid)) {
-        if (!context.mounted) return;
-
-        final choice = await showScanConfirmationDialog(context, scannedDid);
-        if (choice != VdspDialogChoice.ok) return;
-
-        await controller.allowNewVerifier(scannedDid);
-
-        if (!context.mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('A new verifier has been added to your allow list.'),
-            duration: Duration(seconds: 3),
-          ),
-        );
-      } else {
-        if (!context.mounted) return;
-
-        await showInvalidScannedQrCode(context);
-      }
-    }
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: TdkAppBar(
@@ -267,31 +238,6 @@ class ProfilesPage extends ConsumerWidget {
                     ),
                   ),
                   icon: const Icon(Icons.play_circle_outline),
-                ),
-
-                const SizedBox(height: AppSizing.paddingSmall),
-
-                /// Scan new verifier button
-                FloatingActionButton.extended(
-                  onPressed: () async {
-                    HapticFeedback.lightImpact();
-                    handleScanNewVerifier(context);
-                  },
-                  backgroundColor: AppTheme.colorScheme.primary,
-                  foregroundColor: AppColorScheme.backgroundWhite,
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      AppSizing.paddingXXLarge,
-                    ),
-                  ),
-                  label: Text(
-                    localizations.scanNewVerifierButtonLabel,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppColorScheme.backgroundWhite,
-                    ),
-                  ),
-                  icon: const Icon(Icons.qr_code_scanner_sharp),
                 ),
               ],
             )
