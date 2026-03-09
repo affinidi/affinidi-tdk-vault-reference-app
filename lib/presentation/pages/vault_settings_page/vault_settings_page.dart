@@ -83,9 +83,10 @@ class VaultSettingsPage extends ConsumerWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColorScheme.backgroundBlack,
       resizeToAvoidBottomInset: false,
       appBar: TdkAppBar(
+        title: 'Vault Settings',
         showBackButton: true,
         onBackPressed: () => navigation.go(ProfilesRoutePath.base),
         actions: [
@@ -97,37 +98,12 @@ class VaultSettingsPage extends ConsumerWidget {
           ),
         ],
       ),
+
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: AppSizing.paddingSmall,
-                right: AppSizing.paddingLarge,
-                top: AppSizing.paddingSmall,
-                bottom: AppSizing.paddingRegular,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: AppSizing.paddingMedium,
-                      top: AppSizing.paddingLarge,
-                    ),
-                    child: Text(
-                      localizations.vaultSettingsPageHeader,
-                      style: AppTheme.headingMedium,
-                    ),
-                  ),
-                  const SizedBox(height: AppSizing.paddingMedium),
-                  const Divider(height: 1, color: AppColorScheme.divider),
-                ],
-              ),
-            ),
-
-            Container(height: 1.0, color: AppColorScheme.divider),
+            const SizedBox(height: AppSizing.paddingMedium),
 
             Expanded(
               child: ListView(
@@ -202,7 +178,7 @@ class _SettingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      color: AppColorScheme.backgroundWhite,
+      color: AppColorScheme.backgroundBlack,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
         side: BorderSide(color: AppColorScheme.divider),

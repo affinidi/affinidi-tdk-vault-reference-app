@@ -39,10 +39,7 @@ class TdkAppBar extends StatelessWidget implements PreferredSizeWidget {
             onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
             color: AppColorScheme.textPrimary,
           ),
-          Text(
-            leadingTitle!,
-            style: AppTheme.headingMedium,
-          ),
+          // Text(leadingTitle!, style: AppTheme.headingMedium),
         ],
       );
     } else if (showBackButton) {
@@ -59,7 +56,8 @@ class TdkAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: leadingWidget,
       leadingWidth: leadingTitle != null ? null : 56,
       centerTitle: shouldCenterTitle,
-      title: titleWidget ??
+      title:
+          titleWidget ??
           (title != null
               ? Text(
                   title!,
@@ -72,10 +70,7 @@ class TdkAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1.0),
-        child: Container(
-          height: 1.0,
-          color: AppColorScheme.divider,
-        ),
+        child: Container(height: 1.0, color: AppColorScheme.divider),
       ),
     );
   }
