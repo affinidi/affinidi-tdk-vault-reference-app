@@ -139,10 +139,8 @@ class VaultSettingsPage extends ConsumerWidget {
                   _SettingsTile(
                     icon: Icons.message_rounded,
                     title: localizations.displayMessagingDidLabel,
-                    onTap: () => showMessagingDidDialog(
-                      context,
-                      vaultMessagingDid ?? '',
-                    ),
+                    onTap: () =>
+                        showMessagingDidDialog(context, vaultMessagingDid!),
                   ),
                   const SizedBox(height: AppSizing.paddingSmall),
 
