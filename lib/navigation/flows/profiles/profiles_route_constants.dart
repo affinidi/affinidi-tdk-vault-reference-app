@@ -1,5 +1,6 @@
 abstract class ProfilesRoutePath {
   static const base = '/vaults/profiles';
+  static const vaultSettings = 'vault/settings';
   static const profileId = '/:id';
   static const profileSharingTest = '/vaults/profiles/profiles-sharing-test';
   static const sharing = 'sharing';
@@ -24,15 +25,20 @@ abstract class ProfilesRoutePath {
   static String sharedProfileFilePreview(String id, String nodeId) =>
       '$base/$id/$shared/$myFiles/$preview/$nodeId';
   static String profileSharedProfileDetailsFiles(
-          String profileId, String sharedProfileId) =>
-      '$base/$profileId/$shared/$sharedProfileId/files';
+    String profileId,
+    String sharedProfileId,
+  ) => '$base/$profileId/$shared/$sharedProfileId/files';
   static String profileSharedProfileDetailsFolderPath(
-          String profileId, String sharedProfileId, String folderId) =>
-      '$base/$profileId/$shared/$sharedProfileId/files?folder=$folderId';
+    String profileId,
+    String sharedProfileId,
+    String folderId,
+  ) => '$base/$profileId/$shared/$sharedProfileId/files?folder=$folderId';
 }
 
 abstract class ProfilesRouteName {
   static const base = 'profiles';
+  static const vaultSettings = 'vault-settings';
+
   static const profileDetail = 'profile-detail';
   static const profileSharingTest = 'profile-sharing-test';
   static const profileSharing = 'profile-sharing';

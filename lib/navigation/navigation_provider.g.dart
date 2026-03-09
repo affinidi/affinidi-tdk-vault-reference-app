@@ -6,15 +6,16 @@ part of 'navigation_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$navigationHash() => r'd49b03885a91e3538c78167e33971908dda30bf2';
+String _$navigationHash() => r'dc9fe7fb6a955044b11573c9657afff22f220856';
 
 /// See also [navigation].
 @ProviderFor(navigation)
 final navigationProvider = Provider<GoRouter>.internal(
   navigation,
   name: r'navigationProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$navigationHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$navigationHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
