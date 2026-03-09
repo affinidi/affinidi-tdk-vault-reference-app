@@ -1,6 +1,6 @@
+import 'package:didcomm/didcomm.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../../../application/services/vault/vault_service.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../navigation/flows/profiles/profiles_route_constants.dart';
@@ -10,12 +10,10 @@ import '../../themes/app_sizing.dart';
 import '../../themes/app_theme.dart';
 import '../../widgets/code_snippet/code_snippet_locations.dart';
 import '../../widgets/code_snippet/code_snippet_widget.dart';
+import '../../widgets/qr_scanner.dart';
 import '../../widgets/tdk_app_bar.dart';
 import '../../widgets/vdsp/vdsp_dialogs.dart';
 import '../../widgets/vdsp/vdsp_listener.dart';
-import '../profiles_page/widgets/qr_scanner_page.dart';
-import '../profiles_page/widgets/vdsp_dialogs.dart'
-    hide showScanConfirmationDialog, VdspDialogChoice;
 import 'vault_settings_page_controller.dart';
 
 class VaultSettingsPage extends ConsumerWidget {
@@ -34,7 +32,7 @@ class VaultSettingsPage extends ConsumerWidget {
         ?.messagingDid;
 
     void handleScanNewVerifier(BuildContext context) async {
-      final scannedDid = await QrScannerPage.scan(context);
+      final scannedDid = await QrScanner.scan(context);
 
       if (scannedDid == null) return;
       final didReg = RegExp(r'^did:[a-z0-9]+:[a-zA-Z0-9.-]+(/.)?(#.)?$');
@@ -56,9 +54,32 @@ class VaultSettingsPage extends ConsumerWidget {
         );
       } else {
         if (!context.mounted) return;
-
-        await showInvalidScannedQrCode(context);
+        await showMessageDialog(
+          context,
+          MessageDialog(
+            'Invalid QR Code',
+            'The QR Code scanned is invalid! Please ensure that the QR code contains a valid DID.',
+          ),
+        );
       }
+    }
+
+    /// Handles the starting of VDSP listener
+    void onVdspListenerChange(bool state) async {
+      // TODO: This should update the vdsp listener state depending on the value
+      // of the toggle switch.
+      // if the value = true, it should start the VDSP listener.
+
+      // await controller.startVdspListener();
+      // handleVdspListenerEvents();
+
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("VDSP Listener ${state ? 'enabled' : 'disabled'}"),
+          duration: const Duration(seconds: 3),
+        ),
+      );
     }
 
     return Scaffold(
@@ -130,7 +151,18 @@ class VaultSettingsPage extends ConsumerWidget {
                     icon: Icons.on_device_training_outlined,
                     title: localizations.toggleVdspListenerLabel,
                     // TODO: use the vdspListenerState to be obtained somewhere
-                    onTap: () => showVdspListenerSettings(context, false),
+                    onTap: () async {
+                      final vdspListenerState = await showVdspListenerSettings(
+                        context,
+                        true,
+                      );
+                      prettyPrint(
+                        'vdspListenerState',
+                        object: vdspListenerState,
+                      );
+
+                      onVdspListenerChange(vdspListenerState!);
+                    },
                   ),
                   const SizedBox(height: AppSizing.paddingSmall),
 
