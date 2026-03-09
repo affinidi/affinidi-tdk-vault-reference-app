@@ -29,7 +29,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_code_editor: ^0.3.4
-  flutter_dotenv: ^6.0.0
   flutter_driver:
     sdk: flutter
   flutter_fancy_tree_view: ^1.6.0
@@ -97,4 +96,3 @@ flutter:
     - assets/icons/
     - assets/images/
     - lib/application/services/vaults_manager/vaults_manager_service.dart
-    - .env
