@@ -13,7 +13,6 @@ class QrCodeView extends StatelessWidget {
       version: QrVersions.auto,
       size: 300,
       gapless: false,
-      backgroundColor: const Color.fromARGB(255, 193, 185, 185),
     );
   }
 }

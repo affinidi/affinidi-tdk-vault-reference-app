@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../themes/app_sizing.dart';
 
-Future<bool> showVdspListenerSettings(
+Future<bool?> showVdspListenerSettings(
   BuildContext context,
   bool currentState,
-) async {
+) {
   bool vdspState = currentState;
 
-  final result = await showModalBottomSheet<bool>(
+  final vdspListenerState = showModalBottomSheet<bool>(
     context: context,
     isScrollControlled: true,
     shape: const RoundedRectangleBorder(
@@ -45,14 +45,11 @@ Future<bool> showVdspListenerSettings(
                         setState(() {
                           vdspState = newState;
                         });
-                        Navigator.of(context).pop(newState);
                       },
                     ),
                   ),
                 ],
               ),
-
-              const SizedBox(height: AppSizing.paddingMedium),
             ],
           ),
         ),
@@ -60,5 +57,5 @@ Future<bool> showVdspListenerSettings(
     ),
   );
 
-  return result ?? currentState;
+  return vdspListenerState;
 }

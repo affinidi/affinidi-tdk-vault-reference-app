@@ -42,7 +42,7 @@ class VaultAppBar extends ConsumerWidget {
                 IconButton(
                   key: Key(KeyConstants.keySettingsButton),
                   icon: const Icon(Icons.settings_outlined),
-                  tooltip: localizations?.vaultSettingsPageHeader,
+                  tooltip: localizations?.vaultSettings,
                   onPressed: () {
                     // Navigate to Vault Settings Page (absolute path)
                     navigation.push(
