@@ -28,10 +28,13 @@ part 'vault_service.g.dart';
 class VaultService extends _$VaultService {
   VaultService() : super();
 
-  final StreamController<VdspQueryDataMessage> _vdspRequestController =
-      StreamController<VdspQueryDataMessage>.broadcast();
-  Stream<VdspQueryDataMessage> get vdspRequests =>
-      _vdspRequestController.stream;
+  StreamController<VdspQueryDataMessage>? _vdspRequestController;
+
+  Stream<VdspQueryDataMessage> get vdspRequests {
+    _vdspRequestController ??=
+        StreamController<VdspQueryDataMessage>.broadcast();
+    return _vdspRequestController!.stream;
+  }
 
   bool _vdspListening = false;
 
@@ -152,10 +155,13 @@ class VaultService extends _$VaultService {
     state = state.copyWith(currentVault: null, currentVaultId: null);
     log('Finished resetting current vault', name: 'VaultService');
 
-    if (!_vdspRequestController.isClosed) {
-      _vdspRequestController.close();
+    try {
+      await stopVdspListener();
+    } catch (_) {}
+    if (_vdspRequestController != null && !_vdspRequestController!.isClosed) {
+      await _vdspRequestController!.close();
     }
-    await stopVdspListener();
+    _vdspRequestController = null;
   }
 
   /// Creates a Vault instance from a secure seed in storage.
@@ -398,11 +404,6 @@ class VaultService extends _$VaultService {
         await db.close();
       }
     }
-
-    if (!_vdspRequestController.isClosed) {
-      _vdspRequestController.close();
-    }
-    await stopVdspListener();
   }
 
   Future<void> startVdspListener() async {
@@ -412,12 +413,15 @@ class VaultService extends _$VaultService {
     final vault = state.currentVault;
     if (vault == null) throw Exception('No current vault configured');
 
+    _vdspRequestController ??=
+        StreamController<VdspQueryDataMessage>.broadcast();
+
     vault.listenForVdspRequests(
       onDataRequest: (message) async {
-        _vdspRequestController.add(message);
+        _vdspRequestController!.add(message);
       },
       onProblemReport: (message) async {
-        _vdspRequestController.addError(message);
+        _vdspRequestController!.addError(message);
         await ConnectionPool.instance.stopConnections();
       },
     );

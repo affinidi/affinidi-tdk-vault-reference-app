@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:affinidi_tdk_didcomm_mediator_client/affinidi_tdk_didcomm_mediator_client.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +25,102 @@ import '../../widgets/vdsp/vdsp_profile_selector.dart';
 import 'profiles_page_controller.dart';
 import 'widgets/profiles_list.dart';
 
-class ProfilesPage extends ConsumerWidget {
+class ProfilesPage extends ConsumerStatefulWidget {
   const ProfilesPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProfilesPage> createState() => _ProfilesPageState();
+}
+
+class _ProfilesPageState extends ConsumerState<ProfilesPage> {
+  StreamSubscription<dynamic>? _vdspSub;
+
+  @override
+  void initState() {
+    super.initState();
+    final vdspController = ref.read(vaultServiceProvider.notifier);
+
+    _vdspSub = vdspController.vdspRequests.listen((message) async {
+      if (!mounted) return;
+      final context = this.context;
+
+      if (!context.mounted) return;
+      final userChoice = await showIncomingRequestDialog(context);
+      if (userChoice != VdspDialogChoice.ok) {
+        log('Denying VDSP request with id ${message.id}');
+        return;
+      }
+
+      if (!context.mounted) return;
+      final selectedProfile = await showProfileSelector(context);
+
+      if (selectedProfile?.defaultCredentialStorage == null) {
+        prettyPrint('User did not select any profile');
+        if (!context.mounted) return;
+        showProfileSelector(context);
+        return;
+      }
+
+      final controller = ref.read(profilesPageControllerProvider.notifier);
+      final queryResult = await controller.filterCredentialsForVdsp(
+        message,
+        credentialStorage: selectedProfile!.defaultCredentialStorage,
+      );
+
+      if (!queryResult.dcqlResult!.fulfilled) {
+        if (!context.mounted) return;
+        showMessageDialog(
+          context,
+          MessageDialog(
+            'No credentials found',
+            'No matching credentials found for the query provided.',
+          ),
+        );
+        return;
+      }
+
+      if (!context.mounted) return;
+      final selectedCredentials = await showCredentialSelection(
+        context,
+        queryResult.verifiableCredentials,
+      );
+
+      if (selectedCredentials == null || selectedCredentials.isEmpty) {
+        log(
+          'User cancelled or selected no credentials to share for message with id ${message.id}',
+        );
+        return;
+      }
+
+      await controller.sendVdspDataResponse(
+        requestMessage: message,
+        verifiableCredentials: selectedCredentials,
+        profile: selectedProfile,
+      );
+
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Response was sent back to the verifier.',
+            style: TextStyle(color: Colors.white),
+          ),
+          duration: Duration(seconds: 3),
+          backgroundColor: AppColorScheme.backgroundLight,
+        ),
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _vdspSub?.cancel();
+    _vdspSub = null;
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
 
     final controller = ref.read(profilesPageControllerProvider.notifier);
@@ -43,119 +135,6 @@ class ProfilesPage extends ConsumerWidget {
     );
 
     final navigation = ref.read(navigationServiceProvider);
-
-    void handleVdspListenerEvents() async {
-      controller.vdspRequests.listen(
-        (message) async {
-          if (!context.mounted) return;
-          final userChoice = await showIncomingRequestDialog(context);
-
-          if (userChoice != VdspDialogChoice.ok) {
-            log('Denying VDSP request with id ${message.id}');
-            return;
-          }
-
-          if (!context.mounted) return;
-          final selectedProfile = await showProfileSelector(context);
-
-          if (selectedProfile?.defaultCredentialStorage == null) {
-            prettyPrint('User did not select any profile');
-
-            if (!context.mounted) return;
-            showProfileSelector(context);
-            // NOTE: Should we send back a response to the verifier that the user canceled?
-            return;
-          }
-
-          final queryResult = await controller.filterCredentialsForVdsp(
-            message,
-            credentialStorage: selectedProfile?.defaultCredentialStorage!,
-          );
-
-          if (!queryResult.dcqlResult!.fulfilled) {
-            prettyPrint('No credentials matching the holder`s profile.');
-
-            if (!context.mounted) return;
-            showMessageDialog(
-              context,
-              MessageDialog(
-                'No credentials found',
-                'No matching credentials found for the query provided.',
-              ),
-            );
-
-            // NOTE: Should we send back a response to the verifier that there was no credentials matched?
-            return;
-          }
-
-          if (!context.mounted) return;
-          final selectedCredentials = await showCredentialSelection(
-            context,
-            queryResult.verifiableCredentials,
-          );
-
-          if (selectedCredentials == null || selectedCredentials.isEmpty) {
-            log(
-              'User cancelled or selected no credentials to share for message with id ${message.id}',
-            );
-            return;
-          }
-
-          log(
-            'Credentials matching the query for message with id ${message.id}',
-          );
-
-          await controller.sendVdspDataResponse(
-            requestMessage: message,
-            verifiableCredentials: selectedCredentials,
-            profile: selectedProfile,
-          );
-
-          if (!context.mounted) return;
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Response was sent back to the verifier.',
-                style: TextStyle(color: Colors.white),
-              ),
-              duration: Duration(seconds: 3),
-              backgroundColor: AppColorScheme.backgroundLight,
-            ),
-          );
-
-          // TODO: Maybe trigger closing the stream after sending ???
-        },
-        onError: (message) async {
-          log(
-            'A problem has occurred with id ${message.id}, stopping listener',
-            error: message,
-          );
-          await controller.stopVdspListener();
-        },
-      );
-    }
-
-    /// Handles the starting of VDSP listener
-    void handleToggleVdspListener() async {
-      await controller.startVdspListener();
-      handleVdspListenerEvents();
-
-      if (!context.mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'VDSP Listener enabled',
-            style: TextStyle(color: Colors.white),
-          ),
-          duration: Duration(seconds: 3),
-          backgroundColor: AppColorScheme.backgroundLight,
-        ),
-      );
-    }
-
-    // handleVdspListenerEvents();
 
     return Scaffold(
       backgroundColor: AppColorScheme.backgroundBlack,
@@ -214,29 +193,6 @@ class ProfilesPage extends ConsumerWidget {
                 ),
 
                 const SizedBox(height: AppSizing.paddingSmall),
-
-                /// Start / Stop VDSP Listener Button
-                FloatingActionButton.extended(
-                  onPressed: () async {
-                    HapticFeedback.lightImpact();
-                    handleToggleVdspListener();
-                  },
-                  backgroundColor: AppTheme.colorScheme.primary,
-                  foregroundColor: AppColorScheme.backgroundWhite,
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      AppSizing.paddingXXLarge,
-                    ),
-                  ),
-                  label: Text(
-                    localizations.enableVdspButtonLabel,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppColorScheme.backgroundWhite,
-                    ),
-                  ),
-                  icon: const Icon(Icons.play_circle_outline),
-                ),
               ],
             )
           : null,
