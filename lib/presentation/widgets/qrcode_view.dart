@@ -11,8 +11,9 @@ class QrCodeView extends StatelessWidget {
     return QrImageView(
       data: content,
       version: QrVersions.auto,
-      size: 300,
+      size: 280,
       gapless: false,
+      backgroundColor: const Color.fromARGB(255, 174, 171, 171),
     );
   }
 }

@@ -12,12 +12,18 @@ class DidDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
           child: Text(
             AppLocalizations.of(context)?.didLabel(did) ?? 'DID: $did',
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: Color(0xFF9B9CA7), height: 1.33, letterSpacing: 0.2),
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: Color(0xFF9B9CA7),
+              height: 1.33,
+              letterSpacing: 0.2,
+            ),
             overflow: TextOverflow.ellipsis,
             semanticsLabel:
                 AppLocalizations.of(context)?.didLabel(did) ?? 'DID: $did',

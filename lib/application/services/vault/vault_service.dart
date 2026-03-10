@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:math' as math;
 
+import 'package:affinidi_tdk_didcomm_mediator_client/affinidi_tdk_didcomm_mediator_client.dart';
+import 'package:affinidi_tdk_vdsp/affinidi_tdk_vdsp.dart';
 import 'package:crypto/crypto.dart';
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_data_manager/affinidi_tdk_vault_data_manager.dart';
@@ -24,6 +27,13 @@ part 'vault_service.g.dart';
 @Riverpod(keepAlive: true)
 class VaultService extends _$VaultService {
   VaultService() : super();
+
+  final StreamController<VdspQueryDataMessage> _vdspRequestController =
+      StreamController<VdspQueryDataMessage>.broadcast();
+  Stream<VdspQueryDataMessage> get vdspRequests =>
+      _vdspRequestController.stream;
+
+  bool _vdspListening = false;
 
   int _accountIndex = 0;
   static final Map<String, Database> _edgeDatabases = {};
@@ -141,6 +151,11 @@ class VaultService extends _$VaultService {
     await _disposeCurrentVaultResources();
     state = state.copyWith(currentVault: null, currentVaultId: null);
     log('Finished resetting current vault', name: 'VaultService');
+
+    if (!_vdspRequestController.isClosed) {
+      _vdspRequestController.close();
+    }
+    await stopVdspListener();
   }
 
   /// Creates a Vault instance from a secure seed in storage.
@@ -383,6 +398,37 @@ class VaultService extends _$VaultService {
         await db.close();
       }
     }
+
+    if (!_vdspRequestController.isClosed) {
+      _vdspRequestController.close();
+    }
+    await stopVdspListener();
+  }
+
+  Future<void> startVdspListener() async {
+    if (_vdspListening) return;
+    _vdspListening = true;
+
+    final vault = state.currentVault;
+    if (vault == null) throw Exception('No current vault configured');
+
+    vault.listenForVdspRequests(
+      onDataRequest: (message) async {
+        _vdspRequestController.add(message);
+      },
+      onProblemReport: (message) async {
+        _vdspRequestController.addError(message);
+        await ConnectionPool.instance.stopConnections();
+      },
+    );
+
+    await ConnectionPool.instance.startConnections();
+  }
+
+  Future<void> stopVdspListener() async {
+    if (!_vdspListening) return;
+    _vdspListening = false;
+    await ConnectionPool.instance.stopConnections();
   }
 }
 

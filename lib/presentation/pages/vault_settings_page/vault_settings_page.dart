@@ -7,9 +7,6 @@ import '../../../navigation/flows/profiles/profiles_route_constants.dart';
 import '../../../navigation/navigation_provider.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
-import '../../themes/app_theme.dart';
-import '../../widgets/code_snippet/code_snippet_locations.dart';
-import '../../widgets/code_snippet/code_snippet_widget.dart';
 import '../../widgets/qr_scanner.dart';
 import '../../widgets/tdk_app_bar.dart';
 import '../../widgets/vdsp/vdsp_dialogs.dart';
@@ -48,8 +45,12 @@ class VaultSettingsPage extends ConsumerWidget {
         if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('A new verifier has been added to your allow list.'),
+            content: Text(
+              'A new verifier has been added to your allow list.',
+              style: TextStyle(color: Colors.white),
+            ),
             duration: Duration(seconds: 3),
+            backgroundColor: AppColorScheme.backgroundLight,
           ),
         );
       } else {
@@ -66,69 +67,46 @@ class VaultSettingsPage extends ConsumerWidget {
 
     /// Handles the starting of VDSP listener
     void onVdspListenerChange(bool state) async {
-      // TODO: This should update the vdsp listener state depending on the value
-      // of the toggle switch.
-      // if the value = true, it should start the VDSP listener.
+      // if (state) {
+      //   await controller.startVdspListener();
+      // } else {
+      //   await controller.stopVdspListener();
+      // }
 
-      // await controller.startVdspListener();
-      // handleVdspListenerEvents();
+      final vaultService = ref.read(vaultServiceProvider.notifier);
+      if (state) {
+        await vaultService.startVdspListener();
+      } else {
+        await vaultService.stopVdspListener();
+      }
 
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("VDSP Listener ${state ? 'enabled' : 'disabled'}"),
+          content: Text(
+            "VDSP Listener ${state ? 'enabled' : 'disabled'}",
+            style: const TextStyle(color: Colors.white),
+          ),
           duration: const Duration(seconds: 3),
+          backgroundColor: AppColorScheme.backgroundLight,
         ),
       );
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColorScheme.backgroundBlack,
       resizeToAvoidBottomInset: false,
       appBar: TdkAppBar(
+        title: localizations.vaultSettingsPageHeader,
         showBackButton: true,
         onBackPressed: () => navigation.go(ProfilesRoutePath.base),
-        actions: [
-          CodeSnippetWidget(
-            title: localizations.lblCSViewVaultProfile,
-            codeLocations: CodeSnippetLocations.viewVaultProfileSnippets(
-              context,
-            ),
-          ),
-        ],
       ),
+
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: AppSizing.paddingSmall,
-                right: AppSizing.paddingLarge,
-                top: AppSizing.paddingSmall,
-                bottom: AppSizing.paddingRegular,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: AppSizing.paddingMedium,
-                      top: AppSizing.paddingLarge,
-                    ),
-                    child: Text(
-                      localizations.vaultSettingsPageHeader,
-                      style: AppTheme.headingMedium,
-                    ),
-                  ),
-                  const SizedBox(height: AppSizing.paddingMedium),
-                  const Divider(height: 1, color: AppColorScheme.divider),
-                ],
-              ),
-            ),
-
-            Container(height: 1.0, color: AppColorScheme.divider),
-
+            const SizedBox(height: AppSizing.paddingXLarge),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.symmetric(
@@ -154,14 +132,14 @@ class VaultSettingsPage extends ConsumerWidget {
                     onTap: () async {
                       final vdspListenerState = await showVdspListenerSettings(
                         context,
-                        true,
+                        false,
                       );
                       prettyPrint(
                         'vdspListenerState',
                         object: vdspListenerState,
                       );
 
-                      onVdspListenerChange(vdspListenerState!);
+                      onVdspListenerChange(vdspListenerState);
                     },
                   ),
                   const SizedBox(height: AppSizing.paddingSmall),
@@ -202,7 +180,7 @@ class _SettingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      color: AppColorScheme.backgroundWhite,
+      color: AppColorScheme.backgroundBlack,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
         side: BorderSide(color: AppColorScheme.divider),

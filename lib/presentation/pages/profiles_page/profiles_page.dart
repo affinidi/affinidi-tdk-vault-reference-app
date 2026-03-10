@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:convert';
 import 'package:affinidi_tdk_didcomm_mediator_client/affinidi_tdk_didcomm_mediator_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,35 +27,6 @@ import 'widgets/profiles_list.dart';
 class ProfilesPage extends ConsumerWidget {
   const ProfilesPage({super.key});
 
-  String getVcDetails(dynamic credentials, String key) {
-    Map<String, dynamic> credentialDataMap;
-    if (credentials is String) {
-      credentialDataMap = jsonDecode(credentials) as Map<String, dynamic>;
-    } else if (credentials is Map<String, dynamic>) {
-      credentialDataMap = credentials;
-    } else {
-      try {
-        credentialDataMap =
-            (credentials as dynamic).toJson() as Map<String, dynamic>;
-      } catch (_) {
-        credentialDataMap =
-            jsonDecode(jsonEncode(credentials)) as Map<String, dynamic>;
-      }
-    }
-
-    final value = credentialDataMap[key];
-    if (value == null) return 'Invalid key';
-
-    if (value is List) {
-      if (value.isEmpty) return 'Invalid key';
-
-      final selectedData = value.length > 1 ? value[1] : value[0];
-      return selectedData.toString();
-    }
-
-    return value.toString();
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
@@ -74,7 +44,7 @@ class ProfilesPage extends ConsumerWidget {
 
     final navigation = ref.read(navigationServiceProvider);
 
-    void handleVdspListenerEvents() {
+    void handleVdspListenerEvents() async {
       controller.vdspRequests.listen(
         (message) async {
           if (!context.mounted) return;
@@ -106,7 +76,6 @@ class ProfilesPage extends ConsumerWidget {
             prettyPrint('No credentials matching the holder`s profile.');
 
             if (!context.mounted) return;
-            // showNoMatchingCredentialsDialog(context);
             showMessageDialog(
               context,
               MessageDialog(
@@ -146,8 +115,12 @@ class ProfilesPage extends ConsumerWidget {
 
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Response was sent back to the verifier.'),
+              content: Text(
+                'Response was sent back to the verifier.',
+                style: TextStyle(color: Colors.white),
+              ),
               duration: Duration(seconds: 3),
+              backgroundColor: AppColorScheme.backgroundLight,
             ),
           );
 
@@ -172,11 +145,17 @@ class ProfilesPage extends ConsumerWidget {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('VDSP Listener enabled'),
+          content: Text(
+            'VDSP Listener enabled',
+            style: TextStyle(color: Colors.white),
+          ),
           duration: Duration(seconds: 3),
+          backgroundColor: AppColorScheme.backgroundLight,
         ),
       );
     }
+
+    // handleVdspListenerEvents();
 
     return Scaffold(
       backgroundColor: AppColorScheme.backgroundBlack,

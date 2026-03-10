@@ -133,6 +133,12 @@ void showMessagingDidDialog(BuildContext context, String messagingDid) {
           children: [
             QrCodeView(content: messagingDid),
             DidDisplay(did: messagingDid),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Close'),
+            ),
           ],
         ),
       ),
