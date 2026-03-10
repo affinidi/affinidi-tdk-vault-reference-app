@@ -32,8 +32,6 @@ class VaultSettingsPage extends ConsumerWidget {
       vaultServiceProvider.select((s) => s.isVdspListenerEnabled),
     );
 
-    prettyPrint('listenerStatus ', object: listenerStatus);
-
     void handleScanNewVerifier(BuildContext context) async {
       final scannedDid = await QrScanner.scan(context);
 
@@ -136,10 +134,6 @@ class VaultSettingsPage extends ConsumerWidget {
                       final vdspListenerState = await showVdspListenerSettings(
                         context,
                         listenerStatus ?? false,
-                      );
-                      prettyPrint(
-                        'vdspListenerState',
-                        object: vdspListenerState,
                       );
 
                       onVdspListenerChange(vdspListenerState);

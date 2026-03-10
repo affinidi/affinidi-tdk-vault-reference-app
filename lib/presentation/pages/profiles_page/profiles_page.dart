@@ -55,7 +55,6 @@ class _ProfilesPageState extends ConsumerState<ProfilesPage> {
       final selectedProfile = await showProfileSelector(context);
 
       if (selectedProfile?.defaultCredentialStorage == null) {
-        prettyPrint('User did not select any profile');
         if (!context.mounted) return;
         showProfileSelector(context);
         return;
