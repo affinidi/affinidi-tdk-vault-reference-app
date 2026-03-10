@@ -1192,6 +1192,12 @@ abstract class AppLocalizations {
   /// **'REFERENCE'**
   String get reference;
 
+  /// No description provided for @vdspListenerStateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{vdspState} VDSP Listener'**
+  String vdspListenerStateLabel(Object vdspState);
+
   /// No description provided for @app.
   ///
   /// In en, this message translates to:

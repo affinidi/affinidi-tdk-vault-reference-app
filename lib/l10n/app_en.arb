@@ -706,6 +706,7 @@
   "invalidFormat": "Invalid format",
   "fileTooLarge": "File too large",
   "reference": "REFERENCE",
+  "vdspListenerStateLabel": "{vdspState} VDSP Listener",
   "@reference": {
     "type": "text"
   },

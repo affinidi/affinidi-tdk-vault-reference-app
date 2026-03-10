@@ -645,6 +645,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reference => 'REFERENCE';
 
   @override
+  String vdspListenerStateLabel(Object vdspState) {
+    return '$vdspState VDSP Listener';
+  }
+
+  @override
   String get app => 'APP';
 
   @override

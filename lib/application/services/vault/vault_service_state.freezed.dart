@@ -12,12 +12,14 @@ part of 'vault_service_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$VaultServiceState {
   Vault? get currentVault => throw _privateConstructorUsedError;
   String? get currentVaultId => throw _privateConstructorUsedError;
+  bool? get isVdspListenerEnabled => throw _privateConstructorUsedError;
 
   /// Create a copy of VaultServiceState
   /// with the given fields replaced by the non-null parameter values.
@@ -29,10 +31,15 @@ mixin _$VaultServiceState {
 /// @nodoc
 abstract class $VaultServiceStateCopyWith<$Res> {
   factory $VaultServiceStateCopyWith(
-          VaultServiceState value, $Res Function(VaultServiceState) then) =
-      _$VaultServiceStateCopyWithImpl<$Res, VaultServiceState>;
+    VaultServiceState value,
+    $Res Function(VaultServiceState) then,
+  ) = _$VaultServiceStateCopyWithImpl<$Res, VaultServiceState>;
   @useResult
-  $Res call({Vault? currentVault, String? currentVaultId});
+  $Res call({
+    Vault? currentVault,
+    String? currentVaultId,
+    bool? isVdspListenerEnabled,
+  });
 }
 
 /// @nodoc
@@ -52,38 +59,52 @@ class _$VaultServiceStateCopyWithImpl<$Res, $Val extends VaultServiceState>
   $Res call({
     Object? currentVault = freezed,
     Object? currentVaultId = freezed,
+    Object? isVdspListenerEnabled = freezed,
   }) {
-    return _then(_value.copyWith(
-      currentVault: freezed == currentVault
-          ? _value.currentVault
-          : currentVault // ignore: cast_nullable_to_non_nullable
-              as Vault?,
-      currentVaultId: freezed == currentVaultId
-          ? _value.currentVaultId
-          : currentVaultId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            currentVault: freezed == currentVault
+                ? _value.currentVault
+                : currentVault // ignore: cast_nullable_to_non_nullable
+                      as Vault?,
+            currentVaultId: freezed == currentVaultId
+                ? _value.currentVaultId
+                : currentVaultId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            isVdspListenerEnabled: freezed == isVdspListenerEnabled
+                ? _value.isVdspListenerEnabled
+                : isVdspListenerEnabled // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$VaultServiceStateImplCopyWith<$Res>
     implements $VaultServiceStateCopyWith<$Res> {
-  factory _$$VaultServiceStateImplCopyWith(_$VaultServiceStateImpl value,
-          $Res Function(_$VaultServiceStateImpl) then) =
-      __$$VaultServiceStateImplCopyWithImpl<$Res>;
+  factory _$$VaultServiceStateImplCopyWith(
+    _$VaultServiceStateImpl value,
+    $Res Function(_$VaultServiceStateImpl) then,
+  ) = __$$VaultServiceStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Vault? currentVault, String? currentVaultId});
+  $Res call({
+    Vault? currentVault,
+    String? currentVaultId,
+    bool? isVdspListenerEnabled,
+  });
 }
 
 /// @nodoc
 class __$$VaultServiceStateImplCopyWithImpl<$Res>
     extends _$VaultServiceStateCopyWithImpl<$Res, _$VaultServiceStateImpl>
     implements _$$VaultServiceStateImplCopyWith<$Res> {
-  __$$VaultServiceStateImplCopyWithImpl(_$VaultServiceStateImpl _value,
-      $Res Function(_$VaultServiceStateImpl) _then)
-      : super(_value, _then);
+  __$$VaultServiceStateImplCopyWithImpl(
+    _$VaultServiceStateImpl _value,
+    $Res Function(_$VaultServiceStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of VaultServiceState
   /// with the given fields replaced by the non-null parameter values.
@@ -92,33 +113,46 @@ class __$$VaultServiceStateImplCopyWithImpl<$Res>
   $Res call({
     Object? currentVault = freezed,
     Object? currentVaultId = freezed,
+    Object? isVdspListenerEnabled = freezed,
   }) {
-    return _then(_$VaultServiceStateImpl(
-      currentVault: freezed == currentVault
-          ? _value.currentVault
-          : currentVault // ignore: cast_nullable_to_non_nullable
-              as Vault?,
-      currentVaultId: freezed == currentVaultId
-          ? _value.currentVaultId
-          : currentVaultId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$VaultServiceStateImpl(
+        currentVault: freezed == currentVault
+            ? _value.currentVault
+            : currentVault // ignore: cast_nullable_to_non_nullable
+                  as Vault?,
+        currentVaultId: freezed == currentVaultId
+            ? _value.currentVaultId
+            : currentVaultId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        isVdspListenerEnabled: freezed == isVdspListenerEnabled
+            ? _value.isVdspListenerEnabled
+            : isVdspListenerEnabled // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$VaultServiceStateImpl implements _VaultServiceState {
-  _$VaultServiceStateImpl({this.currentVault, this.currentVaultId});
+  _$VaultServiceStateImpl({
+    this.currentVault,
+    this.currentVaultId,
+    this.isVdspListenerEnabled,
+  });
 
   @override
   final Vault? currentVault;
   @override
   final String? currentVaultId;
+  @override
+  final bool? isVdspListenerEnabled;
 
   @override
   String toString() {
-    return 'VaultServiceState(currentVault: $currentVault, currentVaultId: $currentVaultId)';
+    return 'VaultServiceState(currentVault: $currentVault, currentVaultId: $currentVaultId, isVdspListenerEnabled: $isVdspListenerEnabled)';
   }
 
   @override
@@ -129,11 +163,18 @@ class _$VaultServiceStateImpl implements _VaultServiceState {
             (identical(other.currentVault, currentVault) ||
                 other.currentVault == currentVault) &&
             (identical(other.currentVaultId, currentVaultId) ||
-                other.currentVaultId == currentVaultId));
+                other.currentVaultId == currentVaultId) &&
+            (identical(other.isVdspListenerEnabled, isVdspListenerEnabled) ||
+                other.isVdspListenerEnabled == isVdspListenerEnabled));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentVault, currentVaultId);
+  int get hashCode => Object.hash(
+    runtimeType,
+    currentVault,
+    currentVaultId,
+    isVdspListenerEnabled,
+  );
 
   /// Create a copy of VaultServiceState
   /// with the given fields replaced by the non-null parameter values.
@@ -142,18 +183,24 @@ class _$VaultServiceStateImpl implements _VaultServiceState {
   @pragma('vm:prefer-inline')
   _$$VaultServiceStateImplCopyWith<_$VaultServiceStateImpl> get copyWith =>
       __$$VaultServiceStateImplCopyWithImpl<_$VaultServiceStateImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _VaultServiceState implements VaultServiceState {
-  factory _VaultServiceState(
-      {final Vault? currentVault,
-      final String? currentVaultId}) = _$VaultServiceStateImpl;
+  factory _VaultServiceState({
+    final Vault? currentVault,
+    final String? currentVaultId,
+    final bool? isVdspListenerEnabled,
+  }) = _$VaultServiceStateImpl;
 
   @override
   Vault? get currentVault;
   @override
   String? get currentVaultId;
+  @override
+  bool? get isVdspListenerEnabled;
 
   /// Create a copy of VaultServiceState
   /// with the given fields replaced by the non-null parameter values.

@@ -91,7 +91,11 @@ class VaultService extends _$VaultService {
 
     await vault.ensureInitialized();
 
-    state = state.copyWith(currentVault: vault, currentVaultId: vaultId);
+    state = state.copyWith(
+      currentVault: vault,
+      currentVaultId: vaultId,
+      isVdspListenerEnabled: _vdspListening,
+    );
 
     final vaultsManagerService = ref.read(
       vaultsManagerServiceProvider.notifier,
@@ -427,12 +431,16 @@ class VaultService extends _$VaultService {
     );
 
     await ConnectionPool.instance.startConnections();
+
+    state = state.copyWith(isVdspListenerEnabled: true);
   }
 
   Future<void> stopVdspListener() async {
     if (!_vdspListening) return;
     _vdspListening = false;
     await ConnectionPool.instance.stopConnections();
+
+    state = state.copyWith(isVdspListenerEnabled: _vdspListening);
   }
 }
 

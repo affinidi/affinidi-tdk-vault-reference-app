@@ -8,5 +8,6 @@ class VaultServiceState with _$VaultServiceState {
   factory VaultServiceState({
     Vault? currentVault,
     String? currentVaultId,
+    bool? isVdspListenerEnabled,
   }) = _VaultServiceState;
 }

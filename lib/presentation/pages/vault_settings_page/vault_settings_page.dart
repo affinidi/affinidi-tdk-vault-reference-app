@@ -28,6 +28,12 @@ class VaultSettingsPage extends ConsumerWidget {
         .currentVault
         ?.messagingDid;
 
+    final listenerStatus = ref.watch(
+      vaultServiceProvider.select((s) => s.isVdspListenerEnabled),
+    );
+
+    prettyPrint('listenerStatus ', object: listenerStatus);
+
     void handleScanNewVerifier(BuildContext context) async {
       final scannedDid = await QrScanner.scan(context);
 
@@ -67,12 +73,6 @@ class VaultSettingsPage extends ConsumerWidget {
 
     /// Handles the starting of VDSP listener
     void onVdspListenerChange(bool state) async {
-      // if (state) {
-      //   await controller.startVdspListener();
-      // } else {
-      //   await controller.stopVdspListener();
-      // }
-
       final vaultService = ref.read(vaultServiceProvider.notifier);
       if (state) {
         await vaultService.startVdspListener();
@@ -127,12 +127,15 @@ class VaultSettingsPage extends ConsumerWidget {
                   // Enable / Disable VDSP Listener
                   _SettingsTile(
                     icon: Icons.on_device_training_outlined,
-                    title: localizations.toggleVdspListenerLabel,
-                    // TODO: use the vdspListenerState to be obtained somewhere
+                    title: localizations.vdspListenerStateLabel(
+                      listenerStatus != null && listenerStatus == true
+                          ? 'Disable'
+                          : 'Enable',
+                    ),
                     onTap: () async {
                       final vdspListenerState = await showVdspListenerSettings(
                         context,
-                        false,
+                        listenerStatus ?? false,
                       );
                       prettyPrint(
                         'vdspListenerState',

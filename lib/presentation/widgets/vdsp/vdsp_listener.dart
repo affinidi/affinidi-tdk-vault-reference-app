@@ -24,7 +24,7 @@ Future<bool> showVdspListenerSettings(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Enable / Disable VDSP',
+                currentState ? 'Disable VDSP' : 'Enable VDSP',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
 
@@ -34,7 +34,7 @@ Future<bool> showVdspListenerSettings(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'VDSP Listener Status: ',
+                    'Listener Status: ',
                     style: Theme.of(context).textTheme.labelLarge,
                   ),
 
