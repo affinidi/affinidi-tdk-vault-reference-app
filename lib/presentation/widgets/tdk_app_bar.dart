@@ -28,6 +28,9 @@ class TdkAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final shouldCenterTitle = centerTitle ?? !showBackButton;
+    final leadingWidth = showBackButton && leadingTitle != null
+        ? (MediaQuery.sizeOf(context).width * 0.33).clamp(56.0, 220.0)
+        : 56.0;
 
     Widget? leadingWidget;
     if (showBackButton && leadingTitle != null) {
@@ -39,9 +42,13 @@ class TdkAppBar extends StatelessWidget implements PreferredSizeWidget {
             onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
             color: AppColorScheme.textPrimary,
           ),
-          Text(
-            leadingTitle!,
-            style: AppTheme.headingMedium,
+          Flexible(
+            child: Text(
+              leadingTitle!,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme.headingMedium,
+            ),
           ),
         ],
       );
@@ -57,7 +64,7 @@ class TdkAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColorScheme.backgroundBlack,
       elevation: elevation,
       leading: leadingWidget,
-      leadingWidth: leadingTitle != null ? null : 56,
+      leadingWidth: leadingWidth,
       centerTitle: shouldCenterTitle,
       title: titleWidget ??
           (title != null
