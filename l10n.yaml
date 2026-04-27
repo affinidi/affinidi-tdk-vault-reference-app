@@ -4,4 +4,3 @@ output-localization-file: app_localizations.dart
 untranslated-messages-file: untranslated_messages_file.txt
 preferred-supported-locales:
   - en
-synthetic-package: false
