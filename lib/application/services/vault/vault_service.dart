@@ -374,10 +374,6 @@ class VaultService extends _$VaultService {
 
   Future<void> _disposeCurrentVaultResources() async {
     final vaultId = state.currentVaultId;
-    final vault = state.currentVault;
-    if (vault != null) {
-      await (vault as dynamic).dispose();
-    }
     if (vaultId != null) {
       final edgeRepositoryId = '${vaultId}_edge_repository';
       final db = _edgeDatabases.remove(edgeRepositoryId);
@@ -466,7 +462,8 @@ Uint8List _deriveSeedFromString(String input) {
 /// [repositoryId]: The unique ID of the repository.
 ///
 /// Returns a [Database] instance, either for web or native platform.
-final _createVaultProvider = FutureProvider.family<Vault, OpenVaultParams>(
+final _createVaultProvider =
+    AutoDisposeFutureProvider.family<Vault, OpenVaultParams>(
   (ref, param) async {
     try {
       // Get stored vault's seed from storage
@@ -505,7 +502,7 @@ final _createVaultProvider = FutureProvider.family<Vault, OpenVaultParams>(
 /// - Constructs the [Vault] using [Vault.fromVaultStore].
 ///
 /// Throws an [Exception] if the vault entry or seed is not found.
-final _openVaultProvider = FutureProvider.family<Vault, String>(
+final _openVaultProvider = AutoDisposeFutureProvider.family<Vault, String>(
   (ref, vaultId) async {
     try {
       final vaultRegistry =
