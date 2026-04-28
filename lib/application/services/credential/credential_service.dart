@@ -1,5 +1,4 @@
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
-import 'package:collection/collection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../infrastructure/exceptions/app_exception.dart';
@@ -43,23 +42,16 @@ class CredentialService extends _$CredentialService {
     }
 
     await vault.ensureInitialized();
-    final profiles = await vault.listProfiles();
+    final sharedStorage = await vault.getSharedStorageByOwnerId(profileId);
 
-    for (final profile in profiles) {
-      try {
-        final sharedStorage =
-            profile.sharedStorages.firstWhere((s) => s.id == profileId);
-        return sharedStorage;
-      } catch (e) {
-        // Continue to next profile if shared storage not found
-        continue;
-      }
+    if (sharedStorage == null) {
+      throw AppException(
+        message: 'Shared storage not found',
+        type: AppExceptionType.other,
+      );
     }
 
-    throw AppException(
-      message: 'Shared storage not found',
-      type: AppExceptionType.other,
-    );
+    return sharedStorage;
   }
 
   /// Fetches a paginated list of claimed credentials and updates the service state.
@@ -173,10 +165,8 @@ final _vaultCredentialServiceProvider =
         type: AppExceptionType.other);
   }
 
-  final profiles = await vault.listProfiles();
-  final defaultProfile =
-      profiles.firstWhereOrNull((profile) => profile.id == profileId);
-  return defaultProfile!.defaultCredentialStorage!;
+  final defaultProfile = await vault.getProfileById(profileId);
+  return defaultProfile.defaultCredentialStorage!;
 }, name: 'vaultCredentialServiceProvider');
 
 /// Placeholder class for future implementation.

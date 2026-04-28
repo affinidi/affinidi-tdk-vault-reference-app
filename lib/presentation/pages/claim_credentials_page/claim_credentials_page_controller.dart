@@ -102,8 +102,7 @@ class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
   Future<String> getProfileDid() async {
     final vault = _getCurrentVault();
 
-    final profiles = await vault.listProfiles();
-    final profile = profiles.firstWhere((p) => p.id == profileId);
+    final profile = await vault.getProfileById(profileId);
     return profile.did;
   }
 

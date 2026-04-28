@@ -1,9 +1,8 @@
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
-import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod/riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../infrastructure/exceptions/app_exception.dart';
@@ -318,16 +317,7 @@ final _vaultStorageServiceProvider =
     );
   }
 
-  final profiles = await vault.listProfiles();
-  final profile = profiles.firstWhereOrNull((p) => p.id == profileId);
-
-  if (profile == null) {
-    throw AppException(
-      message: 'Profile not found in vault',
-      type: AppExceptionType.other,
-    );
-  }
-
+  final profile = await vault.getProfileById(profileId);
   final fileStorage = profile.defaultFileStorage;
   if (fileStorage == null) {
     throw AppException(
@@ -352,23 +342,16 @@ final _vaultSharedStorageServiceProvider =
     );
   }
 
-  final profiles = await vault.listProfiles();
+  final sharedStorage = await vault.getSharedStorageByOwnerId(profileId);
 
-  for (final profile in profiles) {
-    try {
-      final sharedStorage =
-          profile.sharedStorages.firstWhere((s) => s.id == profileId);
-      return sharedStorage;
-    } catch (e) {
-      // Continue to next profile if shared storage not found
-      continue;
-    }
+  if (sharedStorage == null) {
+    throw AppException(
+      message: 'Cannot find shared storage',
+      type: AppExceptionType.other,
+    );
   }
 
-  throw AppException(
-    message: 'Cannot find shared storage',
-    type: AppExceptionType.other,
-  );
+  return sharedStorage;
 }, name: 'vaultSharedStorageServiceProvider');
 
 /// Provider that returns all shared storages for a given profile.
@@ -385,15 +368,8 @@ Future<List<SharedStorage>> sharedStorages(Ref ref, String profileId) async {
   }
 
   await vault.ensureInitialized();
-  final profiles = await vault.listProfiles();
 
-  final profile = profiles.firstWhere(
-    (p) => p.id == profileId,
-    orElse: () => throw AppException(
-      message: 'Profile not found',
-      type: AppExceptionType.other,
-    ),
-  );
+  final profile = await vault.getProfileById(profileId);
 
   return profile.sharedStorages;
 }
