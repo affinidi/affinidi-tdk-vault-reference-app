@@ -74,43 +74,49 @@ dependency_overrides:
     git:
       url: https://github.com/affinidi/affinidi-tdk-dart/
       path: packages/claim_verifiable_credential
-      ref: 058f16791a9aff6c89903eda851beeedbb82bdd3
+      ref: 7adf4f63551a4e8e681492b3cdb9c21a9a2fba75
+  affinidi_tdk_consumer_auth_provider:
+    # path: ../affinidi-tdk-dart/packages/consumer_auth_provider
+    git:
+      url: https://github.com/affinidi/affinidi-tdk-dart/
+      path: packages/consumer_auth_provider
+      ref: 7adf4f63551a4e8e681492b3cdb9c21a9a2fba75
   affinidi_tdk_vault: 
     # path: ../affinidi-tdk-dart/packages/vault
     git:
       url: https://github.com/affinidi/affinidi-tdk-dart/
       path: packages/vault
-      ref: 058f16791a9aff6c89903eda851beeedbb82bdd3
+      ref: 7adf4f63551a4e8e681492b3cdb9c21a9a2fba75
   affinidi_tdk_vault_data_manager: 
     # path: ../affinidi-tdk-dart/packages/vault_data_manager
     git:
       url: https://github.com/affinidi/affinidi-tdk-dart/
       path: packages/vault_data_manager
-      ref: 058f16791a9aff6c89903eda851beeedbb82bdd3
+      ref: 7adf4f63551a4e8e681492b3cdb9c21a9a2fba75
   affinidi_tdk_vault_data_manager_client:
     # path: ../affinidi-tdk-dart/clients/vault_data_manager_client
     git:
       url: https://github.com/affinidi/affinidi-tdk-dart/
       path: clients/vault_data_manager_client
-      ref: 058f16791a9aff6c89903eda851beeedbb82bdd3
+      ref: 7adf4f63551a4e8e681492b3cdb9c21a9a2fba75
   affinidi_tdk_vault_edge_drift_provider:
     # path: ../affinidi-tdk-dart/packages/vault_edge_drift_provider
     git:
       url: https://github.com/affinidi/affinidi-tdk-dart/
       path: packages/vault_edge_drift_provider
-      ref: 058f16791a9aff6c89903eda851beeedbb82bdd3
+      ref: 7adf4f63551a4e8e681492b3cdb9c21a9a2fba75
   affinidi_tdk_vault_edge_provider: 
     # path: ../affinidi-tdk-dart/packages/vault_edge_provider
     git:
       url: https://github.com/affinidi/affinidi-tdk-dart/
       path: packages/vault_edge_provider
-      ref: 058f16791a9aff6c89903eda851beeedbb82bdd3
+      ref: 7adf4f63551a4e8e681492b3cdb9c21a9a2fba75
   affinidi_tdk_vault_flutter_utils:  
     # path: ../affinidi-tdk-dart/packages/vault_flutter_utils
     git:
       url: https://github.com/affinidi/affinidi-tdk-dart/
       path: packages/vault_flutter_utils
-      ref: 058f16791a9aff6c89903eda851beeedbb82bdd3
+      ref: 7adf4f63551a4e8e681492b3cdb9c21a9a2fba75
   clock: 1.1.1
 
 flutter:
