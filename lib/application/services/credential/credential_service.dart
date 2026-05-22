@@ -166,7 +166,15 @@ final _vaultCredentialServiceProvider =
   }
 
   final defaultProfile = await vault.getProfileById(profileId);
-  return defaultProfile.defaultCredentialStorage!;
+  final credentialStorage = defaultProfile.defaultCredentialStorage;
+  if (credentialStorage == null) {
+    throw AppException(
+      message: 'Credential storage not found for profileId: $profileId',
+      type: AppExceptionType.other,
+    );
+  }
+
+  return credentialStorage;
 }, name: 'vaultCredentialServiceProvider');
 
 /// Placeholder class for future implementation.
