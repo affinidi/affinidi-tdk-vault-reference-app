@@ -43,7 +43,7 @@ Refer to [the documentation](https://docs.affinidi.com/dev-tools/affinidi-tdk/da
 
 ## Requirements
 
-- Flutter version 3.27.0
+- Flutter version 3.41.7
 - Dart SDK ^3.5.4
 
 ## Getting started
@@ -66,7 +66,7 @@ flutter run -d <device_id>
 
 #### Install FVM
 
-Install the FVM package for Flutter version management. Currently using Flutter `3.27.0` for this project.
+Install the FVM package for Flutter version management. Currently using Flutter `3.41.7` for this project.
 
 ```
 brew tap leoafarias/fvm
