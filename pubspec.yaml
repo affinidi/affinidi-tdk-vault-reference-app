@@ -6,12 +6,12 @@ version: 1.1.0+2
 environment:
   sdk: ^3.5.4
 dependencies:
-  affinidi_tdk_claim_verifiable_credential: ^1.4.0
-  affinidi_tdk_vault: ^1.15.0
-  affinidi_tdk_vault_data_manager: ^1.14.0
-  affinidi_tdk_vault_edge_drift_provider: ^1.1.0
-  affinidi_tdk_vault_edge_provider: ^1.1.0
-  affinidi_tdk_vault_flutter_utils: ^1.14.0
+  affinidi_tdk_claim_verifiable_credential: ^2.0.0
+  affinidi_tdk_vault: ^3.0.0
+  affinidi_tdk_vault_data_manager: ^3.0.0
+  affinidi_tdk_vault_edge_drift_provider: ^3.0.0
+  affinidi_tdk_vault_edge_provider: ^3.0.0
+  affinidi_tdk_vault_flutter_utils: ^2.0.0
   collection: ^1.19.0
   cross_file: ^0.3.4+2
   crypto: ^3.0.6
@@ -67,57 +67,6 @@ dev_dependencies:
   melos: ^6.3.2
   mocktail: ^1.0.4
   riverpod_generator: ^2.3.5
-
-dependency_overrides:
-  affinidi_tdk_claim_verifiable_credential: 
-    # path: ../affinidi-tdk-dart/packages/claim_verifiable_credential
-    git:
-      url: https://github.com/affinidi/affinidi-tdk-dart/
-      path: packages/claim_verifiable_credential
-      ref: 4bed8c273d3c588ba06e582e83fdc79b9c9e9514
-  affinidi_tdk_consumer_auth_provider:
-    # path: ../affinidi-tdk-dart/packages/consumer_auth_provider
-    git:
-      url: https://github.com/affinidi/affinidi-tdk-dart/
-      path: packages/consumer_auth_provider
-      ref: 4bed8c273d3c588ba06e582e83fdc79b9c9e9514
-  affinidi_tdk_vault: 
-    # path: ../affinidi-tdk-dart/packages/vault
-    git:
-      url: https://github.com/affinidi/affinidi-tdk-dart/
-      path: packages/vault
-      ref: 4bed8c273d3c588ba06e582e83fdc79b9c9e9514
-  affinidi_tdk_vault_data_manager: 
-    # path: ../affinidi-tdk-dart/packages/vault_data_manager
-    git:
-      url: https://github.com/affinidi/affinidi-tdk-dart/
-      path: packages/vault_data_manager
-      ref: 4bed8c273d3c588ba06e582e83fdc79b9c9e9514
-  affinidi_tdk_vault_data_manager_client:
-    # path: ../affinidi-tdk-dart/clients/vault_data_manager_client
-    git:
-      url: https://github.com/affinidi/affinidi-tdk-dart/
-      path: clients/vault_data_manager_client
-      ref: 4bed8c273d3c588ba06e582e83fdc79b9c9e9514
-  affinidi_tdk_vault_edge_drift_provider:
-    # path: ../affinidi-tdk-dart/packages/vault_edge_drift_provider
-    git:
-      url: https://github.com/affinidi/affinidi-tdk-dart/
-      path: packages/vault_edge_drift_provider
-      ref: 4bed8c273d3c588ba06e582e83fdc79b9c9e9514
-  affinidi_tdk_vault_edge_provider: 
-    # path: ../affinidi-tdk-dart/packages/vault_edge_provider
-    git:
-      url: https://github.com/affinidi/affinidi-tdk-dart/
-      path: packages/vault_edge_provider
-      ref: 4bed8c273d3c588ba06e582e83fdc79b9c9e9514
-  affinidi_tdk_vault_flutter_utils:  
-    # path: ../affinidi-tdk-dart/packages/vault_flutter_utils
-    git:
-      url: https://github.com/affinidi/affinidi-tdk-dart/
-      path: packages/vault_flutter_utils
-      ref: 4bed8c273d3c588ba06e582e83fdc79b9c9e9514
-  clock: 1.1.1
 
 flutter:
   uses-material-design: true
