@@ -14,7 +14,7 @@ const _vaultSeedMapKey = 'vault_registry_map';
 @Riverpod(keepAlive: true)
 class VaultsManagerService extends _$VaultsManagerService {
   final _storage = const FlutterSecureStorage(
-    aOptions: AndroidOptions(encryptedSharedPreferences: true),
+    aOptions: AndroidOptions(),
   );
 
   @override

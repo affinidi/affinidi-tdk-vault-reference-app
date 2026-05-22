@@ -25,7 +25,6 @@ part 'vault_service.g.dart';
 class VaultService extends _$VaultService {
   VaultService() : super();
 
-  int _accountIndex = 0;
   static final Map<String, Database> _edgeDatabases = {};
 
   @override
@@ -85,9 +84,6 @@ class VaultService extends _$VaultService {
     final vaultsManagerService =
         ref.read(vaultsManagerServiceProvider.notifier);
     await vaultsManagerService.loadVaultAvailability();
-
-    final profiles = await vault.listProfiles();
-    _accountIndex = _getNextAccountIndex(profiles);
   }
 
   /// Opens an existing Vault using [vaultId] and [password].
@@ -123,15 +119,6 @@ class VaultService extends _$VaultService {
       currentVault: vault,
       currentVaultId: vaultEntry.vaultId,
     );
-
-    final profiles = await state.currentVault!.listProfiles();
-    _accountIndex = _getNextAccountIndex(profiles);
-    log('Set account index to: $_accountIndex', name: 'VaultService');
-
-    log('Current number of profiles: ${profiles.length}', name: 'VaultService');
-    for (final profile in profiles) {
-      log('Profile: ${profile.name} (${profile.did})', name: 'VaultService');
-    }
   }
 
   /// Resets the current vault session in memory.
@@ -316,17 +303,6 @@ class VaultService extends _$VaultService {
       profileId: profileId,
       granteeDid: granteeDid,
     );
-  }
-
-  int _getNextAccountIndex(List<Profile> profiles) {
-    if (profiles.isEmpty) {
-      return 0;
-    }
-    final highestIndex = profiles.fold(
-        0,
-        (previousValue, element) =>
-            math.max(previousValue, element.accountIndex));
-    return highestIndex + 1;
   }
 
   /// Checks if a vault already exists for the given base64 seed.

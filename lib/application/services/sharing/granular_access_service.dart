@@ -117,8 +117,7 @@ class GranularAccessService {
     required String profileId,
     required String nodeId,
   }) async {
-    final profiles = await vault.listProfiles();
-    final profile = profiles.firstWhere((p) => p.id == profileId);
+    final profile = await vault.getProfileById(profileId);
     final fileStorage = profile.defaultFileStorage;
     if (fileStorage == null) return null;
 
