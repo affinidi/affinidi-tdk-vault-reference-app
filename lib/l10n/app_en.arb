@@ -951,5 +951,13 @@
   "selectTimeLabel": "Select time",
   "accessRevokedMessage": "Access revoked successfully",
   "errorRevokingAccess": "Error revoking access",
-  "noSharedAccessesForNode": "No shared accesses for this file/folder."
+  "noSharedAccessesForNode": "No shared accesses for this file/folder.",
+  "consentHistoryTitle": "Consent History",
+  "@consentHistoryTitle": {
+    "type": "text"
+  },
+  "shareYourData": "Share your data",
+  "@shareYourData": {
+    "type": "text"
+  }
 }

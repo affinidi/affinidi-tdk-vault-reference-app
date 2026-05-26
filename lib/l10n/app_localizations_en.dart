@@ -916,4 +916,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noSharedAccessesForNode =>
       'No shared accesses for this file/folder.';
+
+  @override
+  String get consentHistoryTitle => 'Consent History';
+
+  @override
+  String get shareYourData => 'Share your data';
 }

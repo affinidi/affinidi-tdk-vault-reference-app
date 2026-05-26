@@ -1683,6 +1683,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No shared accesses for this file/folder.'**
   String get noSharedAccessesForNode;
+
+  /// No description provided for @consentHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Consent History'**
+  String get consentHistoryTitle;
+
+  /// No description provided for @shareYourData.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your data'**
+  String get shareYourData;
 }
 
 class _AppLocalizationsDelegate
