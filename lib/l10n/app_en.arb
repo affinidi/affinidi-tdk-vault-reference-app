@@ -959,5 +959,13 @@
   "shareYourData": "Share your data",
   "@shareYourData": {
     "type": "text"
+  },
+  "referenceApp": "Reference App",
+  "@referenceApp": {
+    "type": "text"
+  },
+  "unknownOrigin": "Unknown",
+  "@unknownOrigin": {
+    "type": "text"
   }
 }

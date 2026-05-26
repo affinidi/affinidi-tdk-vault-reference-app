@@ -922,4 +922,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shareYourData => 'Share your data';
+
+  @override
+  String get referenceApp => 'Reference App';
+
+  @override
+  String get unknownOrigin => 'Unknown';
 }

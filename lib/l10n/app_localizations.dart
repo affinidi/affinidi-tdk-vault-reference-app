@@ -1695,6 +1695,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Share your data'**
   String get shareYourData;
+
+  /// No description provided for @referenceApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference App'**
+  String get referenceApp;
+
+  /// No description provided for @unknownOrigin.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknownOrigin;
 }
 
 class _AppLocalizationsDelegate

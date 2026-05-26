@@ -75,7 +75,7 @@ class ProfilesPage extends HookConsumerWidget {
             icon: const Icon(Icons.share_rounded,
                 color: AppColorScheme.textPrimary),
             tooltip: 'Share credential (test)',
-            onPressed: () => navigation.go(ShareCredentialRoutePath.base),
+            onPressed: () => navigation.push(ShareCredentialRoutePath.base),
           ),
           CodeSnippetWidget(
             title: localizations.lblCSListVaultProfiles,
