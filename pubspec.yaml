@@ -7,11 +7,21 @@ environment:
   sdk: ^3.5.4
 dependencies:
   affinidi_tdk_claim_verifiable_credential: ^2.0.0
+  affinidi_tdk_cryptography: ^3.0.0
+  affinidi_tdk_iota_client: ^2.0.0
   affinidi_tdk_vault: ^3.0.0
   affinidi_tdk_vault_data_manager: ^3.0.0
   affinidi_tdk_vault_edge_drift_provider: ^3.0.0
   affinidi_tdk_vault_edge_provider: ^3.0.0
   affinidi_tdk_vault_flutter_utils: ^2.0.0
+  # TODO(release): replace git dependency with a published version pin
+  # before merging to main. Pinned to a PR commit during development of the
+  # share-flow feature against the in-repo TDK package.
+  affinidi_tdk_vault_iota:
+    git:
+      url: https://github.com/affinidi/affinidi-tdk-dart.git
+      ref: bae3b933a098ec48d84b553408f182b3a861a0c5
+      path: packages/vault_iota
   collection: ^1.19.0
   cross_file: ^0.3.4+2
   crypto: ^3.0.6
@@ -53,6 +63,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^28.2.12
   universal_html: ^2.2.4
   universal_io: ^2.2.2
+  url_launcher: ^6.3.2
   uuid: ^4.5.1
 
 dev_dependencies:
