@@ -92,6 +92,8 @@ class AppLocalizationsEn extends AppLocalizations {
         'missingProfileName': 'Please enter a valid profile name',
         'invalidUrl': 'Please enter a valid URL',
         'getCredentialFailed': 'Failed to get credential data',
+        'noShareableCredentials':
+            'This profile does not contain any credentials that match the data request.',
         'other': 'Something went wrong',
       },
     );
@@ -927,5 +929,72 @@ class AppLocalizationsEn extends AppLocalizations {
   String get referenceApp => 'Reference App';
 
   @override
+  String get clientInfoTitle => 'Info';
+
+  @override
+  String get domainVerifiedByAffinidi => 'Domain verified by Affinidi';
+
+  @override
   String get unknownOrigin => 'Unknown';
+
+  @override
+  String get vault => 'Vault';
+
+  @override
+  String get selectVault => 'Select vault';
+
+  @override
+  String get vaultPassphraseEnter => 'Enter passphrase';
+
+  @override
+  String get selectProfile => 'Select profile';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get vaultNoProfiles =>
+      'No profiles found for this vault. Create a profile or select a different vault.';
+
+  @override
+  String get shareSubmit => 'Share';
+
+  @override
+  String get shareReject => 'Cancel';
+
+  @override
+  String get shareSubmitResponse => 'Submit Response';
+
+  @override
+  String get shareRequestedCredentials => 'Requested credentials';
+
+  @override
+  String get consentHistoryEmpty => 'No consent history yet.';
+
+  @override
+  String get consentHistoryDetails => 'Consent Details';
+
+  @override
+  String get consentHistorySharedTypes => 'Shared credential types';
+
+  @override
+  String get consentHistoryNotAvailable => 'Not available';
+
+  @override
+  String get consentHistoryWebsiteLabel => 'WEBSITE';
+
+  @override
+  String get consentHistoryProfileLabel => 'PROFILE';
+
+  @override
+  String get consentHistoryDataSharedLabel => 'DATA SHARED';
+
+  @override
+  String get consentHistoryLastConsentedLabel => 'LAST CONSENTED';
+
+  @override
+  String get consentHistoryDidLabel => 'DID';
+
+  @override
+  String get consentHistoryRememberMyChoice => 'Remember my choice';
 }

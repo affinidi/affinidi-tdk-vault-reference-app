@@ -9,7 +9,9 @@ import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../navigation/flows/vaults/vaults_route_constants.dart';
+import '../../../navigation/flows/share_credential/share_credential_route_constants.dart';
 import '../../../navigation/navigation_provider.dart';
+import '../../../navigation/navigation_service.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
 import '../../themes/app_theme.dart';
@@ -56,6 +58,15 @@ class VaultsPage extends ConsumerWidget {
           ],
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.share_rounded,
+                color: AppColorScheme.textPrimary),
+            tooltip: 'Share credential',
+            onPressed: () => _showShareRequestDialog(
+              context,
+              ref.read(navigationServiceProvider),
+            ),
+          ),
           CodeSnippetWidget(
             title: localizations.lblCSListVaults,
             codeLocations: CodeSnippetLocations.listVaultsSnippets(context),
@@ -254,6 +265,78 @@ class _VaultCard extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showShareRequestDialog(
+  BuildContext context,
+  NavigationService navigation,
+) {
+  final textController = TextEditingController();
+
+  showDialog<void>(
+    context: context,
+    builder: (context) {
+      String? errorText;
+
+      void submit(StateSetter setState) {
+        final input = textController.text.trim();
+        if (input.isEmpty) return;
+
+        final uri = Uri.tryParse(input);
+        final requestJwt =
+            uri?.queryParameters[ShareCredentialRouteParams.request];
+        final clientId =
+            uri?.queryParameters[ShareCredentialRouteParams.clientId];
+
+        if (requestJwt == null || requestJwt.isEmpty) {
+          setState(() => errorText = 'No request JWT found in the URL.');
+          return;
+        }
+
+        Navigator.of(context).pop();
+        final path = Uri(
+          path: ShareCredentialRoutePath.base,
+          queryParameters: {
+            ShareCredentialRouteParams.request: requestJwt,
+            if (clientId != null && clientId.isNotEmpty)
+              ShareCredentialRouteParams.clientId: clientId,
+          },
+        ).toString();
+        navigation.push(path);
+      }
+
+      return StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          title: const Text('Share Credential'),
+          content: TextField(
+            controller: textController,
+            autofocus: true,
+            maxLines: 3,
+            decoration: InputDecoration(
+              hintText: 'Paste request URL',
+              errorText: errorText,
+              errorMaxLines: 2,
+            ),
+            onSubmitted: (_) => submit(setState),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => submit(setState),
+              child: const Text('Continue'),
+            ),
+          ],
+        ),
+      );
+    },
+  ).whenComplete(
+    () => WidgetsBinding.instance.addPostFrameCallback(
+      (_) => textController.dispose(),
+    ),
+  );
 }
 
 class SwipeToDeleteBackground extends StatelessWidget {

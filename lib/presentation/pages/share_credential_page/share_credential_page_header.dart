@@ -3,32 +3,44 @@ part of 'share_credential_page.dart';
 class _ShareFlowHeader extends StatelessWidget {
   const _ShareFlowHeader({
     required this.localizations,
-    this.requesterLogoUrl,
-    this.requesterOrigin,
+    this.verifierMetadata,
   });
 
-  final String? requesterLogoUrl;
-  final String? requesterOrigin;
+  final VerifierClientMetadata? verifierMetadata;
   final AppLocalizations localizations;
 
   static const double _logoSize = 48;
   static const double _lineWidth = 32;
   static const double _swapWidth = 20;
-  static const double _connectorSpanWidth = AppSizing.paddingSmall * 4 +
-      _lineWidth * 2 +
-      _swapWidth;
+  static const double _connectorSpanWidth =
+      AppSizing.paddingSmall * 4 + _lineWidth * 2 + _swapWidth;
   static const double _labelWidth = 120;
   static const double _labelConnectorSpanWidth =
       _connectorSpanWidth - (_labelWidth - _logoSize);
   static const String _connectorsAsset = 'assets/images/Logos - Connectors.svg';
   static const String _lineAsset = 'assets/images/line.svg';
-  static const String _swapAsset = 'assets/images/icon_swap-horiz.svg';
+  static const String _swapAsset = 'assets/icons/icon_swap-horiz.svg';
+
+  String _tooltipMessage() {
+    final origin = verifierMetadata?.origin;
+    final originText = (origin == null || origin.trim().isEmpty)
+        ? 'Origin: N/A'
+        : 'Origin: ${origin.trim()}';
+    final isDomainVerified = verifierMetadata?.domainVerified ?? false;
+    return isDomainVerified
+        ? '$originText\n${localizations.domainVerifiedByAffinidi}'
+        : originText;
+  }
 
   @override
   Widget build(BuildContext context) {
     final labelStyle = Theme.of(context).textTheme.labelSmall?.copyWith(
           color: AppColorScheme.textSecondary,
         );
+    final name = verifierMetadata?.name;
+    final labelText = (name == null || name.trim().isEmpty)
+        ? localizations.unknownOrigin
+        : name.trim();
 
     return Center(
       child: Column(
@@ -39,7 +51,7 @@ class _ShareFlowHeader extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _RequesterLogo(logoUrl: requesterLogoUrl, size: _logoSize),
+              _RequesterLogo(logoUrl: verifierMetadata?.logo, size: _logoSize),
               const SizedBox(width: AppSizing.paddingSmall),
               SvgPicture.asset(_lineAsset),
               const SizedBox(width: AppSizing.paddingSmall),
@@ -74,17 +86,30 @@ class _ShareFlowHeader extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        requesterOrigin ?? localizations.unknownOrigin,
+                        labelText,
                         style: labelStyle,
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    const SizedBox(width: 12),
-                    GestureDetector(
-                      // TODO: handle requester info tap
-                      onTap: () {},
+                    const SizedBox(width: 4),
+                    Tooltip(
+                      message: _tooltipMessage(),
+                      triggerMode: TooltipTriggerMode.tap,
+                      showDuration: const Duration(seconds: 4),
+                      waitDuration: Duration.zero,
+                      decoration: BoxDecoration(
+                        color: AppColorScheme.backgroundLight,
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(
+                          color: AppColorScheme.formFieldBorderUnfocused,
+                        ),
+                      ),
+                      textStyle:
+                          Theme.of(context).textTheme.labelSmall?.copyWith(
+                                color: AppColorScheme.textPrimary,
+                              ),
                       child: Icon(
                         Icons.info_outline,
                         size: 12,

@@ -69,7 +69,7 @@
       }
     }
   },
-  "errorMessage": "{errorType, select, credential_offer_expired{Credential offer is expired} credential_offer_claimed_error{Credential offer is already claimed} failed_to_load_credentialOffer{Failed to load credentials} invalid_proof{The proof in the Credential Request is invalid} unmatched_tx_code{Transaction code does not match} folderNotEmpty{We cannot delete this folder because it's not empty. Please delete the files and try again.} nameAlreadyInUse{This name is already in use. Please choose a different one.} invalidPassword{Invalid password} emptyPassword{Password cannot be empty} invalidTransferData{Invalid transfer data} emptyTransferData{Missing transfer data} missingProfileName{Please enter a valid profile name} invalidUrl{Please enter a valid URL} getCredentialFailed{Failed to get credential data}other{Something went wrong}}",
+  "errorMessage": "{errorType, select, credential_offer_expired{Credential offer is expired} credential_offer_claimed_error{Credential offer is already claimed} failed_to_load_credentialOffer{Failed to load credentials} invalid_proof{The proof in the Credential Request is invalid} unmatched_tx_code{Transaction code does not match} folderNotEmpty{We cannot delete this folder because it's not empty. Please delete the files and try again.} nameAlreadyInUse{This name is already in use. Please choose a different one.} invalidPassword{Invalid password} emptyPassword{Password cannot be empty} invalidTransferData{Invalid transfer data} emptyTransferData{Missing transfer data} missingProfileName{Please enter a valid profile name} invalidUrl{Please enter a valid URL} getCredentialFailed{Failed to get credential data} noShareableCredentials{This profile does not contain any credentials that match the data request.} other{Something went wrong}}",
   "@errorMessage": {
     "type": "text",
     "placeholders": {
@@ -964,8 +964,96 @@
   "@referenceApp": {
     "type": "text"
   },
+  "clientInfoTitle": "Info",
+  "@clientInfoTitle": {
+    "type": "text"
+  },
+  "domainVerifiedByAffinidi": "Domain verified by Affinidi",
+  "@domainVerifiedByAffinidi": {
+    "type": "text"
+  },
   "unknownOrigin": "Unknown",
   "@unknownOrigin": {
+    "type": "text"
+  },
+  "vault": "Vault",
+  "@vault": {
+    "type": "text"
+  },
+  "selectVault": "Select vault",
+  "@selectVault": {
+    "type": "text"
+  },
+  "vaultPassphraseEnter": "Enter passphrase",
+  "@vaultPassphraseEnter": {
+    "type": "text"
+  },
+  "selectProfile": "Select profile",
+  "@selectProfile": {
+    "type": "text"
+  },
+  "profile": "Profile",
+  "@profile": {
+    "type": "text"
+  },
+  "vaultNoProfiles": "No profiles found for this vault. Create a profile or select a different vault.",
+  "@vaultNoProfiles": {
+    "type": "text"
+  },
+  "shareSubmit": "Share",
+  "@shareSubmit": {
+    "type": "text"
+  },
+  "shareReject": "Cancel",
+  "@shareReject": {
+    "type": "text"
+  },
+  "shareSubmitResponse": "Submit Response",
+  "@shareSubmitResponse": {
+    "type": "text"
+  },
+  "shareRequestedCredentials": "Requested credentials",
+  "@shareRequestedCredentials": {
+    "type": "text"
+  },
+  "consentHistoryEmpty": "No consent history yet.",
+  "@consentHistoryEmpty": {
+    "type": "text"
+  },
+  "consentHistoryDetails": "Consent Details",
+  "@consentHistoryDetails": {
+    "type": "text"
+  },
+  "consentHistorySharedTypes": "Shared credential types",
+  "@consentHistorySharedTypes": {
+    "type": "text"
+  },
+  "consentHistoryNotAvailable": "Not available",
+  "@consentHistoryNotAvailable": {
+    "type": "text"
+  },
+  "consentHistoryWebsiteLabel": "WEBSITE",
+  "@consentHistoryWebsiteLabel": {
+    "type": "text"
+  },
+  "consentHistoryProfileLabel": "PROFILE",
+  "@consentHistoryProfileLabel": {
+    "type": "text"
+  },
+  "consentHistoryDataSharedLabel": "DATA SHARED",
+  "@consentHistoryDataSharedLabel": {
+    "type": "text"
+  },
+  "consentHistoryLastConsentedLabel": "LAST CONSENTED",
+  "@consentHistoryLastConsentedLabel": {
+    "type": "text"
+  },
+  "consentHistoryDidLabel": "DID",
+  "@consentHistoryDidLabel": {
+    "type": "text"
+  },
+  "consentHistoryRememberMyChoice": "Remember my choice",
+  "@consentHistoryRememberMyChoice": {
     "type": "text"
   }
 }

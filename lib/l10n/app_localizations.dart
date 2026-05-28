@@ -193,7 +193,7 @@ abstract class AppLocalizations {
   /// No description provided for @errorMessage.
   ///
   /// In en, this message translates to:
-  /// **'{errorType, select, credential_offer_expired{Credential offer is expired} credential_offer_claimed_error{Credential offer is already claimed} failed_to_load_credentialOffer{Failed to load credentials} invalid_proof{The proof in the Credential Request is invalid} unmatched_tx_code{Transaction code does not match} folderNotEmpty{We cannot delete this folder because it\'s not empty. Please delete the files and try again.} nameAlreadyInUse{This name is already in use. Please choose a different one.} invalidPassword{Invalid password} emptyPassword{Password cannot be empty} invalidTransferData{Invalid transfer data} emptyTransferData{Missing transfer data} missingProfileName{Please enter a valid profile name} invalidUrl{Please enter a valid URL} getCredentialFailed{Failed to get credential data}other{Something went wrong}}'**
+  /// **'{errorType, select, credential_offer_expired{Credential offer is expired} credential_offer_claimed_error{Credential offer is already claimed} failed_to_load_credentialOffer{Failed to load credentials} invalid_proof{The proof in the Credential Request is invalid} unmatched_tx_code{Transaction code does not match} folderNotEmpty{We cannot delete this folder because it\'s not empty. Please delete the files and try again.} nameAlreadyInUse{This name is already in use. Please choose a different one.} invalidPassword{Invalid password} emptyPassword{Password cannot be empty} invalidTransferData{Invalid transfer data} emptyTransferData{Missing transfer data} missingProfileName{Please enter a valid profile name} invalidUrl{Please enter a valid URL} getCredentialFailed{Failed to get credential data} noShareableCredentials{This profile does not contain any credentials that match the data request.} other{Something went wrong}}'**
   String errorMessage(String errorType);
 
   /// No description provided for @createFolderActionText.
@@ -1702,11 +1702,143 @@ abstract class AppLocalizations {
   /// **'Reference App'**
   String get referenceApp;
 
+  /// No description provided for @clientInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Info'**
+  String get clientInfoTitle;
+
+  /// No description provided for @domainVerifiedByAffinidi.
+  ///
+  /// In en, this message translates to:
+  /// **'Domain verified by Affinidi'**
+  String get domainVerifiedByAffinidi;
+
   /// No description provided for @unknownOrigin.
   ///
   /// In en, this message translates to:
   /// **'Unknown'**
   String get unknownOrigin;
+
+  /// No description provided for @vault.
+  ///
+  /// In en, this message translates to:
+  /// **'Vault'**
+  String get vault;
+
+  /// No description provided for @selectVault.
+  ///
+  /// In en, this message translates to:
+  /// **'Select vault'**
+  String get selectVault;
+
+  /// No description provided for @vaultPassphraseEnter.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter passphrase'**
+  String get vaultPassphraseEnter;
+
+  /// No description provided for @selectProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Select profile'**
+  String get selectProfile;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @vaultNoProfiles.
+  ///
+  /// In en, this message translates to:
+  /// **'No profiles found for this vault. Create a profile or select a different vault.'**
+  String get vaultNoProfiles;
+
+  /// No description provided for @shareSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get shareSubmit;
+
+  /// No description provided for @shareReject.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get shareReject;
+
+  /// No description provided for @shareSubmitResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Response'**
+  String get shareSubmitResponse;
+
+  /// No description provided for @shareRequestedCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Requested credentials'**
+  String get shareRequestedCredentials;
+
+  /// No description provided for @consentHistoryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No consent history yet.'**
+  String get consentHistoryEmpty;
+
+  /// No description provided for @consentHistoryDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Consent Details'**
+  String get consentHistoryDetails;
+
+  /// No description provided for @consentHistorySharedTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared credential types'**
+  String get consentHistorySharedTypes;
+
+  /// No description provided for @consentHistoryNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available'**
+  String get consentHistoryNotAvailable;
+
+  /// No description provided for @consentHistoryWebsiteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'WEBSITE'**
+  String get consentHistoryWebsiteLabel;
+
+  /// No description provided for @consentHistoryProfileLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PROFILE'**
+  String get consentHistoryProfileLabel;
+
+  /// No description provided for @consentHistoryDataSharedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'DATA SHARED'**
+  String get consentHistoryDataSharedLabel;
+
+  /// No description provided for @consentHistoryLastConsentedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'LAST CONSENTED'**
+  String get consentHistoryLastConsentedLabel;
+
+  /// No description provided for @consentHistoryDidLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'DID'**
+  String get consentHistoryDidLabel;
+
+  /// No description provided for @consentHistoryRememberMyChoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember my choice'**
+  String get consentHistoryRememberMyChoice;
 }
 
 class _AppLocalizationsDelegate

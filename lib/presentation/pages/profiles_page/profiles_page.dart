@@ -11,7 +11,6 @@ import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../navigation/flows/profiles/profiles_route_constants.dart';
-import '../../../navigation/flows/share_credential/share_credential_route_constants.dart';
 import '../../../navigation/flows/vaults/vaults_route_constants.dart';
 import '../../../navigation/navigation_provider.dart';
 import '../../../navigation/navigation_service.dart';
@@ -70,13 +69,6 @@ class ProfilesPage extends HookConsumerWidget {
           navigation.go(VaultsRoutePath.base);
         },
         actions: [
-          // TODO: Remove this button after the share credential flow is fully implemented.
-          IconButton(
-            icon: const Icon(Icons.share_rounded,
-                color: AppColorScheme.textPrimary),
-            tooltip: 'Share credential (test)',
-            onPressed: () => navigation.push(ShareCredentialRoutePath.base),
-          ),
           CodeSnippetWidget(
             title: localizations.lblCSListVaultProfiles,
             codeLocations:
