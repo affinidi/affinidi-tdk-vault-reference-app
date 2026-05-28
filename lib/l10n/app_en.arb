@@ -1055,5 +1055,25 @@
   "consentHistoryRememberMyChoice": "Remember my choice",
   "@consentHistoryRememberMyChoice": {
     "type": "text"
+  },
+  "automaticallyAllowConsent": "Allow consent automatically next time",
+  "@automaticallyAllowConsent": {
+    "type": "text"
+  },
+  "shareCredentialDialogTitle": "Share Credential",
+  "@shareCredentialDialogTitle": {
+    "type": "text"
+  },
+  "shareCredentialDialogHint": "Paste request URL",
+  "@shareCredentialDialogHint": {
+    "type": "text"
+  },
+  "shareCredentialDialogError": "No request JWT found in the URL.",
+  "@shareCredentialDialogError": {
+    "type": "text"
+  },
+  "continueActionText": "Continue",
+  "@continueActionText": {
+    "type": "text"
   }
 }

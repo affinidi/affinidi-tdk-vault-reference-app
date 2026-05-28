@@ -32,6 +32,8 @@ class ShareCredentialPageState with _$ShareCredentialPageState {
     VerifierClientMetadata? verifierMetadata,
     // Credential selection and submission state.
     @Default(<String>{}) Set<String> selectedCredentialIds,
+    @Default(false) bool autoAllowConsent,
+    @Default(false) bool isConsentManagementEnabled,
     @Default(false) bool isSubmitting,
     String? submitError,
   }) = _ShareCredentialPageState;

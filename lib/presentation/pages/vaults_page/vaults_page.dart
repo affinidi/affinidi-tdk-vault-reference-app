@@ -61,7 +61,7 @@ class VaultsPage extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.share_rounded,
                 color: AppColorScheme.textPrimary),
-            tooltip: 'Share credential',
+            tooltip: localizations.shareCredentialDialogTitle,
             onPressed: () => _showShareRequestDialog(
               context,
               ref.read(navigationServiceProvider),
@@ -271,6 +271,7 @@ void _showShareRequestDialog(
   BuildContext context,
   NavigationService navigation,
 ) {
+  final localizations = AppLocalizations.of(context)!;
   final textController = TextEditingController();
 
   showDialog<void>(
@@ -289,7 +290,7 @@ void _showShareRequestDialog(
             uri?.queryParameters[ShareCredentialRouteParams.clientId];
 
         if (requestJwt == null || requestJwt.isEmpty) {
-          setState(() => errorText = 'No request JWT found in the URL.');
+          setState(() => errorText = localizations.shareCredentialDialogError);
           return;
         }
 
@@ -307,13 +308,13 @@ void _showShareRequestDialog(
 
       return StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          title: const Text('Share Credential'),
+          title: Text(localizations.shareCredentialDialogTitle),
           content: TextField(
             controller: textController,
             autofocus: true,
             maxLines: 3,
             decoration: InputDecoration(
-              hintText: 'Paste request URL',
+              hintText: localizations.shareCredentialDialogHint,
               errorText: errorText,
               errorMaxLines: 2,
             ),
@@ -322,11 +323,11 @@ void _showShareRequestDialog(
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              child: Text(localizations.cancelActionText),
             ),
             TextButton(
               onPressed: () => submit(setState),
-              child: const Text('Continue'),
+              child: Text(localizations.continueActionText),
             ),
           ],
         ),

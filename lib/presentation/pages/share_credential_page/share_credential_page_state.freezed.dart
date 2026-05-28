@@ -40,6 +40,8 @@ mixin _$ShareCredentialPageState {
   VerifierClientMetadata? get verifierMetadata =>
       throw _privateConstructorUsedError; // Credential selection and submission state.
   Set<String> get selectedCredentialIds => throw _privateConstructorUsedError;
+  bool get autoAllowConsent => throw _privateConstructorUsedError;
+  bool get isConsentManagementEnabled => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   String? get submitError => throw _privateConstructorUsedError;
 
@@ -72,6 +74,8 @@ abstract class $ShareCredentialPageStateCopyWith<$Res> {
       String? requestError,
       VerifierClientMetadata? verifierMetadata,
       Set<String> selectedCredentialIds,
+      bool autoAllowConsent,
+      bool isConsentManagementEnabled,
       bool isSubmitting,
       String? submitError});
 }
@@ -107,6 +111,8 @@ class _$ShareCredentialPageStateCopyWithImpl<$Res,
     Object? requestError = freezed,
     Object? verifierMetadata = freezed,
     Object? selectedCredentialIds = null,
+    Object? autoAllowConsent = null,
+    Object? isConsentManagementEnabled = null,
     Object? isSubmitting = null,
     Object? submitError = freezed,
   }) {
@@ -171,6 +177,14 @@ class _$ShareCredentialPageStateCopyWithImpl<$Res,
           ? _value.selectedCredentialIds
           : selectedCredentialIds // ignore: cast_nullable_to_non_nullable
               as Set<String>,
+      autoAllowConsent: null == autoAllowConsent
+          ? _value.autoAllowConsent
+          : autoAllowConsent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isConsentManagementEnabled: null == isConsentManagementEnabled
+          ? _value.isConsentManagementEnabled
+          : isConsentManagementEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -208,6 +222,8 @@ abstract class _$$ShareCredentialPageStateImplCopyWith<$Res>
       String? requestError,
       VerifierClientMetadata? verifierMetadata,
       Set<String> selectedCredentialIds,
+      bool autoAllowConsent,
+      bool isConsentManagementEnabled,
       bool isSubmitting,
       String? submitError});
 }
@@ -242,6 +258,8 @@ class __$$ShareCredentialPageStateImplCopyWithImpl<$Res>
     Object? requestError = freezed,
     Object? verifierMetadata = freezed,
     Object? selectedCredentialIds = null,
+    Object? autoAllowConsent = null,
+    Object? isConsentManagementEnabled = null,
     Object? isSubmitting = null,
     Object? submitError = freezed,
   }) {
@@ -306,6 +324,14 @@ class __$$ShareCredentialPageStateImplCopyWithImpl<$Res>
           ? _value._selectedCredentialIds
           : selectedCredentialIds // ignore: cast_nullable_to_non_nullable
               as Set<String>,
+      autoAllowConsent: null == autoAllowConsent
+          ? _value.autoAllowConsent
+          : autoAllowConsent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isConsentManagementEnabled: null == isConsentManagementEnabled
+          ? _value.isConsentManagementEnabled
+          : isConsentManagementEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -337,6 +363,8 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
       this.requestError,
       this.verifierMetadata,
       final Set<String> selectedCredentialIds = const <String>{},
+      this.autoAllowConsent = false,
+      this.isConsentManagementEnabled = false,
       this.isSubmitting = false,
       this.submitError})
       : _vaultRegistry = vaultRegistry,
@@ -410,13 +438,19 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
 
   @override
   @JsonKey()
+  final bool autoAllowConsent;
+  @override
+  @JsonKey()
+  final bool isConsentManagementEnabled;
+  @override
+  @JsonKey()
   final bool isSubmitting;
   @override
   final String? submitError;
 
   @override
   String toString() {
-    return 'ShareCredentialPageState(requestJwt: $requestJwt, clientId: $clientId, vaultRegistry: $vaultRegistry, selectedVaultId: $selectedVaultId, isVerifyingPassphrase: $isVerifyingPassphrase, passphraseError: $passphraseError, profiles: $profiles, selectedProfileId: $selectedProfileId, shareRequest: $shareRequest, isMatchingCredentials: $isMatchingCredentials, matchResult: $matchResult, matchError: $matchError, requestError: $requestError, verifierMetadata: $verifierMetadata, selectedCredentialIds: $selectedCredentialIds, isSubmitting: $isSubmitting, submitError: $submitError)';
+    return 'ShareCredentialPageState(requestJwt: $requestJwt, clientId: $clientId, vaultRegistry: $vaultRegistry, selectedVaultId: $selectedVaultId, isVerifyingPassphrase: $isVerifyingPassphrase, passphraseError: $passphraseError, profiles: $profiles, selectedProfileId: $selectedProfileId, shareRequest: $shareRequest, isMatchingCredentials: $isMatchingCredentials, matchResult: $matchResult, matchError: $matchError, requestError: $requestError, verifierMetadata: $verifierMetadata, selectedCredentialIds: $selectedCredentialIds, autoAllowConsent: $autoAllowConsent, isConsentManagementEnabled: $isConsentManagementEnabled, isSubmitting: $isSubmitting, submitError: $submitError)';
   }
 
   @override
@@ -453,6 +487,12 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
                 other.verifierMetadata == verifierMetadata) &&
             const DeepCollectionEquality()
                 .equals(other._selectedCredentialIds, _selectedCredentialIds) &&
+            (identical(other.autoAllowConsent, autoAllowConsent) ||
+                other.autoAllowConsent == autoAllowConsent) &&
+            (identical(other.isConsentManagementEnabled,
+                    isConsentManagementEnabled) ||
+                other.isConsentManagementEnabled ==
+                    isConsentManagementEnabled) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
             (identical(other.submitError, submitError) ||
@@ -460,25 +500,28 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      requestJwt,
-      clientId,
-      const DeepCollectionEquality().hash(_vaultRegistry),
-      selectedVaultId,
-      isVerifyingPassphrase,
-      passphraseError,
-      const DeepCollectionEquality().hash(_profiles),
-      selectedProfileId,
-      shareRequest,
-      isMatchingCredentials,
-      matchResult,
-      matchError,
-      requestError,
-      verifierMetadata,
-      const DeepCollectionEquality().hash(_selectedCredentialIds),
-      isSubmitting,
-      submitError);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        requestJwt,
+        clientId,
+        const DeepCollectionEquality().hash(_vaultRegistry),
+        selectedVaultId,
+        isVerifyingPassphrase,
+        passphraseError,
+        const DeepCollectionEquality().hash(_profiles),
+        selectedProfileId,
+        shareRequest,
+        isMatchingCredentials,
+        matchResult,
+        matchError,
+        requestError,
+        verifierMetadata,
+        const DeepCollectionEquality().hash(_selectedCredentialIds),
+        autoAllowConsent,
+        isConsentManagementEnabled,
+        isSubmitting,
+        submitError
+      ]);
 
   /// Create a copy of ShareCredentialPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -507,6 +550,8 @@ abstract class _ShareCredentialPageState implements ShareCredentialPageState {
       final String? requestError,
       final VerifierClientMetadata? verifierMetadata,
       final Set<String> selectedCredentialIds,
+      final bool autoAllowConsent,
+      final bool isConsentManagementEnabled,
       final bool isSubmitting,
       final String? submitError}) = _$ShareCredentialPageStateImpl;
 
@@ -548,6 +593,10 @@ abstract class _ShareCredentialPageState implements ShareCredentialPageState {
       get verifierMetadata; // Credential selection and submission state.
   @override
   Set<String> get selectedCredentialIds;
+  @override
+  bool get autoAllowConsent;
+  @override
+  bool get isConsentManagementEnabled;
   @override
   bool get isSubmitting;
   @override

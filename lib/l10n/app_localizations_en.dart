@@ -997,4 +997,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get consentHistoryRememberMyChoice => 'Remember my choice';
+
+  @override
+  String get automaticallyAllowConsent =>
+      'Allow consent automatically next time';
+
+  @override
+  String get shareCredentialDialogTitle => 'Share Credential';
+
+  @override
+  String get shareCredentialDialogHint => 'Paste request URL';
+
+  @override
+  String get shareCredentialDialogError => 'No request JWT found in the URL.';
+
+  @override
+  String get continueActionText => 'Continue';
 }

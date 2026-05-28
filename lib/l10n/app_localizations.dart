@@ -1839,6 +1839,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remember my choice'**
   String get consentHistoryRememberMyChoice;
+
+  /// No description provided for @automaticallyAllowConsent.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow consent automatically next time'**
+  String get automaticallyAllowConsent;
+
+  /// No description provided for @shareCredentialDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Credential'**
+  String get shareCredentialDialogTitle;
+
+  /// No description provided for @shareCredentialDialogHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste request URL'**
+  String get shareCredentialDialogHint;
+
+  /// No description provided for @shareCredentialDialogError.
+  ///
+  /// In en, this message translates to:
+  /// **'No request JWT found in the URL.'**
+  String get shareCredentialDialogError;
+
+  /// No description provided for @continueActionText.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueActionText;
 }
 
 class _AppLocalizationsDelegate

@@ -1,13 +1,14 @@
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../l10n/app_localizations.dart';
+import 'consent_history_page_controller.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
 import '../../widgets/bottom_sheet_dialog.dart';
 
-class ConsentHistoryDetailsSheet extends StatefulWidget {
+class ConsentHistoryDetailsSheet extends ConsumerWidget {
   const ConsentHistoryDetailsSheet({super.key, required this.record});
 
   final IotaConsentRecord record;
@@ -35,7 +36,7 @@ class ConsentHistoryDetailsSheet extends StatefulWidget {
             child: SizedBox.expand(
               child: BottomSheetDialog(
                 title: localizations.consentHistoryDetails,
-                actions: [],
+                actions: const [],
                 onCancel: () => Navigator.of(sheetContext, rootNavigator: true)
                     .maybePop(),
                 body: ConsentHistoryDetailsSheet(record: record),
@@ -48,35 +49,25 @@ class ConsentHistoryDetailsSheet extends StatefulWidget {
   }
 
   @override
-  State<ConsentHistoryDetailsSheet> createState() =>
-      _ConsentHistoryDetailsSheetState();
-}
-
-class _ConsentHistoryDetailsSheetState extends State<ConsentHistoryDetailsSheet> {
-  late bool _rememberChoice;
-
-  @override
-  void initState() {
-    super.initState();
-    _rememberChoice = widget.record.isAutoShareEnabled;
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
+    final na = localizations.consentHistoryNotAvailable;
     final theme = Theme.of(context);
-    final origin = _nullableText(
-      widget.record.siteUrl,
-      localizations.consentHistoryNotAvailable,
+    final origin = ConsentHistoryPageController.formatDisplayText(record.siteUrl, na);
+    final profile = ConsentHistoryPageController.formatDisplayText(record.profileName, na);
+    final dataShared = ConsentHistoryPageController.formatDataShared(record, na);
+    final dateFormatted = ConsentHistoryPageController.formatDate(record.sharedAt, na);
+    final did = ConsentHistoryPageController.formatDid(record, na);
+    final isAutoShareEnabled = ref.watch(
+      consentHistoryPageControllerProvider.select(
+        (state) => state.records
+            .firstWhere(
+              (storedRecord) => storedRecord.hash == record.hash,
+              orElse: () => record,
+            )
+            .isAutoShareEnabled,
+      ),
     );
-    final profile = _nullableText(
-      widget.record.profileName,
-      localizations.consentHistoryNotAvailable,
-    );
-    final dataShared = _resolveDataShared(localizations.consentHistoryNotAvailable);
-    final dateFormatted =
-        _formatDate(widget.record.sharedAt, localizations.consentHistoryNotAvailable);
-    final did = _resolveDid(localizations.consentHistoryNotAvailable);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +97,7 @@ class _ConsentHistoryDetailsSheetState extends State<ConsentHistoryDetailsSheet>
           value: did,
           theme: theme,
         ),
-        if (!widget.record.isConsentManagementEnabled) ...[
+        if (!record.isConsentManagementEnabled) ...[
           const SizedBox(height: AppSizing.paddingSmall),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,12 +107,12 @@ class _ConsentHistoryDetailsSheetState extends State<ConsentHistoryDetailsSheet>
                 child: Checkbox(
                   visualDensity: VisualDensity.comfortable,
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  value: _rememberChoice,
+                  value: isAutoShareEnabled,
                   onChanged: (value) {
                     if (value == null) return;
-                    setState(() {
-                      _rememberChoice = value;
-                    });
+                    ref
+                        .read(consentHistoryPageControllerProvider.notifier)
+                        .setAutoShareEnabled(record.hash, value);
                   },
                 ),
               ),
@@ -139,52 +130,6 @@ class _ConsentHistoryDetailsSheetState extends State<ConsentHistoryDetailsSheet>
         ],
       ],
     );
-  }
-
-  String _nullableText(String? value, String notAvailable) {
-    if (value == null || value.trim().isEmpty) return notAvailable;
-    return value.trim();
-  }
-
-  String _resolveDataShared(String notAvailable) {
-    final data = widget.record.historySharedData;
-    if (data.isEmpty) return notAvailable;
-
-    final values = data.entries
-        .map((entry) {
-          final key = entry.key.trim();
-          final value = entry.value.trim();
-          if (key.isEmpty && value.isEmpty) return '';
-          if (key.isEmpty) return value;
-          if (value.isEmpty) return key;
-          return '$key: $value';
-        })
-        .where((entry) => entry.isNotEmpty)
-        .toList();
-
-    if (values.isEmpty) return notAvailable;
-    return values.join('\n');
-  }
-
-  String _resolveDid(String notAvailable) {
-    final data = widget.record.historySharedData;
-    for (final entry in data.entries) {
-      final key = entry.key.toLowerCase();
-      final value = entry.value.trim();
-      if (key.contains('did') && value.isNotEmpty) return value;
-      if (value.startsWith('did:')) return value;
-    }
-    return notAvailable;
-  }
-
-  String _formatDate(String isoDate, String notAvailable) {
-    if (isoDate.isEmpty) return notAvailable;
-    try {
-      final dt = DateTime.parse(isoDate).toLocal();
-      return DateFormat('MMM d, yyyy HH:mm').format(dt);
-    } catch (_) {
-      return notAvailable;
-    }
   }
 }
 
