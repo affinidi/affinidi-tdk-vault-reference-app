@@ -203,12 +203,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       var autoAllowConsent = false;
       var isConsentManagementEnabled = false;
       try {
-        final requestHash = ref
-            .read(iotaConsentRecordServiceProvider)
-            .computeRequestHash(
-              clientId: result.request.clientId,
-              presentationDefinition: result.presentationDefinition,
-            );
+        final requestHash =
+            ref.read(iotaConsentRecordServiceProvider).computeRequestHash(
+                  clientId: result.request.clientId,
+                  presentationDefinition: result.presentationDefinition,
+                );
         final existingRecord = await ref
             .read(consentRecordStoreProvider)
             .findByRequestHash(requestHash);
@@ -503,7 +502,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     final autoConsentResult = await consentService.tryAutomaticConsent(
       requestHash: requestHash,
       clientId: shareRequest.request.clientId,
-      verifierMetadata: state.verifierMetadata ?? const VerifierClientMetadata(),
+      verifierMetadata:
+          state.verifierMetadata ?? const VerifierClientMetadata(),
       profileId: profileId,
       vaultId: vaultId,
       availableVcs: allVcs,
@@ -513,9 +513,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       return false;
     }
 
-    final autoSelectedIds = autoConsentResult.vcsToShare
-        .map((vc) => vc.id.toString())
-        .toSet();
+    final autoSelectedIds =
+        autoConsentResult.vcsToShare.map((vc) => vc.id.toString()).toSet();
     final availableNow = _currentlyAvailableVcIds(matchResult);
     final allStillAvailable = autoSelectedIds.every(availableNow.contains);
 

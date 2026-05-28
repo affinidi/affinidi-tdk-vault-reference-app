@@ -35,7 +35,8 @@ class ConsentHistoryPage extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.error_outline, color: AppColorScheme.error, size: AppSizing.iconXLarge),
+              const Icon(Icons.error_outline,
+                  color: AppColorScheme.error, size: AppSizing.iconXLarge),
               const SizedBox(height: AppSizing.paddingMedium),
               Text(
                 error,

@@ -30,7 +30,8 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
       final filtered = allRecords
           .where((record) => profileIds.contains(record.profileId))
           .toList()
-        ..sort((recordA, recordB) => recordB.sharedAt.compareTo(recordA.sharedAt));
+        ..sort(
+            (recordA, recordB) => recordB.sharedAt.compareTo(recordA.sharedAt));
       state = state.copyWith(records: filtered, isLoading: false);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -107,4 +108,3 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
     }
   }
 }
-

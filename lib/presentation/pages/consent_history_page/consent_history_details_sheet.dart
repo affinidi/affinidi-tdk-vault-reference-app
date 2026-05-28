@@ -37,8 +37,8 @@ class ConsentHistoryDetailsSheet extends ConsumerWidget {
               child: BottomSheetDialog(
                 title: localizations.consentHistoryDetails,
                 actions: const [],
-                onCancel: () => Navigator.of(sheetContext, rootNavigator: true)
-                    .maybePop(),
+                onCancel: () =>
+                    Navigator.of(sheetContext, rootNavigator: true).maybePop(),
                 body: ConsentHistoryDetailsSheet(record: record),
               ),
             ),
@@ -53,10 +53,14 @@ class ConsentHistoryDetailsSheet extends ConsumerWidget {
     final localizations = AppLocalizations.of(context)!;
     final na = localizations.consentHistoryNotAvailable;
     final theme = Theme.of(context);
-    final origin = ConsentHistoryPageController.formatDisplayText(record.siteUrl, na);
-    final profile = ConsentHistoryPageController.formatDisplayText(record.profileName, na);
-    final dataShared = ConsentHistoryPageController.formatDataShared(record, na);
-    final dateFormatted = ConsentHistoryPageController.formatDate(record.sharedAt, na);
+    final origin =
+        ConsentHistoryPageController.formatDisplayText(record.siteUrl, na);
+    final profile =
+        ConsentHistoryPageController.formatDisplayText(record.profileName, na);
+    final dataShared =
+        ConsentHistoryPageController.formatDataShared(record, na);
+    final dateFormatted =
+        ConsentHistoryPageController.formatDate(record.sharedAt, na);
     final did = ConsentHistoryPageController.formatDid(record, na);
     final isAutoShareEnabled = ref.watch(
       consentHistoryPageControllerProvider.select(
