@@ -26,49 +26,10 @@ final iotaShareFlowServiceProvider =
 // ignore: unused_element
 typedef IotaShareFlowServiceRef
     = AutoDisposeProviderRef<ShareFlowServiceInterface>;
-String _$iotaPdClassifierHash() => r'431dbd9cf5b1bddee64a0f5c991d9c96fdd447db';
-
-/// See also [iotaPdClassifier].
-@ProviderFor(iotaPdClassifier)
-final iotaPdClassifierProvider = AutoDisposeProvider<PDClassifier>.internal(
-  iotaPdClassifier,
-  name: r'iotaPdClassifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$iotaPdClassifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef IotaPdClassifierRef = AutoDisposeProviderRef<PDClassifier>;
-String _$iotaShareRequirementsMatcherHash() =>
-    r'0c852a6adcb138ff5d7102937c836e28ef3740fd';
-
-/// See also [iotaShareRequirementsMatcher].
-@ProviderFor(iotaShareRequirementsMatcher)
-final iotaShareRequirementsMatcherProvider =
-    AutoDisposeProvider<ShareRequirementsMatcher>.internal(
-  iotaShareRequirementsMatcher,
-  name: r'iotaShareRequirementsMatcherProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$iotaShareRequirementsMatcherHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef IotaShareRequirementsMatcherRef
-    = AutoDisposeProviderRef<ShareRequirementsMatcher>;
 String _$iotaCredentialMatcherServiceHash() =>
     r'ce94e247b22c4d05fa6bc420ed1efb00c97a93e1';
 
-/// Unified credential matcher that routes PEX and DCQL requests internally.
-///
-/// Copied from [iotaCredentialMatcherService].
+/// See also [iotaCredentialMatcherService].
 @ProviderFor(iotaCredentialMatcherService)
 final iotaCredentialMatcherServiceProvider =
     AutoDisposeProvider<CredentialMatcherServiceInterface>.internal(
