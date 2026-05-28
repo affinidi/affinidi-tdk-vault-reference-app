@@ -37,4 +37,10 @@ class AppConfig {
     'AFFINIDI_API_BASE_URL',
     defaultValue: 'https://apse1.api.affinidi.io',
   );
+
+  // Trusted OID4VP verifier hostnames.
+  // Add more hostnames here to allow VP submission to additional endpoints.
+  static const List<String> trustedVerifiers = [
+    'apse1.dev.api.affinidi.io',
+  ];
 }

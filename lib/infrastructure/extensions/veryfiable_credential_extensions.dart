@@ -1,6 +1,8 @@
-import 'package:affinidi_tdk_claim_verifiable_credential/oid4vci_claim_verifiable_credential.dart';
+import 'dart:convert';
+
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
+import 'package:ssi/ssi.dart';
 
 extension VerifiableCredentialExtensions on VerifiableCredential {
   String? get displayName => type.firstWhereOrNull((item) => ![
