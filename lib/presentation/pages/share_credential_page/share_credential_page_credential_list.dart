@@ -58,7 +58,8 @@ class _MatchedCredentialList extends ConsumerWidget {
         ] else if (matchedVCs != null && matchedVCs.isNotEmpty) ...[
           const SizedBox(height: 36),
           ...matchResult!.vcsGroups.entries
-              .where((groupEntry) => groupEntry.value.allAvailableVCs.isNotEmpty)
+              .where(
+                  (groupEntry) => groupEntry.value.allAvailableVCs.isNotEmpty)
               .map((entry) {
             final descriptor = entry.key;
             final group = entry.value;
@@ -67,7 +68,8 @@ class _MatchedCredentialList extends ConsumerWidget {
                 .toList(growable: false);
 
             final selected = group.allAvailableVCs.firstWhere(
-              (vcItem) => selectedCredentialIds.contains(vcItem.vc.id.toString()),
+              (vcItem) =>
+                  selectedCredentialIds.contains(vcItem.vc.id.toString()),
               orElse: () => group.allAvailableVCs.first,
             );
 

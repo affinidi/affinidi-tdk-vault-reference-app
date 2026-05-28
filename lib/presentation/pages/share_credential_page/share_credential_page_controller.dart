@@ -282,8 +282,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       }
 
       final listResult = await storage.listCredentials(limit: 100);
-      final allVCs =
-          listResult.items.map((credential) => credential.verifiableCredential).toList();
+      final allVCs = listResult.items
+          .map((credential) => credential.verifiableCredential)
+          .toList();
 
       final classifier = ref.read(iotaPdClassifierProvider);
       final requirements =
