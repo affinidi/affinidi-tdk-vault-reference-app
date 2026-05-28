@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart'; // Added for GoRouterState
+import 'package:go_router/go_router.dart';
 import '../../../application/services/vault/vault_service.dart';
 
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
@@ -23,6 +23,8 @@ import 'vaults_page_controller.dart';
 class VaultsPage extends ConsumerWidget {
   const VaultsPage({super.key});
   static String get routePath => '/vaults';
+
+  static const double _fabWidth = 140.0;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -147,26 +149,36 @@ class VaultsPage extends ConsumerWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          if (!context.mounted) return;
-          context.push(VaultsRoutePath.create);
-        },
-        backgroundColor: theme.colorScheme.primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
-        ),
-        elevation: 8,
-        highlightElevation: 12,
-        extendedPadding: const EdgeInsets.symmetric(
-            horizontal: AppSizing.paddingMedium,
-            vertical: AppSizing.paddingMedium),
-        label: Text(
-          localizations.addVault,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: AppColorScheme.backgroundBlack,
-                fontWeight: FontWeight.bold,
+      floatingActionButton: SizedBox(
+        width: _fabWidth,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            FloatingActionButton.extended(
+              heroTag: 'createVaultFab',
+              onPressed: () {
+                if (!context.mounted) return;
+                context.push(VaultsRoutePath.create);
+              },
+              backgroundColor: theme.colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
               ),
+              elevation: 8,
+              highlightElevation: 12,
+              extendedPadding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingMedium,
+                  vertical: AppSizing.paddingMedium),
+              label: Text(
+                localizations.addVault,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: AppColorScheme.backgroundBlack,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
         ),
       ),
     );

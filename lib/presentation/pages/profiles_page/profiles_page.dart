@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -10,6 +11,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../../navigation/flows/profiles/profiles_route_constants.dart';
 import '../../../navigation/flows/vaults/vaults_route_constants.dart';
 import '../../../navigation/navigation_provider.dart';
+import '../../../navigation/navigation_service.dart';
 import '../../dialogs/create_profile_form/create_profile_form.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
@@ -19,6 +21,7 @@ import '../../widgets/tdk_app_bar.dart';
 import '../../widgets/code_snippet/code_snippet_widget.dart';
 import '../../widgets/code_snippet/code_snippet_locations.dart';
 import '../../widgets/simple_info_widget.dart';
+import '../../widgets/bottom_sheet_dialog.dart';
 
 import 'profiles_page_controller.dart';
 import 'widgets/profile_card.dart';
@@ -67,23 +70,59 @@ class ProfilesPage extends ConsumerWidget {
         ],
       ),
       floatingActionButton: profiles.isNotEmpty
-          ? FloatingActionButton.extended(
-              onPressed: () {
-                HapticFeedback.lightImpact();
-                CreateProfileForm.show(context: context);
-              },
-              backgroundColor: AppTheme.colorScheme.primary,
-              foregroundColor: AppColorScheme.backgroundWhite,
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
-              ),
-              label: Text(
-                localizations.createProfile,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: AppColorScheme.backgroundWhite),
+          ? SizedBox(
+              width: 200,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  FloatingActionButton.extended(
+                    heroTag: 'shareVcFab',
+                    onPressed: () {
+                      HapticFeedback.lightImpact();
+                      _showShareRequestDialog(
+                        context,
+                        ref.read(navigationServiceProvider),
+                      );
+                    },
+                    backgroundColor: AppTheme.colorScheme.primary,
+                    foregroundColor: AppColorScheme.backgroundWhite,
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(AppSizing.paddingXXLarge),
+                    ),
+                    label: Text(
+                      localizations.shareVc,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: AppColorScheme.backgroundWhite),
+                    ),
+                  ),
+                  const SizedBox(height: AppSizing.paddingRegular),
+                  FloatingActionButton.extended(
+                    heroTag: 'createProfileFab',
+                    onPressed: () {
+                      HapticFeedback.lightImpact();
+                      CreateProfileForm.show(context: context);
+                    },
+                    backgroundColor: AppTheme.colorScheme.primary,
+                    foregroundColor: AppColorScheme.backgroundWhite,
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(AppSizing.paddingXXLarge),
+                    ),
+                    label: Text(
+                      localizations.createProfile,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: AppColorScheme.backgroundWhite),
+                    ),
+                  ),
+                ],
               ),
             )
           : null,
@@ -218,6 +257,77 @@ class ProfilesPage extends ConsumerWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+void _showShareRequestDialog(
+  BuildContext context,
+  NavigationService navigation,
+) {
+  final localizations = AppLocalizations.of(context)!;
+  showModalBottomSheet<void>(
+    useRootNavigator: true,
+    isScrollControlled: true,
+    context: context,
+    builder: (_) => _ShareRequestDialog(
+      navigation: navigation,
+      localizations: localizations,
+    ),
+  );
+}
+
+class _ShareRequestDialog extends HookWidget {
+  const _ShareRequestDialog({
+    required this.navigation,
+    required this.localizations,
+  });
+
+  final NavigationService navigation;
+  final AppLocalizations localizations;
+
+  @override
+  Widget build(BuildContext context) {
+    final textController = useTextEditingController();
+    final errorText = useState<String?>(null);
+
+    void submit() {
+      final parsed = navigation.parseShareUrl(textController.text);
+      if (parsed == null) {
+        errorText.value = localizations.shareCredentialDialogError;
+        return;
+      }
+      Navigator.of(context).pop();
+      navigation.pushShareCredential(
+        requestJwt: parsed.requestJwt,
+        clientId: parsed.clientId,
+      );
+    }
+
+    return BottomSheetDialog(
+      title: localizations.shareCredentialDialogTitle,
+      onCancel: () => Navigator.of(context).pop(),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(localizations.cancelActionText),
+        ),
+        FilledButton(
+          onPressed: submit,
+          child: Text(localizations.continueActionText),
+        ),
+      ],
+      body: TextField(
+        controller: textController,
+        autofocus: true,
+        maxLines: 3,
+        decoration: InputDecoration(
+          hintText: localizations.shareCredentialDialogHint,
+          errorText: errorText.value,
+          errorMaxLines: 2,
+        ),
+        onSubmitted: (_) => submit(),
       ),
     );
   }
