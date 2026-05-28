@@ -7,7 +7,7 @@ part of 'claim_credential_repository_impl.dart';
 // **************************************************************************
 
 String _$claimCredentialRepositoryHash() =>
-    r'91ca05e43cc728fe745636f105fbfcf962f90e77';
+    r'9ecd3e8f5132c5bcd876539ec9d62b8725e7a655';
 
 /// Copied from Dart SDK
 class _SystemHash {

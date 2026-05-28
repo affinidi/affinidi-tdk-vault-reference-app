@@ -5,11 +5,13 @@ import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ssi/ssi.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../application/services/iota/iota_consent_record_service_provider.dart';
 import '../../../application/services/iota/iota_share_flow_service.dart';
 import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../infrastructure/extensions/claimed_credentials_result_extensions.dart';
+import '../../../infrastructure/providers/consent_record_store_provider.dart';
 import 'share_credential_page_state.dart';
 
 part 'share_credential_page_controller.g.dart';
@@ -198,9 +200,34 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       log('presentationDefinition: ${result.presentationDefinition}',
           name: 'ShareCredentialPageController');
 
+      var autoAllowConsent = false;
+      var isConsentManagementEnabled = false;
+      try {
+        final requestHash = ref
+            .read(iotaConsentRecordServiceProvider)
+            .computeRequestHash(
+              clientId: result.request.clientId,
+              presentationDefinition: result.presentationDefinition,
+            );
+        final existingRecord = await ref
+            .read(consentRecordStoreProvider)
+            .findByRequestHash(requestHash);
+        if (existingRecord != null) {
+          autoAllowConsent = existingRecord.isAutoShareEnabled;
+          isConsentManagementEnabled =
+              existingRecord.isConsentManagementEnabled;
+        }
+      } catch (e, st) {
+        log('load consent settings failed (non-fatal): $e',
+            name: 'ShareCredentialPageController');
+        log('$st', name: 'ShareCredentialPageController');
+      }
+
       state = state.copyWith(
         shareRequest: result,
         verifierMetadata: verifierMetadata,
+        autoAllowConsent: autoAllowConsent,
+        isConsentManagementEnabled: isConsentManagementEnabled,
       );
     } on TdkException catch (e, st) {
       log('validateRequest failed: $e', name: 'ShareCredentialPageController');
@@ -343,6 +370,17 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       final matcher = ref.read(iotaShareRequirementsMatcherProvider);
       final matchResult = await matcher.match(requirements, allVCs);
 
+      final autoSubmitted = await _tryAutomaticConsentAndSubmit(
+        shareRequest: shareRequest,
+        profileId: profileId,
+        vaultId: vaultId,
+        allVcs: allVCs,
+        matchResult: matchResult,
+      );
+      if (autoSubmitted) {
+        return;
+      }
+
       for (final entry in matchResult.vcsGroups.entries) {
         final descriptor = entry.key;
         final group = entry.value;
@@ -424,6 +462,144 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     state = state.copyWith(selectedCredentialIds: updated, submitError: null);
   }
 
+  List<VerifiableCredential> _resolveSharedVcs(
+    ClaimedCredentialsResult matchResult,
+    List<String> selectedCredentialIds,
+  ) {
+    final selectedIds = selectedCredentialIds.toSet();
+    final result = <VerifiableCredential>[];
+    for (final group in matchResult.vcsGroups.values) {
+      final requiredCount = group.minimumVCsCountToShare;
+      result.addAll(
+        group.allAvailableVCs
+            .map((item) => item.vc)
+            .where((vc) => selectedIds.contains(vc.id.toString()))
+            .take(requiredCount),
+      );
+    }
+    return result;
+  }
+
+  Set<String> _currentlyAvailableVcIds(ClaimedCredentialsResult matchResult) {
+    return matchResult.vcsGroups.values
+        .expand((group) => group.allAvailableVCs)
+        .map((item) => item.vc.id.toString())
+        .toSet();
+  }
+
+  Future<bool> _tryAutomaticConsentAndSubmit({
+    required Oid4vpShareRequest shareRequest,
+    required String profileId,
+    required String vaultId,
+    required List<VerifiableCredential> allVcs,
+    required ClaimedCredentialsResult matchResult,
+  }) async {
+    final consentService = ref.read(iotaConsentRecordServiceProvider);
+    final requestHash = consentService.computeRequestHash(
+      clientId: shareRequest.request.clientId,
+      presentationDefinition: shareRequest.presentationDefinition,
+    );
+
+    final autoConsentResult = await consentService.tryAutomaticConsent(
+      requestHash: requestHash,
+      clientId: shareRequest.request.clientId,
+      verifierMetadata: state.verifierMetadata ?? const VerifierClientMetadata(),
+      profileId: profileId,
+      vaultId: vaultId,
+      availableVcs: allVcs,
+    );
+
+    if (autoConsentResult is! AutoConsentApproved) {
+      return false;
+    }
+
+    final autoSelectedIds = autoConsentResult.vcsToShare
+        .map((vc) => vc.id.toString())
+        .toSet();
+    final availableNow = _currentlyAvailableVcIds(matchResult);
+    final allStillAvailable = autoSelectedIds.every(availableNow.contains);
+
+    log(
+      'Auto-consent check: Looking for ${autoSelectedIds.length} previously shared VC(s)',
+      name: 'ShareCredentialPageController',
+    );
+    log(
+      'Auto-consent: Previously shared VC IDs = $autoSelectedIds',
+      name: 'ShareCredentialPageController',
+    );
+    log(
+      'Auto-consent: Currently available VC IDs = $availableNow',
+      name: 'ShareCredentialPageController',
+    );
+
+    if (!allStillAvailable) {
+      log(
+        'Automatic consent declined: previously shared VC(s) are no longer currently shareable',
+        name: 'ShareCredentialPageController',
+      );
+      return false;
+    }
+
+    log(
+      'Automatic consent approved — submitting credential(s) without user interaction',
+      name: 'ShareCredentialPageController',
+    );
+
+    state = state.copyWith(
+      isMatchingCredentials: false,
+      matchResult: matchResult,
+      selectedCredentialIds: autoSelectedIds,
+      isSubmitting: true,
+      submitError: null,
+    );
+
+    await submitSelectedCredentials();
+    return true;
+  }
+
+  Future<void> _saveConsentRecord({
+    required Oid4vpShareRequest shareRequest,
+    required List<VerifiableCredential> sharedVcs,
+    required String vaultId,
+  }) async {
+    final profileId = state.selectedProfileId;
+    if (profileId == null) return;
+
+    final profile = state.profiles?.firstWhere(
+      (profile) => profile.id == profileId,
+      orElse: () => throw StateError('Profile not found'),
+    );
+    if (profile == null) return;
+
+    final clientId = shareRequest.request.clientId;
+    final consentService = ref.read(iotaConsentRecordServiceProvider);
+    final requestHash = consentService.computeRequestHash(
+      clientId: clientId,
+      presentationDefinition: shareRequest.presentationDefinition,
+    );
+
+    final claimedVcTypesCsv = sharedVcs
+        .expand((vc) => vc.type)
+        .where((vcType) => vcType.toString() != 'VerifiableCredential')
+        .map((vcType) => vcType.toString())
+        .toSet()
+        .join(', ');
+
+    await consentService.saveConsentRecord(
+      requestHash: requestHash,
+      clientId: clientId,
+      verifierMetadata:
+          state.verifierMetadata ?? const VerifierClientMetadata(),
+      profileId: profileId,
+      profileName: profile.name,
+      vaultId: vaultId,
+      sharedVcs: sharedVcs,
+      claimedVcTypesCsv: claimedVcTypesCsv,
+      isAutoShareEnabled: state.autoAllowConsent,
+      isConsentManagementEnabled: state.isConsentManagementEnabled,
+    );
+  }
+
   Future<Uri?> submitSelectedCredentials() async {
     state = state.copyWith(isSubmitting: true, submitError: null);
 
@@ -502,6 +678,19 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         definitionId: definitionId,
         selectedCredentials: selectedCredentials,
       );
+
+      final sharedVcs = _resolveSharedVcs(matchResult, selectedCredentialIds);
+      try {
+        await _saveConsentRecord(
+          shareRequest: shareRequest,
+          sharedVcs: sharedVcs,
+          vaultId: vaultId,
+        );
+      } catch (e, st) {
+        log('saveConsentRecord failed (non-fatal): $e',
+            name: 'ShareCredentialPageController');
+        log('$st', name: 'ShareCredentialPageController');
+      }
 
       if (redirectUri != null) {
         await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
