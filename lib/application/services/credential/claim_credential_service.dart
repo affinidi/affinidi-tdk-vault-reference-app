@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:affinidi_tdk_claim_verifiable_credential/oid4vci_claim_verifiable_credential.dart';
+import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../infrastructure/exceptions/app_exception.dart';
@@ -52,6 +53,12 @@ class ClaimCredentialService extends _$ClaimCredentialService {
         accountIndex: accountIndex,
       );
     } catch (e) {
+      if (e is DioException && e.response != null) {
+        log(
+          'Claim credential failed — HTTP ${e.response!.statusCode}, body: ${e.response!.data}',
+          name: 'ClaimCredentialService',
+        );
+      }
       log('Error during claim credential: $e', name: 'ClaimCredentialService');
       rethrow;
     }
@@ -82,6 +89,12 @@ class ClaimCredentialService extends _$ClaimCredentialService {
 
       state = state.copyWith(verifiableCredential: verifiableCredential);
     } catch (e) {
+      if (e is DioException && e.response != null) {
+        log(
+          'Claim credential failed — HTTP ${e.response!.statusCode}, body: ${e.response!.data}',
+          name: 'ClaimCredentialService',
+        );
+      }
       log('Error during claim credential: $e', name: 'ClaimCredentialService');
       rethrow;
     }

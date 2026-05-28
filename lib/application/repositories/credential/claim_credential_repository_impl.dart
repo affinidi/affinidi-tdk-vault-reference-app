@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:affinidi_tdk_claim_verifiable_credential/oid4vci_claim_verifiable_credential.dart';
+import 'package:dio/dio.dart';
 import 'package:affinidi_tdk_vault_flutter_utils/storages/flutter_secure_vault_store.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -38,9 +41,25 @@ Future<ClaimCredentialRepository> claimCredentialRepository(
     signatureScheme: SignatureScheme.ecdsa_secp256k1_sha256,
   );
 
+  final client = Dio()
+    ..interceptors.add(
+      InterceptorsWrapper(
+        onError: (error, handler) {
+          if (error.response != null) {
+            log(
+              'ClaimCredential HTTP ${error.response!.statusCode} — body: ${error.response!.data}',
+              name: 'ClaimCredentialRepository',
+            );
+          }
+          handler.next(error);
+        },
+      ),
+    );
+
   return ClaimCredentialRepositoryImpl(
     credentialsClient: OID4VCIClaimVerifiableCredentialService(
       didSigner: didSigner,
+      client: client,
     ),
   );
 }
