@@ -7,10 +7,10 @@ part of 'iota_consent_record_service_provider.dart';
 // **************************************************************************
 
 String _$iotaConsentRecordServiceHash() =>
-    r'6039bb31a91affe13f019bcfb52ba6d0bc620275';
+    r'8a54195afff1fc6fd7ec65edd846f2be093bf389';
 
 /// Provides an [IotaConsentRecordService] wired to the app's secure-storage
-/// [ConsentRecordStore].
+/// [ConsentStorage].
 ///
 /// Kept alive so the underlying store singleton is shared across the app.
 ///

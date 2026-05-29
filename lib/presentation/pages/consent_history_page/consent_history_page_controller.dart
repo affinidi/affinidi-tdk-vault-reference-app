@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../application/services/vault/vault_service.dart';
-import '../../../infrastructure/providers/consent_record_store_provider.dart';
+import '../../../infrastructure/providers/consent_storage_provider.dart';
 import 'consent_history_page_state.dart';
 
 part 'consent_history_page_controller.g.dart';
@@ -25,7 +25,7 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
     try {
       final profiles = await vault.listProfiles();
       final profileIds = profiles.map((profile) => profile.id).toSet();
-      final store = ref.read(consentRecordStoreProvider);
+      final store = ref.read(consentStorageProvider);
       final allRecords = await store.listAll();
       final filtered = allRecords
           .where((record) => profileIds.contains(record.profileId))
@@ -53,7 +53,7 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
     state = state.copyWith(records: [...records]..[idx] = updated);
 
     try {
-      await ref.read(consentRecordStoreProvider).saveOrUpdate(updated);
+      await ref.read(consentStorageProvider).saveOrUpdate(updated);
     } catch (_) {
       state = state.copyWith(records: [...state.records]..[idx] = previous);
     }
@@ -69,22 +69,27 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
     String notAvailable,
   ) {
     final data = record.historySharedData;
-    if (data.isEmpty) return notAvailable;
+    if (data.isNotEmpty) {
+      final values = data.entries
+          .map((entry) {
+            final key = entry.key.trim();
+            final value = entry.value.trim();
+            if (key.isEmpty && value.isEmpty) return '';
+            if (key.isEmpty) return value;
+            if (value.isEmpty) return key;
+            return '$key: $value';
+          })
+          .where((entry) => entry.isNotEmpty)
+          .toList();
+      if (values.isNotEmpty) return values.join('\n');
+    }
 
-    final values = data.entries
-        .map((entry) {
-          final key = entry.key.trim();
-          final value = entry.value.trim();
-          if (key.isEmpty && value.isEmpty) return '';
-          if (key.isEmpty) return value;
-          if (value.isEmpty) return key;
-          return '$key: $value';
-        })
-        .where((entry) => entry.isNotEmpty)
-        .toList();
+    final csv = record.claimedVcTypesCsv.trim();
+    if (csv.isNotEmpty) {
+      return csv.split(',').map((type) => type.trim()).join('\n');
+    }
 
-    if (values.isEmpty) return notAvailable;
-    return values.join('\n');
+    return notAvailable;
   }
 
   static String formatDid(IotaConsentRecord record, String notAvailable) {

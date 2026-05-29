@@ -3,20 +3,17 @@ import 'dart:convert';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-/// Implementation of [ConsentRecordStore] backed by Flutter's secure storage.
+/// Implementation of [ConsentStorage] backed by Flutter's secure storage.
 ///
 /// Each record is stored as a JSON string keyed by its [IotaConsentRecord.hash],
 /// prefixed with [namespace] to avoid collisions with other secure-storage entries.
-///
-/// This implementation mirrors the `FlutterSecureConsentRecordStore` that will be
-/// shipped in a future version of `affinidi_tdk_vault_flutter_utils`.
-class FlutterSecureConsentRecordStore implements ConsentRecordStore {
-  /// Creates a [FlutterSecureConsentRecordStore].
+class FlutterSecureConsentStorage implements ConsentStorage {
+  /// Creates a [FlutterSecureConsentStorage].
   ///
   /// Parameters:
   /// * [namespace] - Prefix applied to every storage key. Defaults to `iota_consent`.
   /// * [secureStorage] - Optional [FlutterSecureStorage] instance for testing.
-  FlutterSecureConsentRecordStore({
+  FlutterSecureConsentStorage({
     String namespace = 'iota_consent',
     FlutterSecureStorage? secureStorage,
   })  : _namespace = namespace,
@@ -77,5 +74,16 @@ class FlutterSecureConsentRecordStore implements ConsentRecordStore {
       }
     }
     return records;
+  }
+
+  /// Deletes all stored consent records.
+  Future<void> clearAll() async {
+    final all = await _secureStorage.readAll();
+    final prefix = '${_namespace}_';
+    for (final key in all.keys) {
+      if (key.startsWith(prefix)) {
+        await _secureStorage.delete(key: key);
+      }
+    }
   }
 }
