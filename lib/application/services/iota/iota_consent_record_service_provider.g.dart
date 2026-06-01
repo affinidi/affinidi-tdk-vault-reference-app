@@ -7,12 +7,17 @@ part of 'iota_consent_record_service_provider.dart';
 // **************************************************************************
 
 String _$iotaConsentRecordServiceHash() =>
-    r'8a54195afff1fc6fd7ec65edd846f2be093bf389';
+    r'075051f28ee7db4ed86093e88eb3e233f3ae82ed';
 
 /// Provides an [IotaConsentRecordService] wired to the app's secure-storage
 /// [ConsentStorage].
 ///
 /// Kept alive so the underlying store singleton is shared across the app.
+/// The [_NullShareResponseService] stub is intentional: this provider is used
+/// only for [IotaConsentRecordService.saveConsentRecord], which never invokes
+/// the share response service. Auto-consent submission uses a fresh
+/// [IotaConsentRecordService] with a real signer; see
+/// [ShareCredentialPageController._tryAutomaticConsentAndSubmit].
 ///
 /// Copied from [iotaConsentRecordService].
 @ProviderFor(iotaConsentRecordService)

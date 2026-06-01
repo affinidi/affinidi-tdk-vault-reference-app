@@ -4,11 +4,11 @@ import 'package:affinidi_tdk_cryptography/affinidi_tdk_cryptography.dart';
 import 'package:affinidi_tdk_iota_client/affinidi_tdk_iota_client.dart';
 import 'package:affinidi_tdk_vault_flutter_utils/storages/flutter_secure_vault_store.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
-
-import '../../../infrastructure/exceptions/app_exception.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ssi/ssi.dart';
+
+import '../../../infrastructure/exceptions/app_exception.dart';
 
 part 'iota_share_flow_service.g.dart';
 
@@ -97,51 +97,50 @@ ParsedVerifiableCredential<dynamic> parsedCredentialFromVc(
   );
 }
 
-class AppIotaShareResponseService implements IotaShareResponseServiceInterface {
-  static const _hdPathTemplate = "m/44'/60'/%ACCOUNT%'/0'/0'";
+const _hdPathTemplate = "m/44'/60'/%ACCOUNT%'/0'/0'";
 
+/// Derives a [DidSigner] from the vault's HD seed for the given [accountIndex].
+Future<DidSigner> buildVaultDidSigner({
+  required String vaultId,
+  required int accountIndex,
+}) async {
+  final secureStore = FlutterSecureVaultStore(vaultId);
+  final seed = await secureStore.getSeed();
+  if (seed == null) {
+    throw AppException(
+      message: 'No seed found in secure storage.',
+      type: AppExceptionType.seedNotFound,
+    );
+  }
+
+  final wallet = Bip32Wallet.fromSeed(seed);
+  final keyPath = _hdPathTemplate.replaceFirst('%ACCOUNT%', '$accountIndex');
+  final keyPair = await wallet.generateKey(
+    keyId: keyPath,
+    keyType: KeyType.secp256k1,
+  );
+  final didDocument = DidKey.generateDocument(keyPair.publicKey);
+
+  return DidSigner(
+    did: didDocument.id,
+    didKeyId: didDocument.verificationMethod.first.id,
+    keyPair: keyPair,
+    signatureScheme: SignatureScheme.ecdsa_secp256k1_sha256,
+  );
+}
+
+class AppIotaShareResponseService implements IotaShareResponseServiceInterface {
+  final String _vaultId;
   final int _accountIndex;
-  final FlutterSecureVaultStore _vaultStore;
-  final CallbackApi _callbackApi;
 
   AppIotaShareResponseService({
     required String vaultId,
     required int accountIndex,
-    FlutterSecureVaultStore? vaultStore,
-    CallbackApi? callbackApi,
-  })  : _accountIndex = accountIndex,
-        _vaultStore = vaultStore ?? FlutterSecureVaultStore(vaultId),
-        _callbackApi = callbackApi ?? AffinidiTdkIotaClient().getCallbackApi();
+  })  : _vaultId = vaultId,
+        _accountIndex = accountIndex;
 
-  Future<IotaShareResponseService> _buildService() async {
-    final seed = await _vaultStore.getSeed();
-    if (seed == null) {
-      throw AppException(
-        message: 'No seed found in secure storage.',
-        type: AppExceptionType.seedNotFound,
-      );
-    }
-
-    final wallet = Bip32Wallet.fromSeed(seed);
-    final keyPath = _hdPathTemplate.replaceFirst('%ACCOUNT%', '$_accountIndex');
-    final keyPair = await wallet.generateKey(
-      keyId: keyPath,
-      keyType: KeyType.secp256k1,
-    );
-    final didDocument = DidKey.generateDocument(keyPair.publicKey);
-    final signer = DidSigner(
-      did: didDocument.id,
-      didKeyId: didDocument.verificationMethod.first.id,
-      keyPair: keyPair,
-      signatureScheme: SignatureScheme.ecdsa_secp256k1_sha256,
-    );
-
-    return IotaShareResponseService(
-      approveCallbackApi: _callbackApi,
-      rejectCallbackApi: _callbackApi,
-      signer: signer,
-    );
-  }
+  Future<DidSigner> _buildDidSigner() =>
+      buildVaultDidSigner(vaultId: _vaultId, accountIndex: _accountIndex);
 
   @override
   Future<Uri?> submitShareResponse({
@@ -156,7 +155,13 @@ class AppIotaShareResponseService implements IotaShareResponseServiceInterface {
             })>
         selectedCredentials,
   }) async {
-    final service = await _buildService();
+    final signer = await _buildDidSigner();
+    final callbackApi = AffinidiTdkIotaClient().getCallbackApi();
+    final service = IotaShareResponseService(
+      approveCallbackApi: callbackApi,
+      rejectCallbackApi: callbackApi,
+      signer: signer,
+    );
     return service.submitShareResponse(
       state: state,
       nonce: nonce,
@@ -168,7 +173,13 @@ class AppIotaShareResponseService implements IotaShareResponseServiceInterface {
 
   @override
   Future<Uri?> rejectShareResponse({required String state}) async {
-    final service = await _buildService();
+    final signer = await _buildDidSigner();
+    final callbackApi = AffinidiTdkIotaClient().getCallbackApi();
+    final service = IotaShareResponseService(
+      approveCallbackApi: callbackApi,
+      rejectCallbackApi: callbackApi,
+      signer: signer,
+    );
     return service.rejectShareResponse(state: state);
   }
 }

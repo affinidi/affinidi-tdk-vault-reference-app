@@ -7,7 +7,7 @@ part of 'consent_history_page_controller.dart';
 // **************************************************************************
 
 String _$consentHistoryPageControllerHash() =>
-    r'c75ccbfe37fc801360e9d4390203599cfc497b5f';
+    r'4a5f0d73f15d85409026fca4ce56b52508ce0623';
 
 /// See also [ConsentHistoryPageController].
 @ProviderFor(ConsentHistoryPageController)
