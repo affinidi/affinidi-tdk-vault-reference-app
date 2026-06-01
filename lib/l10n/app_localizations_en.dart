@@ -1003,6 +1003,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Allow consent automatically next time';
 
   @override
+  String get shareVc => 'Share VC';
+
+  @override
   String get shareCredentialDialogTitle => 'Share Credential';
 
   @override

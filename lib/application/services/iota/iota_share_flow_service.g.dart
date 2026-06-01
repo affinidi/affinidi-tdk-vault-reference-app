@@ -84,24 +84,180 @@ final iotaVerifierMetadataServiceProvider =
 typedef IotaVerifierMetadataServiceRef
     = AutoDisposeProviderRef<VerifierMetadataService>;
 String _$iotaShareResponseServiceHash() =>
-    r'c3f7939b41c3a1b993171425c9207e34f77c0277';
+    r'0dd2f45d45672b48a36b1f04c68a3caa4fd9e5b2';
+
+/// Copied from Dart SDK
+class _SystemHash {
+  _SystemHash._();
+
+  static int combine(int hash, int value) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + value);
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+    return hash ^ (hash >> 6);
+  }
+
+  static int finish(int hash) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+    // ignore: parameter_assignments
+    hash = hash ^ (hash >> 11);
+    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  }
+}
 
 /// See also [iotaShareResponseService].
 @ProviderFor(iotaShareResponseService)
-final iotaShareResponseServiceProvider =
-    AutoDisposeProvider<IotaShareResponseServiceInterface>.internal(
-  iotaShareResponseService,
-  name: r'iotaShareResponseServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$iotaShareResponseServiceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const iotaShareResponseServiceProvider = IotaShareResponseServiceFamily();
+
+/// See also [iotaShareResponseService].
+class IotaShareResponseServiceFamily
+    extends Family<IotaShareResponseServiceInterface> {
+  /// See also [iotaShareResponseService].
+  const IotaShareResponseServiceFamily();
+
+  /// See also [iotaShareResponseService].
+  IotaShareResponseServiceProvider call({
+    required String vaultId,
+    required int accountIndex,
+  }) {
+    return IotaShareResponseServiceProvider(
+      vaultId: vaultId,
+      accountIndex: accountIndex,
+    );
+  }
+
+  @override
+  IotaShareResponseServiceProvider getProviderOverride(
+    covariant IotaShareResponseServiceProvider provider,
+  ) {
+    return call(
+      vaultId: provider.vaultId,
+      accountIndex: provider.accountIndex,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'iotaShareResponseServiceProvider';
+}
+
+/// See also [iotaShareResponseService].
+class IotaShareResponseServiceProvider
+    extends AutoDisposeProvider<IotaShareResponseServiceInterface> {
+  /// See also [iotaShareResponseService].
+  IotaShareResponseServiceProvider({
+    required String vaultId,
+    required int accountIndex,
+  }) : this._internal(
+          (ref) => iotaShareResponseService(
+            ref as IotaShareResponseServiceRef,
+            vaultId: vaultId,
+            accountIndex: accountIndex,
+          ),
+          from: iotaShareResponseServiceProvider,
+          name: r'iotaShareResponseServiceProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$iotaShareResponseServiceHash,
+          dependencies: IotaShareResponseServiceFamily._dependencies,
+          allTransitiveDependencies:
+              IotaShareResponseServiceFamily._allTransitiveDependencies,
+          vaultId: vaultId,
+          accountIndex: accountIndex,
+        );
+
+  IotaShareResponseServiceProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.vaultId,
+    required this.accountIndex,
+  }) : super.internal();
+
+  final String vaultId;
+  final int accountIndex;
+
+  @override
+  Override overrideWith(
+    IotaShareResponseServiceInterface Function(
+            IotaShareResponseServiceRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: IotaShareResponseServiceProvider._internal(
+        (ref) => create(ref as IotaShareResponseServiceRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        vaultId: vaultId,
+        accountIndex: accountIndex,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<IotaShareResponseServiceInterface>
+      createElement() {
+    return _IotaShareResponseServiceProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is IotaShareResponseServiceProvider &&
+        other.vaultId == vaultId &&
+        other.accountIndex == accountIndex;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, vaultId.hashCode);
+    hash = _SystemHash.combine(hash, accountIndex.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef IotaShareResponseServiceRef
-    = AutoDisposeProviderRef<IotaShareResponseServiceInterface>;
+mixin IotaShareResponseServiceRef
+    on AutoDisposeProviderRef<IotaShareResponseServiceInterface> {
+  /// The parameter `vaultId` of this provider.
+  String get vaultId;
+
+  /// The parameter `accountIndex` of this provider.
+  int get accountIndex;
+}
+
+class _IotaShareResponseServiceProviderElement
+    extends AutoDisposeProviderElement<IotaShareResponseServiceInterface>
+    with IotaShareResponseServiceRef {
+  _IotaShareResponseServiceProviderElement(super.provider);
+
+  @override
+  String get vaultId => (origin as IotaShareResponseServiceProvider).vaultId;
+  @override
+  int get accountIndex =>
+      (origin as IotaShareResponseServiceProvider).accountIndex;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

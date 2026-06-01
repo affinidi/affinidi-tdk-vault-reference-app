@@ -15,6 +15,7 @@ import '../../../navigation/navigation_service.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
 import '../../themes/app_theme.dart';
+import '../../widgets/bottom_sheet_dialog.dart';
 import '../../widgets/code_snippet/code_snippet_locations.dart';
 import '../../widgets/code_snippet/code_snippet_widget.dart';
 import '../../widgets/simple_info_widget.dart';
@@ -25,6 +26,8 @@ import 'vaults_page_controller.dart';
 class VaultsPage extends ConsumerWidget {
   const VaultsPage({super.key});
   static String get routePath => '/vaults';
+
+  static const double _fabWidth = 140.0;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,15 +61,6 @@ class VaultsPage extends ConsumerWidget {
           ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.share_rounded,
-                color: AppColorScheme.textPrimary),
-            tooltip: localizations.shareCredentialDialogTitle,
-            onPressed: () => _showShareRequestDialog(
-              context,
-              ref.read(navigationServiceProvider),
-            ),
-          ),
           CodeSnippetWidget(
             title: localizations.lblCSListVaults,
             codeLocations: CodeSnippetLocations.listVaultsSnippets(context),
@@ -158,26 +152,60 @@ class VaultsPage extends ConsumerWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          if (!context.mounted) return;
-          context.push(VaultsRoutePath.create);
-        },
-        backgroundColor: theme.colorScheme.primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
-        ),
-        elevation: 8,
-        highlightElevation: 12,
-        extendedPadding: const EdgeInsets.symmetric(
-            horizontal: AppSizing.paddingMedium,
-            vertical: AppSizing.paddingMedium),
-        label: Text(
-          localizations.addVault,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: AppColorScheme.backgroundBlack,
-                fontWeight: FontWeight.bold,
+      floatingActionButton: SizedBox(
+        width: _fabWidth,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            FloatingActionButton.extended(
+              heroTag: 'shareVcFab',
+              onPressed: () => _showShareRequestDialog(
+                context,
+                ref.read(navigationServiceProvider),
               ),
+              backgroundColor: theme.colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
+              ),
+              elevation: 8,
+              highlightElevation: 12,
+              extendedPadding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingMedium,
+                  vertical: AppSizing.paddingMedium),
+              label: Text(
+                localizations.shareVc,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: AppColorScheme.backgroundBlack,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            const SizedBox(height: AppSizing.paddingRegular),
+            FloatingActionButton.extended(
+              heroTag: 'createVaultFab',
+              onPressed: () {
+                if (!context.mounted) return;
+                context.push(VaultsRoutePath.create);
+              },
+              backgroundColor: theme.colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
+              ),
+              elevation: 8,
+              highlightElevation: 12,
+              extendedPadding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingMedium,
+                  vertical: AppSizing.paddingMedium),
+              label: Text(
+                localizations.addVault,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: AppColorScheme.backgroundBlack,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -274,63 +302,69 @@ void _showShareRequestDialog(
   final localizations = AppLocalizations.of(context)!;
   final textController = TextEditingController();
 
-  showDialog<void>(
+  showModalBottomSheet<void>(
+    useRootNavigator: true,
+    isScrollControlled: true,
     context: context,
     builder: (context) {
       String? errorText;
 
-      void submit(StateSetter setState) {
-        final input = textController.text.trim();
-        if (input.isEmpty) return;
-
-        final uri = Uri.tryParse(input);
-        final requestJwt =
-            uri?.queryParameters[ShareCredentialRouteParams.request];
-        final clientId =
-            uri?.queryParameters[ShareCredentialRouteParams.clientId];
-
-        if (requestJwt == null || requestJwt.isEmpty) {
-          setState(() => errorText = localizations.shareCredentialDialogError);
-          return;
-        }
-
-        Navigator.of(context).pop();
-        final path = Uri(
-          path: ShareCredentialRoutePath.base,
-          queryParameters: {
-            ShareCredentialRouteParams.request: requestJwt,
-            if (clientId != null && clientId.isNotEmpty)
-              ShareCredentialRouteParams.clientId: clientId,
-          },
-        ).toString();
-        navigation.push(path);
-      }
-
       return StatefulBuilder(
-        builder: (context, setState) => AlertDialog(
-          title: Text(localizations.shareCredentialDialogTitle),
-          content: TextField(
-            controller: textController,
-            autofocus: true,
-            maxLines: 3,
-            decoration: InputDecoration(
-              hintText: localizations.shareCredentialDialogHint,
-              errorText: errorText,
-              errorMaxLines: 2,
+        builder: (context, setState) {
+          void submit() {
+            final input = textController.text.trim();
+            if (input.isEmpty) return;
+
+            final uri = Uri.tryParse(input);
+            final requestJwt =
+                uri?.queryParameters[ShareCredentialRouteParams.request];
+            final clientId =
+                uri?.queryParameters[ShareCredentialRouteParams.clientId];
+
+            if (requestJwt == null || requestJwt.isEmpty) {
+              setState(
+                  () => errorText = localizations.shareCredentialDialogError);
+              return;
+            }
+
+            Navigator.of(context).pop();
+            final path = Uri(
+              path: ShareCredentialRoutePath.base,
+              queryParameters: {
+                ShareCredentialRouteParams.request: requestJwt,
+                if (clientId != null && clientId.isNotEmpty)
+                  ShareCredentialRouteParams.clientId: clientId,
+              },
+            ).toString();
+            navigation.push(path);
+          }
+
+          return BottomSheetDialog(
+            title: localizations.shareCredentialDialogTitle,
+            onCancel: () => Navigator.of(context).pop(),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(localizations.cancelActionText),
+              ),
+              FilledButton(
+                onPressed: submit,
+                child: Text(localizations.continueActionText),
+              ),
+            ],
+            body: TextField(
+              controller: textController,
+              autofocus: true,
+              maxLines: 3,
+              decoration: InputDecoration(
+                hintText: localizations.shareCredentialDialogHint,
+                errorText: errorText,
+                errorMaxLines: 2,
+              ),
+              onSubmitted: (_) => submit(),
             ),
-            onSubmitted: (_) => submit(setState),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(localizations.cancelActionText),
-            ),
-            TextButton(
-              onPressed: () => submit(setState),
-              child: Text(localizations.continueActionText),
-            ),
-          ],
-        ),
+          );
+        },
       );
     },
   ).whenComplete(

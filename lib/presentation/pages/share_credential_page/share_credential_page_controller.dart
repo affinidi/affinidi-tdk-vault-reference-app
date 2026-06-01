@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:ssi/ssi.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../application/services/iota/iota_share_flow_service.dart';
 import '../../../application/services/vault/vault_service.dart';
@@ -15,6 +16,7 @@ part 'share_credential_page_controller.g.dart';
 
 String _extractUserMessage(Object e) {
   if (e is TdkException) return e.message;
+  if (e is AppException) return e.message;
   final text = e.toString();
   final match = RegExp(r'- Message: (.+)').firstMatch(text);
   if (match != null) return match.group(1)!.trim();
@@ -42,21 +44,39 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   int _resolveSelectedAccountIndex() {
     final profileId = state.selectedProfileId;
     if (profileId == null) {
-      throw Exception('Profile is not selected.');
+      throw AppException(
+        message: 'Profile is not selected.',
+        type: AppExceptionType.missingProfile,
+      );
     }
 
     final profiles = state.profiles;
     if (profiles == null || profiles.isEmpty) {
-      throw Exception('Profiles are not loaded.');
+      throw AppException(
+        message: 'Profiles are not loaded.',
+        type: AppExceptionType.missingProfile,
+      );
     }
 
     final profile = profiles.firstWhere(
       (profile) => profile.id == profileId,
-      orElse: () =>
-          throw Exception('Selected profile was not found in current vault.'),
+      orElse: () => throw AppException(
+        message: 'Selected profile was not found in current vault.',
+        type: AppExceptionType.missingProfile,
+      ),
     );
 
     return profile.accountIndex;
+  }
+
+  IotaShareResponseServiceInterface _readResponseService(String vaultId) {
+    final accountIndex = _resolveSelectedAccountIndex();
+    return ref.read(
+      iotaShareResponseServiceProvider(
+        vaultId: vaultId,
+        accountIndex: accountIndex,
+      ),
+    );
   }
 
   String _descriptorSummary(PDDescriptor descriptor) {
@@ -410,29 +430,14 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     state = state.copyWith(selectedCredentialIds: updated, submitError: null);
   }
 
-  List<VerifiableCredential> _resolveSharedVcs(
-    ClaimedCredentialsResult matchResult,
-    List<String> selectedCredentialIds,
-  ) {
-    final selectedIds = selectedCredentialIds.toSet();
-    final result = <VerifiableCredential>[];
-    for (final group in matchResult.vcsGroups.values) {
-      final requiredCount = group.minimumVCsCountToShare;
-      result.addAll(
-        group.allAvailableVCs
-            .map((item) => item.vc)
-            .where((vc) => selectedIds.contains(vc.id.toString()))
-            .take(requiredCount),
-      );
-    }
-    return result;
-  }
-
   Future<Uri?> submitSelectedCredentials() async {
     final shareRequest = state.shareRequest;
     final matchResult = state.matchResult;
     if (shareRequest == null || matchResult == null) {
-      throw Exception('Share request is not ready.');
+      throw AppException(
+        message: 'Share request is not ready.',
+        type: AppExceptionType.missingRequiredData,
+      );
     }
 
     final selectedCredentialIds =
@@ -442,26 +447,67 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       (vc) => selectedCredentialIds.contains(vc.id.toString()),
     );
     if (!hasSelected) {
-      throw Exception('Select at least one credential.');
+      throw AppException(
+        message: 'Select at least one credential.',
+        type: AppExceptionType.missingVerifiableCredentials,
+      );
     }
 
     final vaultId = state.selectedVaultId;
     if (vaultId == null) {
-      throw Exception('Vault is not selected.');
+      throw AppException(
+        message: 'Vault is not selected.',
+        type: AppExceptionType.missingVaultId,
+      );
     }
 
     state = state.copyWith(isSubmitting: true, submitError: null);
 
     try {
-      final accountIndex = _resolveSelectedAccountIndex();
-      final responseService = ref.read(iotaShareResponseServiceProvider);
-      final sharedVcs = _resolveSharedVcs(matchResult, selectedCredentialIds);
-      final redirectUri = await responseService.submit(
-        shareRequest: shareRequest,
-        matchResult: matchResult,
-        selectedCredentialIds: selectedCredentialIds,
-        vaultId: vaultId,
-        accountIndex: accountIndex,
+      final responseService = _readResponseService(vaultId);
+
+      final selectedIds = selectedCredentialIds.toSet();
+      final selectedCredentials = <({
+        PDDescriptor descriptor,
+        ParsedVerifiableCredential<dynamic> credential,
+      })>[];
+
+      for (final entry in matchResult.vcsGroups.entries) {
+        final descriptor = entry.key;
+        final group = entry.value;
+        final requiredCount = group.minimumVCsCountToShare;
+        final selectedForDescriptor = group.allAvailableVCs
+            .map((item) => item.vc)
+            .where((vc) => selectedIds.contains(vc.id.toString()))
+            .take(requiredCount)
+            .toList(growable: false);
+
+        if (selectedForDescriptor.length < requiredCount) {
+          throw AppException(
+            message: 'Not enough credentials for descriptor ${descriptor.id}. '
+                'Required: $requiredCount, selected: ${selectedForDescriptor.length}.',
+            type: AppExceptionType.missingVerifiableCredentials,
+          );
+        }
+
+        for (final vc in selectedForDescriptor) {
+          selectedCredentials.add((
+            descriptor: descriptor,
+            credential: parsedCredentialFromVc(vc),
+          ));
+        }
+      }
+
+      final definitionId =
+          shareRequest.presentationDefinition['id']?.toString() ??
+              'presentation_definition';
+
+      final redirectUri = await responseService.submitShareResponse(
+        state: shareRequest.request.state,
+        nonce: shareRequest.request.nonce,
+        clientId: shareRequest.request.clientId,
+        definitionId: definitionId,
+        selectedCredentials: selectedCredentials,
       );
 
       state = state.copyWith(isSubmitting: false);
@@ -485,23 +531,26 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   Future<Uri?> rejectShareRequest() async {
     final shareRequest = state.shareRequest;
     if (shareRequest == null) {
-      throw Exception('Share request is not ready.');
+      throw AppException(
+        message: 'Share request is not ready.',
+        type: AppExceptionType.missingRequiredData,
+      );
     }
 
     final vaultId = state.selectedVaultId;
     if (vaultId == null) {
-      throw Exception('Vault is not selected.');
+      throw AppException(
+        message: 'Vault is not selected.',
+        type: AppExceptionType.missingVaultId,
+      );
     }
 
     state = state.copyWith(isSubmitting: true, submitError: null);
 
     try {
-      final accountIndex = _resolveSelectedAccountIndex();
-      final responseService = ref.read(iotaShareResponseServiceProvider);
-      final redirectUri = await responseService.reject(
-        shareRequest: shareRequest,
-        vaultId: vaultId,
-        accountIndex: accountIndex,
+      final responseService = _readResponseService(vaultId);
+      final redirectUri = await responseService.rejectShareResponse(
+        state: shareRequest.request.state,
       );
       state = state.copyWith(isSubmitting: false);
       if (redirectUri != null) {

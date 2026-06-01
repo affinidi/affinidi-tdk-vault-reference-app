@@ -7,7 +7,7 @@ part of 'share_credential_page_controller.dart';
 // **************************************************************************
 
 String _$shareCredentialPageControllerHash() =>
-    r'2f88b6b799331ab25450601c4f82a5558080e5bb';
+    r'ebae4dc61e65ae86264d5c543b6e6f64a0ebef59';
 
 /// Copied from Dart SDK
 class _SystemHash {
