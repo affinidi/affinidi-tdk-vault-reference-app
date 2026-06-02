@@ -8,9 +8,9 @@ environment:
 dependencies:
   affinidi_tdk_claim_verifiable_credential: ^2.0.0
   affinidi_tdk_vault: ^3.0.0
+  affinidi_tdk_vault_data_manager: ^3.0.0
   affinidi_tdk_vault_iota:
     path: ../affinidi-tdk-dart/packages/affinidi_tdk_vault_iota
-  affinidi_tdk_vault_data_manager: ^3.0.0
   affinidi_tdk_vault_edge_drift_provider: ^3.0.0
   affinidi_tdk_vault_edge_provider: ^3.0.0
   affinidi_tdk_vault_flutter_utils: ^2.0.0
@@ -72,6 +72,10 @@ dev_dependencies:
   melos: ^6.3.2
   mocktail: ^1.0.4
   riverpod_generator: ^2.3.5
+
+dependency_overrides:
+  affinidi_tdk_vault_iota:
+    path: ../affinidi-tdk-dart/packages/affinidi_tdk_vault_iota
 
 flutter:
   uses-material-design: true

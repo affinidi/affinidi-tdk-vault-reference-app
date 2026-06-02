@@ -7,7 +7,7 @@ part of 'claim_credential_service.dart';
 // **************************************************************************
 
 String _$claimCredentialServiceHash() =>
-    r'bc1c40913cca0bd25c928c926e50f57cf00062f7';
+    r'dd23d7bb91f28f6136935fa2114441279efb4e3a';
 
 /// See also [ClaimCredentialService].
 @ProviderFor(ClaimCredentialService)
