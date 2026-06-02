@@ -4,6 +4,7 @@ import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ssi/ssi.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../application/services/iota/iota_share_flow_service.dart';
 import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
@@ -151,6 +152,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       selectedProfileId: null,
       passphraseError: null,
       isVerifyingPassphrase: false,
+      matchResult: null,
+      matchError: null,
+      isMatchingCredentials: false,
+      selectedCredentialIds: const <String>{},
+      submitError: null,
     );
   }
 
@@ -419,38 +425,38 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   }
 
   Future<Uri?> submitSelectedCredentials() async {
-    final shareRequest = state.shareRequest;
-    final matchResult = state.matchResult;
-    if (shareRequest == null || matchResult == null) {
-      throw AppException(
-        message: 'Share request is not ready.',
-        type: AppExceptionType.missingRequiredData,
-      );
-    }
-
-    final selectedCredentialIds =
-        state.selectedCredentialIds.toList(growable: false);
-    final hasSelected = matchResult.requiredMatchedVcs.any(
-      (vc) => selectedCredentialIds.contains(vc.id.toString()),
-    );
-    if (!hasSelected) {
-      throw AppException(
-        message: 'Select at least one credential.',
-        type: AppExceptionType.missingVerifiableCredentials,
-      );
-    }
-
-    final vaultId = state.selectedVaultId;
-    if (vaultId == null) {
-      throw AppException(
-        message: 'Vault is not selected.',
-        type: AppExceptionType.missingVaultId,
-      );
-    }
-
     state = state.copyWith(isSubmitting: true, submitError: null);
 
     try {
+      final shareRequest = state.shareRequest;
+      final matchResult = state.matchResult;
+      if (shareRequest == null || matchResult == null) {
+        throw AppException(
+          message: 'Share request is not ready.',
+          type: AppExceptionType.missingRequiredData,
+        );
+      }
+
+      final selectedCredentialIds =
+          state.selectedCredentialIds.toList(growable: false);
+      final hasSelected = matchResult.requiredMatchedVcs.any(
+        (vc) => selectedCredentialIds.contains(vc.id.toString()),
+      );
+      if (!hasSelected) {
+        throw AppException(
+          message: 'Select at least one credential.',
+          type: AppExceptionType.missingVerifiableCredentials,
+        );
+      }
+
+      final vaultId = state.selectedVaultId;
+      if (vaultId == null) {
+        throw AppException(
+          message: 'Vault is not selected.',
+          type: AppExceptionType.missingVaultId,
+        );
+      }
+
       final responseService = _readResponseService(vaultId);
 
       final selectedIds = selectedCredentialIds.toSet();
@@ -497,6 +503,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         selectedCredentials: selectedCredentials,
       );
 
+      if (redirectUri != null) {
+        await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
+      }
       state = state.copyWith(isSubmitting: false);
       return redirectUri;
     } catch (e, st) {
@@ -507,34 +516,37 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         isSubmitting: false,
         submitError: _extractUserMessage(e),
       );
-      rethrow;
+      return null;
     }
   }
 
   Future<Uri?> rejectShareRequest() async {
-    final shareRequest = state.shareRequest;
-    if (shareRequest == null) {
-      throw AppException(
-        message: 'Share request is not ready.',
-        type: AppExceptionType.missingRequiredData,
-      );
-    }
-
-    final vaultId = state.selectedVaultId;
-    if (vaultId == null) {
-      throw AppException(
-        message: 'Vault is not selected.',
-        type: AppExceptionType.missingVaultId,
-      );
-    }
-
     state = state.copyWith(isSubmitting: true, submitError: null);
 
     try {
+      final shareRequest = state.shareRequest;
+      if (shareRequest == null) {
+        throw AppException(
+          message: 'Share request is not ready.',
+          type: AppExceptionType.missingRequiredData,
+        );
+      }
+
+      final vaultId = state.selectedVaultId;
+      if (vaultId == null) {
+        throw AppException(
+          message: 'Vault is not selected.',
+          type: AppExceptionType.missingVaultId,
+        );
+      }
+
       final responseService = _readResponseService(vaultId);
       final redirectUri = await responseService.rejectShareResponse(
         state: shareRequest.request.state,
       );
+      if (redirectUri != null) {
+        await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
+      }
       state = state.copyWith(isSubmitting: false);
       return redirectUri;
     } catch (e, st) {
@@ -545,7 +557,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         isSubmitting: false,
         submitError: _extractUserMessage(e),
       );
-      rethrow;
+      return null;
     }
   }
 }

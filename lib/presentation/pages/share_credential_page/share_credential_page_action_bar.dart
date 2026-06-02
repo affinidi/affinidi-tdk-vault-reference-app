@@ -35,6 +35,7 @@ class _ShareActionBar extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+
         if (!isConsentManagementEnabled) ...[
           Row(
             children: [
@@ -66,35 +67,14 @@ class _ShareActionBar extends ConsumerWidget {
           onPressed: isMatchedVCsEmpty
               ? null
               : () async {
-                  try {
-                    final redirectUri =
-                        await controller.submitSelectedCredentials();
-                    if (redirectUri != null) {
-                      await launchUrl(
-                        redirectUri,
-                        mode: LaunchMode.externalApplication,
-                      );
-                    }
-                    if (!context.mounted) return;
-                    ref.read(navigationServiceProvider).popOrGoHome();
-                  } catch (_) {}
+                  await controller.submitSelectedCredentials();
                 },
           child: Text(localizations.shareSubmit),
         ),
         const SizedBox(height: AppSizing.paddingSmall),
         OutlinedButton(
           onPressed: () async {
-            try {
-              final redirectUri = await controller.rejectShareRequest();
-              if (redirectUri != null) {
-                await launchUrl(
-                  redirectUri,
-                  mode: LaunchMode.externalApplication,
-                );
-              }
-              if (!context.mounted) return;
-              ref.read(navigationServiceProvider).popOrGoHome();
-            } catch (_) {}
+            await controller.rejectShareRequest();
           },
           child: Text(localizations.shareReject),
         ),

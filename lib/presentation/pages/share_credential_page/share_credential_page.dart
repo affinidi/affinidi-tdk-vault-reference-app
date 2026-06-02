@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../infrastructure/extensions/claimed_credentials_result_extensions.dart';
 import '../../../infrastructure/extensions/veryfiable_credential_extensions.dart';
@@ -41,11 +40,28 @@ class ShareCredentialPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
 
+    final controllerProvider = shareCredentialPageControllerProvider(
+      requestJwt: requestJwt,
+      clientId: clientId,
+    );
+
+    // Navigate away when submit or reject completes without error.
+    // This runs at the page level so it is never unmounted during loading.
+    ref.listen(
+      controllerProvider.select(
+        (s) => (isSubmitting: s.isSubmitting, submitError: s.submitError),
+      ),
+      (previous, next) {
+        if (previous?.isSubmitting == true &&
+            !next.isSubmitting &&
+            next.submitError == null) {
+          ref.read(navigationServiceProvider).popOrGoHome();
+        }
+      },
+    );
+
     final verifierMetadata = ref.watch(
-      shareCredentialPageControllerProvider(
-        requestJwt: requestJwt,
-        clientId: clientId,
-      ).select((s) => s.verifierMetadata),
+      controllerProvider.select((s) => s.verifierMetadata),
     );
 
     return Scaffold(
