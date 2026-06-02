@@ -3,8 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
-import 'package:ssi/ssi.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../../infrastructure/extensions/claimed_credentials_result_extensions.dart';
 import '../../../infrastructure/extensions/veryfiable_credential_extensions.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../navigation/navigation_provider.dart';
@@ -39,19 +40,20 @@ class ShareCredentialPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
-    final navigation = ref.read(navigationServiceProvider);
 
-    final state = ref.watch(shareCredentialPageControllerProvider(
-      requestJwt: requestJwt,
-      clientId: clientId,
-    ));
+    final verifierMetadata = ref.watch(
+      shareCredentialPageControllerProvider(
+        requestJwt: requestJwt,
+        clientId: clientId,
+      ).select((s) => s.verifierMetadata),
+    );
 
     return Scaffold(
       backgroundColor: AppColorScheme.backgroundBlack,
       appBar: TdkAppBar(
         title: localizations.shareYourData,
         showBackButton: true,
-        onBackPressed: () => navigation.pop(),
+        onBackPressed: () => ref.read(navigationServiceProvider).pop(),
       ),
       body: SafeArea(
         child: Padding(
@@ -60,7 +62,7 @@ class ShareCredentialPage extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _ShareFlowHeader(
-                verifierMetadata: state.verifierMetadata,
+                verifierMetadata: verifierMetadata,
                 localizations: localizations,
               ),
               const SizedBox(height: AppSizing.paddingMedium),

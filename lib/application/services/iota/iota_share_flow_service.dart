@@ -12,6 +12,8 @@ import 'package:ssi/ssi.dart';
 
 part 'iota_share_flow_service.g.dart';
 
+const String _affinidiApiBaseUrl = 'https://apse1.api.affinidi.io';
+
 @riverpod
 ShareFlowServiceInterface iotaShareFlowService(Ref ref) {
   return ShareFlowService(cryptography: CryptographyService());
@@ -32,7 +34,7 @@ ShareRequirementsMatcher iotaShareRequirementsMatcher(Ref ref) {
 @riverpod
 VerifierMetadataService iotaVerifierMetadataService(Ref ref) {
   return VerifierMetadataService(
-    baseUrl: 'https://apse1.api.affinidi.io',
+    baseUrl: _affinidiApiBaseUrl,
   );
 }
 

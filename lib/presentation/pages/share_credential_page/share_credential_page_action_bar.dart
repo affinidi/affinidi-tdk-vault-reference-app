@@ -25,7 +25,7 @@ class _ShareActionBar extends ConsumerWidget {
       controllerProvider.select(
         (state) => (
           isMatchedVCsEmpty:
-              _requiredMatchedVcs(state.matchResult)?.isEmpty ?? true,
+              state.matchResult?.requiredMatchedVcs.isEmpty ?? true,
           autoAllowConsent: state.autoAllowConsent,
           isConsentManagementEnabled: state.isConsentManagementEnabled,
         ),
@@ -67,7 +67,16 @@ class _ShareActionBar extends ConsumerWidget {
               ? null
               : () async {
                   try {
-                    await controller.submitSelectedCredentials();
+                    final redirectUri =
+                        await controller.submitSelectedCredentials();
+                    if (redirectUri != null) {
+                      await launchUrl(
+                        redirectUri,
+                        mode: LaunchMode.externalApplication,
+                      );
+                    }
+                    if (!context.mounted) return;
+                    ref.read(navigationServiceProvider).popOrGoHome();
                   } catch (_) {}
                 },
           child: Text(localizations.shareSubmit),
@@ -76,7 +85,15 @@ class _ShareActionBar extends ConsumerWidget {
         OutlinedButton(
           onPressed: () async {
             try {
-              await controller.rejectShareRequest();
+              final redirectUri = await controller.rejectShareRequest();
+              if (redirectUri != null) {
+                await launchUrl(
+                  redirectUri,
+                  mode: LaunchMode.externalApplication,
+                );
+              }
+              if (!context.mounted) return;
+              ref.read(navigationServiceProvider).popOrGoHome();
             } catch (_) {}
           },
           child: Text(localizations.shareReject),

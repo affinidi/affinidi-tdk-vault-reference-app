@@ -4,12 +4,11 @@ import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ssi/ssi.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../application/services/iota/iota_share_flow_service.dart';
 import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
-import '../../../navigation/navigation_provider.dart';
+import '../../../infrastructure/extensions/claimed_credentials_result_extensions.dart';
 import 'share_credential_page_state.dart';
 
 part 'share_credential_page_controller.g.dart';
@@ -23,23 +22,12 @@ String _extractUserMessage(Object e) {
   return text;
 }
 
+const int _credentialFetchLimit = 100;
+
 @riverpod
 class ShareCredentialPageController extends _$ShareCredentialPageController {
   String? _selectedVaultId;
   bool _hasValidated = false;
-
-  List<VerifiableCredential> _requiredMatchedVcs(
-    ClaimedCredentialsResult matchResult,
-  ) {
-    final result = <VerifiableCredential>[];
-    for (final group in matchResult.vcsGroups.values) {
-      final requiredCount = group.minimumVCsCountToShare;
-      result.addAll(
-        group.allAvailableVCs.take(requiredCount).map((item) => item.vc),
-      );
-    }
-    return List.unmodifiable(result);
-  }
 
   int _resolveSelectedAccountIndex() {
     final profileId = state.selectedProfileId;
@@ -301,7 +289,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         return;
       }
 
-      final listResult = await storage.listCredentials(limit: 100);
+      final listResult = await storage.listCredentials(limit: _credentialFetchLimit);
       final allVCs = listResult.items
           .map((credential) => credential.verifiableCredential)
           .toList();
@@ -387,7 +375,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       state = state.copyWith(
         isMatchingCredentials: false,
         matchResult: matchResult,
-        selectedCredentialIds: _requiredMatchedVcs(matchResult)
+        selectedCredentialIds: matchResult.requiredMatchedVcs
             .map((vc) => vc.id.toString())
             .toSet(),
         isSubmitting: false,
@@ -442,8 +430,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
     final selectedCredentialIds =
         state.selectedCredentialIds.toList(growable: false);
-    final requiredMatched = _requiredMatchedVcs(matchResult);
-    final hasSelected = requiredMatched.any(
+    final hasSelected = matchResult.requiredMatchedVcs.any(
       (vc) => selectedCredentialIds.contains(vc.id.toString()),
     );
     if (!hasSelected) {
@@ -511,10 +498,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       );
 
       state = state.copyWith(isSubmitting: false);
-      if (redirectUri != null) {
-        await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
-      }
-      ref.read(navigationServiceProvider).popOrGoHome();
       return redirectUri;
     } catch (e, st) {
       log('submitSelectedCredentials failed: $e',
@@ -553,10 +536,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         state: shareRequest.request.state,
       );
       state = state.copyWith(isSubmitting: false);
-      if (redirectUri != null) {
-        await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
-      }
-      ref.read(navigationServiceProvider).popOrGoHome();
       return redirectUri;
     } catch (e, st) {
       log('rejectShareRequest failed: $e',

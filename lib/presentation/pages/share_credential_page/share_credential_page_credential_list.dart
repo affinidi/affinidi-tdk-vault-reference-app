@@ -43,7 +43,7 @@ class _MatchedCredentialList extends ConsumerWidget {
       ),
     );
 
-    final matchedVCs = _requiredMatchedVcs(matchResult);
+    final matchedVCs = matchResult?.requiredMatchedVcs;
     final credentialError = matchError ??
         (matchedVCs != null && matchedVCs.isEmpty
             ? localizations.errorMessage('noShareableCredentials')

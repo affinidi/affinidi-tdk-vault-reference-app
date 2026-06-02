@@ -1,20 +1,5 @@
 part of 'share_credential_page.dart';
 
-List<VerifiableCredential>? _requiredMatchedVcs(
-  ClaimedCredentialsResult? matchResult,
-) {
-  if (matchResult == null) return null;
-
-  final result = <VerifiableCredential>[];
-  for (final group in matchResult.vcsGroups.values) {
-    final requiredCount = group.minimumVCsCountToShare;
-    result.addAll(
-      group.allAvailableVCs.take(requiredCount).map((item) => item.vc),
-    );
-  }
-  return List.unmodifiable(result);
-}
-
 class _SharePageBody extends ConsumerWidget {
   const _SharePageBody({
     required this.requestJwt,
