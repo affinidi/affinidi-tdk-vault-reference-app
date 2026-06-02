@@ -83,8 +83,28 @@ final iotaVerifierMetadataServiceProvider =
 // ignore: unused_element
 typedef IotaVerifierMetadataServiceRef
     = AutoDisposeProviderRef<VerifierMetadataService>;
+String _$iotaShareResponseServiceFactoryHash() =>
+    r'11902dcba33a6939f5c601923220f12e9676b1e5';
+
+/// See also [iotaShareResponseServiceFactory].
+@ProviderFor(iotaShareResponseServiceFactory)
+final iotaShareResponseServiceFactoryProvider =
+    AutoDisposeProvider<IotaShareResponseServiceFactory>.internal(
+  iotaShareResponseServiceFactory,
+  name: r'iotaShareResponseServiceFactoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$iotaShareResponseServiceFactoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef IotaShareResponseServiceFactoryRef
+    = AutoDisposeProviderRef<IotaShareResponseServiceFactory>;
 String _$iotaShareResponseServiceHash() =>
-    r'0dd2f45d45672b48a36b1f04c68a3caa4fd9e5b2';
+    r'b85c306e6bb5368298ffc7f11608907c5af95138';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -36,13 +36,33 @@ VerifierMetadataService iotaVerifierMetadataService(Ref ref) {
   );
 }
 
+/// Factory function type for creating [IotaShareResponseServiceInterface]
+/// instances.
+///
+/// Separating creation into a factory provider makes the response service
+/// injectable in tests without requiring a vault-specific provider override.
+typedef IotaShareResponseServiceFactory = IotaShareResponseServiceInterface
+    Function({
+  required String vaultId,
+  required int accountIndex,
+});
+
+@riverpod
+IotaShareResponseServiceFactory iotaShareResponseServiceFactory(Ref ref) {
+  return ({required String vaultId, required int accountIndex}) =>
+      AppIotaShareResponseService(
+        vaultId: vaultId,
+        accountIndex: accountIndex,
+      );
+}
+
 @riverpod
 IotaShareResponseServiceInterface iotaShareResponseService(
   Ref ref, {
   required String vaultId,
   required int accountIndex,
 }) {
-  return AppIotaShareResponseService(
+  return ref.watch(iotaShareResponseServiceFactoryProvider)(
     vaultId: vaultId,
     accountIndex: accountIndex,
   );
