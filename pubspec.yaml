@@ -8,6 +8,8 @@ environment:
 dependencies:
   affinidi_tdk_claim_verifiable_credential: ^2.0.0
   affinidi_tdk_vault: ^3.0.0
+  affinidi_tdk_vault_iota:
+    path: ../affinidi-tdk-dart/packages/affinidi_tdk_vault_iota
   affinidi_tdk_vault_data_manager: ^3.0.0
   affinidi_tdk_vault_edge_drift_provider: ^3.0.0
   affinidi_tdk_vault_edge_provider: ^3.0.0
@@ -54,6 +56,9 @@ dependencies:
   universal_html: ^2.2.4
   universal_io: ^2.2.2
   uuid: ^4.5.1
+  affinidi_tdk_iota_client: ^2.0.0
+  affinidi_tdk_cryptography: ^3.0.0
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   build_runner: ^2.4.4

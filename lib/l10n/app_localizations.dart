@@ -1846,6 +1846,12 @@ abstract class AppLocalizations {
   /// **'Allow consent automatically next time'**
   String get automaticallyAllowConsent;
 
+  /// No description provided for @shareVc.
+  ///
+  /// In en, this message translates to:
+  /// **'Share VC'**
+  String get shareVc;
+
   /// No description provided for @shareCredentialDialogTitle.
   ///
   /// In en, this message translates to:

@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:go_router/go_router.dart';
+import 'flows/app_routes.dart';
 
 /// A wrapper around [GoRouter] that provides convenient and safe navigation methods
 /// with built-in error handling and logging.
@@ -71,6 +72,20 @@ class NavigationService {
       _router.pop(result);
     } catch (e, stackTrace) {
       _handleNavigationError('pop', '<back>', e, stackTrace);
+    }
+  }
+
+  /// Pops the current route if possible; otherwise navigates to the vaults home screen.
+  void popOrGoHome() {
+    try {
+      if (_router.canPop()) {
+        _router.pop();
+      } else {
+        _router.go(VaultsRoutePath.base);
+      }
+    } catch (e, stackTrace) {
+      _handleNavigationError(
+          'popOrGoHome', VaultsRoutePath.base, e, stackTrace);
     }
   }
 
