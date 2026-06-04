@@ -10,8 +10,8 @@ import 'package:tdk_reference_app/application/services/iota/iota_share_flow_serv
 import 'package:tdk_reference_app/l10n/app_localizations.dart';
 import 'package:tdk_reference_app/main.dart' as app;
 
-import '../integration_test/test_utils.dart';
 import 'fixtures/share_flow_fixtures.dart';
+import 'test_utils.dart';
 
 // ---------------------------------------------------------------------------
 // Mocks / Fakes
