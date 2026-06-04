@@ -14,4 +14,22 @@ extension ClaimedCredentialsResultExtension on ClaimedCredentialsResult {
     }
     return List.unmodifiable(result);
   }
+
+  /// Returns the currently selected [VcAvailable] per descriptor group.
+  ///
+  /// Parameters:
+  /// * [selectedIds] - the set of currently selected credential IDs.
+  ///
+  /// Falls back to the first available VC for any group where none of the
+  /// [selectedIds] match.
+  Map<PDDescriptor, VcAvailable> selectedVcFor(Set<String> selectedIds) {
+    return {
+      for (final entry in vcsGroups.entries)
+        if (entry.value.allAvailableVCs.isNotEmpty)
+          entry.key: entry.value.allAvailableVCs.firstWhere(
+            (vcItem) => selectedIds.contains(vcItem.vc.id.toString()),
+            orElse: () => entry.value.allAvailableVCs.first,
+          ),
+    };
+  }
 }

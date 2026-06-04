@@ -1,15 +1,5 @@
 part of 'share_credential_page.dart';
 
-String _descriptorLabel(Map<String, dynamic> descriptor) {
-  final name = descriptor['name'];
-  if (name is String && name.trim().isNotEmpty) return name.trim();
-
-  final id = descriptor['id'];
-  if (id is String && id.trim().isNotEmpty) return id.trim();
-
-  return 'Credential request';
-}
-
 class _MatchedCredentialList extends ConsumerWidget {
   const _MatchedCredentialList({
     required this.requestJwt,
@@ -44,6 +34,9 @@ class _MatchedCredentialList extends ConsumerWidget {
     );
 
     final matchedVCs = matchResult?.requiredMatchedVcs;
+    final selectedVcByDescriptor =
+        matchResult?.selectedVcFor(selectedCredentialIds) ??
+            <PDDescriptor, VcAvailable>{};
     final credentialError = matchError ??
         (matchedVCs != null && matchedVCs.isEmpty
             ? localizations.errorMessage('noShareableCredentials')
@@ -67,11 +60,9 @@ class _MatchedCredentialList extends ConsumerWidget {
                 .map((vcItem) => vcItem.vc.id.toString())
                 .toList(growable: false);
 
-            final selected = group.allAvailableVCs.firstWhere(
-              (vcItem) =>
-                  selectedCredentialIds.contains(vcItem.vc.id.toString()),
-              orElse: () => group.allAvailableVCs.first,
-            );
+            final selected =
+                selectedVcByDescriptor[descriptor] ??
+                group.allAvailableVCs.first;
 
             return Padding(
               padding: const EdgeInsets.only(bottom: AppSizing.paddingMedium),
@@ -89,7 +80,7 @@ class _MatchedCredentialList extends ConsumerWidget {
                           useRootNavigator: true,
                           isScrollControlled: true,
                           builder: (_) => _CredentialPickerSheet(
-                            title: _descriptorLabel(descriptor.toJson()),
+                            title: descriptor.label,
                             candidates: group.allAvailableVCs,
                             selectedVcId: selected.vc.id.toString(),
                             onSelect: (newId) {

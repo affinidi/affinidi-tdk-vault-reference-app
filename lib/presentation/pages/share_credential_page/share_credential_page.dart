@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 
 import '../../../infrastructure/extensions/claimed_credentials_result_extensions.dart';
+import '../../../infrastructure/extensions/pd_descriptor_extensions.dart';
 import '../../../infrastructure/extensions/veryfiable_credential_extensions.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../navigation/navigation_provider.dart';
