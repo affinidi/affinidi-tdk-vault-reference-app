@@ -8,6 +8,7 @@ import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../infrastructure/extensions/claimed_credentials_result_extensions.dart';
+import '../../../infrastructure/extensions/veryfiable_credential_extensions.dart';
 import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import 'share_credential_page_state.dart';
 
@@ -338,7 +339,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         for (final vc in selectedForDescriptor) {
           selectedCredentials.add((
             descriptor: descriptor,
-            credential: parsedCredentialFromVc(vc),
+            credential: vc.toParsedCredential(),
           ));
         }
       }
@@ -358,7 +359,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       if (redirectUri != null) {
         await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
       }
-      state = state.copyWith(isSubmitting: false, shouldDismiss: true);
+      state = state.copyWith(
+        isSubmitting: false,
+        shouldDismiss: true,
+        showShareSuccessToast: redirectUri == null,
+      );
       return redirectUri;
     } catch (e, st) {
       ErrorLoggingHandler.instance

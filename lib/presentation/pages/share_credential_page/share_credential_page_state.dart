@@ -39,5 +39,8 @@ class ShareCredentialPageState with _$ShareCredentialPageState {
     // Set to true once submit or reject completes without error; the view
     // listens on this single flag to trigger navigation away.
     @Default(false) bool shouldDismiss,
+    // Set to true when submit succeeds without launching a redirect URI;
+    // the view shows a success snackbar in this case.
+    @Default(false) bool showShareSuccessToast,
   }) = _ShareCredentialPageState;
 }

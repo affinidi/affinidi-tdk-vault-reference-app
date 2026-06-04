@@ -1016,4 +1016,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get continueActionText => 'Continue';
+
+  @override
+  String get shareCredentialsSuccessMessage =>
+      'Credentials shared successfully.';
 }

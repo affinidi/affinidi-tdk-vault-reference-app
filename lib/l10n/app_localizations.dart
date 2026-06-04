@@ -1875,6 +1875,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue'**
   String get continueActionText;
+
+  /// No description provided for @shareCredentialsSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Credentials shared successfully.'**
+  String get shareCredentialsSuccessMessage;
 }
 
 class _AppLocalizationsDelegate

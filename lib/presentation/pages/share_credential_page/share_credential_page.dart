@@ -49,9 +49,27 @@ class ShareCredentialPage extends ConsumerWidget {
     // Navigate away when submit or reject completes without error.
     // This runs at the page level so it is never unmounted during loading.
     ref.listen(
-      controllerProvider.select((s) => s.shouldDismiss),
-      (_, shouldDismiss) {
-        if (shouldDismiss) ref.read(navigationServiceProvider).popOrGoHome();
+      controllerProvider.select(
+        (s) => (
+          shouldDismiss: s.shouldDismiss,
+          showShareSuccessToast: s.showShareSuccessToast,
+        ),
+      ),
+      (_, next) {
+        if (!next.shouldDismiss) return;
+        if (next.showShareSuccessToast) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                localizations.shareCredentialsSuccessMessage,
+                style: const TextStyle(color: AppColorScheme.textPrimary),
+              ),
+              backgroundColor: AppColorScheme.backgroundDark,
+              behavior: SnackBarBehavior.fixed,
+            ),
+          );
+        }
+        ref.read(navigationServiceProvider).popOrGoHome();
       },
     );
 

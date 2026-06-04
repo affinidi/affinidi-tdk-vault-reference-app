@@ -46,7 +46,10 @@ mixin _$ShareCredentialPageState {
   String? get submitError =>
       throw _privateConstructorUsedError; // Set to true once submit or reject completes without error; the view
 // listens on this single flag to trigger navigation away.
-  bool get shouldDismiss => throw _privateConstructorUsedError;
+  bool get shouldDismiss =>
+      throw _privateConstructorUsedError; // Set to true when submit succeeds without launching a redirect URI;
+// the view shows a success snackbar in this case.
+  bool get showShareSuccessToast => throw _privateConstructorUsedError;
 
   /// Create a copy of ShareCredentialPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -81,7 +84,8 @@ abstract class $ShareCredentialPageStateCopyWith<$Res> {
       bool isConsentManagementEnabled,
       bool isSubmitting,
       String? submitError,
-      bool shouldDismiss});
+      bool shouldDismiss,
+      bool showShareSuccessToast});
 }
 
 /// @nodoc
@@ -120,6 +124,7 @@ class _$ShareCredentialPageStateCopyWithImpl<$Res,
     Object? isSubmitting = null,
     Object? submitError = freezed,
     Object? shouldDismiss = null,
+    Object? showShareSuccessToast = null,
   }) {
     return _then(_value.copyWith(
       requestJwt: null == requestJwt
@@ -202,6 +207,10 @@ class _$ShareCredentialPageStateCopyWithImpl<$Res,
           ? _value.shouldDismiss
           : shouldDismiss // ignore: cast_nullable_to_non_nullable
               as bool,
+      showShareSuccessToast: null == showShareSuccessToast
+          ? _value.showShareSuccessToast
+          : showShareSuccessToast // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -235,7 +244,8 @@ abstract class _$$ShareCredentialPageStateImplCopyWith<$Res>
       bool isConsentManagementEnabled,
       bool isSubmitting,
       String? submitError,
-      bool shouldDismiss});
+      bool shouldDismiss,
+      bool showShareSuccessToast});
 }
 
 /// @nodoc
@@ -273,6 +283,7 @@ class __$$ShareCredentialPageStateImplCopyWithImpl<$Res>
     Object? isSubmitting = null,
     Object? submitError = freezed,
     Object? shouldDismiss = null,
+    Object? showShareSuccessToast = null,
   }) {
     return _then(_$ShareCredentialPageStateImpl(
       requestJwt: null == requestJwt
@@ -355,6 +366,10 @@ class __$$ShareCredentialPageStateImplCopyWithImpl<$Res>
           ? _value.shouldDismiss
           : shouldDismiss // ignore: cast_nullable_to_non_nullable
               as bool,
+      showShareSuccessToast: null == showShareSuccessToast
+          ? _value.showShareSuccessToast
+          : showShareSuccessToast // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -382,7 +397,8 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
       this.isConsentManagementEnabled = false,
       this.isSubmitting = false,
       this.submitError,
-      this.shouldDismiss = false})
+      this.shouldDismiss = false,
+      this.showShareSuccessToast = false})
       : _vaultRegistry = vaultRegistry,
         _profiles = profiles,
         _selectedCredentialIds = selectedCredentialIds;
@@ -468,10 +484,15 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
   @override
   @JsonKey()
   final bool shouldDismiss;
+// Set to true when submit succeeds without launching a redirect URI;
+// the view shows a success snackbar in this case.
+  @override
+  @JsonKey()
+  final bool showShareSuccessToast;
 
   @override
   String toString() {
-    return 'ShareCredentialPageState(requestJwt: $requestJwt, clientId: $clientId, vaultRegistry: $vaultRegistry, selectedVaultId: $selectedVaultId, isVerifyingPassphrase: $isVerifyingPassphrase, passphraseError: $passphraseError, profiles: $profiles, selectedProfileId: $selectedProfileId, shareRequest: $shareRequest, isMatchingCredentials: $isMatchingCredentials, matchResult: $matchResult, matchError: $matchError, requestError: $requestError, verifierMetadata: $verifierMetadata, selectedCredentialIds: $selectedCredentialIds, autoAllowConsent: $autoAllowConsent, isConsentManagementEnabled: $isConsentManagementEnabled, isSubmitting: $isSubmitting, submitError: $submitError, shouldDismiss: $shouldDismiss)';
+    return 'ShareCredentialPageState(requestJwt: $requestJwt, clientId: $clientId, vaultRegistry: $vaultRegistry, selectedVaultId: $selectedVaultId, isVerifyingPassphrase: $isVerifyingPassphrase, passphraseError: $passphraseError, profiles: $profiles, selectedProfileId: $selectedProfileId, shareRequest: $shareRequest, isMatchingCredentials: $isMatchingCredentials, matchResult: $matchResult, matchError: $matchError, requestError: $requestError, verifierMetadata: $verifierMetadata, selectedCredentialIds: $selectedCredentialIds, autoAllowConsent: $autoAllowConsent, isConsentManagementEnabled: $isConsentManagementEnabled, isSubmitting: $isSubmitting, submitError: $submitError, shouldDismiss: $shouldDismiss, showShareSuccessToast: $showShareSuccessToast)';
   }
 
   @override
@@ -519,7 +540,9 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
             (identical(other.submitError, submitError) ||
                 other.submitError == submitError) &&
             (identical(other.shouldDismiss, shouldDismiss) ||
-                other.shouldDismiss == shouldDismiss));
+                other.shouldDismiss == shouldDismiss) &&
+            (identical(other.showShareSuccessToast, showShareSuccessToast) ||
+                other.showShareSuccessToast == showShareSuccessToast));
   }
 
   @override
@@ -544,7 +567,8 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
         isConsentManagementEnabled,
         isSubmitting,
         submitError,
-        shouldDismiss
+        shouldDismiss,
+        showShareSuccessToast
       ]);
 
   /// Create a copy of ShareCredentialPageState
@@ -578,7 +602,8 @@ abstract class _ShareCredentialPageState implements ShareCredentialPageState {
       final bool isConsentManagementEnabled,
       final bool isSubmitting,
       final String? submitError,
-      final bool shouldDismiss}) = _$ShareCredentialPageStateImpl;
+      final bool shouldDismiss,
+      final bool showShareSuccessToast}) = _$ShareCredentialPageStateImpl;
 
   @override
   String get requestJwt;
@@ -629,7 +654,11 @@ abstract class _ShareCredentialPageState implements ShareCredentialPageState {
       get submitError; // Set to true once submit or reject completes without error; the view
 // listens on this single flag to trigger navigation away.
   @override
-  bool get shouldDismiss;
+  bool
+      get shouldDismiss; // Set to true when submit succeeds without launching a redirect URI;
+// the view shows a success snackbar in this case.
+  @override
+  bool get showShareSuccessToast;
 
   /// Create a copy of ShareCredentialPageState
   /// with the given fields replaced by the non-null parameter values.
