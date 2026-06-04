@@ -125,8 +125,16 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
           clientMetadata: result.request.clientMetadata,
           clientMetadataUri: result.request.clientMetadataUri,
         );
-      } on TdkException catch (_) {
-        // 404 = verifier not registered in Affinidi login config; not an error.
+      } on TdkException catch (e, st) {
+        if (e.code !=
+            TdkExceptionType.failedToFetchVerifierMetadata.code) {
+          rethrow;
+        }
+        ErrorLoggingHandler.instance.logError(
+          e,
+          st,
+          reason: 'fetchVerifierMetadata failed; continuing without metadata',
+        );
       }
 
       state = state.copyWith(
@@ -147,6 +155,14 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     }
   }
 
+  /// Opens the selected vault using [passphrase] and loads its profiles.
+  ///
+  /// Parameters:
+  /// * [passphrase] - Vault unlock passphrase entered by the user.
+  ///
+  /// Returns a [Future] that completes once `state` is updated. On wrong
+  /// passphrase sets `state.passphraseError`; on success populates
+  /// `state.profiles` and triggers credential matching for the first profile.
   Future<void> verifyPassphrase(String passphrase) async {
     final vaultId = state.selectedVaultId;
     if (vaultId == null) return;
@@ -198,6 +214,15 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     Future.microtask(() => matchCredentials(profileId));
   }
 
+  /// Loads all credentials for [profileId] and matches them against the
+  /// presentation definition in `state.shareRequest`.
+  ///
+  /// Parameters:
+  /// * [profileId] - Identifier of the profile whose credentials should be
+  ///   evaluated.
+  ///
+  /// Returns a [Future] that completes once `state.matchResult` reflects the
+  /// matched VCs. Sets `state.matchError` instead of throwing on failure.
   Future<void> matchCredentials(String profileId) async {
     final shareRequest = state.shareRequest;
     if (shareRequest == null) return;
@@ -294,6 +319,13 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     state = state.copyWith(selectedCredentialIds: updated, submitError: null);
   }
 
+  /// Submits the user-selected credentials as a Verifiable Presentation to
+  /// the verifier callback URL.
+  ///
+  /// Returns a [Future] resolving to the verifier-supplied redirect [Uri]
+  /// when present (which is launched in the external browser), or `null` when
+  /// the verifier returned no redirect. Sets `state.submitError` instead of
+  /// throwing on failure.
   Future<Uri?> submitSelectedCredentials() async {
     state = state.copyWith(isSubmitting: true, submitError: null);
 
@@ -393,6 +425,12 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     }
   }
 
+  /// Sends an explicit reject response to the verifier callback URL.
+  ///
+  /// Returns a [Future] resolving to the verifier-supplied redirect [Uri]
+  /// when present (which is launched in the external browser), or `null` when
+  /// the verifier returned no redirect. Sets `state.submitError` instead of
+  /// throwing on failure.
   Future<Uri?> rejectShareRequest() async {
     state = state.copyWith(isSubmitting: true, submitError: null);
 

@@ -7,13 +7,18 @@ environment:
   sdk: ^3.5.4
 dependencies:
   affinidi_tdk_claim_verifiable_credential: ^2.0.0
+  affinidi_tdk_cryptography: ^3.0.0
+  affinidi_tdk_iota_client: ^2.0.0
   affinidi_tdk_vault: ^3.0.0
-  affinidi_tdk_vault_iota:
-    path: ../affinidi-tdk-dart/packages/affinidi_tdk_vault_iota
   affinidi_tdk_vault_data_manager: ^3.0.0
   affinidi_tdk_vault_edge_drift_provider: ^3.0.0
   affinidi_tdk_vault_edge_provider: ^3.0.0
   affinidi_tdk_vault_flutter_utils: ^2.0.0
+  # TODO(release): replace path dependency with a published version pin
+  # before merging to main. The path is intentional during development of
+  # the share-flow feature against the in-repo TDK package.
+  affinidi_tdk_vault_iota:
+    path: ../affinidi-tdk-dart/packages/affinidi_tdk_vault_iota
   collection: ^1.19.0
   cross_file: ^0.3.4+2
   crypto: ^3.0.6
@@ -55,10 +60,8 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^28.2.12
   universal_html: ^2.2.4
   universal_io: ^2.2.2
-  uuid: ^4.5.1
-  affinidi_tdk_iota_client: ^2.0.0
-  affinidi_tdk_cryptography: ^3.0.0
   url_launcher: ^6.3.2
+  uuid: ^4.5.1
 
 dev_dependencies:
   build_runner: ^2.4.4

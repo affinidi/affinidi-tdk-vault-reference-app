@@ -50,11 +50,11 @@ class LabelTextField extends HookWidget {
         ),
         const SizedBox(height: AppSizing.paddingSmall),
         SizedBox(
-          height: 48,
+          height: AppSizing.iconXXLarge,
           child: DecoratedBox(
             decoration: BoxDecoration(
               border: Border.all(color: borderColor),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
             ),
             child: Focus(
               onFocusChange: (hasFocus) => isFocused.value = hasFocus,
@@ -79,7 +79,7 @@ class LabelTextField extends HookWidget {
                           ? Icons.visibility_outlined
                           : Icons.visibility_off_outlined,
                       color: AppColorScheme.textSecondary,
-                      size: 20,
+                      size: AppSizing.iconSmall,
                     ),
                     onPressed: () => obscure.value = !obscure.value,
                   ),

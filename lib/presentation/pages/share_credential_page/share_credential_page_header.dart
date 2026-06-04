@@ -9,9 +9,9 @@ class _ShareFlowHeader extends StatelessWidget {
   final VerifierClientMetadata? verifierMetadata;
   final AppLocalizations localizations;
 
-  static const double _logoSize = 48;
-  static const double _lineWidth = 32;
-  static const double _swapWidth = 20;
+  static const double _logoSize = AppSizing.iconXXLarge;
+  static const double _lineWidth = AppSizing.iconLarge;
+  static const double _swapWidth = AppSizing.iconSmall;
   static const double _connectorSpanWidth =
       AppSizing.paddingSmall * 4 + _lineWidth * 2 + _swapWidth;
   static const double _labelWidth = 120;

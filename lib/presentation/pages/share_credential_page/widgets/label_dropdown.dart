@@ -46,13 +46,13 @@ class LabelDropdown<T> extends HookWidget {
         const SizedBox(height: AppSizing.paddingSmall),
         LayoutBuilder(
           builder: (context, constraints) => SizedBox(
-            height: 48,
+            height: AppSizing.iconXXLarge,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 border: Border.all(
                   color: AppColorScheme.formFieldBorderUnfocused,
                 ),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(AppSizing.paddingXSmall),
               ),
               child: DropdownButtonHideUnderline(
                 child: ButtonTheme(
