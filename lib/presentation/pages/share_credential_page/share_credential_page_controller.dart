@@ -23,8 +23,6 @@ String _extractUserMessage(Object e) {
   return text;
 }
 
-const int _credentialFetchLimit = 100;
-
 @riverpod
 class ShareCredentialPageController extends _$ShareCredentialPageController {
   String? _selectedVaultId;
@@ -224,9 +222,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         return;
       }
 
-      final listResult =
-          await storage.listCredentials(limit: _credentialFetchLimit);
-      final allVCs = listResult.items
+      final listResult = await _fetchAllCredentials(storage);
+      final allVCs = listResult
           .map((credential) => credential.verifiableCredential)
           .toList();
 
@@ -254,6 +251,26 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         matchError: 'Failed to load credentials. Please try again.',
       );
     }
+  }
+
+  /// Fetches every credential in [storage] by walking the pagination cursor
+  /// until the underlying API reports no more pages.
+  ///
+  /// Returns the full flattened list of [DigitalCredential]s. The presentation
+  /// definition matcher needs to evaluate against the entire credential set;
+  /// capping at a fixed page size would silently exclude credentials beyond
+  /// that page.
+  Future<List<DigitalCredential>> _fetchAllCredentials(
+    CredentialStorage storage,
+  ) async {
+    final all = <DigitalCredential>[];
+    String? cursor;
+    do {
+      final page = await storage.listCredentials(exclusiveStartItemId: cursor);
+      all.addAll(page.items);
+      cursor = page.lastEvaluatedItemId;
+    } while (cursor != null);
+    return all;
   }
 
   void toggleCredentialSelection(String id, {required bool selected}) {
