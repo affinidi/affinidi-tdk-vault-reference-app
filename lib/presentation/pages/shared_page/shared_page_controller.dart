@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import '../../../application/services/storage/storage_service.dart';
 import '../../../application/services/sharing/granular_access_service.dart';
+import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import 'shared_page_state.dart';
 part 'shared_page_controller.g.dart';
 
@@ -35,11 +35,15 @@ class SharedPageController extends _$SharedPageController {
               await ref.read(sharedStorageFilesProvider(storage.id).future);
           filesMap[storage.id] = files;
           activeStorages.add(storage);
-        } catch (e) {
+        } catch (e, st) {
           final msg = e.toString();
           final isExpired = msg.contains('unable_to_get_node_children') ||
               msg.contains('HTTP 403');
-          debugPrint('Error fetching files for ${storage.id}: $e');
+          ErrorLoggingHandler.instance.logError(
+            e,
+            st,
+            reason: 'Error fetching files for storage ${storage.id}',
+          );
           if (isExpired) {
             _expiredStorageIds.add(storage.id);
             continue;
@@ -55,8 +59,12 @@ class SharedPageController extends _$SharedPageController {
         granularAccessItems = await granularAccessService.discoverSharedFiles(
           currentProfileId: selectedProfileId,
         );
-      } catch (e) {
-        debugPrint('Error discovering granular access items: $e');
+      } catch (e, st) {
+        ErrorLoggingHandler.instance.logError(
+          e,
+          st,
+          reason: 'Error discovering granular access items',
+        );
         granularAccessItems = [];
       }
       state = state.copyWith(
@@ -66,8 +74,12 @@ class SharedPageController extends _$SharedPageController {
         sharedFiles: filesMap,
         granularAccessItems: granularAccessItems,
       );
-    } catch (e) {
-      debugPrint('Error loading shared content: $e');
+    } catch (e, st) {
+      ErrorLoggingHandler.instance.logError(
+        e,
+        st,
+        reason: 'Error loading shared content',
+      );
       state = state.copyWith(isLoading: false);
     }
   }
