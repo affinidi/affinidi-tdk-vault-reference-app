@@ -3,11 +3,10 @@ import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../infrastructure/utils/constants.dart';
 import 'app_iota_share_response_service.dart';
 
 part 'iota_share_flow_service.g.dart';
-
-const String _affinidiApiBaseUrl = 'https://apse1.api.affinidi.io';
 
 @riverpod
 ShareFlowServiceInterface iotaShareFlowService(Ref ref) {
@@ -29,7 +28,7 @@ ShareRequirementsMatcher iotaShareRequirementsMatcher(Ref ref) {
 @riverpod
 VerifierMetadataService iotaVerifierMetadataService(Ref ref) {
   return VerifierMetadataService(
-    baseUrl: _affinidiApiBaseUrl,
+    baseUrl: AppConfig.affinidiApiBaseUrl,
   );
 }
 

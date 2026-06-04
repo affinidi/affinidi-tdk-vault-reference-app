@@ -29,4 +29,9 @@ class AppConfig {
       'https://github.com/affinidi/affinidi-tdk/blob/main';
   static const String githubRawUrl =
       'https://raw.githubusercontent.com/affinidi/affinidi-tdk/refs/heads/main';
+
+  static const String affinidiApiBaseUrl = String.fromEnvironment(
+    'AFFINIDI_API_BASE_URL',
+    defaultValue: 'https://apse1.api.affinidi.io',
+  );
 }
