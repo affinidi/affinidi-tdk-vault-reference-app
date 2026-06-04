@@ -7,7 +7,7 @@ part of 'shared_page_controller.dart';
 // **************************************************************************
 
 String _$sharedPageControllerHash() =>
-    r'11beb9cd07900a311fca47707f667131f3740004';
+    r'4e1a10f71902b60ffd0e27b439b2c1ab199a1e6a';
 
 /// Copied from Dart SDK
 class _SystemHash {

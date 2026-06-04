@@ -21,8 +21,7 @@ class _VaultProfileSection extends HookConsumerWidget {
     final (
       :vaultRegistry,
       :selectedVaultId,
-      :isVerifyingPassphrase,
-      :passphraseError,
+      :stage,
       :profiles,
       :selectedProfileId,
     ) = ref.watch(
@@ -30,13 +29,16 @@ class _VaultProfileSection extends HookConsumerWidget {
         (state) => (
           vaultRegistry: state.vaultRegistry,
           selectedVaultId: state.selectedVaultId,
-          isVerifyingPassphrase: state.isVerifyingPassphrase,
-          passphraseError: state.passphraseError,
+          stage: state.stage,
           profiles: state.profiles,
           selectedProfileId: state.selectedProfileId,
         ),
       ),
     );
+
+    final isVerifyingPassphrase = stage is StageVerifyingPassphrase;
+    final passphraseError =
+        stage is StageAwaitingPassphrase ? stage.error : null;
 
     final passphraseController = useTextEditingController();
 

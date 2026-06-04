@@ -17,18 +17,14 @@ class _SharePageBody extends ConsumerWidget {
       clientId: clientId,
     );
     final (
-      :isSubmitting,
-      :submitError,
-      :requestError,
+      :stage,
       :selectedVaultId,
       :hasProfiles,
       :hasMatchResult,
     ) = ref.watch(
       controllerProvider.select(
         (state) => (
-          isSubmitting: state.isSubmitting,
-          submitError: state.submitError,
-          requestError: state.requestError,
+          stage: state.stage,
           selectedVaultId: state.selectedVaultId,
           hasProfiles: state.profiles != null && state.profiles!.isNotEmpty,
           hasMatchResult: state.matchResult != null,
@@ -36,99 +32,107 @@ class _SharePageBody extends ConsumerWidget {
       ),
     );
 
-    if (isSubmitting) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const CircularProgressIndicator(),
-            const SizedBox(height: AppSizing.paddingMedium),
-            Text(
-              localizations.shareSubmitResponse,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (submitError != null) {
-      return Padding(
-        padding: const EdgeInsets.all(AppSizing.paddingMedium),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
+    switch (stage) {
+      case StageSubmitting():
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: AppSizing.paddingMedium),
+              Text(
+                localizations.shareSubmitResponse,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ),
+        );
+      case StageSubmitFailed(:final message):
+        return _TerminalErrorView(message: message);
+      case StageRequestInvalid(:final message):
+        return _TerminalErrorView(message: message);
+      case StageValidatingRequest():
+      case StageAwaitingPassphrase():
+      case StageVerifyingPassphrase():
+      case StageAwaitingProfile():
+      case StageMatchingCredentials():
+      case StageMatchFailed():
+      case StageReadyToShare():
+      case StageDismissed():
+        return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ShareFlowErrorCard(
-              title: localizations.error,
-              message: submitError,
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingMedium,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _VaultProfileSection(
+                      requestJwt: requestJwt,
+                      clientId: clientId,
+                    ),
+                    if (selectedVaultId != null && hasProfiles) ...[
+                      const SizedBox(height: AppSizing.paddingMedium),
+                      _MatchedCredentialList(
+                        requestJwt: requestJwt,
+                        clientId: clientId,
+                      ),
+                    ],
+                    const SizedBox(height: AppSizing.paddingLarge),
+                  ],
+                ),
+              ),
             ),
-            const SizedBox(height: AppSizing.paddingMedium),
-            FilledButton(
-              onPressed: () =>
-                  ref.read(navigationServiceProvider).popOrGoHome(),
-              child: Text(localizations.cancelActionText),
-            ),
+            if (hasMatchResult) ...[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  AppSizing.paddingMedium,
+                  0,
+                  AppSizing.paddingMedium,
+                  AppSizing.paddingMedium,
+                ),
+                child: _ShareActionBar(
+                  requestJwt: requestJwt,
+                  clientId: clientId,
+                ),
+              ),
+            ],
           ],
-        ),
-      );
+        );
     }
+  }
+}
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            padding:
-                const EdgeInsets.symmetric(horizontal: AppSizing.paddingMedium),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (requestError != null) ...[
-                  const SizedBox(height: AppSizing.paddingMedium),
-                  ShareFlowErrorCard(
-                    title: localizations.error,
-                    message: requestError,
-                  ),
-                  const SizedBox(height: AppSizing.paddingMedium),
-                ],
-                if (requestError == null) ...[
-                  _VaultProfileSection(
-                    requestJwt: requestJwt,
-                    clientId: clientId,
-                  ),
-                ],
-                if (requestError == null &&
-                    selectedVaultId != null &&
-                    hasProfiles) ...[
-                  const SizedBox(height: AppSizing.paddingMedium),
-                  _MatchedCredentialList(
-                    requestJwt: requestJwt,
-                    clientId: clientId,
-                  ),
-                ],
-                const SizedBox(height: AppSizing.paddingLarge),
-              ],
-            ),
+class _TerminalErrorView extends ConsumerWidget {
+  const _TerminalErrorView({required this.message});
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localizations = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.all(AppSizing.paddingMedium),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ShareFlowErrorCard(
+            title: localizations.error,
+            message: message,
           ),
-        ),
-        if (requestError == null && hasMatchResult) ...[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              AppSizing.paddingMedium,
-              0,
-              AppSizing.paddingMedium,
-              AppSizing.paddingMedium,
-            ),
-            child: _ShareActionBar(
-              requestJwt: requestJwt,
-              clientId: clientId,
-            ),
+          const SizedBox(height: AppSizing.paddingMedium),
+          FilledButton(
+            onPressed: () => ref.read(navigationServiceProvider).popOrGoHome(),
+            child: Text(localizations.cancelActionText),
           ),
         ],
-      ],
+      ),
     );
   }
 }

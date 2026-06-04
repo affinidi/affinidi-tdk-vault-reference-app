@@ -18,20 +18,21 @@ class _MatchedCredentialList extends ConsumerWidget {
     );
     final controller = ref.read(controllerProvider.notifier);
     final (
-      :isMatchingCredentials,
+      :stage,
       :selectedCredentialIds,
       :matchResult,
-      :matchError,
     ) = ref.watch(
       controllerProvider.select(
         (state) => (
-          isMatchingCredentials: state.isMatchingCredentials,
+          stage: state.stage,
           selectedCredentialIds: state.selectedCredentialIds,
           matchResult: state.matchResult,
-          matchError: state.matchError,
         ),
       ),
     );
+
+    final isMatchingCredentials = stage is StageMatchingCredentials;
+    final matchError = stage is StageMatchFailed ? stage.message : null;
 
     final matchedVCs = matchResult?.requiredMatchedVcs;
     final selectedVcByDescriptor =

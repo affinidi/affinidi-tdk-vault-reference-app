@@ -16,6 +16,7 @@ import '../../widgets/tdk_app_bar.dart';
 import '../claimed_credential_details_page/claimed_credential_details_page.dart';
 
 import 'share_credential_page_controller.dart';
+import 'share_credential_page_state.dart';
 import 'widgets/label_text_field.dart';
 import 'widgets/label_dropdown.dart';
 import 'widgets/share_credential_item.dart';
@@ -49,14 +50,9 @@ class ShareCredentialPage extends ConsumerWidget {
     // Navigate away when submit or reject completes without error.
     // This runs at the page level so it is never unmounted during loading.
     ref.listen(
-      controllerProvider.select(
-        (s) => (
-          shouldDismiss: s.shouldDismiss,
-          showShareSuccessToast: s.showShareSuccessToast,
-        ),
-      ),
+      controllerProvider.select((s) => s.stage),
       (_, next) {
-        if (!next.shouldDismiss) return;
+        if (next is! StageDismissed) return;
         if (next.showShareSuccessToast) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

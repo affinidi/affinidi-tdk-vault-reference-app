@@ -18,38 +18,23 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ShareCredentialPageState {
   String get requestJwt => throw _privateConstructorUsedError;
   String? get clientId => throw _privateConstructorUsedError;
+  ShareFlowStage get stage => throw _privateConstructorUsedError;
   Map<String, OpenVaultParams> get vaultRegistry =>
       throw _privateConstructorUsedError;
-  String? get selectedVaultId => throw _privateConstructorUsedError;
-  bool get isVerifyingPassphrase => throw _privateConstructorUsedError;
-  String? get passphraseError =>
-      throw _privateConstructorUsedError; // null = not yet loaded; [] = loaded but vault has no profiles
+  String? get selectedVaultId =>
+      throw _privateConstructorUsedError; // null = not yet loaded; [] = loaded but vault has no profiles.
   List<Profile>? get profiles => throw _privateConstructorUsedError;
   String? get selectedProfileId =>
-      throw _privateConstructorUsedError; // The parsed and validated OID4VP request — set after validateRequest().
+      throw _privateConstructorUsedError; // Parsed and validated OID4VP request — set after validateRequest().
   Oid4vpShareRequest? get shareRequest =>
-      throw _privateConstructorUsedError; // Matching state — set while matchCredentials() is running.
-  bool get isMatchingCredentials =>
-      throw _privateConstructorUsedError; // The result of matching vault VCs against the PD requirements.
+      throw _privateConstructorUsedError; // Result of matching vault VCs against the PD requirements.
   ClaimedCredentialsResult? get matchResult =>
-      throw _privateConstructorUsedError; // Error from matchCredentials() — set when the service call fails.
-  String? get matchError =>
-      throw _privateConstructorUsedError; // Top-level error from validateRequest (e.g. expired JWT).
-  String? get requestError =>
       throw _privateConstructorUsedError; // Resolved verifier identity and branding from VerifierMetadataService.
   VerifierClientMetadata? get verifierMetadata =>
-      throw _privateConstructorUsedError; // Credential selection and submission state.
+      throw _privateConstructorUsedError; // Credential selection.
   Set<String> get selectedCredentialIds => throw _privateConstructorUsedError;
   bool get autoAllowConsent => throw _privateConstructorUsedError;
   bool get isConsentManagementEnabled => throw _privateConstructorUsedError;
-  bool get isSubmitting => throw _privateConstructorUsedError;
-  String? get submitError =>
-      throw _privateConstructorUsedError; // Set to true once submit or reject completes without error; the view
-// listens on this single flag to trigger navigation away.
-  bool get shouldDismiss =>
-      throw _privateConstructorUsedError; // Set to true when submit succeeds without launching a redirect URI;
-// the view shows a success snackbar in this case.
-  bool get showShareSuccessToast => throw _privateConstructorUsedError;
 
   /// Create a copy of ShareCredentialPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -67,25 +52,17 @@ abstract class $ShareCredentialPageStateCopyWith<$Res> {
   $Res call(
       {String requestJwt,
       String? clientId,
+      ShareFlowStage stage,
       Map<String, OpenVaultParams> vaultRegistry,
       String? selectedVaultId,
-      bool isVerifyingPassphrase,
-      String? passphraseError,
       List<Profile>? profiles,
       String? selectedProfileId,
       Oid4vpShareRequest? shareRequest,
-      bool isMatchingCredentials,
       ClaimedCredentialsResult? matchResult,
-      String? matchError,
-      String? requestError,
       VerifierClientMetadata? verifierMetadata,
       Set<String> selectedCredentialIds,
       bool autoAllowConsent,
-      bool isConsentManagementEnabled,
-      bool isSubmitting,
-      String? submitError,
-      bool shouldDismiss,
-      bool showShareSuccessToast});
+      bool isConsentManagementEnabled});
 }
 
 /// @nodoc
@@ -106,25 +83,17 @@ class _$ShareCredentialPageStateCopyWithImpl<$Res,
   $Res call({
     Object? requestJwt = null,
     Object? clientId = freezed,
+    Object? stage = null,
     Object? vaultRegistry = null,
     Object? selectedVaultId = freezed,
-    Object? isVerifyingPassphrase = null,
-    Object? passphraseError = freezed,
     Object? profiles = freezed,
     Object? selectedProfileId = freezed,
     Object? shareRequest = freezed,
-    Object? isMatchingCredentials = null,
     Object? matchResult = freezed,
-    Object? matchError = freezed,
-    Object? requestError = freezed,
     Object? verifierMetadata = freezed,
     Object? selectedCredentialIds = null,
     Object? autoAllowConsent = null,
     Object? isConsentManagementEnabled = null,
-    Object? isSubmitting = null,
-    Object? submitError = freezed,
-    Object? shouldDismiss = null,
-    Object? showShareSuccessToast = null,
   }) {
     return _then(_value.copyWith(
       requestJwt: null == requestJwt
@@ -135,6 +104,10 @@ class _$ShareCredentialPageStateCopyWithImpl<$Res,
           ? _value.clientId
           : clientId // ignore: cast_nullable_to_non_nullable
               as String?,
+      stage: null == stage
+          ? _value.stage
+          : stage // ignore: cast_nullable_to_non_nullable
+              as ShareFlowStage,
       vaultRegistry: null == vaultRegistry
           ? _value.vaultRegistry
           : vaultRegistry // ignore: cast_nullable_to_non_nullable
@@ -142,14 +115,6 @@ class _$ShareCredentialPageStateCopyWithImpl<$Res,
       selectedVaultId: freezed == selectedVaultId
           ? _value.selectedVaultId
           : selectedVaultId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isVerifyingPassphrase: null == isVerifyingPassphrase
-          ? _value.isVerifyingPassphrase
-          : isVerifyingPassphrase // ignore: cast_nullable_to_non_nullable
-              as bool,
-      passphraseError: freezed == passphraseError
-          ? _value.passphraseError
-          : passphraseError // ignore: cast_nullable_to_non_nullable
               as String?,
       profiles: freezed == profiles
           ? _value.profiles
@@ -163,22 +128,10 @@ class _$ShareCredentialPageStateCopyWithImpl<$Res,
           ? _value.shareRequest
           : shareRequest // ignore: cast_nullable_to_non_nullable
               as Oid4vpShareRequest?,
-      isMatchingCredentials: null == isMatchingCredentials
-          ? _value.isMatchingCredentials
-          : isMatchingCredentials // ignore: cast_nullable_to_non_nullable
-              as bool,
       matchResult: freezed == matchResult
           ? _value.matchResult
           : matchResult // ignore: cast_nullable_to_non_nullable
               as ClaimedCredentialsResult?,
-      matchError: freezed == matchError
-          ? _value.matchError
-          : matchError // ignore: cast_nullable_to_non_nullable
-              as String?,
-      requestError: freezed == requestError
-          ? _value.requestError
-          : requestError // ignore: cast_nullable_to_non_nullable
-              as String?,
       verifierMetadata: freezed == verifierMetadata
           ? _value.verifierMetadata
           : verifierMetadata // ignore: cast_nullable_to_non_nullable
@@ -194,22 +147,6 @@ class _$ShareCredentialPageStateCopyWithImpl<$Res,
       isConsentManagementEnabled: null == isConsentManagementEnabled
           ? _value.isConsentManagementEnabled
           : isConsentManagementEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSubmitting: null == isSubmitting
-          ? _value.isSubmitting
-          : isSubmitting // ignore: cast_nullable_to_non_nullable
-              as bool,
-      submitError: freezed == submitError
-          ? _value.submitError
-          : submitError // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shouldDismiss: null == shouldDismiss
-          ? _value.shouldDismiss
-          : shouldDismiss // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showShareSuccessToast: null == showShareSuccessToast
-          ? _value.showShareSuccessToast
-          : showShareSuccessToast // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -227,25 +164,17 @@ abstract class _$$ShareCredentialPageStateImplCopyWith<$Res>
   $Res call(
       {String requestJwt,
       String? clientId,
+      ShareFlowStage stage,
       Map<String, OpenVaultParams> vaultRegistry,
       String? selectedVaultId,
-      bool isVerifyingPassphrase,
-      String? passphraseError,
       List<Profile>? profiles,
       String? selectedProfileId,
       Oid4vpShareRequest? shareRequest,
-      bool isMatchingCredentials,
       ClaimedCredentialsResult? matchResult,
-      String? matchError,
-      String? requestError,
       VerifierClientMetadata? verifierMetadata,
       Set<String> selectedCredentialIds,
       bool autoAllowConsent,
-      bool isConsentManagementEnabled,
-      bool isSubmitting,
-      String? submitError,
-      bool shouldDismiss,
-      bool showShareSuccessToast});
+      bool isConsentManagementEnabled});
 }
 
 /// @nodoc
@@ -265,25 +194,17 @@ class __$$ShareCredentialPageStateImplCopyWithImpl<$Res>
   $Res call({
     Object? requestJwt = null,
     Object? clientId = freezed,
+    Object? stage = null,
     Object? vaultRegistry = null,
     Object? selectedVaultId = freezed,
-    Object? isVerifyingPassphrase = null,
-    Object? passphraseError = freezed,
     Object? profiles = freezed,
     Object? selectedProfileId = freezed,
     Object? shareRequest = freezed,
-    Object? isMatchingCredentials = null,
     Object? matchResult = freezed,
-    Object? matchError = freezed,
-    Object? requestError = freezed,
     Object? verifierMetadata = freezed,
     Object? selectedCredentialIds = null,
     Object? autoAllowConsent = null,
     Object? isConsentManagementEnabled = null,
-    Object? isSubmitting = null,
-    Object? submitError = freezed,
-    Object? shouldDismiss = null,
-    Object? showShareSuccessToast = null,
   }) {
     return _then(_$ShareCredentialPageStateImpl(
       requestJwt: null == requestJwt
@@ -294,6 +215,10 @@ class __$$ShareCredentialPageStateImplCopyWithImpl<$Res>
           ? _value.clientId
           : clientId // ignore: cast_nullable_to_non_nullable
               as String?,
+      stage: null == stage
+          ? _value.stage
+          : stage // ignore: cast_nullable_to_non_nullable
+              as ShareFlowStage,
       vaultRegistry: null == vaultRegistry
           ? _value._vaultRegistry
           : vaultRegistry // ignore: cast_nullable_to_non_nullable
@@ -301,14 +226,6 @@ class __$$ShareCredentialPageStateImplCopyWithImpl<$Res>
       selectedVaultId: freezed == selectedVaultId
           ? _value.selectedVaultId
           : selectedVaultId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isVerifyingPassphrase: null == isVerifyingPassphrase
-          ? _value.isVerifyingPassphrase
-          : isVerifyingPassphrase // ignore: cast_nullable_to_non_nullable
-              as bool,
-      passphraseError: freezed == passphraseError
-          ? _value.passphraseError
-          : passphraseError // ignore: cast_nullable_to_non_nullable
               as String?,
       profiles: freezed == profiles
           ? _value._profiles
@@ -322,22 +239,10 @@ class __$$ShareCredentialPageStateImplCopyWithImpl<$Res>
           ? _value.shareRequest
           : shareRequest // ignore: cast_nullable_to_non_nullable
               as Oid4vpShareRequest?,
-      isMatchingCredentials: null == isMatchingCredentials
-          ? _value.isMatchingCredentials
-          : isMatchingCredentials // ignore: cast_nullable_to_non_nullable
-              as bool,
       matchResult: freezed == matchResult
           ? _value.matchResult
           : matchResult // ignore: cast_nullable_to_non_nullable
               as ClaimedCredentialsResult?,
-      matchError: freezed == matchError
-          ? _value.matchError
-          : matchError // ignore: cast_nullable_to_non_nullable
-              as String?,
-      requestError: freezed == requestError
-          ? _value.requestError
-          : requestError // ignore: cast_nullable_to_non_nullable
-              as String?,
       verifierMetadata: freezed == verifierMetadata
           ? _value.verifierMetadata
           : verifierMetadata // ignore: cast_nullable_to_non_nullable
@@ -354,22 +259,6 @@ class __$$ShareCredentialPageStateImplCopyWithImpl<$Res>
           ? _value.isConsentManagementEnabled
           : isConsentManagementEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
-      isSubmitting: null == isSubmitting
-          ? _value.isSubmitting
-          : isSubmitting // ignore: cast_nullable_to_non_nullable
-              as bool,
-      submitError: freezed == submitError
-          ? _value.submitError
-          : submitError // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shouldDismiss: null == shouldDismiss
-          ? _value.shouldDismiss
-          : shouldDismiss // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showShareSuccessToast: null == showShareSuccessToast
-          ? _value.showShareSuccessToast
-          : showShareSuccessToast // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -380,25 +269,17 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
   _$ShareCredentialPageStateImpl(
       {required this.requestJwt,
       this.clientId,
+      this.stage = const StageValidatingRequest(),
       final Map<String, OpenVaultParams> vaultRegistry = const {},
       this.selectedVaultId,
-      this.isVerifyingPassphrase = false,
-      this.passphraseError,
       final List<Profile>? profiles,
       this.selectedProfileId,
       this.shareRequest,
-      this.isMatchingCredentials = false,
       this.matchResult,
-      this.matchError,
-      this.requestError,
       this.verifierMetadata,
       final Set<String> selectedCredentialIds = const <String>{},
       this.autoAllowConsent = false,
-      this.isConsentManagementEnabled = false,
-      this.isSubmitting = false,
-      this.submitError,
-      this.shouldDismiss = false,
-      this.showShareSuccessToast = false})
+      this.isConsentManagementEnabled = false})
       : _vaultRegistry = vaultRegistry,
         _profiles = profiles,
         _selectedCredentialIds = selectedCredentialIds;
@@ -407,6 +288,9 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
   final String requestJwt;
   @override
   final String? clientId;
+  @override
+  @JsonKey()
+  final ShareFlowStage stage;
   final Map<String, OpenVaultParams> _vaultRegistry;
   @override
   @JsonKey()
@@ -418,14 +302,9 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
 
   @override
   final String? selectedVaultId;
-  @override
-  @JsonKey()
-  final bool isVerifyingPassphrase;
-  @override
-  final String? passphraseError;
-// null = not yet loaded; [] = loaded but vault has no profiles
+// null = not yet loaded; [] = loaded but vault has no profiles.
   final List<Profile>? _profiles;
-// null = not yet loaded; [] = loaded but vault has no profiles
+// null = not yet loaded; [] = loaded but vault has no profiles.
   @override
   List<Profile>? get profiles {
     final value = _profiles;
@@ -437,28 +316,18 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
 
   @override
   final String? selectedProfileId;
-// The parsed and validated OID4VP request — set after validateRequest().
+// Parsed and validated OID4VP request — set after validateRequest().
   @override
   final Oid4vpShareRequest? shareRequest;
-// Matching state — set while matchCredentials() is running.
-  @override
-  @JsonKey()
-  final bool isMatchingCredentials;
-// The result of matching vault VCs against the PD requirements.
+// Result of matching vault VCs against the PD requirements.
   @override
   final ClaimedCredentialsResult? matchResult;
-// Error from matchCredentials() — set when the service call fails.
-  @override
-  final String? matchError;
-// Top-level error from validateRequest (e.g. expired JWT).
-  @override
-  final String? requestError;
 // Resolved verifier identity and branding from VerifierMetadataService.
   @override
   final VerifierClientMetadata? verifierMetadata;
-// Credential selection and submission state.
+// Credential selection.
   final Set<String> _selectedCredentialIds;
-// Credential selection and submission state.
+// Credential selection.
   @override
   @JsonKey()
   Set<String> get selectedCredentialIds {
@@ -474,25 +343,10 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
   @override
   @JsonKey()
   final bool isConsentManagementEnabled;
-  @override
-  @JsonKey()
-  final bool isSubmitting;
-  @override
-  final String? submitError;
-// Set to true once submit or reject completes without error; the view
-// listens on this single flag to trigger navigation away.
-  @override
-  @JsonKey()
-  final bool shouldDismiss;
-// Set to true when submit succeeds without launching a redirect URI;
-// the view shows a success snackbar in this case.
-  @override
-  @JsonKey()
-  final bool showShareSuccessToast;
 
   @override
   String toString() {
-    return 'ShareCredentialPageState(requestJwt: $requestJwt, clientId: $clientId, vaultRegistry: $vaultRegistry, selectedVaultId: $selectedVaultId, isVerifyingPassphrase: $isVerifyingPassphrase, passphraseError: $passphraseError, profiles: $profiles, selectedProfileId: $selectedProfileId, shareRequest: $shareRequest, isMatchingCredentials: $isMatchingCredentials, matchResult: $matchResult, matchError: $matchError, requestError: $requestError, verifierMetadata: $verifierMetadata, selectedCredentialIds: $selectedCredentialIds, autoAllowConsent: $autoAllowConsent, isConsentManagementEnabled: $isConsentManagementEnabled, isSubmitting: $isSubmitting, submitError: $submitError, shouldDismiss: $shouldDismiss, showShareSuccessToast: $showShareSuccessToast)';
+    return 'ShareCredentialPageState(requestJwt: $requestJwt, clientId: $clientId, stage: $stage, vaultRegistry: $vaultRegistry, selectedVaultId: $selectedVaultId, profiles: $profiles, selectedProfileId: $selectedProfileId, shareRequest: $shareRequest, matchResult: $matchResult, verifierMetadata: $verifierMetadata, selectedCredentialIds: $selectedCredentialIds, autoAllowConsent: $autoAllowConsent, isConsentManagementEnabled: $isConsentManagementEnabled)';
   }
 
   @override
@@ -504,27 +358,18 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
                 other.requestJwt == requestJwt) &&
             (identical(other.clientId, clientId) ||
                 other.clientId == clientId) &&
+            (identical(other.stage, stage) || other.stage == stage) &&
             const DeepCollectionEquality()
                 .equals(other._vaultRegistry, _vaultRegistry) &&
             (identical(other.selectedVaultId, selectedVaultId) ||
                 other.selectedVaultId == selectedVaultId) &&
-            (identical(other.isVerifyingPassphrase, isVerifyingPassphrase) ||
-                other.isVerifyingPassphrase == isVerifyingPassphrase) &&
-            (identical(other.passphraseError, passphraseError) ||
-                other.passphraseError == passphraseError) &&
             const DeepCollectionEquality().equals(other._profiles, _profiles) &&
             (identical(other.selectedProfileId, selectedProfileId) ||
                 other.selectedProfileId == selectedProfileId) &&
             (identical(other.shareRequest, shareRequest) ||
                 other.shareRequest == shareRequest) &&
-            (identical(other.isMatchingCredentials, isMatchingCredentials) ||
-                other.isMatchingCredentials == isMatchingCredentials) &&
             (identical(other.matchResult, matchResult) ||
                 other.matchResult == matchResult) &&
-            (identical(other.matchError, matchError) ||
-                other.matchError == matchError) &&
-            (identical(other.requestError, requestError) ||
-                other.requestError == requestError) &&
             (identical(other.verifierMetadata, verifierMetadata) ||
                 other.verifierMetadata == verifierMetadata) &&
             const DeepCollectionEquality()
@@ -534,42 +379,25 @@ class _$ShareCredentialPageStateImpl implements _ShareCredentialPageState {
             (identical(other.isConsentManagementEnabled,
                     isConsentManagementEnabled) ||
                 other.isConsentManagementEnabled ==
-                    isConsentManagementEnabled) &&
-            (identical(other.isSubmitting, isSubmitting) ||
-                other.isSubmitting == isSubmitting) &&
-            (identical(other.submitError, submitError) ||
-                other.submitError == submitError) &&
-            (identical(other.shouldDismiss, shouldDismiss) ||
-                other.shouldDismiss == shouldDismiss) &&
-            (identical(other.showShareSuccessToast, showShareSuccessToast) ||
-                other.showShareSuccessToast == showShareSuccessToast));
+                    isConsentManagementEnabled));
   }
 
   @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        requestJwt,
-        clientId,
-        const DeepCollectionEquality().hash(_vaultRegistry),
-        selectedVaultId,
-        isVerifyingPassphrase,
-        passphraseError,
-        const DeepCollectionEquality().hash(_profiles),
-        selectedProfileId,
-        shareRequest,
-        isMatchingCredentials,
-        matchResult,
-        matchError,
-        requestError,
-        verifierMetadata,
-        const DeepCollectionEquality().hash(_selectedCredentialIds),
-        autoAllowConsent,
-        isConsentManagementEnabled,
-        isSubmitting,
-        submitError,
-        shouldDismiss,
-        showShareSuccessToast
-      ]);
+  int get hashCode => Object.hash(
+      runtimeType,
+      requestJwt,
+      clientId,
+      stage,
+      const DeepCollectionEquality().hash(_vaultRegistry),
+      selectedVaultId,
+      const DeepCollectionEquality().hash(_profiles),
+      selectedProfileId,
+      shareRequest,
+      matchResult,
+      verifierMetadata,
+      const DeepCollectionEquality().hash(_selectedCredentialIds),
+      autoAllowConsent,
+      isConsentManagementEnabled);
 
   /// Create a copy of ShareCredentialPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -585,80 +413,48 @@ abstract class _ShareCredentialPageState implements ShareCredentialPageState {
   factory _ShareCredentialPageState(
       {required final String requestJwt,
       final String? clientId,
+      final ShareFlowStage stage,
       final Map<String, OpenVaultParams> vaultRegistry,
       final String? selectedVaultId,
-      final bool isVerifyingPassphrase,
-      final String? passphraseError,
       final List<Profile>? profiles,
       final String? selectedProfileId,
       final Oid4vpShareRequest? shareRequest,
-      final bool isMatchingCredentials,
       final ClaimedCredentialsResult? matchResult,
-      final String? matchError,
-      final String? requestError,
       final VerifierClientMetadata? verifierMetadata,
       final Set<String> selectedCredentialIds,
       final bool autoAllowConsent,
-      final bool isConsentManagementEnabled,
-      final bool isSubmitting,
-      final String? submitError,
-      final bool shouldDismiss,
-      final bool showShareSuccessToast}) = _$ShareCredentialPageStateImpl;
+      final bool isConsentManagementEnabled}) = _$ShareCredentialPageStateImpl;
 
   @override
   String get requestJwt;
   @override
   String? get clientId;
   @override
+  ShareFlowStage get stage;
+  @override
   Map<String, OpenVaultParams> get vaultRegistry;
   @override
-  String? get selectedVaultId;
-  @override
-  bool get isVerifyingPassphrase;
-  @override
   String?
-      get passphraseError; // null = not yet loaded; [] = loaded but vault has no profiles
+      get selectedVaultId; // null = not yet loaded; [] = loaded but vault has no profiles.
   @override
   List<Profile>? get profiles;
   @override
   String?
-      get selectedProfileId; // The parsed and validated OID4VP request — set after validateRequest().
+      get selectedProfileId; // Parsed and validated OID4VP request — set after validateRequest().
   @override
   Oid4vpShareRequest?
-      get shareRequest; // Matching state — set while matchCredentials() is running.
-  @override
-  bool
-      get isMatchingCredentials; // The result of matching vault VCs against the PD requirements.
+      get shareRequest; // Result of matching vault VCs against the PD requirements.
   @override
   ClaimedCredentialsResult?
-      get matchResult; // Error from matchCredentials() — set when the service call fails.
+      get matchResult; // Resolved verifier identity and branding from VerifierMetadataService.
   @override
-  String?
-      get matchError; // Top-level error from validateRequest (e.g. expired JWT).
-  @override
-  String?
-      get requestError; // Resolved verifier identity and branding from VerifierMetadataService.
-  @override
-  VerifierClientMetadata?
-      get verifierMetadata; // Credential selection and submission state.
+  VerifierClientMetadata? get verifierMetadata; // Credential selection.
   @override
   Set<String> get selectedCredentialIds;
   @override
   bool get autoAllowConsent;
   @override
   bool get isConsentManagementEnabled;
-  @override
-  bool get isSubmitting;
-  @override
-  String?
-      get submitError; // Set to true once submit or reject completes without error; the view
-// listens on this single flag to trigger navigation away.
-  @override
-  bool
-      get shouldDismiss; // Set to true when submit succeeds without launching a redirect URI;
-// the view shows a success snackbar in this case.
-  @override
-  bool get showShareSuccessToast;
 
   /// Create a copy of ShareCredentialPageState
   /// with the given fields replaced by the non-null parameter values.

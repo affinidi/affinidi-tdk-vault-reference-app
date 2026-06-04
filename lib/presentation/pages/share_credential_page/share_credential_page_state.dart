@@ -6,41 +6,99 @@ import '../../../application/services/vault/open_vault_params.dart';
 
 part 'share_credential_page_state.freezed.dart';
 
+/// Lifecycle stage of the share-credential flow.
+///
+/// Each variant represents a mutually exclusive screen mode; the view
+/// switches on this single value rather than juggling several boolean
+/// flags. Persistent data (vault registry, profiles, match result, etc.)
+/// lives on [ShareCredentialPageState] alongside the stage.
+sealed class ShareFlowStage {
+  const ShareFlowStage();
+}
+
+/// Initial stage while the OID4VP request JWT is being parsed and validated.
+class StageValidatingRequest extends ShareFlowStage {
+  const StageValidatingRequest();
+}
+
+/// The JWT could not be parsed or has expired; the share cannot proceed.
+class StageRequestInvalid extends ShareFlowStage {
+  const StageRequestInvalid(this.message);
+  final String message;
+}
+
+/// Request is valid; user must select a vault and enter its passphrase.
+/// [error] surfaces a wrong-passphrase message in the input field.
+class StageAwaitingPassphrase extends ShareFlowStage {
+  const StageAwaitingPassphrase({this.error});
+  final String? error;
+}
+
+/// Passphrase has been submitted; vault unlock is in progress.
+class StageVerifyingPassphrase extends ShareFlowStage {
+  const StageVerifyingPassphrase();
+}
+
+/// Vault is unlocked; user is choosing (or has just been shown) the
+/// profile whose credentials should be matched.
+class StageAwaitingProfile extends ShareFlowStage {
+  const StageAwaitingProfile();
+}
+
+/// Matching profile credentials against the presentation definition.
+class StageMatchingCredentials extends ShareFlowStage {
+  const StageMatchingCredentials();
+}
+
+/// The match service failed; the user can retry by reselecting a profile.
+class StageMatchFailed extends ShareFlowStage {
+  const StageMatchFailed(this.message);
+  final String message;
+}
+
+/// Match completed; the user can pick VCs and submit the response.
+class StageReadyToShare extends ShareFlowStage {
+  const StageReadyToShare();
+}
+
+/// User pressed Share/Reject; the response is being sent to the verifier.
+class StageSubmitting extends ShareFlowStage {
+  const StageSubmitting();
+}
+
+/// Submit/reject failed. The view shows a terminal error card.
+class StageSubmitFailed extends ShareFlowStage {
+  const StageSubmitFailed(this.message);
+  final String message;
+}
+
+/// Submit/reject completed. The page should pop; if [showShareSuccessToast]
+/// is true the parent listener also surfaces a success snackbar.
+class StageDismissed extends ShareFlowStage {
+  const StageDismissed({required this.showShareSuccessToast});
+  final bool showShareSuccessToast;
+}
+
 @Freezed(fromJson: false, toJson: false)
 class ShareCredentialPageState with _$ShareCredentialPageState {
   factory ShareCredentialPageState({
     required String requestJwt,
     String? clientId,
+    @Default(StageValidatingRequest()) ShareFlowStage stage,
     @Default({}) Map<String, OpenVaultParams> vaultRegistry,
     String? selectedVaultId,
-    @Default(false) bool isVerifyingPassphrase,
-    String? passphraseError,
-    // null = not yet loaded; [] = loaded but vault has no profiles
+    // null = not yet loaded; [] = loaded but vault has no profiles.
     List<Profile>? profiles,
     String? selectedProfileId,
-    // The parsed and validated OID4VP request — set after validateRequest().
+    // Parsed and validated OID4VP request — set after validateRequest().
     Oid4vpShareRequest? shareRequest,
-    // Matching state — set while matchCredentials() is running.
-    @Default(false) bool isMatchingCredentials,
-    // The result of matching vault VCs against the PD requirements.
+    // Result of matching vault VCs against the PD requirements.
     ClaimedCredentialsResult? matchResult,
-    // Error from matchCredentials() — set when the service call fails.
-    String? matchError,
-    // Top-level error from validateRequest (e.g. expired JWT).
-    String? requestError,
     // Resolved verifier identity and branding from VerifierMetadataService.
     VerifierClientMetadata? verifierMetadata,
-    // Credential selection and submission state.
+    // Credential selection.
     @Default(<String>{}) Set<String> selectedCredentialIds,
     @Default(false) bool autoAllowConsent,
     @Default(false) bool isConsentManagementEnabled,
-    @Default(false) bool isSubmitting,
-    String? submitError,
-    // Set to true once submit or reject completes without error; the view
-    // listens on this single flag to trigger navigation away.
-    @Default(false) bool shouldDismiss,
-    // Set to true when submit succeeds without launching a redirect URI;
-    // the view shows a success snackbar in this case.
-    @Default(false) bool showShareSuccessToast,
   }) = _ShareCredentialPageState;
 }

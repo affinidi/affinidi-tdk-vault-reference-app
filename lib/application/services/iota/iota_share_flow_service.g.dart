@@ -64,7 +64,7 @@ final iotaShareRequirementsMatcherProvider =
 typedef IotaShareRequirementsMatcherRef
     = AutoDisposeProviderRef<ShareRequirementsMatcher>;
 String _$iotaVerifierMetadataServiceHash() =>
-    r'3770bc04a51402d412fc3e01d3383f7eb186955a';
+    r'9699ac2958a2467c888cb83ecf37b83a81167331';
 
 /// See also [iotaVerifierMetadataService].
 @ProviderFor(iotaVerifierMetadataService)

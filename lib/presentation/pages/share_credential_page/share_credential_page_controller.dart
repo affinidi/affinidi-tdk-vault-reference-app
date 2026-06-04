@@ -102,13 +102,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       selectedVaultId: vaultId,
       profiles: null,
       selectedProfileId: null,
-      passphraseError: null,
-      isVerifyingPassphrase: false,
       matchResult: null,
-      matchError: null,
-      isMatchingCredentials: false,
       selectedCredentialIds: const <String>{},
-      submitError: null,
+      stage: const StageAwaitingPassphrase(),
     );
   }
 
@@ -144,6 +140,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       state = state.copyWith(
         shareRequest: result,
         verifierMetadata: verifierMetadata,
+        stage: const StageAwaitingPassphrase(),
       );
     } on TdkException catch (e, st) {
       ErrorLoggingHandler.instance
@@ -151,11 +148,13 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       final message = e.code == TdkExceptionType.invalidOrExpiredJwt.code
           ? 'The share request has expired or is invalid. Please ask the verifier to generate a new request.'
           : 'Failed to validate share request: ${e.message}';
-      state = state.copyWith(requestError: message);
+      state = state.copyWith(stage: StageRequestInvalid(message));
     } catch (e, st) {
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'validateRequest failed');
-      state = state.copyWith(requestError: 'Failed to validate share request.');
+      state = state.copyWith(
+        stage: const StageRequestInvalid('Failed to validate share request.'),
+      );
     }
   }
 
@@ -165,16 +164,14 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   /// * [passphrase] - Vault unlock passphrase entered by the user.
   ///
   /// Returns a [Future] that completes once `state` is updated. On wrong
-  /// passphrase sets `state.passphraseError`; on success populates
-  /// `state.profiles` and triggers credential matching for the first profile.
+  /// passphrase sets `state.stage` to [StageAwaitingPassphrase] with an
+  /// `error`; on success populates `state.profiles` and triggers credential
+  /// matching for the first profile.
   Future<void> verifyPassphrase(String passphrase) async {
     final vaultId = state.selectedVaultId;
     if (vaultId == null) return;
 
-    state = state.copyWith(
-      isVerifyingPassphrase: true,
-      passphraseError: null,
-    );
+    state = state.copyWith(stage: const StageVerifyingPassphrase());
 
     try {
       await ref.read(vaultServiceProvider.notifier).open(
@@ -186,9 +183,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       final profiles = vault != null ? await vault.listProfiles() : <Profile>[];
 
       state = state.copyWith(
-        isVerifyingPassphrase: false,
         profiles: profiles,
         selectedProfileId: profiles.isNotEmpty ? profiles.first.id : null,
+        stage: const StageAwaitingProfile(),
       );
 
       if (profiles.isNotEmpty) {
@@ -204,8 +201,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       }
 
       state = state.copyWith(
-        isVerifyingPassphrase: false,
-        passphraseError: errorMessage,
+        stage: StageAwaitingPassphrase(error: errorMessage),
       );
     }
   }
@@ -226,7 +222,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   ///   evaluated.
   ///
   /// Returns a [Future] that completes once `state.matchResult` reflects the
-  /// matched VCs. Sets `state.matchError` instead of throwing on failure.
+  /// matched VCs. Sets `state.stage` to [StageMatchFailed] instead of
+  /// throwing on failure.
   Future<void> matchCredentials(String profileId) async {
     final shareRequest = state.shareRequest;
     if (shareRequest == null) return;
@@ -235,7 +232,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     if (vaultId == null) return;
 
     state = state.copyWith(
-        isMatchingCredentials: true, matchResult: null, matchError: null);
+      stage: const StageMatchingCredentials(),
+      matchResult: null,
+    );
 
     try {
       final vault = ref.read(vaultServiceProvider).currentVault;
@@ -245,8 +244,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       final storage = profile.defaultCredentialStorage;
       if (storage == null) {
         state = state.copyWith(
-          isMatchingCredentials: false,
           matchResult: const ClaimedCredentialsResult(vcsGroups: {}),
+          stage: const StageReadyToShare(),
         );
         return;
       }
@@ -264,20 +263,19 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       final matchResult = await matcher.match(requirements, allVCs);
 
       state = state.copyWith(
-        isMatchingCredentials: false,
         matchResult: matchResult,
         selectedCredentialIds: matchResult.requiredMatchedVcs
             .map((vc) => vc.id.toString())
             .toSet(),
-        isSubmitting: false,
-        submitError: null,
+        stage: const StageReadyToShare(),
       );
     } catch (e, st) {
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'matchCredentials failed');
       state = state.copyWith(
-        isMatchingCredentials: false,
-        matchError: 'Failed to load credentials. Please try again.',
+        stage: const StageMatchFailed(
+          'Failed to load credentials. Please try again.',
+        ),
       );
     }
   }
@@ -309,7 +307,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     } else {
       updated.remove(id);
     }
-    state = state.copyWith(selectedCredentialIds: updated, submitError: null);
+    state = state.copyWith(selectedCredentialIds: updated);
   }
 
   void setAutoAllowConsent(bool value) {
@@ -320,7 +318,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     final updated = Set<String>.from(state.selectedCredentialIds);
     updated.removeAll(groupVcIds);
     updated.add(selectedId);
-    state = state.copyWith(selectedCredentialIds: updated, submitError: null);
+    state = state.copyWith(selectedCredentialIds: updated);
   }
 
   /// Submits the user-selected credentials as a Verifiable Presentation to
@@ -328,10 +326,10 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   ///
   /// Returns a [Future] resolving to the verifier-supplied redirect [Uri]
   /// when present (which is launched in the external browser), or `null` when
-  /// the verifier returned no redirect. Sets `state.submitError` instead of
-  /// throwing on failure.
+  /// the verifier returned no redirect. Sets `state.stage` to
+  /// [StageSubmitFailed] instead of throwing on failure.
   Future<Uri?> submitSelectedCredentials() async {
-    state = state.copyWith(isSubmitting: true, submitError: null);
+    state = state.copyWith(stage: const StageSubmitting());
 
     try {
       final shareRequest = state.shareRequest;
@@ -413,17 +411,14 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
       }
       state = state.copyWith(
-        isSubmitting: false,
-        shouldDismiss: true,
-        showShareSuccessToast: redirectUri == null,
+        stage: StageDismissed(showShareSuccessToast: redirectUri == null),
       );
       return redirectUri;
     } catch (e, st) {
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'submitSelectedCredentials failed');
       state = state.copyWith(
-        isSubmitting: false,
-        submitError: _extractUserMessage(e),
+        stage: StageSubmitFailed(_extractUserMessage(e)),
       );
       return null;
     }
@@ -433,10 +428,10 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   ///
   /// Returns a [Future] resolving to the verifier-supplied redirect [Uri]
   /// when present (which is launched in the external browser), or `null` when
-  /// the verifier returned no redirect. Sets `state.submitError` instead of
-  /// throwing on failure.
+  /// the verifier returned no redirect. Sets `state.stage` to
+  /// [StageSubmitFailed] instead of throwing on failure.
   Future<Uri?> rejectShareRequest() async {
-    state = state.copyWith(isSubmitting: true, submitError: null);
+    state = state.copyWith(stage: const StageSubmitting());
 
     try {
       final shareRequest = state.shareRequest;
@@ -462,14 +457,15 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       if (redirectUri != null) {
         await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
       }
-      state = state.copyWith(isSubmitting: false, shouldDismiss: true);
+      state = state.copyWith(
+        stage: const StageDismissed(showShareSuccessToast: false),
+      );
       return redirectUri;
     } catch (e, st) {
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'rejectShareRequest failed');
       state = state.copyWith(
-        isSubmitting: false,
-        submitError: _extractUserMessage(e),
+        stage: StageSubmitFailed(_extractUserMessage(e)),
       );
       return null;
     }
