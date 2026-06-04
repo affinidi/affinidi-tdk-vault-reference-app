@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -10,6 +8,7 @@ import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../infrastructure/extensions/claimed_credentials_result_extensions.dart';
+import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import 'share_credential_page_state.dart';
 
 part 'share_credential_page_controller.g.dart';
@@ -66,56 +65,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         accountIndex: accountIndex,
       ),
     );
-  }
-
-  String _descriptorSummary(PDDescriptor descriptor) {
-    final raw = descriptor.toJson();
-    final schema = raw['schema'];
-    String schemaSummary = '';
-
-    if (schema is List) {
-      final uris = schema
-          .whereType<Map>()
-          .map((item) => item['uri'])
-          .whereType<String>()
-          .where((uri) => uri.trim().isNotEmpty)
-          .toList(growable: false);
-      if (uris.isNotEmpty) {
-        schemaSummary = ' | schema=${uris.join(', ')}';
-      }
-    }
-
-    final label = descriptor.name?.trim();
-    if (label != null && label.isNotEmpty) {
-      return '$label (id=${descriptor.id})$schemaSummary';
-    }
-
-    return 'id=${descriptor.id}$schemaSummary';
-  }
-
-  String _availableVcSummary(VerifiableCredential vc) {
-    final types =
-        vc.type.map((item) => item.toString()).toList(growable: false);
-    final typeSummary = types.isEmpty ? 'unknown-type' : types.join(', ');
-    final id = vc.id;
-    final validUntil = vc.validUntil;
-    final validUntilSummary =
-        validUntil == null ? 'none' : validUntil.toUtc().toIso8601String();
-
-    final vcJson = vc.toJson();
-    final rawContext = vcJson['@context'];
-    final contextSummary = rawContext is List
-        ? rawContext.map((contextEntry) => contextEntry.toString()).join(', ')
-        : rawContext?.toString() ?? 'none';
-
-    String credentialSchemaId = 'none';
-    final credentialSchema = vcJson['credentialSchema'];
-    if (credentialSchema is Map && credentialSchema['id'] != null) {
-      credentialSchemaId = credentialSchema['id'].toString();
-    }
-
-    return 'id=$id | type=$typeSummary | validUntil=$validUntilSummary '
-        '| context=$contextSummary | credentialSchema.id=$credentialSchemaId';
   }
 
   @override
@@ -177,41 +126,22 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
           clientMetadata: result.request.clientMetadata,
           clientMetadataUri: result.request.clientMetadataUri,
         );
-      } on TdkException catch (e) {
+      } on TdkException catch (_) {
         // 404 = verifier not registered in Affinidi login config; not an error.
-        log(
-          'clientMetadata: not found for clientId=${result.request.clientId} (${e.code})',
-          name: 'ShareCredentialPageController',
-        );
       }
-      if (verifierMetadata != null) {
-        log(
-          'clientMetadata: name=${verifierMetadata.name} '
-          '| origin=${verifierMetadata.origin} '
-          '| logo=${verifierMetadata.logo} '
-          '| domainVerified=${verifierMetadata.domainVerified}',
-          name: 'ShareCredentialPageController',
-        );
-      }
-      log('purpose     : ${result.purpose}',
-          name: 'ShareCredentialPageController');
-      log('presentationDefinition: ${result.presentationDefinition}',
-          name: 'ShareCredentialPageController');
 
       state = state.copyWith(
         shareRequest: result,
         verifierMetadata: verifierMetadata,
       );
     } on TdkException catch (e, st) {
-      log('validateRequest failed: $e', name: 'ShareCredentialPageController');
-      log('$st', name: 'ShareCredentialPageController');
+      ErrorLoggingHandler.instance.logError(e, st, reason: 'validateRequest failed');
       final message = e.code == TdkExceptionType.invalidOrExpiredJwt.code
           ? 'The share request has expired or is invalid. Please ask the verifier to generate a new request.'
           : 'Failed to validate share request: ${e.message}';
       state = state.copyWith(requestError: message);
     } catch (e, st) {
-      log('validateRequest failed: $e', name: 'ShareCredentialPageController');
-      log('$st', name: 'ShareCredentialPageController');
+      ErrorLoggingHandler.instance.logError(e, st, reason: 'validateRequest failed');
       state = state.copyWith(requestError: 'Failed to validate share request.');
     }
   }
@@ -244,8 +174,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         Future.microtask(() => matchCredentials(profiles.first.id));
       }
     } catch (e, st) {
-      log('verifyPassphrase failed: $e', name: 'ShareCredentialPageController');
-      log('$st', name: 'ShareCredentialPageController');
+      ErrorLoggingHandler.instance.logError(e, st, reason: 'verifyPassphrase failed');
 
       String errorMessage = 'An error occurred';
       if (e is AppException && e.type == AppExceptionType.invalidPassword) {
@@ -284,10 +213,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       final profile = await vault.getProfileById(profileId);
       final storage = profile.defaultCredentialStorage;
       if (storage == null) {
-        log(
-          'Profile VC store: <none> (defaultCredentialStorage is null)',
-          name: 'ShareCredentialPageController',
-        );
         state = state.copyWith(
           isMatchingCredentials: false,
           matchResult: const ClaimedCredentialsResult(vcsGroups: {}),
@@ -305,79 +230,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       final requirements =
           classifier.classify(shareRequest.presentationDefinition);
 
-      log('=== Requested vs Profile VCs ===',
-          name: 'ShareCredentialPageController');
-      log(
-        'Reference time (UTC): ${DateTime.now().toUtc().toIso8601String()}',
-        name: 'ShareCredentialPageController',
-      );
-      final requestedDescriptors = <PDDescriptor>[
-        ...requirements.claimedDescriptors,
-        ...requirements.zpdLinkedDescriptors,
-        ...requirements.idvDescriptors,
-      ];
-      if (requestedDescriptors.isEmpty) {
-        log('Requested VC: <none>', name: 'ShareCredentialPageController');
-      } else {
-        for (final descriptor in requestedDescriptors) {
-          log(
-            'Requested VC: ${_descriptorSummary(descriptor)}',
-            name: 'ShareCredentialPageController',
-          );
-        }
-      }
-
-      log('Profile VC count: ${allVCs.length}',
-          name: 'ShareCredentialPageController');
-
-      if (allVCs.isEmpty) {
-        log('Profile VC: <none>', name: 'ShareCredentialPageController');
-      } else {
-        for (final vc in allVCs) {
-          log(
-            'Profile VC: ${_availableVcSummary(vc)}',
-            name: 'ShareCredentialPageController',
-          );
-        }
-      }
-
       final matcher = ref.read(iotaShareRequirementsMatcherProvider);
       final matchResult = await matcher.match(requirements, allVCs);
-
-      for (final entry in matchResult.vcsGroups.entries) {
-        final descriptor = entry.key;
-        final group = entry.value;
-        final available = group.allAvailableVCs;
-        final unavailable =
-            group.matchedVCs.whereType<VcUnavailable>().toList();
-
-        log(
-          'Requested VC (descriptor match): ${_descriptorSummary(descriptor)}',
-          name: 'ShareCredentialPageController',
-        );
-
-        if (available.isEmpty) {
-          log('Matched VC: <none>', name: 'ShareCredentialPageController');
-        } else {
-          for (final item in available) {
-            log(
-              'Matched VC: ${_availableVcSummary(item.vc)}',
-              name: 'ShareCredentialPageController',
-            );
-          }
-        }
-
-        for (final item in unavailable) {
-          final bestMatch = item.bestMatchVc;
-          final bestMatchSummary = bestMatch == null
-              ? ''
-              : ' | bestMatch=${_availableVcSummary(bestMatch)}';
-          log(
-            'Unavailable VC: reason=${item.reason.name}$bestMatchSummary',
-            name: 'ShareCredentialPageController',
-          );
-        }
-      }
 
       state = state.copyWith(
         isMatchingCredentials: false,
@@ -389,14 +243,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         submitError: null,
       );
 
-      log('=== Match result ===', name: 'ShareCredentialPageController');
-      log('isEnoughVCsAvailableToShare: ${matchResult.isEnoughVCsAvailableToShare}',
-          name: 'ShareCredentialPageController');
-      log('availableCredentials: ${matchResult.availableCredentials.length}',
-          name: 'ShareCredentialPageController');
     } catch (e, st) {
-      log('matchCredentials failed: $e', name: 'ShareCredentialPageController');
-      log('$st', name: 'ShareCredentialPageController');
+      ErrorLoggingHandler.instance.logError(e, st, reason: 'matchCredentials failed');
       state = state.copyWith(
         isMatchingCredentials: false,
         matchError: 'Failed to load credentials. Please try again.',
@@ -510,9 +358,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       state = state.copyWith(isSubmitting: false);
       return redirectUri;
     } catch (e, st) {
-      log('submitSelectedCredentials failed: $e',
-          name: 'ShareCredentialPageController');
-      log('$st', name: 'ShareCredentialPageController');
+      ErrorLoggingHandler.instance.logError(e, st, reason: 'submitSelectedCredentials failed');
       state = state.copyWith(
         isSubmitting: false,
         submitError: _extractUserMessage(e),
@@ -551,9 +397,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       state = state.copyWith(isSubmitting: false);
       return redirectUri;
     } catch (e, st) {
-      log('rejectShareRequest failed: $e',
-          name: 'ShareCredentialPageController');
-      log('$st', name: 'ShareCredentialPageController');
+      ErrorLoggingHandler.instance.logError(e, st, reason: 'rejectShareRequest failed');
       state = state.copyWith(
         isSubmitting: false,
         submitError: _extractUserMessage(e),
