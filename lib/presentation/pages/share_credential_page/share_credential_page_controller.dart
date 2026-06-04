@@ -14,13 +14,17 @@ import 'share_credential_page_state.dart';
 
 part 'share_credential_page_controller.g.dart';
 
+/// Returns a user-facing message for [e].
+///
+/// All controller-level errors are expected to be [TdkException] (raised by
+/// the iota share-flow services) or [AppException] (raised by this app).
+/// Anything else is a programming error in the source layer; we surface a
+/// generic message rather than scraping `toString()` and let the underlying
+/// exception be diagnosed via [ErrorLoggingHandler].
 String _extractUserMessage(Object e) {
   if (e is TdkException) return e.message;
   if (e is AppException) return e.message;
-  final text = e.toString();
-  final match = RegExp(r'- Message: (.+)').firstMatch(text);
-  if (match != null) return match.group(1)!.trim();
-  return text;
+  return 'Something went wrong. Please try again.';
 }
 
 @riverpod
