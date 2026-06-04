@@ -48,9 +48,8 @@ class _SharePageBody extends ConsumerWidget {
             ],
           ),
         );
-      case StageSubmitFailed(:final message):
-        return _TerminalErrorView(message: message);
-      case StageRequestInvalid(:final message):
+      case StageSubmitFailed(:final message) ||
+            StageRequestInvalid(:final message):
         return _TerminalErrorView(message: message);
       case StageValidatingRequest():
       case StageAwaitingPassphrase():
