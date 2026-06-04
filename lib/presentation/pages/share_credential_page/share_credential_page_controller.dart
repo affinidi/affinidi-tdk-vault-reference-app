@@ -135,13 +135,15 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         verifierMetadata: verifierMetadata,
       );
     } on TdkException catch (e, st) {
-      ErrorLoggingHandler.instance.logError(e, st, reason: 'validateRequest failed');
+      ErrorLoggingHandler.instance
+          .logError(e, st, reason: 'validateRequest failed');
       final message = e.code == TdkExceptionType.invalidOrExpiredJwt.code
           ? 'The share request has expired or is invalid. Please ask the verifier to generate a new request.'
           : 'Failed to validate share request: ${e.message}';
       state = state.copyWith(requestError: message);
     } catch (e, st) {
-      ErrorLoggingHandler.instance.logError(e, st, reason: 'validateRequest failed');
+      ErrorLoggingHandler.instance
+          .logError(e, st, reason: 'validateRequest failed');
       state = state.copyWith(requestError: 'Failed to validate share request.');
     }
   }
@@ -174,7 +176,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         Future.microtask(() => matchCredentials(profiles.first.id));
       }
     } catch (e, st) {
-      ErrorLoggingHandler.instance.logError(e, st, reason: 'verifyPassphrase failed');
+      ErrorLoggingHandler.instance
+          .logError(e, st, reason: 'verifyPassphrase failed');
 
       String errorMessage = 'An error occurred';
       if (e is AppException && e.type == AppExceptionType.invalidPassword) {
@@ -242,9 +245,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         isSubmitting: false,
         submitError: null,
       );
-
     } catch (e, st) {
-      ErrorLoggingHandler.instance.logError(e, st, reason: 'matchCredentials failed');
+      ErrorLoggingHandler.instance
+          .logError(e, st, reason: 'matchCredentials failed');
       state = state.copyWith(
         isMatchingCredentials: false,
         matchError: 'Failed to load credentials. Please try again.',
@@ -355,10 +358,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       if (redirectUri != null) {
         await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
       }
-      state = state.copyWith(isSubmitting: false);
+      state = state.copyWith(isSubmitting: false, shouldDismiss: true);
       return redirectUri;
     } catch (e, st) {
-      ErrorLoggingHandler.instance.logError(e, st, reason: 'submitSelectedCredentials failed');
+      ErrorLoggingHandler.instance
+          .logError(e, st, reason: 'submitSelectedCredentials failed');
       state = state.copyWith(
         isSubmitting: false,
         submitError: _extractUserMessage(e),
@@ -394,10 +398,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       if (redirectUri != null) {
         await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
       }
-      state = state.copyWith(isSubmitting: false);
+      state = state.copyWith(isSubmitting: false, shouldDismiss: true);
       return redirectUri;
     } catch (e, st) {
-      ErrorLoggingHandler.instance.logError(e, st, reason: 'rejectShareRequest failed');
+      ErrorLoggingHandler.instance
+          .logError(e, st, reason: 'rejectShareRequest failed');
       state = state.copyWith(
         isSubmitting: false,
         submitError: _extractUserMessage(e),

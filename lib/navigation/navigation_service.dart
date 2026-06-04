@@ -84,11 +84,9 @@ class NavigationService {
   /// cannot be parsed or the `request` query parameter is absent or empty.
   ({String requestJwt, String? clientId})? parseShareUrl(String rawUrl) {
     final uri = Uri.tryParse(rawUrl.trim());
-    final requestJwt =
-        uri?.queryParameters[ShareCredentialRouteParams.request];
+    final requestJwt = uri?.queryParameters[ShareCredentialRouteParams.request];
     if (requestJwt == null || requestJwt.isEmpty) return null;
-    final clientId =
-        uri?.queryParameters[ShareCredentialRouteParams.clientId];
+    final clientId = uri?.queryParameters[ShareCredentialRouteParams.clientId];
     return (requestJwt: requestJwt, clientId: clientId);
   }
 

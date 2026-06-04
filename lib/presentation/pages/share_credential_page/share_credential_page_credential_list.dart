@@ -60,8 +60,7 @@ class _MatchedCredentialList extends ConsumerWidget {
                 .map((vcItem) => vcItem.vc.id.toString())
                 .toList(growable: false);
 
-            final selected =
-                selectedVcByDescriptor[descriptor] ??
+            final selected = selectedVcByDescriptor[descriptor] ??
                 group.allAvailableVCs.first;
 
             return Padding(

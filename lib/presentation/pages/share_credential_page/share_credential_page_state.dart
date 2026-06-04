@@ -36,5 +36,8 @@ class ShareCredentialPageState with _$ShareCredentialPageState {
     @Default(false) bool isConsentManagementEnabled,
     @Default(false) bool isSubmitting,
     String? submitError,
+    // Set to true once submit or reject completes without error; the view
+    // listens on this single flag to trigger navigation away.
+    @Default(false) bool shouldDismiss,
   }) = _ShareCredentialPageState;
 }

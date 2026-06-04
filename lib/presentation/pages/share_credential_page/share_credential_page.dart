@@ -49,15 +49,9 @@ class ShareCredentialPage extends ConsumerWidget {
     // Navigate away when submit or reject completes without error.
     // This runs at the page level so it is never unmounted during loading.
     ref.listen(
-      controllerProvider.select(
-        (s) => (isSubmitting: s.isSubmitting, submitError: s.submitError),
-      ),
-      (previous, next) {
-        if (previous?.isSubmitting == true &&
-            !next.isSubmitting &&
-            next.submitError == null) {
-          ref.read(navigationServiceProvider).popOrGoHome();
-        }
+      controllerProvider.select((s) => s.shouldDismiss),
+      (_, shouldDismiss) {
+        if (shouldDismiss) ref.read(navigationServiceProvider).popOrGoHome();
       },
     );
 
