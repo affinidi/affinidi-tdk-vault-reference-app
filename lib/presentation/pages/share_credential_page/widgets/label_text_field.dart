@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../themes/app_color_scheme.dart';
 import '../../../themes/app_sizing.dart';
@@ -11,7 +12,7 @@ import '../../../themes/app_sizing.dart';
 /// * [controller] - Optional external [TextEditingController].
 /// * [errorText] - Validation error shown below the box. Pass `null` to hide.
 /// * [onSubmitted] - Called when the user submits the field (keyboard action).
-class LabelTextField extends StatefulWidget {
+class LabelTextField extends HookWidget {
   const LabelTextField({
     super.key,
     required this.label,
@@ -28,16 +29,11 @@ class LabelTextField extends StatefulWidget {
   final void Function(String)? onSubmitted;
 
   @override
-  State<LabelTextField> createState() => _LabelTextFieldState();
-}
-
-class _LabelTextFieldState extends State<LabelTextField> {
-  bool _obscure = true;
-  bool _isFocused = false;
-
-  @override
   Widget build(BuildContext context) {
-    final borderColor = _isFocused
+    final obscure = useState(true);
+    final isFocused = useState(false);
+
+    final borderColor = isFocused.value
         ? AppColorScheme.backgroundWhite
         : AppColorScheme.formFieldBorderUnfocused;
 
@@ -46,7 +42,7 @@ class _LabelTextFieldState extends State<LabelTextField> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          widget.label,
+          label,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.w700,
                 color: AppColorScheme.textSecondary,
@@ -61,16 +57,15 @@ class _LabelTextFieldState extends State<LabelTextField> {
               borderRadius: BorderRadius.circular(4),
             ),
             child: Focus(
-              onFocusChange: (hasFocus) =>
-                  setState(() => _isFocused = hasFocus),
+              onFocusChange: (hasFocus) => isFocused.value = hasFocus,
               child: TextField(
-                controller: widget.controller,
-                obscureText: _obscure,
+                controller: controller,
+                obscureText: obscure.value,
                 textAlignVertical: TextAlignVertical.center,
                 style: Theme.of(context).textTheme.bodyMedium,
-                onSubmitted: widget.onSubmitted,
+                onSubmitted: onSubmitted,
                 decoration: InputDecoration(
-                  hintText: widget.hint,
+                  hintText: hint,
                   hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: AppColorScheme.textSecondary,
                       ),
@@ -80,23 +75,23 @@ class _LabelTextFieldState extends State<LabelTextField> {
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscure
+                      obscure.value
                           ? Icons.visibility_outlined
                           : Icons.visibility_off_outlined,
                       color: AppColorScheme.textSecondary,
                       size: 20,
                     ),
-                    onPressed: () => setState(() => _obscure = !_obscure),
+                    onPressed: () => obscure.value = !obscure.value,
                   ),
                 ),
               ),
             ),
           ),
         ),
-        if (widget.errorText != null) ...[
+        if (errorText != null) ...[
           const SizedBox(height: AppSizing.paddingSmall),
           Text(
-            widget.errorText!,
+            errorText!,
             style: TextStyle(
               color: AppColorScheme.error,
               fontSize: AppSizing.fontMedium,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../themes/app_color_scheme.dart';
 import '../../../themes/app_sizing.dart';
@@ -11,7 +12,7 @@ import '../../../themes/app_sizing.dart';
 /// * [value] - Currently selected value. Pass `null` to show [hint].
 /// * [hint] - Placeholder text shown when [value] is `null`.
 /// * [onChanged] - Called when the user selects an item.
-class LabelDropdown<T> extends StatefulWidget {
+class LabelDropdown<T> extends HookWidget {
   const LabelDropdown({
     super.key,
     required this.label,
@@ -28,20 +29,15 @@ class LabelDropdown<T> extends StatefulWidget {
   final void Function(T?)? onChanged;
 
   @override
-  State<LabelDropdown<T>> createState() => _LabelDropdownState<T>();
-}
-
-class _LabelDropdownState<T> extends State<LabelDropdown<T>> {
-  bool _isOpen = false;
-
-  @override
   Widget build(BuildContext context) {
+    final isOpen = useState(false);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          widget.label,
+          label,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.w700,
                 color: AppColorScheme.textSecondary,
@@ -63,18 +59,18 @@ class _LabelDropdownState<T> extends State<LabelDropdown<T>> {
                   alignedDropdown: true,
                   padding: EdgeInsets.zero,
                   child: DropdownButton<T>(
-                    value: widget.value,
+                    value: value,
                     isExpanded: true,
                     menuWidth: constraints.maxWidth,
                     style: Theme.of(context).textTheme.bodyMedium,
                     padding: EdgeInsets.zero,
                     icon: Icon(
-                      _isOpen ? Icons.expand_less : Icons.expand_more,
+                      isOpen.value ? Icons.expand_less : Icons.expand_more,
                       color: AppColorScheme.textSecondary,
                     ),
-                    hint: widget.hint != null
+                    hint: hint != null
                         ? Text(
-                            widget.hint!,
+                            hint!,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
@@ -83,12 +79,12 @@ class _LabelDropdownState<T> extends State<LabelDropdown<T>> {
                                 ),
                           )
                         : null,
-                    onTap: () => setState(() => _isOpen = true),
+                    onTap: () => isOpen.value = true,
                     onChanged: (value) {
-                      setState(() => _isOpen = false);
-                      widget.onChanged?.call(value);
+                      isOpen.value = false;
+                      onChanged?.call(value);
                     },
-                    items: widget.items,
+                    items: items,
                   ),
                 ),
               ),
