@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart'; // Added for GoRouterState
+import 'package:go_router/go_router.dart';
 import '../../../application/services/vault/vault_service.dart';
 
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../navigation/flows/vaults/vaults_route_constants.dart';
-import '../../../navigation/flows/share_credential/share_credential_route_constants.dart';
 import '../../../navigation/navigation_provider.dart';
 import '../../../navigation/navigation_service.dart';
 import '../../themes/app_color_scheme.dart';
@@ -300,78 +300,70 @@ void _showShareRequestDialog(
   NavigationService navigation,
 ) {
   final localizations = AppLocalizations.of(context)!;
-  final textController = TextEditingController();
-
   showModalBottomSheet<void>(
     useRootNavigator: true,
     isScrollControlled: true,
     context: context,
-    builder: (context) {
-      String? errorText;
-
-      return StatefulBuilder(
-        builder: (context, setState) {
-          void submit() {
-            final input = textController.text.trim();
-            if (input.isEmpty) return;
-
-            final uri = Uri.tryParse(input);
-            final requestJwt =
-                uri?.queryParameters[ShareCredentialRouteParams.request];
-            final clientId =
-                uri?.queryParameters[ShareCredentialRouteParams.clientId];
-
-            if (requestJwt == null || requestJwt.isEmpty) {
-              setState(
-                  () => errorText = localizations.shareCredentialDialogError);
-              return;
-            }
-
-            Navigator.of(context).pop();
-            final path = Uri(
-              path: ShareCredentialRoutePath.base,
-              queryParameters: {
-                ShareCredentialRouteParams.request: requestJwt,
-                if (clientId != null && clientId.isNotEmpty)
-                  ShareCredentialRouteParams.clientId: clientId,
-              },
-            ).toString();
-            navigation.push(path);
-          }
-
-          return BottomSheetDialog(
-            title: localizations.shareCredentialDialogTitle,
-            onCancel: () => Navigator.of(context).pop(),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text(localizations.cancelActionText),
-              ),
-              FilledButton(
-                onPressed: submit,
-                child: Text(localizations.continueActionText),
-              ),
-            ],
-            body: TextField(
-              controller: textController,
-              autofocus: true,
-              maxLines: 3,
-              decoration: InputDecoration(
-                hintText: localizations.shareCredentialDialogHint,
-                errorText: errorText,
-                errorMaxLines: 2,
-              ),
-              onSubmitted: (_) => submit(),
-            ),
-          );
-        },
-      );
-    },
-  ).whenComplete(
-    () => WidgetsBinding.instance.addPostFrameCallback(
-      (_) => textController.dispose(),
+    builder: (_) => _ShareRequestDialog(
+      navigation: navigation,
+      localizations: localizations,
     ),
   );
+}
+
+class _ShareRequestDialog extends HookWidget {
+  const _ShareRequestDialog({
+    required this.navigation,
+    required this.localizations,
+  });
+
+  final NavigationService navigation;
+  final AppLocalizations localizations;
+
+  @override
+  Widget build(BuildContext context) {
+    final textController = useTextEditingController();
+    final errorText = useState<String?>(null);
+
+    void submit() {
+      final parsed = navigation.parseShareUrl(textController.text);
+      if (parsed == null) {
+        errorText.value = localizations.shareCredentialDialogError;
+        return;
+      }
+      Navigator.of(context).pop();
+      navigation.pushShareCredential(
+        requestJwt: parsed.requestJwt,
+        clientId: parsed.clientId,
+      );
+    }
+
+    return BottomSheetDialog(
+      title: localizations.shareCredentialDialogTitle,
+      onCancel: () => Navigator.of(context).pop(),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(localizations.cancelActionText),
+        ),
+        FilledButton(
+          onPressed: submit,
+          child: Text(localizations.continueActionText),
+        ),
+      ],
+      body: TextField(
+        controller: textController,
+        autofocus: true,
+        maxLines: 3,
+        decoration: InputDecoration(
+          hintText: localizations.shareCredentialDialogHint,
+          errorText: errorText.value,
+          errorMaxLines: 2,
+        ),
+        onSubmitted: (_) => submit(),
+      ),
+    );
+  }
 }
 
 class SwipeToDeleteBackground extends StatelessWidget {
