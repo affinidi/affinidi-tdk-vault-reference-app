@@ -295,7 +295,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         return;
       }
 
-      final listResult = await storage.listCredentials(limit: _credentialFetchLimit);
+      final listResult =
+          await storage.listCredentials(limit: _credentialFetchLimit);
       final allVCs = listResult.items
           .map((credential) => credential.verifiableCredential)
           .toList();

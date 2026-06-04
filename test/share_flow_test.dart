@@ -170,7 +170,10 @@ Future<void> _enterPassphraseOnSharePage(
 void main() {
   setUpAll(() {
     registerFallbackValue(
-      <({PDDescriptor descriptor, ParsedVerifiableCredential<dynamic> credential})>[],
+      <({
+        PDDescriptor descriptor,
+        ParsedVerifiableCredential<dynamic> credential
+      })>[],
     );
   });
 

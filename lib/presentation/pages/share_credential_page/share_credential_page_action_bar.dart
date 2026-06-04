@@ -35,7 +35,6 @@ class _ShareActionBar extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-
         if (!isConsentManagementEnabled) ...[
           Row(
             children: [
