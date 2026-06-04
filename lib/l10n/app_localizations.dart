@@ -1881,6 +1881,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Credentials shared successfully.'**
   String get shareCredentialsSuccessMessage;
+
+  /// No description provided for @shareFlowErrorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred.'**
+  String get shareFlowErrorOccurred;
+
+  /// No description provided for @shareFlowFailedToLoadCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load credentials. Please try again.'**
+  String get shareFlowFailedToLoadCredentials;
+
+  /// No description provided for @shareFlowRequestExpiredOrInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The share request has expired or is invalid. Please ask the verifier to generate a new request.'**
+  String get shareFlowRequestExpiredOrInvalid;
+
+  /// No description provided for @shareFlowValidationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to validate the share request.'**
+  String get shareFlowValidationFailed;
+
+  /// No description provided for @shareFlowValidationFailedDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to validate the share request: {details}'**
+  String shareFlowValidationFailedDetails(String details);
+
+  /// No description provided for @shareFlowGenericError.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get shareFlowGenericError;
 }
 
 class _AppLocalizationsDelegate

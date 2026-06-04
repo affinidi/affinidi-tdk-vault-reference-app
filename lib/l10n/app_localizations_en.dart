@@ -1020,4 +1020,27 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get shareCredentialsSuccessMessage =>
       'Credentials shared successfully.';
+
+  @override
+  String get shareFlowErrorOccurred => 'An error occurred.';
+
+  @override
+  String get shareFlowFailedToLoadCredentials =>
+      'Failed to load credentials. Please try again.';
+
+  @override
+  String get shareFlowRequestExpiredOrInvalid =>
+      'The share request has expired or is invalid. Please ask the verifier to generate a new request.';
+
+  @override
+  String get shareFlowValidationFailed =>
+      'Failed to validate the share request.';
+
+  @override
+  String shareFlowValidationFailedDetails(String details) {
+    return 'Failed to validate the share request: $details';
+  }
+
+  @override
+  String get shareFlowGenericError => 'Something went wrong. Please try again.';
 }

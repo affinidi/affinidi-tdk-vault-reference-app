@@ -1083,5 +1083,34 @@
   "shareCredentialsSuccessMessage": "Credentials shared successfully.",
   "@shareCredentialsSuccessMessage": {
     "type": "text"
+  },
+  "shareFlowErrorOccurred": "An error occurred.",
+  "@shareFlowErrorOccurred": {
+    "type": "text"
+  },
+  "shareFlowFailedToLoadCredentials": "Failed to load credentials. Please try again.",
+  "@shareFlowFailedToLoadCredentials": {
+    "type": "text"
+  },
+  "shareFlowRequestExpiredOrInvalid": "The share request has expired or is invalid. Please ask the verifier to generate a new request.",
+  "@shareFlowRequestExpiredOrInvalid": {
+    "type": "text"
+  },
+  "shareFlowValidationFailed": "Failed to validate the share request.",
+  "@shareFlowValidationFailed": {
+    "type": "text"
+  },
+  "shareFlowValidationFailedDetails": "Failed to validate the share request: {details}",
+  "@shareFlowValidationFailedDetails": {
+    "type": "text",
+    "placeholders": {
+      "details": {
+        "type": "String"
+      }
+    }
+  },
+  "shareFlowGenericError": "Something went wrong. Please try again.",
+  "@shareFlowGenericError": {
+    "type": "text"
   }
 }

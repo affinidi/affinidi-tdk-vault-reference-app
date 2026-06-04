@@ -10,27 +10,28 @@ import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../infrastructure/extensions/claimed_credentials_result_extensions.dart';
 import '../../../infrastructure/extensions/veryfiable_credential_extensions.dart';
 import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
+import '../../../infrastructure/providers/localizations_provider.dart';
 import 'share_credential_page_state.dart';
 
 part 'share_credential_page_controller.g.dart';
-
-/// Returns a user-facing message for [e].
-///
-/// All controller-level errors are expected to be [TdkException] (raised by
-/// the iota share-flow services) or [AppException] (raised by this app).
-/// Anything else is a programming error in the source layer; we surface a
-/// generic message rather than scraping `toString()` and let the underlying
-/// exception be diagnosed via [ErrorLoggingHandler].
-String _extractUserMessage(Object e) {
-  if (e is TdkException) return e.message;
-  if (e is AppException) return e.message;
-  return 'Something went wrong. Please try again.';
-}
 
 @riverpod
 class ShareCredentialPageController extends _$ShareCredentialPageController {
   String? _selectedVaultId;
   bool _hasValidated = false;
+
+  /// Returns a user-facing message for [e].
+  ///
+  /// All controller-level errors are expected to be [TdkException] (raised by
+  /// the iota share-flow services) or [AppException] (raised by this app).
+  /// Anything else is a programming error in the source layer; we surface a
+  /// generic message rather than scraping `toString()` and let the underlying
+  /// exception be diagnosed via [ErrorLoggingHandler].
+  String _extractUserMessage(Object e) {
+    if (e is TdkException) return e.message;
+    if (e is AppException) return e.message;
+    return ref.read(localizationsProvider).shareFlowGenericError;
+  }
 
   Never _missingProfile(String message) => throw AppException(
         message: message,
@@ -38,8 +39,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       );
 
   int _resolveSelectedAccountIndex() {
-    final profileId = state.selectedProfileId ??
-        _missingProfile('Profile is not selected.');
+    final profileId =
+        state.selectedProfileId ?? _missingProfile('Profile is not selected.');
 
     final profiles = state.profiles;
     if (profiles == null || profiles.isEmpty) {
@@ -121,8 +122,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
           clientMetadataUri: result.request.clientMetadataUri,
         );
       } on TdkException catch (e, st) {
-        if (e.code !=
-            TdkExceptionType.failedToFetchVerifierMetadata.code) {
+        if (e.code != TdkExceptionType.failedToFetchVerifierMetadata.code) {
           rethrow;
         }
         ErrorLoggingHandler.instance.logError(
@@ -140,15 +140,17 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     } on TdkException catch (e, st) {
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'validateRequest failed');
+      final l = ref.read(localizationsProvider);
       final message = e.code == TdkExceptionType.invalidOrExpiredJwt.code
-          ? 'The share request has expired or is invalid. Please ask the verifier to generate a new request.'
-          : 'Failed to validate share request: ${e.message}';
+          ? l.shareFlowRequestExpiredOrInvalid
+          : l.shareFlowValidationFailedDetails(e.message);
       state = state.copyWith(stage: StageRequestInvalid(message));
     } catch (e, st) {
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'validateRequest failed');
       state = state.copyWith(
-        stage: const StageRequestInvalid('Failed to validate share request.'),
+        stage: StageRequestInvalid(
+            ref.read(localizationsProvider).shareFlowValidationFailed),
       );
     }
   }
@@ -190,10 +192,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'verifyPassphrase failed');
 
-      String errorMessage = 'An error occurred';
-      if (e is AppException && e.type == AppExceptionType.invalidPassword) {
-        errorMessage = 'Wrong passphrase.';
-      }
+      final l = ref.read(localizationsProvider);
+      final errorMessage =
+          (e is AppException && e.type == AppExceptionType.invalidPassword)
+              ? l.incorrectPassphrase
+              : l.shareFlowErrorOccurred;
 
       state = state.copyWith(
         stage: StageAwaitingPassphrase(error: errorMessage),
@@ -268,8 +271,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'matchCredentials failed');
       state = state.copyWith(
-        stage: const StageMatchFailed(
-          'Failed to load credentials. Please try again.',
+        stage: StageMatchFailed(
+          ref.read(localizationsProvider).shareFlowFailedToLoadCredentials,
         ),
       );
     }
