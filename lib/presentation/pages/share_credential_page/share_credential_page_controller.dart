@@ -32,29 +32,24 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   String? _selectedVaultId;
   bool _hasValidated = false;
 
-  int _resolveSelectedAccountIndex() {
-    final profileId = state.selectedProfileId;
-    if (profileId == null) {
-      throw AppException(
-        message: 'Profile is not selected.',
+  Never _missingProfile(String message) => throw AppException(
+        message: message,
         type: AppExceptionType.missingProfile,
       );
-    }
+
+  int _resolveSelectedAccountIndex() {
+    final profileId = state.selectedProfileId ??
+        _missingProfile('Profile is not selected.');
 
     final profiles = state.profiles;
     if (profiles == null || profiles.isEmpty) {
-      throw AppException(
-        message: 'Profiles are not loaded.',
-        type: AppExceptionType.missingProfile,
-      );
+      _missingProfile('Profiles are not loaded.');
     }
 
     final profile = profiles.firstWhere(
       (profile) => profile.id == profileId,
-      orElse: () => throw AppException(
-        message: 'Selected profile was not found in current vault.',
-        type: AppExceptionType.missingProfile,
-      ),
+      orElse: () =>
+          _missingProfile('Selected profile was not found in current vault.'),
     );
 
     return profile.accountIndex;
