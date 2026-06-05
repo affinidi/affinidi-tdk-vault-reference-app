@@ -405,11 +405,16 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         selectedCredentials: selectedCredentials,
       );
 
+      var showToast = redirectUri == null;
       if (redirectUri != null) {
-        await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
+        final launched =
+            await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
+        // If the external browser could not be opened, fall back to the
+        // in-app success toast so the user receives confirmation.
+        if (!launched) showToast = true;
       }
       state = state.copyWith(
-        stage: StageDismissed(showShareSuccessToast: redirectUri == null),
+        stage: StageDismissed(showShareSuccessToast: showToast),
       );
       return redirectUri;
     } catch (e, st) {
