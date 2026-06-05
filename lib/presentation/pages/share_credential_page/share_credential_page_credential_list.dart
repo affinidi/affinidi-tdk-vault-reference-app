@@ -68,12 +68,6 @@ class _MatchedCredentialList extends ConsumerWidget {
               padding: const EdgeInsets.only(bottom: AppSizing.paddingMedium),
               child: ShareCredentialItem(
                 verifiableCredential: selected.vc,
-                isSelected:
-                    selectedCredentialIds.contains(selected.vc.id.toString()),
-                onChanged: (value) => controller.toggleCredentialSelection(
-                  selected.vc.id.toString(),
-                  selected: value ?? false,
-                ),
                 onTap: group.allAvailableVCs.length > 1
                     ? () => showModalBottomSheet<void>(
                           context: context,
