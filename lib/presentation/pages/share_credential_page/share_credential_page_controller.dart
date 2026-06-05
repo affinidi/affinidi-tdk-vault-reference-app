@@ -71,13 +71,18 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     required String requestJwt,
     String? clientId,
   }) {
-    final vaultRegistry = ref.watch(
-      vaultsManagerServiceProvider.select((state) => state.vaultRegistry),
+    final vaultRegistry = ref.read(
+      vaultsManagerServiceProvider.select((s) => s.vaultRegistry),
     );
 
     if (_selectedVaultId == null && vaultRegistry.isNotEmpty) {
       _selectedVaultId = vaultRegistry.keys.first;
     }
+
+    ref.listen(
+      vaultsManagerServiceProvider.select((s) => s.vaultRegistry),
+      (_, newRegistry) => state = state.copyWith(vaultRegistry: newRegistry),
+    );
 
     if (!_hasValidated) {
       _hasValidated = true;
