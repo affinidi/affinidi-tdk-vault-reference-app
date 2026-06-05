@@ -352,10 +352,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
       final selectedCredentialIds =
           state.selectedCredentialIds.toList(growable: false);
-      final hasSelected = matchResult.requiredMatchedVcs.any(
-        (vc) => selectedCredentialIds.contains(vc.id.toString()),
-      );
-      if (!hasSelected) {
+      if (selectedCredentialIds.isEmpty) {
         throw AppException(
           message: 'Select at least one credential.',
           type: AppExceptionType.missingVerifiableCredentials,
