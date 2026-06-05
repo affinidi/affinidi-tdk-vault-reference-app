@@ -53,7 +53,13 @@ class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
     final vault = _getCurrentVault();
 
     final profiles = await vault.listProfiles();
-    final profile = profiles.firstWhere((p) => p.id == profileId);
+    final profile = profiles.firstWhere(
+      (p) => p.id == profileId,
+      orElse: () => throw AppException(
+        message: 'Selected profile was not found in current vault.',
+        type: AppExceptionType.missingProfile,
+      ),
+    );
 
     state = state.copyWith(
       offerUri: uri,
