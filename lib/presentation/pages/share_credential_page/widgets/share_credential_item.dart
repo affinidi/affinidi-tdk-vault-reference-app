@@ -49,6 +49,16 @@ class ShareCredentialItem extends StatelessWidget {
         padding: const EdgeInsets.all(AppSizing.paddingMedium),
         child: Row(
           children: [
+            SizedBox(
+              width: AppSizing.iconXSmall,
+              child: Checkbox(
+                visualDensity: VisualDensity.comfortable,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                value: isSelected,
+                onChanged: onChanged,
+              ),
+            ),
+            const SizedBox(width: AppSizing.paddingSmall),
             SvgPicture.asset(
               _credentialIconAsset,
               width: 28,
@@ -57,7 +67,11 @@ class ShareCredentialItem extends StatelessWidget {
             const SizedBox(width: AppSizing.paddingMedium),
             Expanded(
               child: GestureDetector(
-                onTap: onTap,
+                // When no picker is available (single credential), tapping the
+                // card body toggles the selection directly.
+                onTap: onTap ?? (onChanged != null
+                    ? () => onChanged!(!isSelected)
+                    : null),
                 behavior: HitTestBehavior.opaque,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
