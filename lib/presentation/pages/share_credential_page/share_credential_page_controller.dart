@@ -409,8 +409,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       if (redirectUri != null) {
         final launched =
             await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
-        // If the external browser could not be opened, fall back to the
-        // in-app success toast so the user receives confirmation.
         if (!launched) showToast = true;
       }
       state = state.copyWith(

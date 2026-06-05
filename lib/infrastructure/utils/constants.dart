@@ -30,6 +30,9 @@ class AppConfig {
   static const String githubRawUrl =
       'https://raw.githubusercontent.com/affinidi/affinidi-tdk/refs/heads/main';
 
+  // Affinidi API base URL. Override at build time with
+  // --dart-define=AFFINIDI_API_BASE_URL=<url> to point at a different region
+  // or environment.
   static const String affinidiApiBaseUrl = String.fromEnvironment(
     'AFFINIDI_API_BASE_URL',
     defaultValue: 'https://apse1.api.affinidi.io',
