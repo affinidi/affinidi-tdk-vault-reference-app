@@ -464,7 +464,16 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         state: shareRequest.request.state,
       );
       if (redirectUri != null) {
-        await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
+        final launched = await launchUrl(
+          redirectUri,
+          mode: LaunchMode.externalApplication,
+        );
+        if (!launched) {
+          throw AppException(
+            message: 'Could not open redirect URL.',
+            type: AppExceptionType.other,
+          );
+        }
       }
       state = state.copyWith(
         stage: const StageDismissed(showShareSuccessToast: false),
