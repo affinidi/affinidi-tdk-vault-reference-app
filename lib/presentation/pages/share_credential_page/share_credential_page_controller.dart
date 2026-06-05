@@ -111,7 +111,13 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
   Future<void> validateRequest() async {
     final jwt = state.requestJwt;
-    if (jwt.isEmpty) return;
+    if (jwt.isEmpty) {
+      state = state.copyWith(
+        stage: StageRequestInvalid(
+            ref.read(localizationsProvider).shareFlowValidationFailed),
+      );
+      return;
+    }
 
     try {
       final service = ref.read(iotaShareFlowServiceProvider);
