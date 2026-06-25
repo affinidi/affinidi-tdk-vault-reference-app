@@ -55,7 +55,7 @@ class AppIotaShareResponseService implements IotaShareResponseServiceInterface {
   @override
   Future<Uri?> submitShareResponse({
     required Oid4vpShareRequest shareRequest,
-    required List<ParsedVerifiableCredential<dynamic>> selectedCredentials,
+    required List<VerifiableCredential> selectedCredentials,
     required String acceptResponseUri,
   }) async {
     final service = await _buildService();
