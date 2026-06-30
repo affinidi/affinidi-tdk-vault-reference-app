@@ -20,7 +20,7 @@ dependencies:
   affinidi_tdk_vault_iota:
     git:
       url: https://github.com/affinidi/affinidi-tdk-dart.git
-      ref: bae3b933a098ec48d84b553408f182b3a861a0c5
+      ref: 125fc9cc771f9aed3b11780bb8357e12270415bd
       path: packages/vault_iota
   collection: ^1.19.0
   cross_file: ^0.3.4+2
