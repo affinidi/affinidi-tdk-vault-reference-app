@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,11 +10,9 @@ import '../../../application/services/vaults_manager/vaults_manager_service.dart
 import '../../../l10n/app_localizations.dart';
 import '../../../navigation/flows/vaults/vaults_route_constants.dart';
 import '../../../navigation/navigation_provider.dart';
-import '../../../navigation/navigation_service.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
 import '../../themes/app_theme.dart';
-import '../../widgets/bottom_sheet_dialog.dart';
 import '../../widgets/code_snippet/code_snippet_locations.dart';
 import '../../widgets/code_snippet/code_snippet_widget.dart';
 import '../../widgets/simple_info_widget.dart';
@@ -266,77 +263,6 @@ class _VaultCard extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-void _showShareRequestDialog(
-  BuildContext context,
-  NavigationService navigation,
-) {
-  final localizations = AppLocalizations.of(context)!;
-  showModalBottomSheet<void>(
-    useRootNavigator: true,
-    isScrollControlled: true,
-    context: context,
-    builder: (_) => _ShareRequestDialog(
-      navigation: navigation,
-      localizations: localizations,
-    ),
-  );
-}
-
-class _ShareRequestDialog extends HookWidget {
-  const _ShareRequestDialog({
-    required this.navigation,
-    required this.localizations,
-  });
-
-  final NavigationService navigation;
-  final AppLocalizations localizations;
-
-  @override
-  Widget build(BuildContext context) {
-    final textController = useTextEditingController();
-    final errorText = useState<String?>(null);
-
-    void submit() {
-      final parsed = navigation.parseShareUrl(textController.text);
-      if (parsed == null) {
-        errorText.value = localizations.shareCredentialDialogError;
-        return;
-      }
-      Navigator.of(context).pop();
-      navigation.pushShareCredential(
-        requestJwt: parsed.requestJwt,
-        clientId: parsed.clientId,
-      );
-    }
-
-    return BottomSheetDialog(
-      title: localizations.shareCredentialDialogTitle,
-      onCancel: () => Navigator.of(context).pop(),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(localizations.cancelActionText),
-        ),
-        FilledButton(
-          onPressed: submit,
-          child: Text(localizations.continueActionText),
-        ),
-      ],
-      body: TextField(
-        controller: textController,
-        autofocus: true,
-        maxLines: 3,
-        decoration: InputDecoration(
-          hintText: localizations.shareCredentialDialogHint,
-          errorText: errorText.value,
-          errorMaxLines: 2,
-        ),
-        onSubmitted: (_) => submit(),
       ),
     );
   }

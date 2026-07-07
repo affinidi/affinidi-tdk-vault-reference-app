@@ -6,8 +6,8 @@ version: 1.1.0+2
 environment:
   sdk: ^3.5.4
 dependencies:
-  affinidi_tdk_cryptography: ^3.0.0
   affinidi_tdk_claim_verifiable_credential: ^2.0.0
+  affinidi_tdk_cryptography: ^3.0.0
   affinidi_tdk_iota_client: ^2.0.0
   affinidi_tdk_vault: ^3.0.0
   affinidi_tdk_vault_data_manager: ^3.0.0
