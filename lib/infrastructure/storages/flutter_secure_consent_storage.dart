@@ -44,10 +44,10 @@ class FlutterSecureConsentStorage implements ConsentStorage {
 
   @override
   Future<IotaConsentRecord?> findByRequestHash(String requestHash) async {
-    for (final record in await _readAll()) {
-      if (record.requestHash == requestHash) return record;
-    }
-    return null;
+    final matches = await findAllByRequestHash(requestHash);
+    if (matches.isEmpty) return null;
+    matches.sort((a, b) => b.sharedAt.compareTo(a.sharedAt));
+    return matches.first;
   }
 
   @override

@@ -68,7 +68,7 @@ class _ConsentHistoryItem extends StatelessWidget {
                   color: AppColorScheme.textSecondary),
               onPressed: () => ConsentHistoryDetailsSheet.show(
                   context: context, record: record),
-              tooltip: 'Details',
+              tooltip: localizations.consentHistoryDetails,
             ),
           ],
         ),

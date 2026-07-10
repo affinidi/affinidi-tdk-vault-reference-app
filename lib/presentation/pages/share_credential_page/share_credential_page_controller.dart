@@ -541,7 +541,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       );
 
       final claimedVcTypes =
-          selectedCredentials.expand((vc) => vc.type).toSet().join(',');
+          (selectedCredentials.expand((vc) => vc.type).toSet().toList()..sort())
+              .join(',');
 
       await consentService.saveConsentRecord(
         requestHash: requestHash,
