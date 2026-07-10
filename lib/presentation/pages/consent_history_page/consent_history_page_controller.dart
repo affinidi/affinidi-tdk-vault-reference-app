@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../application/services/vault/vault_service.dart';
+import '../../../infrastructure/exceptions/app_exception.dart';
+import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import '../../../infrastructure/providers/consent_record_store_provider.dart';
 import 'consent_history_page_state.dart';
 
@@ -40,8 +42,15 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
         profileDidById: profileDidById,
         isLoading: false,
       );
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
+    } catch (e, st) {
+      ErrorLoggingHandler.instance
+          .logError(e, st, reason: '_loadRecords failed');
+      final errorType = e is AppException
+          ? e.type.name
+          : e is TdkException
+              ? e.code
+              : AppExceptionType.other.name;
+      state = state.copyWith(isLoading: false, error: errorType);
     }
   }
 

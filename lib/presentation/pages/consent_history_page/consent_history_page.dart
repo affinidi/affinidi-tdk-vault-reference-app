@@ -43,9 +43,7 @@ class ConsentHistoryPage extends ConsumerWidget {
                   color: AppColorScheme.error, size: AppSizing.iconXLarge),
               const SizedBox(height: AppSizing.paddingMedium),
               Text(
-                const bool.fromEnvironment('dart.vm.product')
-                    ? localizations.unknownError
-                    : error,
+                localizations.errorMessage(error),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: AppColorScheme.textSecondary,
                     ),
