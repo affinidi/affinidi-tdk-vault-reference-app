@@ -67,8 +67,12 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
   }
 
   static String formatDisplayText(String? value, String notAvailable) {
-    if (value == null || value.trim().isEmpty) return notAvailable;
-    return value.trim();
+    if (value == null) return notAvailable;
+
+    final trimmed = value.trim();
+    if (trimmed.isEmpty) return notAvailable;
+
+    return trimmed;
   }
 
   static String formatDataShared(

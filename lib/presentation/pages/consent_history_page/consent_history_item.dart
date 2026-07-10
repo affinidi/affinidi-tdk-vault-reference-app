@@ -1,15 +1,7 @@
-import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+part of 'consent_history_page.dart';
 
-import '../../../l10n/app_localizations.dart';
-import '../../themes/app_color_scheme.dart';
-import '../../themes/app_sizing.dart';
-import 'consent_history_details_sheet.dart';
-import 'consent_history_logo_avatar.dart';
-
-class ConsentHistoryItem extends StatelessWidget {
-  const ConsentHistoryItem({super.key, required this.record});
+class _ConsentHistoryItem extends StatelessWidget {
+  const _ConsentHistoryItem({required this.record});
 
   final IotaConsentRecord record;
 
@@ -21,8 +13,10 @@ class ConsentHistoryItem extends StatelessWidget {
     final origin = (siteUrl != null && siteUrl.trim().isNotEmpty)
         ? siteUrl.trim()
         : localizations.consentHistoryNotAvailable;
-    final dateFormatted =
-        _formatDate(record.sharedAt, localizations.consentHistoryNotAvailable);
+    final dateFormatted = ConsentHistoryPageController.formatDate(
+      record.sharedAt,
+      localizations.consentHistoryNotAvailable,
+    );
 
     return InkWell(
       onTap: () =>
@@ -80,15 +74,5 @@ class ConsentHistoryItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _formatDate(String isoDate, String notAvailable) {
-    if (isoDate.isEmpty) return notAvailable;
-    try {
-      final dt = DateTime.parse(isoDate).toLocal();
-      return DateFormat('MMM d, yyyy').format(dt);
-    } catch (_) {
-      return notAvailable;
-    }
   }
 }

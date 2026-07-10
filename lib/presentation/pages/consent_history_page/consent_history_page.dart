@@ -1,11 +1,15 @@
+import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../l10n/app_localizations.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
-import 'consent_history_item.dart';
+import 'consent_history_details_sheet.dart';
+import 'consent_history_logo_avatar.dart';
 import 'consent_history_page_controller.dart';
+
+part 'consent_history_item.dart';
 
 class ConsentHistoryPage extends ConsumerWidget {
   const ConsentHistoryPage({super.key});
@@ -82,7 +86,7 @@ class ConsentHistoryPage extends ConsumerWidget {
           color: AppColorScheme.divider,
         ),
         itemBuilder: (context, index) =>
-            ConsentHistoryItem(record: records[index]),
+            _ConsentHistoryItem(record: records[index]),
       ),
     );
   }
