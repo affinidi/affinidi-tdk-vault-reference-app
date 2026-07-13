@@ -1699,7 +1699,7 @@ abstract class AppLocalizations {
   /// No description provided for @referenceApp.
   ///
   /// In en, this message translates to:
-  /// **'Reference App'**
+  /// **'Affinidi TDK Vault Reference App'**
   String get referenceApp;
 
   /// No description provided for @clientInfoTitle.
@@ -1917,6 +1917,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Please try again.'**
   String get shareFlowGenericError;
+
+  /// No description provided for @shareFlowNoVaultError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please create a vault first to start the share flow.'**
+  String get shareFlowNoVaultError;
+
+  /// No description provided for @shareFlowNotEnoughMatchingCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile does not contain enough credentials to satisfy this data request.'**
+  String get shareFlowNotEnoughMatchingCredentials;
 }
 
 class _AppLocalizationsDelegate

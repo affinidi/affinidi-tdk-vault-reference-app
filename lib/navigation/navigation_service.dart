@@ -96,6 +96,17 @@ class NavigationService {
   /// * [requestJwt] - The JWT extracted from the OID4VP request URL.
   /// * [clientId] - Optional verifier client identifier.
   void pushShareCredential({required String requestJwt, String? clientId}) {
+    final path = _buildShareCredentialPath(
+      requestJwt: requestJwt,
+      clientId: clientId,
+    );
+    push(path);
+  }
+
+  String _buildShareCredentialPath({
+    required String requestJwt,
+    String? clientId,
+  }) {
     final path = Uri(
       path: ShareCredentialRoutePath.base,
       queryParameters: {
@@ -104,7 +115,7 @@ class NavigationService {
           ShareCredentialRouteParams.clientId: clientId,
       },
     ).toString();
-    push(path);
+    return path;
   }
 
   /// Pops the current route if possible; otherwise navigates to the vaults home screen.

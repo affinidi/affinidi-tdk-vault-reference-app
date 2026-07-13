@@ -14,19 +14,8 @@ ShareFlowServiceInterface iotaShareFlowService(Ref ref) {
 }
 
 @riverpod
-PDClassifier iotaPdClassifier(Ref ref) {
-  // validIdvIssuers: trusted IDV issuer DIDs — empty for now (no IDV routing).
-  return PDClassifier(validIdvIssuers: []);
-}
-
-@riverpod
-ShareRequirementsMatcher iotaShareRequirementsMatcher(Ref ref) {
-  return ShareRequirementsMatcher();
-}
-
-/// Unified credential matcher that routes PEX and DCQL requests internally.
-@riverpod
 CredentialMatcherServiceInterface iotaCredentialMatcherService(Ref ref) {
+  // Routes to PEX or DCQL matching internally based on the share request type.
   return CredentialMatcherService();
 }
 

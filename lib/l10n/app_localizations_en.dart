@@ -926,7 +926,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shareYourData => 'Share your data';
 
   @override
-  String get referenceApp => 'Reference App';
+  String get referenceApp => 'Affinidi TDK Vault Reference App';
 
   @override
   String get clientInfoTitle => 'Info';
@@ -1043,4 +1043,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shareFlowGenericError => 'Something went wrong. Please try again.';
+
+  @override
+  String get shareFlowNoVaultError =>
+      'Please create a vault first to start the share flow.';
+
+  @override
+  String get shareFlowNotEnoughMatchingCredentials =>
+      'Your profile does not contain enough credentials to satisfy this data request.';
 }
