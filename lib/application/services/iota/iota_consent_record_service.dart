@@ -3,7 +3,7 @@ import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../infrastructure/storages/flutter_secure_consent_storage.dart';
+import '../../../infrastructure/db/flutter_secure_consent_record_store.dart';
 import 'iota_share_flow_service.dart';
 
 part 'iota_consent_record_service.g.dart';
@@ -13,7 +13,7 @@ part 'iota_consent_record_service.g.dart';
 /// Held as a singleton so that every consent-record service writes to the
 /// same backing keychain namespace.
 @Riverpod(keepAlive: true)
-ConsentStorage consentStorage(Ref ref) => FlutterSecureConsentStorage();
+ConsentStorage consentStorage(Ref ref) => FlutterSecureConsentRecordStore();
 
 /// Per-vault [IotaConsentRecordService] used to persist a consent record
 /// after a successful share submission.

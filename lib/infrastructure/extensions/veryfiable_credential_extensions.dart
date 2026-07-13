@@ -4,6 +4,8 @@ import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 import 'package:ssi/ssi.dart';
 
+import '../exceptions/app_exception.dart';
+
 extension VerifiableCredentialExtensions on VerifiableCredential {
   String? get displayName => type.firstWhereOrNull((item) => ![
         'VerifiableCredential',
@@ -38,8 +40,10 @@ extension VerifiableCredentialExtensions on VerifiableCredential {
     final v2Parsed = LdVcDm2Suite().tryParse(serialized);
     if (v2Parsed != null) return v2Parsed;
 
-    throw Exception(
-      'Credential $id could not be parsed as linked-data VC data model v1 or v2.',
+    throw AppException(
+      message:
+          'Credential $id could not be parsed as linked-data VC data model v1 or v2.',
+      type: AppExceptionType.other,
     );
   }
 }
