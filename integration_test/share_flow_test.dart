@@ -187,10 +187,7 @@ void main() {
       matchResult = buildMatchResult(buildFixtureVc());
 
       when(
-        () => mockShareFlowService.validateOid4vpRequest(
-          any(),
-          walletDid: any(named: 'walletDid'),
-        ),
+        () => mockShareFlowService.validateOid4vpRequest(any()),
       ).thenAnswer((_) => buildCannedShareRequest());
 
       when(

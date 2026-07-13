@@ -47,13 +47,16 @@ class FlutterSecureConsentRecordStore implements ConsentStorage {
   Future<IotaConsentRecord?> findByRequestHash(String requestHash) async {
     final all = await _secureStorage.readAll();
     final prefix = '${_namespace}_';
+    final matches = <IotaConsentRecord>[];
     for (final entry in all.entries) {
       if (!entry.key.startsWith(prefix)) continue;
       try {
         final record = IotaConsentRecord.fromJson(
           jsonDecode(entry.value) as Map<String, dynamic>,
         );
-        if (record.requestHash == requestHash) return record;
+        if (record.requestHash == requestHash) {
+          matches.add(record);
+        }
       } catch (error) {
         throw AppException(
           message: 'Failed to read consent record from secure storage: $error',
@@ -61,7 +64,9 @@ class FlutterSecureConsentRecordStore implements ConsentStorage {
         );
       }
     }
-    return null;
+    if (matches.isEmpty) return null;
+    matches.sort((a, b) => b.sharedAt.compareTo(a.sharedAt));
+    return matches.first;
   }
 
   /// Returns all stored consent records across all profiles.

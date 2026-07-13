@@ -352,7 +352,14 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
     try {
       final vault = ref.read(vaultServiceProvider).currentVault;
-      if (vault == null) return;
+      if (vault == null) {
+        state = state.copyWith(
+          stage: StageMatchFailed(
+            ref.read(localizationsProvider).shareFlowFailedToLoadCredentials,
+          ),
+        );
+        return;
+      }
 
       final profile = await vault.getProfileById(profileId);
       final storage = profile.defaultCredentialStorage;

@@ -23,10 +23,10 @@ class _ShareFlowHeader extends StatelessWidget {
   static const String _swapAsset = 'assets/icons/icon_swap-horiz.svg';
 
   String _tooltipMessage() {
-    final origin = verifierMetadata?.origin;
-    final originText = (origin == null || origin.trim().isEmpty)
-        ? 'Origin: N/A'
-        : 'Origin: ${origin.trim()}';
+    final origin = verifierMetadata?.origin?.trim();
+    final originText = (origin == null || origin.isEmpty)
+        ? localizations.unknownOrigin
+        : origin;
     final isDomainVerified = verifierMetadata?.domainVerified ?? false;
     return isDomainVerified
         ? '$originText\n${localizations.domainVerifiedByAffinidi}'
