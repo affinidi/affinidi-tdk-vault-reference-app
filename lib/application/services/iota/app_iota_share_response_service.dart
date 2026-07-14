@@ -27,7 +27,7 @@ class AppIotaShareResponseService implements IotaShareResponseServiceInterface {
     final seed = await _vaultStore.getSeed();
     if (seed == null) {
       throw AppException(
-        message: 'No seed found in secure storage.',
+        message: 'No seed found in secure storage',
         type: AppExceptionType.seedNotFound,
       );
     }
