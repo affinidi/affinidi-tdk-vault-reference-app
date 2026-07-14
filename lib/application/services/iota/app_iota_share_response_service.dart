@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:affinidi_tdk_vault_flutter_utils/storages/flutter_secure_vault_store.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:ssi/ssi.dart';
@@ -21,7 +23,19 @@ class AppIotaShareResponseService implements IotaShareResponseServiceInterface {
     required int accountIndex,
     FlutterSecureVaultStore? vaultStore,
   })  : _accountIndex = accountIndex,
-        _vaultStore = vaultStore ?? FlutterSecureVaultStore(vaultId);
+        _vaultStore = vaultStore ?? FlutterSecureVaultStore(vaultId) {
+    if (accountIndex < 0) {
+      throw ArgumentError.value(accountIndex, 'accountIndex', 'must be >= 0');
+    }
+  }
+
+  void _logError(String action, Object error, StackTrace stackTrace) =>
+      developer.log(
+        'iota_share_response: $action failed: $error',
+        name: 'AppIotaShareResponseService',
+        error: error,
+        stackTrace: stackTrace,
+      );
 
   Future<IotaShareResponseService> _buildService() async {
     final seed = await _vaultStore.getSeed();
@@ -58,12 +72,17 @@ class AppIotaShareResponseService implements IotaShareResponseServiceInterface {
     required List<VerifiableCredential> selectedCredentials,
     required String acceptResponseUri,
   }) async {
-    final service = await _buildService();
-    return service.submitShareResponse(
-      shareRequest: shareRequest,
-      selectedCredentials: selectedCredentials,
-      acceptResponseUri: acceptResponseUri,
-    );
+    try {
+      final service = await _buildService();
+      return await service.submitShareResponse(
+        shareRequest: shareRequest,
+        selectedCredentials: selectedCredentials,
+        acceptResponseUri: acceptResponseUri,
+      );
+    } catch (e, st) {
+      _logError('submitShareResponse', e, st);
+      rethrow;
+    }
   }
 
   @override
@@ -71,10 +90,15 @@ class AppIotaShareResponseService implements IotaShareResponseServiceInterface {
     required Oid4vpShareRequest shareRequest,
     required String rejectResponseUri,
   }) async {
-    final service = await _buildService();
-    return service.rejectShareResponse(
-      shareRequest: shareRequest,
-      rejectResponseUri: rejectResponseUri,
-    );
+    try {
+      final service = await _buildService();
+      return await service.rejectShareResponse(
+        shareRequest: shareRequest,
+        rejectResponseUri: rejectResponseUri,
+      );
+    } catch (e, st) {
+      _logError('rejectShareResponse', e, st);
+      rethrow;
+    }
   }
 }

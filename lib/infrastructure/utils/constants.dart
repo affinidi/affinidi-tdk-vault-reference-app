@@ -38,9 +38,21 @@ class AppConfig {
     defaultValue: 'https://apse1.api.affinidi.io',
   );
 
-  // Trusted OID4VP verifier hostnames.
-  // Add more hostnames here to allow VP submission to additional endpoints.
-  static const List<String> trustedVerifiers = [
-    'apse1.dev.api.affinidi.io',
-  ];
+  // Trusted OID4VP verifier hostnames (allowlist for VP submission).
+  //
+  // Defaults to the host of [affinidiApiBaseUrl] so the allowlist always tracks
+  // the configured environment. Add extra hosts at build time with:
+  //   --dart-define=TRUSTED_OID4VP_VERIFIERS=host1,host2
+  static final List<String> trustedVerifiers = List.unmodifiable([
+    _defaultVerifierHost,
+    ...const String.fromEnvironment('TRUSTED_OID4VP_VERIFIERS')
+        .split(',')
+        .map((host) => host.trim())
+        .where((host) => host.isNotEmpty),
+  ]);
+
+  static final String _defaultVerifierHost = () {
+    final uri = Uri.tryParse(affinidiApiBaseUrl);
+    return (uri != null && uri.host.isNotEmpty) ? uri.host : affinidiApiBaseUrl;
+  }();
 }
