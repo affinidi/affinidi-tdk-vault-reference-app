@@ -960,7 +960,7 @@
   "@shareYourData": {
     "type": "text"
   },
-  "referenceApp": "Reference App",
+  "referenceApp": "Affinidi TDK Vault Reference App",
   "@referenceApp": {
     "type": "text"
   },
@@ -1111,6 +1111,14 @@
   },
   "shareFlowGenericError": "Something went wrong. Please try again.",
   "@shareFlowGenericError": {
+    "type": "text"
+  },
+  "shareFlowNoVaultError": "Please create a vault first to start the share flow.",
+  "@shareFlowNoVaultError": {
+    "type": "text"
+  },
+  "shareFlowNotEnoughMatchingCredentials": "Your profile does not contain enough credentials to satisfy this data request.",
+  "@shareFlowNotEnoughMatchingCredentials": {
     "type": "text"
   }
 }

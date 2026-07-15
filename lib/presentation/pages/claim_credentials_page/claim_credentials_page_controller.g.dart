@@ -7,7 +7,7 @@ part of 'claim_credentials_page_controller.dart';
 // **************************************************************************
 
 String _$claimCredentialsPageControllerHash() =>
-    r'8d7f281f50f070cf49868d4aa273d2c3baf2e1df';
+    r'76c74cb6e31e1b7dec1ed40334a7ef42289b6ea8';
 
 /// Copied from Dart SDK
 class _SystemHash {

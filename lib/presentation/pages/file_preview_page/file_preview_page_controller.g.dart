@@ -7,7 +7,7 @@ part of 'file_preview_page_controller.dart';
 // **************************************************************************
 
 String _$filePreviewPageControllerHash() =>
-    r'8aed26710c26fc237c57141ebf92e92259c9922b';
+    r'fc15f45366efffd175691e90b8314e178eca5188';
 
 /// Copied from Dart SDK
 class _SystemHash {
