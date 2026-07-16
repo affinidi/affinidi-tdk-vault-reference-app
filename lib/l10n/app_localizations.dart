@@ -1929,6 +1929,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your profile does not contain enough credentials to satisfy this data request.'**
   String get shareFlowNotEnoughMatchingCredentials;
+
+  /// No description provided for @shareFlowSelectAtLeastOneCredential.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one credential to share.'**
+  String get shareFlowSelectAtLeastOneCredential;
+
+  /// No description provided for @shareFlowCouldNotOpenRedirect.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open the link. Please try again.'**
+  String get shareFlowCouldNotOpenRedirect;
 }
 
 class _AppLocalizationsDelegate

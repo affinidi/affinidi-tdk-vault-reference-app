@@ -1120,5 +1120,13 @@
   "shareFlowNotEnoughMatchingCredentials": "Your profile does not contain enough credentials to satisfy this data request.",
   "@shareFlowNotEnoughMatchingCredentials": {
     "type": "text"
+  },
+  "shareFlowSelectAtLeastOneCredential": "Please select at least one credential to share.",
+  "@shareFlowSelectAtLeastOneCredential": {
+    "type": "text"
+  },
+  "shareFlowCouldNotOpenRedirect": "Could not open the link. Please try again.",
+  "@shareFlowCouldNotOpenRedirect": {
+    "type": "text"
   }
 }

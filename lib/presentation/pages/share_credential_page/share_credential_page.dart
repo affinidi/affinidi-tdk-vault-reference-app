@@ -6,7 +6,7 @@ import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:ssi/ssi.dart' show VerifiableCredential;
 
 import '../../../infrastructure/extensions/matched_credentials_result_extensions.dart';
-import '../../../infrastructure/extensions/veryfiable_credential_extensions.dart';
+import '../../../infrastructure/extensions/verifiable_credential_extensions.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../navigation/navigation_provider.dart';
 import '../../themes/app_color_scheme.dart';

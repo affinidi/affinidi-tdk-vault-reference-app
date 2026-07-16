@@ -2,7 +2,7 @@ import 'package:affinidi_tdk_claim_verifiable_credential/oid4vci_claim_verifiabl
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../infrastructure/extensions/veryfiable_credential_extensions.dart';
+import '../../../../infrastructure/extensions/verifiable_credential_extensions.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../pages/claimed_credential_details_page/claimed_credential_details_page.dart';
 import '../../../themes/app_color_scheme.dart';

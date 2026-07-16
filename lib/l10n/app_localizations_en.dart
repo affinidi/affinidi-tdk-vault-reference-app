@@ -1051,4 +1051,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get shareFlowNotEnoughMatchingCredentials =>
       'Your profile does not contain enough credentials to satisfy this data request.';
+
+  @override
+  String get shareFlowSelectAtLeastOneCredential =>
+      'Please select at least one credential to share.';
+
+  @override
+  String get shareFlowCouldNotOpenRedirect =>
+      'Could not open the link. Please try again.';
 }

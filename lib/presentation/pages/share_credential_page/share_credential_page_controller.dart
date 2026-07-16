@@ -10,7 +10,7 @@ import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../infrastructure/extensions/matched_credentials_result_extensions.dart';
-import '../../../infrastructure/extensions/veryfiable_credential_extensions.dart';
+import '../../../infrastructure/extensions/verifiable_credential_extensions.dart';
 import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import '../../../infrastructure/providers/localizations_provider.dart';
 import '../../../navigation/navigation_provider.dart';
@@ -584,11 +584,12 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     state = state.copyWith(stage: const StageSubmitting());
 
     try {
+      final l = ref.read(localizationsProvider);
       final shareRequest = state.shareRequest;
       final matchResult = state.matchResult;
       if (shareRequest == null || matchResult == null) {
         throw AppException(
-          message: 'Share request is not ready.',
+          message: l.shareFlowErrorOccurred,
           type: AppExceptionType.missingRequiredData,
         );
       }
@@ -597,7 +598,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
           state.selectedCredentialIds.toList(growable: false);
       if (selectedCredentialIds.isEmpty) {
         throw AppException(
-          message: 'Select at least one credential.',
+          message: l.shareFlowSelectAtLeastOneCredential,
           type: AppExceptionType.missingVerifiableCredentials,
         );
       }
@@ -605,7 +606,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       final vaultId = state.selectedVaultId;
       if (vaultId == null) {
         throw AppException(
-          message: 'Vault is not selected.',
+          message: l.shareFlowErrorOccurred,
           type: AppExceptionType.missingVaultId,
         );
       }
@@ -624,8 +625,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
         if (selectedForGroup.length < requiredCount) {
           throw AppException(
-            message: 'Not enough credentials for group ${group.id}. '
-                'Required: $requiredCount, selected: ${selectedForGroup.length}.',
+            message: l.shareFlowNotEnoughMatchingCredentials,
             type: AppExceptionType.missingVerifiableCredentials,
           );
         }
@@ -678,10 +678,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     state = state.copyWith(stage: const StageSubmitting());
 
     try {
+      final l = ref.read(localizationsProvider);
       final shareRequest = state.shareRequest;
       if (shareRequest == null) {
         throw AppException(
-          message: 'Share request is not ready.',
+          message: l.shareFlowErrorOccurred,
           type: AppExceptionType.missingRequiredData,
         );
       }
@@ -689,7 +690,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       final vaultId = state.selectedVaultId;
       if (vaultId == null) {
         throw AppException(
-          message: 'Vault is not selected.',
+          message: l.shareFlowErrorOccurred,
           type: AppExceptionType.missingVaultId,
         );
       }
@@ -706,7 +707,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         );
         if (!launched) {
           throw AppException(
-            message: 'Could not open redirect URL.',
+            message: l.shareFlowCouldNotOpenRedirect,
             type: AppExceptionType.other,
           );
         }
