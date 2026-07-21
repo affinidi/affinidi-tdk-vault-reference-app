@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../infrastructure/extensions/veryfiable_credential_extensions.dart';
+import '../../infrastructure/extensions/verifiable_credential_extensions.dart';
 
 class ClaimedCredentialSmallWidget extends StatelessWidget {
   const ClaimedCredentialSmallWidget(

@@ -1699,7 +1699,7 @@ abstract class AppLocalizations {
   /// No description provided for @referenceApp.
   ///
   /// In en, this message translates to:
-  /// **'Reference App'**
+  /// **'Affinidi TDK Vault Reference App'**
   String get referenceApp;
 
   /// No description provided for @clientInfoTitle.
@@ -1846,6 +1846,12 @@ abstract class AppLocalizations {
   /// **'Allow consent automatically next time'**
   String get automaticallyAllowConsent;
 
+  /// No description provided for @shareVc.
+  ///
+  /// In en, this message translates to:
+  /// **'Share VC'**
+  String get shareVc;
+
   /// No description provided for @shareCredentialDialogTitle.
   ///
   /// In en, this message translates to:
@@ -1869,6 +1875,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue'**
   String get continueActionText;
+
+  /// No description provided for @shareCredentialsSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Credentials shared successfully.'**
+  String get shareCredentialsSuccessMessage;
+
+  /// No description provided for @shareFlowErrorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred.'**
+  String get shareFlowErrorOccurred;
+
+  /// No description provided for @shareFlowFailedToLoadCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load credentials. Please try again.'**
+  String get shareFlowFailedToLoadCredentials;
+
+  /// No description provided for @shareFlowRequestExpiredOrInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The share request has expired or is invalid. Please ask the verifier to generate a new request.'**
+  String get shareFlowRequestExpiredOrInvalid;
+
+  /// No description provided for @shareFlowValidationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to validate the share request.'**
+  String get shareFlowValidationFailed;
+
+  /// No description provided for @shareFlowValidationFailedDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to validate the share request: {details}'**
+  String shareFlowValidationFailedDetails(String details);
+
+  /// No description provided for @shareFlowGenericError.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get shareFlowGenericError;
+
+  /// No description provided for @shareFlowNoVaultError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please create a vault first to start the share flow.'**
+  String get shareFlowNoVaultError;
+
+  /// No description provided for @shareFlowNotEnoughMatchingCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile does not contain enough credentials to satisfy this data request.'**
+  String get shareFlowNotEnoughMatchingCredentials;
+
+  /// No description provided for @shareFlowSelectAtLeastOneCredential.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one credential to share.'**
+  String get shareFlowSelectAtLeastOneCredential;
+
+  /// No description provided for @shareFlowCouldNotOpenRedirect.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open the link. Please try again.'**
+  String get shareFlowCouldNotOpenRedirect;
 }
 
 class _AppLocalizationsDelegate

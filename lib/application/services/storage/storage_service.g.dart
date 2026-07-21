@@ -6,7 +6,7 @@ part of 'storage_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sharedStoragesHash() => r'c2deed9aaacf3f46ff49a9309937d38f70e2f370';
+String _$sharedStoragesHash() => r'6dc56969a31f27d4b54c30db01bc735bb6601851';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -19,8 +19,10 @@ import '../../presentation/pages/shared_page/shared_page.dart';
 import '../../presentation/pages/splash_page/splash_page.dart';
 import '../../presentation/pages/vaults_page/vaults_page.dart';
 import '../application/services/vault/vault_service.dart';
+import '../infrastructure/utils/constants.dart';
 import '../presentation/pages/claim_credentials_page/claim_credentials_page.dart';
 import '../presentation/pages/error_page/error_page.dart';
+import '../presentation/pages/share_credential_page/share_credential_page.dart';
 import '../presentation/pages/shared_credentials_page/shared_credentials_page.dart';
 import '../presentation/pages/shared_files_page/shared_files_page.dart';
 import '../presentation/pages/shared_profile_details_page/shared_profile_details_page.dart';
@@ -214,6 +216,16 @@ GoRouter navigation(Ref ref) {
       ),
     ),
     GoRoute(
+      name: ShareCredentialRouteName.base,
+      path: ShareCredentialRoutePath.base,
+      builder: (context, state) => ShareCredentialPage(
+        requestJwt:
+            state.uri.queryParameters[ShareCredentialRouteParams.request] ?? '',
+        clientId:
+            state.uri.queryParameters[ShareCredentialRouteParams.clientId],
+      ),
+    ),
+    GoRoute(
       path:
           '/vaults/profiles/:${ProfilesRouteParams.profileId}/files/preview/:${ProfilesRouteParams.nodeId}',
       builder: (context, state) => FilePreviewPage(
@@ -237,6 +249,26 @@ GoRouter navigation(Ref ref) {
     initialLocation: '/',
     debugLogDiagnostics: kDebugMode,
     redirect: (BuildContext context, GoRouterState state) {
+      // GoRouter receives tdkref:// deep links via the platform channel.
+      // Their path is empty, which normalises to '/' and would match SplashPage.
+      // Extract the JWT and redirect directly to the share credential route.
+      if (state.uri.scheme == AppConfig.deepLinkScheme) {
+        final jwt =
+            state.uri.queryParameters[ShareCredentialRouteParams.request];
+        if (jwt != null && jwt.isNotEmpty) {
+          final clientId =
+              state.uri.queryParameters[ShareCredentialRouteParams.clientId];
+          return Uri(
+            path: ShareCredentialRoutePath.base,
+            queryParameters: {
+              ShareCredentialRouteParams.request: jwt,
+              if (clientId != null && clientId.isNotEmpty)
+                ShareCredentialRouteParams.clientId: clientId,
+            },
+          ).toString();
+        }
+        return VaultsRoutePath.base;
+      }
       return _guard(ref, context, state, defaultPath);
     },
     refreshListenable: refreshListenable,

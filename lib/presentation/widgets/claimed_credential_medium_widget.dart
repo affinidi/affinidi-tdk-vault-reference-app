@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../infrastructure/extensions/veryfiable_credential_extensions.dart';
+import '../../infrastructure/extensions/verifiable_credential_extensions.dart';
 import '../themes/app_sizing.dart';
 
 class ClaimedCredentialMediumWidget extends ConsumerWidget {

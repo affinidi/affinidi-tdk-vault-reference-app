@@ -926,7 +926,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shareYourData => 'Share your data';
 
   @override
-  String get referenceApp => 'Reference App';
+  String get referenceApp => 'Affinidi TDK Vault Reference App';
 
   @override
   String get clientInfoTitle => 'Info';
@@ -1003,6 +1003,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Allow consent automatically next time';
 
   @override
+  String get shareVc => 'Share VC';
+
+  @override
   String get shareCredentialDialogTitle => 'Share Credential';
 
   @override
@@ -1013,4 +1016,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get continueActionText => 'Continue';
+
+  @override
+  String get shareCredentialsSuccessMessage =>
+      'Credentials shared successfully.';
+
+  @override
+  String get shareFlowErrorOccurred => 'An error occurred.';
+
+  @override
+  String get shareFlowFailedToLoadCredentials =>
+      'Failed to load credentials. Please try again.';
+
+  @override
+  String get shareFlowRequestExpiredOrInvalid =>
+      'The share request has expired or is invalid. Please ask the verifier to generate a new request.';
+
+  @override
+  String get shareFlowValidationFailed =>
+      'Failed to validate the share request.';
+
+  @override
+  String shareFlowValidationFailedDetails(String details) {
+    return 'Failed to validate the share request: $details';
+  }
+
+  @override
+  String get shareFlowGenericError => 'Something went wrong. Please try again.';
+
+  @override
+  String get shareFlowNoVaultError =>
+      'Please create a vault first to start the share flow.';
+
+  @override
+  String get shareFlowNotEnoughMatchingCredentials =>
+      'Your profile does not contain enough credentials to satisfy this data request.';
+
+  @override
+  String get shareFlowSelectAtLeastOneCredential =>
+      'Please select at least one credential to share.';
+
+  @override
+  String get shareFlowCouldNotOpenRedirect =>
+      'Could not open the link. Please try again.';
 }

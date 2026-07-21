@@ -960,7 +960,7 @@
   "@shareYourData": {
     "type": "text"
   },
-  "referenceApp": "Reference App",
+  "referenceApp": "Affinidi TDK Vault Reference App",
   "@referenceApp": {
     "type": "text"
   },
@@ -1060,6 +1060,10 @@
   "@automaticallyAllowConsent": {
     "type": "text"
   },
+  "shareVc": "Share VC",
+  "@shareVc": {
+    "type": "text"
+  },
   "shareCredentialDialogTitle": "Share Credential",
   "@shareCredentialDialogTitle": {
     "type": "text"
@@ -1074,6 +1078,55 @@
   },
   "continueActionText": "Continue",
   "@continueActionText": {
+    "type": "text"
+  },
+  "shareCredentialsSuccessMessage": "Credentials shared successfully.",
+  "@shareCredentialsSuccessMessage": {
+    "type": "text"
+  },
+  "shareFlowErrorOccurred": "An error occurred.",
+  "@shareFlowErrorOccurred": {
+    "type": "text"
+  },
+  "shareFlowFailedToLoadCredentials": "Failed to load credentials. Please try again.",
+  "@shareFlowFailedToLoadCredentials": {
+    "type": "text"
+  },
+  "shareFlowRequestExpiredOrInvalid": "The share request has expired or is invalid. Please ask the verifier to generate a new request.",
+  "@shareFlowRequestExpiredOrInvalid": {
+    "type": "text"
+  },
+  "shareFlowValidationFailed": "Failed to validate the share request.",
+  "@shareFlowValidationFailed": {
+    "type": "text"
+  },
+  "shareFlowValidationFailedDetails": "Failed to validate the share request: {details}",
+  "@shareFlowValidationFailedDetails": {
+    "type": "text",
+    "placeholders": {
+      "details": {
+        "type": "String"
+      }
+    }
+  },
+  "shareFlowGenericError": "Something went wrong. Please try again.",
+  "@shareFlowGenericError": {
+    "type": "text"
+  },
+  "shareFlowNoVaultError": "Please create a vault first to start the share flow.",
+  "@shareFlowNoVaultError": {
+    "type": "text"
+  },
+  "shareFlowNotEnoughMatchingCredentials": "Your profile does not contain enough credentials to satisfy this data request.",
+  "@shareFlowNotEnoughMatchingCredentials": {
+    "type": "text"
+  },
+  "shareFlowSelectAtLeastOneCredential": "Please select at least one credential to share.",
+  "@shareFlowSelectAtLeastOneCredential": {
+    "type": "text"
+  },
+  "shareFlowCouldNotOpenRedirect": "Could not open the link. Please try again.",
+  "@shareFlowCouldNotOpenRedirect": {
     "type": "text"
   }
 }

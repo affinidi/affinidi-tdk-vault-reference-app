@@ -20,6 +20,7 @@ enum AppExceptionType {
   missingRequiredData,
   vaultNotInitialized,
   databaseError,
+  consentStorageError,
   vaultAlreadyExists,
   seedNotFound,
   other,

@@ -7,7 +7,7 @@ part of 'profile_sharing_page_controller.dart';
 // **************************************************************************
 
 String _$profileSharingControllerHash() =>
-    r'4160d290eafcf7e943645e0071ab05f47eeba563';
+    r'5200bbc9ef90c507e608ccf1129abb021aa31f5c';
 
 /// See also [ProfileSharingController].
 @ProviderFor(ProfileSharingController)
