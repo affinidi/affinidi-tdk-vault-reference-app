@@ -24,6 +24,15 @@ class AppConfig {
   // Application Configuration
   static const String appName = 'TDK Reference';
 
+  // Custom URL scheme used for deep links into the app (e.g.
+  // `tdkref://login?request=<jwt>&client_id=<id>`).
+  //
+  // IMPORTANT: this must stay in sync with the scheme registered natively in
+  // android/app/src/main/AndroidManifest.xml and ios/Runner/Info.plist. Those
+  // are platform config files and cannot reference this Dart constant, so
+  // update all three together when changing the scheme.
+  static const String deepLinkScheme = 'tdkref';
+
   // GitHub Configuration
   static const String githubUrl =
       'https://github.com/affinidi/affinidi-tdk/blob/main';
