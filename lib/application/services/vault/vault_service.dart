@@ -11,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:flutter/foundation.dart';
-import 'package:affinidi_tdk_vault_flutter_utils/vault_flutter_utils.dart';
+import 'package:affinidi_tdk_vault_flutter_utils/affinidi_tdk_vault_flutter_utils.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../infrastructure/exceptions/app_exception.dart';

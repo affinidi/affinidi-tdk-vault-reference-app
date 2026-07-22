@@ -13,7 +13,7 @@ dependencies:
   affinidi_tdk_vault_data_manager: ^3.0.0
   affinidi_tdk_vault_edge_drift_provider: ^3.0.0
   affinidi_tdk_vault_edge_provider: ^3.0.0
-  affinidi_tdk_vault_flutter_utils: ^2.0.0
+  affinidi_tdk_vault_flutter_utils: ^2.0.9
   # TODO(release): replace git dependency with a published version pin
   # before merging to main. Pinned to a PR commit during development of the
   # share-flow feature against the in-repo TDK package.
