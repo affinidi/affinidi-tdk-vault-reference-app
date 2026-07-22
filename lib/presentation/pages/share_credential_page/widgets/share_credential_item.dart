@@ -1,6 +1,6 @@
-import 'package:affinidi_tdk_claim_verifiable_credential/oid4vci_claim_verifiable_credential.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ssi/ssi.dart' show VerifiableCredential;
 
 import '../../../../infrastructure/extensions/verifiable_credential_extensions.dart';
 import '../../../../l10n/app_localizations.dart';

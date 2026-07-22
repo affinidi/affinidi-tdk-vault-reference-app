@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../exceptions/app_exception.dart';
-
 /// Implementation of [ConsentStorage] backed by Flutter's secure storage.
 ///
 /// Each record is stored as a JSON string keyed by its [IotaConsentRecord.hash],
@@ -78,11 +76,10 @@ class FlutterSecureConsentRecordStore implements ConsentStorage {
             jsonDecode(entry.value) as Map<String, dynamic>,
           ),
         );
-      } catch (error) {
-        throw AppException(
-          message: 'Failed to read consent record from secure storage: $error',
-          type: AppExceptionType.consentStorageError,
-        );
+      } catch (_) {
+        // Skip malformed/legacy entries so one bad record doesn't break the
+        // entire consent history and auto-consent lookups.
+        continue;
       }
     }
     return records;

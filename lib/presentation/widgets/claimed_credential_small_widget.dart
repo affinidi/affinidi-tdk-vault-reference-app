@@ -1,8 +1,8 @@
-import 'package:affinidi_tdk_claim_verifiable_credential/oid4vci_claim_verifiable_credential.dart';
 import 'package:flutter/material.dart';
-import '../../../l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ssi/ssi.dart' show VerifiableCredential;
 
+import '../../../l10n/app_localizations.dart';
 import '../../infrastructure/extensions/verifiable_credential_extensions.dart';
 
 class ClaimedCredentialSmallWidget extends StatelessWidget {

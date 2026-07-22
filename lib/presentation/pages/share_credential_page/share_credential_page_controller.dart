@@ -384,7 +384,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         selectedCredentialIds: matchResult.requiredMatchedVcs
             .map((vc) => vc.id.toString())
             .toSet(),
-        stage: const StageReadyToShare(),
+        // Stay non-interactive while auto-consent runs so the user cannot
+        // submit/reject concurrently with an in-flight auto-consent attempt.
+        stage: const StageMatchingCredentials(),
       );
 
       await _tryAutoConsent(
@@ -392,6 +394,12 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         shareRequest: shareRequest,
         matchResult: matchResult,
       );
+
+      // Auto-consent may have already dismissed the flow (StageDismissed).
+      // Only make the UI interactive if it did not.
+      if (state.stage is! StageDismissed) {
+        state = state.copyWith(stage: const StageReadyToShare());
+      }
     } catch (e, st) {
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'matchCredentials failed');
