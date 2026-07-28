@@ -71,8 +71,9 @@ class ProfileService extends _$ProfileService {
           vault, repositoryId, profileType,
           profileName: name);
 
+      final Profile createdProfile;
       try {
-        await profileRepository.createProfile(
+        createdProfile = await profileRepository.createProfile(
           name: name,
           description: description,
         );
@@ -81,7 +82,7 @@ class ProfileService extends _$ProfileService {
       }
       log('Profile created successfully in repository', name: 'ProfileService');
 
-      await getProfiles();
+      _appendProfile(createdProfile);
     } on TdkException catch (e) {
       log('TDK Exception during profile creation: ${e.message}',
           name: 'ProfileService');
@@ -96,6 +97,15 @@ class ProfileService extends _$ProfileService {
         type: AppExceptionType.other,
       );
     }
+  }
+
+  void _appendProfile(Profile profile) {
+    final List<Profile> updatedProfiles = <Profile>[
+      ...(state.profiles ?? <dynamic>[]),
+      profile
+    ];
+    state = state.copyWith(profiles: updatedProfiles);
+    log('Profile appended to state: ${profile.name}', name: 'ProfileService');
   }
 
   /// Deletes a profile if it is empty.
