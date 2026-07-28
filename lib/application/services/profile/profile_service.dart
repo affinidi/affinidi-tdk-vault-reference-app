@@ -108,6 +108,16 @@ class ProfileService extends _$ProfileService {
     log('Profile appended to state: ${profile.name}', name: 'ProfileService');
   }
 
+  /// Removes a deleted profile from the current state without
+  /// re-fetching the full list from the server.
+  void _removeProfile(Profile profile) {
+    final updatedProfiles = (state.profiles ?? <Profile>[])
+        .where((p) => p.id != profile.id)
+        .toList();
+    state = state.copyWith(profiles: updatedProfiles);
+    log('Profile removed from state: ${profile.name}', name: 'ProfileService');
+  }
+
   /// Deletes a profile if it is empty.
   ///
   /// This operation will only delete the profile if it contains no files, folders, or credentials.
@@ -127,7 +137,7 @@ class ProfileService extends _$ProfileService {
     try {
       await _validateProfileIsEmpty(profile);
       await _deleteProfileFromRepository(vault, profile);
-      await getProfiles();
+      _removeProfile(profile);
 
       log('Profile deletion completed successfully', name: 'ProfileService');
     } catch (e, stackTrace) {
