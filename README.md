@@ -27,19 +27,52 @@ The reference app guides you through the implementation of the Affinidi TDK - Va
 
 The reference app implements the following key features of Affinidi TDK - Vault to manage digital identities, verifiable credentials, and data sharing.
 
-- **Vault + Multi-profile** - create a personal vault to create multiple profiles representing your digital identities based on context. For example, you can have a profile for personal banking or work.
-
-- **Secure Storage** - choose between cloud storage or use your device's local storage to securely store your credentials and personal files related to your identity.
-
-- **Profile Sharing** - share your profile with other users, delegating them access to your credentials and personal files. You can provide read-only or write access to your profile and revoke it later.
-
-- **Manage Files and Folders** - upload documents related to your identity into your profiles and share them with other users.
-
-- **Claim Credentials** - claim Verifiable Credentials (VCs) and store them in your vault's profile. The claim credential flow follows the OID4VCI standard.
+| Feature | Description |
+|---------|-------------|
+| **Vault + Multi-profile** | Create a personal vault with multiple profiles representing your digital identities based on context. For example, a profile for personal banking or work. |
+| **Secure Storage** | Choose between cloud storage or your device's local storage to securely store credentials and personal files related to your identity. |
+| **Profile Sharing** | Share your profile with other users, delegating access to your credentials and personal files. Provide read-only or write access, and revoke it later. |
+| **Manage Files and Folders** | Upload documents related to your identity into your profiles and share them with other users. |
+| **Claim Credentials** | Claim Verifiable Credentials (VCs) and store them in your vault's profile. The claim credential flow follows the OID4VCI standard. |
+| **Sharing Credentials** | Respond to a verifier's data request using the OID4VP share flow: open a share request, review the requested data, choose which credential(s) to share when multiple match, and submit. See [Feature Demonstrations](#feature-demos). |
 
 The reference application provides in-app documentation and code snippets to help you quickly onboard into Affinidi TDK - Vault to implement on your Flutter application.
 
 Refer to [the documentation](https://docs.affinidi.com/dev-tools/affinidi-tdk/dart/libraries/vault/) to learn more about Affinidi TDK - Vault available methods and features.
+
+<h2 id="feature-demos">Feature Demonstrations</h2>
+
+Each tab below documents one interactive feature built into this reference app.
+
+<details open id="panel-share-credentials">
+<summary><strong>Sharing Credentials</strong></summary>
+
+Respond to a verifier's data request using the OID4VP share flow. You open a share request by pasting its URL, the app finds the matching credentials in your vault, and you choose which one(s) to share before submitting. When more than one credential matches the request, tap the credential name to choose which one to share.
+
+<table>
+<tr>
+<td align="center" width="33%"><strong>1. Open your Vault</strong></td>
+<td align="center" width="33%"><strong>2. Tap Share</strong></td>
+<td align="center" width="33%"><strong>3. Paste the share request URL</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="assets/images/share-credentials/vault.png" alt="Open your Vault to share a credential" /></td>
+<td align="center" width="33%"><img src="assets/images/share-credentials/share-credential.png" alt="Tap Share to start a share" /></td>
+<td align="center" width="33%"><img src="assets/images/share-credentials/request-url.png" alt="Paste the share request URL" /></td>
+</tr>
+<tr>
+<td align="center" width="33%"><strong>4. Review the requested data</strong></td>
+<td align="center" width="33%"><strong>5. Choose which credential to share</strong></td>
+<td align="center" width="33%"><strong>6. Shared successfully</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="assets/images/share-credentials/share-your-data.png" alt="Review the requested data found in your vault" /></td>
+<td align="center" width="33%"><img src="assets/images/share-credentials/select-credential-to-share.png" alt="Choose which credential to share when multiple match" /></td>
+<td align="center" width="33%"><img src="assets/images/share-credentials/shared-successfully.png" alt="Credential shared successfully" /></td>
+</tr>
+</table>
+
+</details>
 
 ## Requirements
 
