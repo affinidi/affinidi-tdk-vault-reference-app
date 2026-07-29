@@ -1,4 +1,3 @@
-import 'package:affinidi_tdk_cryptography/affinidi_tdk_cryptography.dart';
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -471,19 +470,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         ),
       );
 
-      final requestHash = computeShareRequestHash(
-        cryptography: CryptographyService(),
-        clientId: shareRequest.request.clientId,
-        vaultId: vaultId,
-        requestedGroupIds: matchResult.groups.map((g) => g.id).toList(),
-      );
-
       final result = await consentService.tryAutomaticConsent(
         shareRequest: shareRequest,
         matchedCredentials: matchResult,
         verifierMetadata:
             state.verifierMetadata ?? const VerifierClientMetadata(),
-        requestHash: requestHash,
         vaultId: vaultId,
       );
 
@@ -536,7 +527,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   Future<void> _persistConsentRecord({
     required String vaultId,
     required Oid4vpShareRequest shareRequest,
-    required List<MatchedCredentialGroup> matchedGroups,
     required List<ParsedVerifiableCredential<dynamic>> selectedCredentials,
   }) async {
     try {
@@ -548,20 +538,12 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         ),
       );
 
-      final requestHash = computeShareRequestHash(
-        cryptography: CryptographyService(),
-        clientId: shareRequest.request.clientId,
-        vaultId: vaultId,
-        requestedGroupIds: matchedGroups.map((group) => group.id).toList(),
-      );
-
       final claimedVcTypes =
           (selectedCredentials.expand((vc) => vc.type).toSet().toList()..sort())
               .join(',');
 
       await consentService.saveConsentRecord(
-        requestHash: requestHash,
-        clientId: shareRequest.request.clientId,
+        shareRequest: shareRequest,
         verifierMetadata:
             state.verifierMetadata ?? const VerifierClientMetadata(),
         profileId: profile.id,
@@ -652,7 +634,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       await _persistConsentRecord(
         vaultId: vaultId,
         shareRequest: shareRequest,
-        matchedGroups: matchResult.groups,
         selectedCredentials: selectedCredentials,
       );
 

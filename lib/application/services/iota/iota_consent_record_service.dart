@@ -41,27 +41,3 @@ IotaConsentRecordServiceInterface iotaConsentRecordService(
     shareResponseService: responseService,
   );
 }
-
-/// Computes the request hash used to identify a verifier's share request.
-///
-/// The hash key is `clientId|vaultId|groupIds`, where the group ids are the
-/// sorted credential-group identifiers (PEX descriptor ids or DCQL credential
-/// query ids) so that any difference in the requested shape produces a
-/// distinct fingerprint. The same hash must be supplied on save and on lookup.
-///
-/// Parameters:
-/// * [cryptography] - Cryptography service used to compute the digest.
-/// * [clientId] - Verifier's `client_id` from the OID4VP request.
-/// * [vaultId] - Vault identifier of the wallet that signs the VP.
-/// * [requestedGroupIds] - The credential-group ids of the matched request.
-String computeShareRequestHash({
-  required CryptographyServiceInterface cryptography,
-  required String clientId,
-  required String vaultId,
-  required List<String> requestedGroupIds,
-}) {
-  final sortedIds = [...requestedGroupIds]..sort();
-  return cryptography.createHash(
-    hashSource: '$clientId|$vaultId|${sortedIds.join(',')}',
-  );
-}
