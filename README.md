@@ -34,7 +34,7 @@ The reference app implements the following key features of Affinidi TDK - Vault 
 | **Profile Sharing** | Share your profile with other users, delegating access to your credentials and personal files. Provide read-only or write access, and revoke it later. |
 | **Manage Files and Folders** | Upload documents related to your identity into your profiles and share them with other users. |
 | **Claim Credentials** | Claim Verifiable Credentials (VCs) and store them in your vault's profile. The claim credential flow follows the OID4VCI standard. |
-| **Sharing Credentials** | Respond to a verifier's data request using the OID4VP share flow: open a share request, review the requested data, choose which credential(s) to share when multiple match, and submit. See [Feature Demonstrations](#feature-demos). |
+| **Sharing Credentials** | Respond to a verifier's data request using the OID4VP share flow: open a share request, review the requested data, choose which credentials to share when multiple match, and submit. |
 
 The reference application provides in-app documentation and code snippets to help you quickly onboard into Affinidi TDK - Vault to implement on your Flutter application.
 
@@ -43,6 +43,46 @@ Refer to [the documentation](https://docs.affinidi.com/dev-tools/affinidi-tdk/da
 <h2 id="feature-demos">Feature Demonstrations</h2>
 
 Each tab below documents one interactive feature built into this reference app.
+
+<details open id="panel-claim-credentials">
+<summary><strong>Claim Credential</strong></summary>
+
+Claim a Verifiable Credential from an issuer using the OID4VCI flow. You share your DID with the credential issuer, who returns a credential offer. You paste the offer URL, review the credential details, and save it into your vault, ready to be shared.
+
+<table>
+<tr>
+<td align="center" width="33%"><strong>1. Open your Vault</strong></td>
+<td align="center" width="33%"><strong>2. Open your profile</strong></td>
+<td align="center" width="33%"><strong>3. Go to Claimed Credentials</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="assets/images/claim-credentials/open-vault.png" alt="Open your Vault to claim a credential" /></td>
+<td align="center" width="33%"><img src="assets/images/claim-credentials/open-profile.png" alt="Open your profile" /></td>
+<td align="center" width="33%"><img src="assets/images/claim-credentials/goto-claimed-credentials.png" alt="Go to Claimed Credentials" /></td>
+</tr>
+<tr>
+<td align="center" width="33%"><strong>4. Tap + to claim a credential</strong></td>
+<td align="center" width="33%"><strong>5. Paste the credential offer URL</strong></td>
+<td align="center" width="33%"><strong>6. Review the credential details</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="assets/images/claim-credentials/claim-credential.png" alt="Tap plus to claim a credential" /></td>
+<td align="center" width="33%"><img src="assets/images/claim-credentials/paste-credential-offer-url.png" alt="Paste the credential offer URL from the issuer" /></td>
+<td align="center" width="33%"><img src="assets/images/claim-credentials/review-credential-details-before-saving.png" alt="Review the credential details before saving" /></td>
+</tr>
+<tr>
+<td align="center" width="33%"><strong>7. Save it to your vault</strong></td>
+<td align="center" width="33%"><strong>8. Credential saved, ready to share</strong></td>
+<td align="center" width="33%"></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="assets/images/claim-credentials/save-credential.png" alt="Save the credential to your vault" /></td>
+<td align="center" width="33%"><img src="assets/images/claim-credentials/credential-saved-and-can-be-shared.png" alt="Credential saved and ready to be shared" /></td>
+<td align="center" width="33%"></td>
+</tr>
+</table>
+
+</details>
 
 <details open id="panel-share-credentials">
 <summary><strong>Sharing Credentials</strong></summary>
