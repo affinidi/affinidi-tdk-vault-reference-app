@@ -14,14 +14,7 @@ dependencies:
   affinidi_tdk_vault_edge_drift_provider: ^3.0.0
   affinidi_tdk_vault_edge_provider: ^3.0.0
   affinidi_tdk_vault_flutter_utils: ^2.0.9
-  # TODO(release): replace git dependency with a published version pin
-  # before merging to main. Pinned to a PR commit during development of the
-  # share-flow feature against the in-repo TDK package.
-  affinidi_tdk_vault_iota:
-    git:
-      url: https://github.com/affinidi/affinidi-tdk-dart.git
-      ref: ef0a6f7c9b1ba95dbc88de3699065f509d7931b7
-      path: packages/vault_iota
+  affinidi_tdk_vault_iota: ^1.0.0-dev
   collection: ^1.19.0
   cross_file: ^0.3.4+2
   crypto: ^3.0.6
