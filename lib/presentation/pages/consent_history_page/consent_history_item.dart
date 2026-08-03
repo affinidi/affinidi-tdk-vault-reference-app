@@ -13,7 +13,7 @@ class _ConsentHistoryItem extends StatelessWidget {
     final origin = (siteUrl != null && siteUrl.trim().isNotEmpty)
         ? siteUrl.trim()
         : localizations.consentHistoryNotAvailable;
-    final dateFormatted = ConsentHistoryPageController.formatDate(
+    final dateFormatted = ConsentHistoryFormatters.formatDate(
       record.sharedAt,
       localizations.consentHistoryNotAvailable,
     );

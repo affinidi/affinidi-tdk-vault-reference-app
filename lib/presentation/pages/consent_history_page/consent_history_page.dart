@@ -6,6 +6,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
 import 'consent_history_details_sheet.dart';
+import 'consent_history_formatters.dart';
 import 'consent_history_logo_avatar.dart';
 import 'consent_history_page_controller.dart';
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../l10n/app_localizations.dart';
+import 'consent_history_formatters.dart';
 import 'consent_history_page_controller.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
@@ -54,19 +55,18 @@ class ConsentHistoryDetailsSheet extends ConsumerWidget {
     final na = localizations.consentHistoryNotAvailable;
     final theme = Theme.of(context);
     final origin =
-        ConsentHistoryPageController.formatDisplayText(record.siteUrl, na);
+        ConsentHistoryFormatters.formatDisplayText(record.siteUrl, na);
     final profile =
-        ConsentHistoryPageController.formatDisplayText(record.profileName, na);
-    final dataShared =
-        ConsentHistoryPageController.formatDataShared(record, na);
+        ConsentHistoryFormatters.formatDisplayText(record.profileName, na);
+    final dataShared = ConsentHistoryFormatters.formatDataShared(record, na);
     final dateFormatted =
-        ConsentHistoryPageController.formatDate(record.sharedAt, na);
+        ConsentHistoryFormatters.formatDate(record.sharedAt, na);
     final profileDidById = ref.watch(
       consentHistoryPageControllerProvider.select(
         (state) => state.profileDidById,
       ),
     );
-    final did = ConsentHistoryPageController.formatProfileDid(
+    final did = ConsentHistoryFormatters.formatProfileDid(
       record,
       profileDidById,
       na,

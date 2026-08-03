@@ -99,6 +99,8 @@ class ShareCredentialPageState with _$ShareCredentialPageState {
     // Credential selection.
     @Default(<String>{}) Set<String> selectedCredentialIds,
     @Default(false) bool autoAllowConsent,
+    // Reserved for the verifier-driven consent-management flow, which is not
+    // wired in this release; stays false so the auto-allow control is shown.
     @Default(false) bool isConsentManagementEnabled,
   }) = _ShareCredentialPageState;
 }
