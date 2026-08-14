@@ -11,7 +11,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 /// Vendored locally until an equivalent store ships in
 /// `affinidi_tdk_vault_flutter_utils`; replace this with the upstream import
 /// once it exposes one.
-class FlutterSecureConsentRecordStore implements ConsentStorage {
+class FlutterSecureConsentRecordStore implements EnumerableConsentStorage {
   /// Creates a [FlutterSecureConsentRecordStore].
   ///
   /// Parameters:
@@ -51,6 +51,7 @@ class FlutterSecureConsentRecordStore implements ConsentStorage {
   }
 
   /// Returns all stored consent records across all profiles.
+  @override
   Future<List<IotaConsentRecord>> listAll() => _readAll();
 
   @override

@@ -18,6 +18,8 @@ import '../../presentation/pages/profiles_page/profiles_page.dart';
 import '../../presentation/pages/shared_page/shared_page.dart';
 import '../../presentation/pages/splash_page/splash_page.dart';
 import '../../presentation/pages/vaults_page/vaults_page.dart';
+import '../../presentation/pages/backup_vault_page/backup_vault_page.dart';
+import '../../presentation/pages/restore_vault_page/restore_vault_page.dart';
 import '../application/services/vault/vault_service.dart';
 import '../infrastructure/utils/constants.dart';
 import '../presentation/pages/claim_credentials_page/claim_credentials_page.dart';
@@ -217,6 +219,16 @@ GoRouter navigation(Ref ref) {
       builder: (context, state) => OpenVaultPage(
         vaultId: state.pathParameters[ProfilesRouteParams.vaultId]!,
       ),
+    ),
+    GoRoute(
+      name: VaultsRouteName.backup,
+      path: VaultsRoutePath.backup,
+      builder: (context, state) => const BackupVaultPage(),
+    ),
+    GoRoute(
+      name: VaultsRouteName.restore,
+      path: VaultsRoutePath.restore,
+      builder: (context, state) => const RestoreVaultPage(),
     ),
     GoRoute(
       path: '/claim/:${ProfilesRouteParams.profileId}',

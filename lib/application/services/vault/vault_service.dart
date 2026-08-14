@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:crypto/crypto.dart';
+import 'package:affinidi_tdk_cryptography/affinidi_tdk_cryptography.dart';
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_data_manager/affinidi_tdk_vault_data_manager.dart';
 import 'package:affinidi_tdk_vault_edge_provider/affinidi_tdk_vault_edge_provider.dart';
 import 'package:affinidi_tdk_vault_edge_drift_provider/affinidi_tdk_vault_edge_drift_provider.dart';
+import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -14,6 +16,7 @@ import 'package:flutter/foundation.dart';
 import 'package:affinidi_tdk_vault_flutter_utils/affinidi_tdk_vault_flutter_utils.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../infrastructure/db/flutter_secure_consent_record_store.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../vaults_manager/vaults_manager_service.dart';
 import 'open_vault_params.dart';
@@ -132,6 +135,105 @@ class VaultService extends _$VaultService {
       currentVaultId: null,
     );
     log('Finished resetting current vault', name: 'VaultService');
+  }
+
+  /// Creates an encrypted backup of the current vault.
+  ///
+  /// Bundles wallet material, profiles, credentials, files and consent history
+  /// into a single encrypted [BackupData] derived from [passphrase].
+  Future<BackupData> createBackup({required String passphrase}) async {
+    final vault = state.currentVault;
+    final vaultId = state.currentVaultId;
+    if (vault == null || vaultId == null) {
+      throw AppException(
+        message: 'Vault not initialized',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+
+    final repository = vault.defaultProfileRepository;
+    final service = VaultBackupService(
+      cryptographyService: CryptographyService(),
+      restorables: [
+        VaultStoreBackupSource(vaultStore: FlutterSecureVaultStore(vaultId)),
+        VaultProfilesBackupSource(profileRepository: repository),
+        VaultCredentialsBackupSource(profileRepository: repository),
+        VaultFilesBackupSource(profileRepository: repository),
+        IotaConsentHistoryBackupSource(
+          consentStorage: FlutterSecureConsentRecordStore(),
+        ),
+      ],
+    );
+
+    return service.createBackup(passphrase: passphrase);
+  }
+
+  /// Restores a new vault from [backupData] and returns its id.
+  ///
+  /// Runs in two phases: first the wallet material is written into a fresh
+  /// store so the vault (and its DID-deriving repositories) can be built, then
+  /// the profiles, credentials, files and consent history are imported.
+  Future<String> restoreFromBackupData({
+    required BackupData backupData,
+    required String passphrase,
+    required String vaultName,
+  }) async {
+    final cryptographyService = CryptographyService();
+    final vaultId = const Uuid().v4();
+    final store = FlutterSecureVaultStore(vaultId);
+
+    // Phase 1: restore wallet material into the fresh store.
+    await VaultBackupService(
+      cryptographyService: cryptographyService,
+      restorables: [VaultStoreBackupSource(vaultStore: store)],
+    ).restoreFromBackup(backupData: backupData, passphrase: passphrase);
+
+    final seed = await store.getSeed();
+    if (seed == null) {
+      throw AppException(
+        message: 'Backup did not contain wallet material.',
+        type: AppExceptionType.seedNotFound,
+      );
+    }
+
+    await ref.read(vaultsManagerServiceProvider.notifier).addVault(
+          OpenVaultParams(
+            vaultId: vaultId,
+            base64Seed: base64Encode(seed),
+            vaultName: vaultName,
+            password: passphrase,
+          ),
+        );
+
+    final profileRepositories =
+        await _createProfileRepositories(vaultId, store);
+    final vault = await Vault.fromVaultStore(
+      store,
+      profileRepositories: profileRepositories,
+      defaultProfileRepositoryId: '${vaultId}_affinidi_cloud_repository',
+    );
+    await vault.ensureInitialized();
+
+    final repository = vault.defaultProfileRepository;
+
+    // Phase 2: profiles first, then their credentials and files, then consent.
+    await VaultBackupService(
+      cryptographyService: cryptographyService,
+      restorables: [
+        VaultProfilesBackupSource(profileRepository: repository),
+        VaultCredentialsBackupSource(profileRepository: repository),
+        VaultFilesBackupSource(profileRepository: repository),
+        IotaConsentHistoryBackupSource(
+          consentStorage: FlutterSecureConsentRecordStore(),
+        ),
+      ],
+    ).restoreFromBackup(backupData: backupData, passphrase: passphrase);
+
+    await ref
+        .read(vaultsManagerServiceProvider.notifier)
+        .loadVaultAvailability();
+
+    return vaultId;
   }
 
   /// Creates a Vault instance from a secure seed in storage.
