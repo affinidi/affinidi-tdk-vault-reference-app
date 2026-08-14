@@ -22,8 +22,14 @@ class AppIotaShareResponseService implements IotaShareResponseServiceInterface {
     FlutterSecureVaultStore? vaultStore,
   })  : _accountIndex = accountIndex,
         _vaultStore = vaultStore ?? FlutterSecureVaultStore(vaultId) {
-    if (accountIndex < 0) {
-      throw ArgumentError.value(accountIndex, 'accountIndex', 'must be >= 0');
+    // BIP32 hardened child indices must fit in [0, 2^31); reject out-of-range
+    // values so they can't produce an unexpected derivation path.
+    if (accountIndex < 0 || accountIndex >= 0x80000000) {
+      throw ArgumentError.value(
+        accountIndex,
+        'accountIndex',
+        'must be in the range [0, 2^31)',
+      );
     }
   }
 

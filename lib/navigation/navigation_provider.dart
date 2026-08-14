@@ -35,6 +35,15 @@ part 'navigation_provider.g.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 String? returnUrl;
 
+// Upper bounds and format for tdkref:// deep-link parameters. A compact OID4VP
+// request JWT is well under 10 KB; larger or malformed input is rejected here
+// to avoid processing attacker-controlled junk. Cryptographic validation of the
+// JWT still happens downstream in ShareCredentialPageController.validateRequest.
+const _maxDeepLinkJwtLength = 10000;
+const _maxDeepLinkClientIdLength = 1000;
+final _deepLinkJwtFormat =
+    RegExp(r'^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$');
+
 String? _guard(
   Ref ref,
   BuildContext context,
@@ -255,14 +264,20 @@ GoRouter navigation(Ref ref) {
       if (state.uri.scheme == AppConfig.deepLinkScheme) {
         final jwt =
             state.uri.queryParameters[ShareCredentialRouteParams.request];
-        if (jwt != null && jwt.isNotEmpty) {
+        if (jwt != null &&
+            jwt.isNotEmpty &&
+            jwt.length <= _maxDeepLinkJwtLength &&
+            _deepLinkJwtFormat.hasMatch(jwt)) {
           final clientId =
               state.uri.queryParameters[ShareCredentialRouteParams.clientId];
+          final hasValidClientId = clientId != null &&
+              clientId.isNotEmpty &&
+              clientId.length <= _maxDeepLinkClientIdLength;
           return Uri(
             path: ShareCredentialRoutePath.base,
             queryParameters: {
               ShareCredentialRouteParams.request: jwt,
-              if (clientId != null && clientId.isNotEmpty)
+              if (hasValidClientId)
                 ShareCredentialRouteParams.clientId: clientId,
             },
           ).toString();
