@@ -151,14 +151,14 @@ class VaultService extends _$VaultService {
       );
     }
 
-    final repository = vault.defaultProfileRepository;
+    final repositories = vault.profileRepositories.values.toList();
     final service = VaultBackupService(
       cryptographyService: CryptographyService(),
       restorables: [
         VaultStoreBackupSource(vaultStore: FlutterSecureVaultStore(vaultId)),
-        VaultProfilesBackupSource(profileRepository: repository),
-        VaultCredentialsBackupSource(profileRepository: repository),
-        VaultFilesBackupSource(profileRepository: repository),
+        VaultProfilesBackupSource(profileRepositories: repositories),
+        VaultCredentialsBackupSource(profileRepositories: repositories),
+        VaultFilesBackupSource(profileRepositories: repositories),
         IotaConsentHistoryBackupSource(
           consentStorage: FlutterSecureConsentRecordStore(),
         ),
@@ -196,10 +196,22 @@ class VaultService extends _$VaultService {
       );
     }
 
+    final base64Seed = base64Encode(seed);
+
+    // A backup file maps to one vault (same wallet). If that vault already
+    // exists, reuse it instead of creating a duplicate entry.
+    final registry = ref.read(vaultsManagerServiceProvider).vaultRegistry;
+    for (final existing in registry.entries) {
+      if (existing.value.base64Seed == base64Seed) {
+        await store.clear();
+        return existing.key;
+      }
+    }
+
     await ref.read(vaultsManagerServiceProvider.notifier).addVault(
           OpenVaultParams(
             vaultId: vaultId,
-            base64Seed: base64Encode(seed),
+            base64Seed: base64Seed,
             vaultName: vaultName,
             password: passphrase,
           ),
@@ -214,15 +226,15 @@ class VaultService extends _$VaultService {
     );
     await vault.ensureInitialized();
 
-    final repository = vault.defaultProfileRepository;
+    final repositories = vault.profileRepositories.values.toList();
 
     // Phase 2: profiles first, then their credentials and files, then consent.
     await VaultBackupService(
       cryptographyService: cryptographyService,
       restorables: [
-        VaultProfilesBackupSource(profileRepository: repository),
-        VaultCredentialsBackupSource(profileRepository: repository),
-        VaultFilesBackupSource(profileRepository: repository),
+        VaultProfilesBackupSource(profileRepositories: repositories),
+        VaultCredentialsBackupSource(profileRepositories: repositories),
+        VaultFilesBackupSource(profileRepositories: repositories),
         IotaConsentHistoryBackupSource(
           consentStorage: FlutterSecureConsentRecordStore(),
         ),
@@ -451,14 +463,10 @@ class VaultService extends _$VaultService {
   }
 
   Future<void> _disposeCurrentVaultResources() async {
-    final vaultId = state.currentVaultId;
-    if (vaultId != null) {
-      final edgeRepositoryId = '${vaultId}_edge_repository';
-      final db = _edgeDatabases.remove(edgeRepositoryId);
-      if (db != null) {
-        await db.close();
-      }
-    }
+    // Intentionally does not close the edge database. Repositories and vault
+    // objects may still hold a reference to it, and closing it would leave them
+    // querying a closed connection. Each vault keeps one cached, open
+    // connection to its own database file for the app's lifetime.
   }
 }
 

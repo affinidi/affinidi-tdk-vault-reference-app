@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
-import 'package:affinidi_tdk_vault_edge_provider/affinidi_tdk_vault_edge_provider.dart';
 
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../domain/models/profile/profile_type.dart';
@@ -380,19 +379,13 @@ class ProfileService extends _$ProfileService {
   }
 }
 
-/// Provider that returns the profile type for a given profile ID.
+/// Provider that returns the profile type for a given profile repository id.
 @riverpod
 ProfileType profileType(Ref ref, String profileId) {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
-
-  if (vault == null) {
-    return ProfileType.affinidiCloud;
-  }
-
-  final repo = vault.profileRepositories[profileId];
-
-  if (repo is EdgeProfileRepository) {
+  // [profileId] is the profile's repositoryId, whose suffix encodes the storage
+  // type. The concrete repository type cannot be used here because the vault
+  // wraps repositories in a cache-invalidating decorator.
+  if (profileId.endsWith('_${ProfileType.edge.value}_repository')) {
     return ProfileType.edge;
   }
   return ProfileType.affinidiCloud;

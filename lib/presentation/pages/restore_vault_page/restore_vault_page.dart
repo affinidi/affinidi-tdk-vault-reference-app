@@ -39,6 +39,10 @@ class RestoreVaultPage extends HookConsumerWidget {
         final json = jsonDecode(utf8.decode(bytes)) as Map<String, dynamic>;
         backupData.value = BackupData.fromJson(json);
         pickedFileName.value = result!.files.single.name;
+        final name = json['vaultName'];
+        if (name is String && name.isNotEmpty) {
+          vaultNameController.text = name;
+        }
         errorText.value = null;
       } catch (_) {
         errorText.value = 'The selected file is not a valid backup.';

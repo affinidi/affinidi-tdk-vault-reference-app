@@ -161,7 +161,7 @@ class VaultsPage extends ConsumerWidget {
                 if (!context.mounted) return;
                 context.push(VaultsRoutePath.restore);
               },
-              backgroundColor: AppColorScheme.backgroundDark,
+              backgroundColor: theme.colorScheme.primary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
               ),
@@ -171,9 +171,9 @@ class VaultsPage extends ConsumerWidget {
                   horizontal: AppSizing.paddingMedium,
                   vertical: AppSizing.paddingMedium),
               label: Text(
-                'Restore from backup',
+                'Restore Vault',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: AppColorScheme.textPrimary,
+                      color: AppColorScheme.backgroundWhite,
                       fontWeight: FontWeight.bold,
                     ),
               ),
@@ -197,7 +197,7 @@ class VaultsPage extends ConsumerWidget {
               label: Text(
                 localizations.addVault,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: AppColorScheme.backgroundBlack,
+                      color: AppColorScheme.backgroundWhite,
                       fontWeight: FontWeight.bold,
                     ),
               ),

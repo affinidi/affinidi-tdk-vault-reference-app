@@ -72,6 +72,19 @@ dev_dependencies:
   mocktail: ^1.0.4
   riverpod_generator: ^2.3.5
 
+# Local monorepo packages that carry the unreleased backup/restore work.
+dependency_overrides:
+  affinidi_tdk_common:
+    path: ../affinidi-tdk-dart/packages/common
+  affinidi_tdk_vault:
+    path: ../affinidi-tdk-dart/packages/vault
+  affinidi_tdk_vault_edge_provider:
+    path: ../affinidi-tdk-dart/packages/vault_edge_provider
+  affinidi_tdk_vault_edge_drift_provider:
+    path: ../affinidi-tdk-dart/packages/vault_edge_drift_provider
+  affinidi_tdk_vault_iota:
+    path: ../affinidi-tdk-dart/packages/vault_iota
+
 flutter:
   uses-material-design: true
   generate: true

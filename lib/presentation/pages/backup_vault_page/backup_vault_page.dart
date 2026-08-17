@@ -23,12 +23,10 @@ class BackupVaultPage extends HookConsumerWidget {
     Future<void> backUp() async {
       final passphrase = passphraseController.text;
       final vaultId = ref.read(vaultServiceProvider).currentVaultId;
-      final storedPassword = vaultId == null
+      final entry = vaultId == null
           ? null
-          : ref
-              .read(vaultsManagerServiceProvider)
-              .vaultRegistry[vaultId]
-              ?.password;
+          : ref.read(vaultsManagerServiceProvider).vaultRegistry[vaultId];
+      final storedPassword = entry?.password;
 
       if (passphrase != storedPassword) {
         errorText.value = 'Incorrect passphrase for this vault.';
@@ -42,13 +40,22 @@ class BackupVaultPage extends HookConsumerWidget {
             .read(vaultServiceProvider.notifier)
             .createBackup(passphrase: passphrase);
 
+        // Store the vault name alongside the encrypted payload so restore can
+        // show which vault it recreates.
+        final fileContent = {
+          ...backupData.toJson(),
+          'vaultName': entry?.vaultName,
+        };
         final bytes = Uint8List.fromList(
-          utf8.encode(jsonEncode(backupData.toJson())),
+          utf8.encode(jsonEncode(fileContent)),
         );
+        // Prefix with the vault name so the file says which vault it restores.
+        final safeName = (entry?.vaultName ?? 'vault')
+            .replaceAll(RegExp(r'[^A-Za-z0-9._-]'), '_');
         final savedPath = await FilePicker.platform.saveFile(
           dialogTitle: 'Save vault backup',
           fileName:
-              'vault-backup-${DateTime.now().millisecondsSinceEpoch}.json',
+              '$safeName-vault-backup-${DateTime.now().millisecondsSinceEpoch}.json',
           bytes: bytes,
         );
 
