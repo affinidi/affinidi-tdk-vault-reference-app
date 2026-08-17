@@ -100,9 +100,12 @@ class ProfileService extends _$ProfileService {
   }
 
   void _appendProfile(Profile profile) {
-    final List<Profile> updatedProfiles = <Profile>[
-      ...(state.profiles ?? <dynamic>[]),
-      profile
+    final existingProfiles = state.profiles ?? <Profile>[];
+
+    // Replace if a profile with the same id already exists, otherwise append
+    final updatedProfiles = <Profile>[
+      ...existingProfiles.where((p) => p.id != profile.id),
+      profile,
     ];
     state = state.copyWith(profiles: updatedProfiles);
     log('Profile appended to state: ${profile.name}', name: 'ProfileService');
