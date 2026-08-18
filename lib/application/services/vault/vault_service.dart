@@ -260,9 +260,12 @@ class VaultService extends _$VaultService {
         .loadVaultAvailability();
 
     // Restore already required and validated the passphrase, so open the vault
-    // directly without prompting again. Build a fresh vault the same way the
-    // open flow does rather than reusing the restore-time instance, whose
-    // repositories can leave file listing hanging after the import writes.
+    // directly without prompting again. Close the edge database used for the
+    // import and reopen a fresh connection so the session reads committed data
+    // on a clean connection, like a cold start; reusing the cached write
+    // connection can intermittently leave file listing hanging.
+    await disposeVaultDatabase(targetVaultId);
+    ref.invalidate(_openVaultProvider(targetVaultId));
     final openedVault =
         await ref.read(_openVaultProvider(targetVaultId).future);
     await openedVault.ensureInitialized();
@@ -497,9 +500,10 @@ class VaultService extends _$VaultService {
 
   /// Closes and evicts the cached edge database for [vaultId].
   ///
-  /// Call this only when the vault is being removed, so its connection and file
-  /// handle are released instead of leaking for the app's lifetime. The vault's
-  /// repositories must no longer be in use when this is called.
+  /// Releases the connection and file handle so the next access opens a fresh
+  /// connection. Callers must ensure the vault's repositories are no longer in
+  /// use (e.g. when the vault is removed, or right after a restore before the
+  /// vault is reopened).
   Future<void> disposeVaultDatabase(String vaultId) async {
     final edgeRepositoryId = '${vaultId}_edge_repository';
     final database = _edgeDatabases.remove(edgeRepositoryId);
