@@ -481,6 +481,17 @@ class VaultService extends _$VaultService {
     // querying a closed connection. Each vault keeps one cached, open
     // connection to its own database file for the app's lifetime.
   }
+
+  /// Closes and evicts the cached edge database for [vaultId].
+  ///
+  /// Call this only when the vault is being removed, so its connection and file
+  /// handle are released instead of leaking for the app's lifetime. The vault's
+  /// repositories must no longer be in use when this is called.
+  Future<void> disposeVaultDatabase(String vaultId) async {
+    final edgeRepositoryId = '${vaultId}_edge_repository';
+    final database = _edgeDatabases.remove(edgeRepositoryId);
+    await database?.close();
+  }
 }
 
 /// Creates profile repositories for both VFS and Edge storage
