@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-/// Implementation of [ConsentStorage] backed by Flutter's secure storage.
+/// Implementation of [EnumerableConsentStorage] backed by Flutter's secure
+/// storage.
 ///
 /// Each record is stored as a JSON string keyed by its [IotaConsentRecord.hash],
 /// prefixed with [namespace] to avoid collisions with other secure-storage entries.

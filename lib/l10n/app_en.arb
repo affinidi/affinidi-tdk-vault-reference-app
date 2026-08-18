@@ -703,6 +703,14 @@
   "@addVault": {
     "type": "text"
   },
+  "restoreVault": "Restore Vault",
+  "@restoreVault": {
+    "type": "text"
+  },
+  "backUpVault": "Back up vault",
+  "@backUpVault": {
+    "type": "text"
+  },
   "giveYourVaultAName": "Give your vault a name",
   "@giveYourVaultAName": {
     "type": "text"

@@ -23,10 +23,18 @@ class BackupVaultPage extends HookConsumerWidget {
     Future<void> backUp() async {
       final passphrase = passphraseController.text;
       final vaultId = ref.read(vaultServiceProvider).currentVaultId;
-      final entry = vaultId == null
-          ? null
-          : ref.read(vaultsManagerServiceProvider).vaultRegistry[vaultId];
+      if (vaultId == null) {
+        errorText.value = 'No vault is currently open.';
+        return;
+      }
+      final entry =
+          ref.read(vaultsManagerServiceProvider).vaultRegistry[vaultId];
       final storedPassword = entry?.password;
+      if (storedPassword == null) {
+        errorText.value =
+            'Vault details are unavailable. Please reopen the vault.';
+        return;
+      }
 
       if (passphrase != storedPassword) {
         errorText.value = 'Incorrect passphrase for this vault.';

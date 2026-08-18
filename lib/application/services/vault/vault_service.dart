@@ -199,30 +199,43 @@ class VaultService extends _$VaultService {
     final base64Seed = base64Encode(seed);
 
     // A backup file maps to one vault (same wallet). If that vault already
-    // exists, reuse it instead of creating a duplicate entry.
+    // exists, restore into it instead of creating a duplicate entry.
     final registry = ref.read(vaultsManagerServiceProvider).vaultRegistry;
+    String? existingVaultId;
     for (final existing in registry.entries) {
       if (existing.value.base64Seed == base64Seed) {
-        await store.clear();
-        return existing.key;
+        existingVaultId = existing.key;
+        break;
       }
     }
 
-    await ref.read(vaultsManagerServiceProvider.notifier).addVault(
-          OpenVaultParams(
-            vaultId: vaultId,
-            base64Seed: base64Seed,
-            vaultName: vaultName,
-            password: passphrase,
-          ),
-        );
+    final String targetVaultId;
+    final FlutterSecureVaultStore targetStore;
+    if (existingVaultId != null) {
+      // The existing vault already holds its wallet material, so discard the
+      // temporary store restored in phase 1 and restore into the existing one.
+      await store.clear();
+      targetVaultId = existingVaultId;
+      targetStore = FlutterSecureVaultStore(existingVaultId);
+    } else {
+      await ref.read(vaultsManagerServiceProvider.notifier).addVault(
+            OpenVaultParams(
+              vaultId: vaultId,
+              base64Seed: base64Seed,
+              vaultName: vaultName,
+              password: passphrase,
+            ),
+          );
+      targetVaultId = vaultId;
+      targetStore = store;
+    }
 
     final profileRepositories =
-        await _createProfileRepositories(vaultId, store);
+        await _createProfileRepositories(targetVaultId, targetStore);
     final vault = await Vault.fromVaultStore(
-      store,
+      targetStore,
       profileRepositories: profileRepositories,
-      defaultProfileRepositoryId: '${vaultId}_affinidi_cloud_repository',
+      defaultProfileRepositoryId: '${targetVaultId}_affinidi_cloud_repository',
     );
     await vault.ensureInitialized();
 
@@ -245,7 +258,7 @@ class VaultService extends _$VaultService {
         .read(vaultsManagerServiceProvider.notifier)
         .loadVaultAvailability();
 
-    return vaultId;
+    return targetVaultId;
   }
 
   /// Creates a Vault instance from a secure seed in storage.

@@ -1192,6 +1192,18 @@ abstract class AppLocalizations {
   /// **'Create Vault'**
   String get addVault;
 
+  /// No description provided for @restoreVault.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Vault'**
+  String get restoreVault;
+
+  /// No description provided for @backUpVault.
+  ///
+  /// In en, this message translates to:
+  /// **'Back up vault'**
+  String get backUpVault;
+
   /// No description provided for @giveYourVaultAName.
   ///
   /// In en, this message translates to:

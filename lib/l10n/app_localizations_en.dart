@@ -653,6 +653,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addVault => 'Create Vault';
 
   @override
+  String get restoreVault => 'Restore Vault';
+
+  @override
+  String get backUpVault => 'Back up vault';
+
+  @override
   String get giveYourVaultAName => 'Give your vault a name';
 
   @override

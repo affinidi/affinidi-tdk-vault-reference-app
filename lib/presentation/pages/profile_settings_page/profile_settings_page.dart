@@ -121,7 +121,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
                 // Back up Vault Section
                 _SettingsTile(
                   icon: Icons.backup,
-                  title: 'Back up vault',
+                  title: localizations.backUpVault,
                   onTap: () => context.push(VaultsRoutePath.backup),
                 ),
                 const SizedBox(height: AppSizing.paddingLarge),
