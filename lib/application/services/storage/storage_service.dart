@@ -361,8 +361,9 @@ final _vaultSharedStorageServiceProvider =
 /// Provider that returns all shared storages for a given profile.
 @riverpod
 Future<List<SharedStorage>> sharedStorages(Ref ref, String profileId) async {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
+  final vault = ref.watch(
+    vaultServiceProvider.select((state) => state.currentVault),
+  );
 
   if (vault == null) {
     throw AppException(
@@ -381,8 +382,9 @@ Future<List<SharedStorage>> sharedStorages(Ref ref, String profileId) async {
 /// Provider that returns a specific shared storage by ID.
 @riverpod
 Future<SharedStorage> sharedStorageById(Ref ref, String storageId) async {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
+  final vault = ref.watch(
+    vaultServiceProvider.select((state) => state.currentVault),
+  );
 
   if (vault == null) {
     throw AppException(
