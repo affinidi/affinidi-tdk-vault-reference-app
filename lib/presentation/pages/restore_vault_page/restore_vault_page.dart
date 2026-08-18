@@ -10,6 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../application/services/vault/vault_service.dart';
 import '../../../navigation/flows/app_routes.dart';
 import '../../widgets/passphrase_text_field.dart';
+import '../vaults_page/vaults_page_controller.dart';
 
 /// Restores a vault from a previously exported `.json` backup file.
 class RestoreVaultPage extends HookConsumerWidget {
@@ -63,6 +64,13 @@ class RestoreVaultPage extends HookConsumerWidget {
                       ? 'Restored vault'
                       : vaultNameController.text.trim(),
                 );
+        // Add the restored vault to the list so it shows without a restart.
+        final vault = ref.read(vaultServiceProvider).currentVault;
+        if (vault != null) {
+          ref
+              .read(vaultsPageControllerProvider.notifier)
+              .addVault(vaultId, vault);
+        }
         restoredVaultId.value = vaultId;
       } catch (_) {
         errorText.value =
