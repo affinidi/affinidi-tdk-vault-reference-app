@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/services/vault/vault_service.dart';
-import '../../../navigation/flows/vaults/vaults_route_constants.dart';
+import '../../../navigation/flows/app_routes.dart';
 import '../../widgets/passphrase_text_field.dart';
 
 /// Restores a vault from a previously exported `.json` backup file.
@@ -76,9 +76,7 @@ class RestoreVaultPage extends HookConsumerWidget {
     Widget body;
     if (restoredVaultId.value != null) {
       body = _SuccessView(
-        onOpen: () => context.go(
-          VaultsRoutePath.openVaultWithId(restoredVaultId.value!),
-        ),
+        onOpen: () => context.go(ProfilesRoutePath.base),
       );
     } else if (backupData.value == null) {
       body = Column(

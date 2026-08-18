@@ -30,6 +30,19 @@ class FlutterSecureConsentRecordStore implements EnumerableConsentStorage {
               ),
             );
 
+  /// Creates a store whose records are isolated to a single vault.
+  ///
+  /// Namespacing by [vaultId] keeps each vault's consent history separate, so a
+  /// backup captures only its own vault and restore does not mix vaults.
+  factory FlutterSecureConsentRecordStore.forVault(
+    String vaultId, {
+    FlutterSecureStorage? secureStorage,
+  }) =>
+      FlutterSecureConsentRecordStore(
+        namespace: 'iota_consent_$vaultId',
+        secureStorage: secureStorage,
+      );
+
   final String _namespace;
   final FlutterSecureStorage _secureStorage;
 

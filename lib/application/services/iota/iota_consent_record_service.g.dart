@@ -6,30 +6,7 @@ part of 'iota_consent_record_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$consentStorageHash() => r'f35ffd738bae99ccf7ba310b6daee59951b24203';
-
-/// Application-wide [ConsentStorage] backed by Flutter secure storage.
-///
-/// Held as a singleton so that every consent-record service writes to the
-/// same backing keychain namespace.
-///
-/// Copied from [consentStorage].
-@ProviderFor(consentStorage)
-final consentStorageProvider = Provider<ConsentStorage>.internal(
-  consentStorage,
-  name: r'consentStorageProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$consentStorageHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ConsentStorageRef = ProviderRef<ConsentStorage>;
-String _$iotaConsentRecordServiceHash() =>
-    r'7fed88f324d201e76452a8d807ba291b7f2818bb';
+String _$consentStorageHash() => r'2162d385ea2be693624346b4c5f00bf04b4b7d2f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -51,6 +28,167 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+/// Per-vault [ConsentStorage] backed by Flutter secure storage.
+///
+/// Namespaced by [vaultId] so each vault keeps its own consent history and a
+/// backup captures only that vault's records.
+///
+/// Copied from [consentStorage].
+@ProviderFor(consentStorage)
+const consentStorageProvider = ConsentStorageFamily();
+
+/// Per-vault [ConsentStorage] backed by Flutter secure storage.
+///
+/// Namespaced by [vaultId] so each vault keeps its own consent history and a
+/// backup captures only that vault's records.
+///
+/// Copied from [consentStorage].
+class ConsentStorageFamily extends Family<ConsentStorage> {
+  /// Per-vault [ConsentStorage] backed by Flutter secure storage.
+  ///
+  /// Namespaced by [vaultId] so each vault keeps its own consent history and a
+  /// backup captures only that vault's records.
+  ///
+  /// Copied from [consentStorage].
+  const ConsentStorageFamily();
+
+  /// Per-vault [ConsentStorage] backed by Flutter secure storage.
+  ///
+  /// Namespaced by [vaultId] so each vault keeps its own consent history and a
+  /// backup captures only that vault's records.
+  ///
+  /// Copied from [consentStorage].
+  ConsentStorageProvider call({
+    required String vaultId,
+  }) {
+    return ConsentStorageProvider(
+      vaultId: vaultId,
+    );
+  }
+
+  @override
+  ConsentStorageProvider getProviderOverride(
+    covariant ConsentStorageProvider provider,
+  ) {
+    return call(
+      vaultId: provider.vaultId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'consentStorageProvider';
+}
+
+/// Per-vault [ConsentStorage] backed by Flutter secure storage.
+///
+/// Namespaced by [vaultId] so each vault keeps its own consent history and a
+/// backup captures only that vault's records.
+///
+/// Copied from [consentStorage].
+class ConsentStorageProvider extends Provider<ConsentStorage> {
+  /// Per-vault [ConsentStorage] backed by Flutter secure storage.
+  ///
+  /// Namespaced by [vaultId] so each vault keeps its own consent history and a
+  /// backup captures only that vault's records.
+  ///
+  /// Copied from [consentStorage].
+  ConsentStorageProvider({
+    required String vaultId,
+  }) : this._internal(
+          (ref) => consentStorage(
+            ref as ConsentStorageRef,
+            vaultId: vaultId,
+          ),
+          from: consentStorageProvider,
+          name: r'consentStorageProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$consentStorageHash,
+          dependencies: ConsentStorageFamily._dependencies,
+          allTransitiveDependencies:
+              ConsentStorageFamily._allTransitiveDependencies,
+          vaultId: vaultId,
+        );
+
+  ConsentStorageProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.vaultId,
+  }) : super.internal();
+
+  final String vaultId;
+
+  @override
+  Override overrideWith(
+    ConsentStorage Function(ConsentStorageRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ConsentStorageProvider._internal(
+        (ref) => create(ref as ConsentStorageRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        vaultId: vaultId,
+      ),
+    );
+  }
+
+  @override
+  ProviderElement<ConsentStorage> createElement() {
+    return _ConsentStorageProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ConsentStorageProvider && other.vaultId == vaultId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, vaultId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin ConsentStorageRef on ProviderRef<ConsentStorage> {
+  /// The parameter `vaultId` of this provider.
+  String get vaultId;
+}
+
+class _ConsentStorageProviderElement extends ProviderElement<ConsentStorage>
+    with ConsentStorageRef {
+  _ConsentStorageProviderElement(super.provider);
+
+  @override
+  String get vaultId => (origin as ConsentStorageProvider).vaultId;
+}
+
+String _$iotaConsentRecordServiceHash() =>
+    r'dd45d905e1a59cd0fa07473f22e91f89df7ce3b0';
 
 /// Per-vault [IotaConsentRecordService] used to persist a consent record
 /// after a successful share submission.

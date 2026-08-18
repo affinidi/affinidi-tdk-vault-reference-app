@@ -160,7 +160,7 @@ class VaultService extends _$VaultService {
         VaultCredentialsBackupSource(profileRepositories: repositories),
         VaultFilesBackupSource(profileRepositories: repositories),
         IotaConsentHistoryBackupSource(
-          consentStorage: FlutterSecureConsentRecordStore(),
+          consentStorage: FlutterSecureConsentRecordStore.forVault(vaultId),
         ),
       ],
     );
@@ -249,7 +249,8 @@ class VaultService extends _$VaultService {
         VaultCredentialsBackupSource(profileRepositories: repositories),
         VaultFilesBackupSource(profileRepositories: repositories),
         IotaConsentHistoryBackupSource(
-          consentStorage: FlutterSecureConsentRecordStore(),
+          consentStorage:
+              FlutterSecureConsentRecordStore.forVault(targetVaultId),
         ),
       ],
     ).restoreFromBackup(backupData: backupData, passphrase: passphrase);
@@ -257,6 +258,14 @@ class VaultService extends _$VaultService {
     await ref
         .read(vaultsManagerServiceProvider.notifier)
         .loadVaultAvailability();
+
+    // Restore already required and validated the passphrase and the vault is
+    // initialised, so open it directly instead of prompting for the passphrase
+    // again on the open-vault screen.
+    state = state.copyWith(
+      currentVault: vault,
+      currentVaultId: targetVaultId,
+    );
 
     return targetVaultId;
   }
