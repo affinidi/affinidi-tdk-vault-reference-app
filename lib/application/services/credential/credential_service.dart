@@ -156,8 +156,11 @@ final _vaultCredentialServiceProvider =
   ref,
   profileId,
 ) async {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
+  // Watch the current vault so a switch/restore invalidates a cached storage
+  // that would otherwise point at the previous vault's (closed) connection.
+  final vault = ref.watch(
+    vaultServiceProvider.select((state) => state.currentVault),
+  );
 
   if (vault == null) {
     throw AppException(
