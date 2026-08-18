@@ -259,11 +259,15 @@ class VaultService extends _$VaultService {
         .read(vaultsManagerServiceProvider.notifier)
         .loadVaultAvailability();
 
-    // Restore already required and validated the passphrase and the vault is
-    // initialised, so open it directly instead of prompting for the passphrase
-    // again on the open-vault screen.
+    // Restore already required and validated the passphrase, so open the vault
+    // directly without prompting again. Build a fresh vault the same way the
+    // open flow does rather than reusing the restore-time instance, whose
+    // repositories can leave file listing hanging after the import writes.
+    final openedVault =
+        await ref.read(_openVaultProvider(targetVaultId).future);
+    await openedVault.ensureInitialized();
     state = state.copyWith(
-      currentVault: vault,
+      currentVault: openedVault,
       currentVaultId: targetVaultId,
     );
 
