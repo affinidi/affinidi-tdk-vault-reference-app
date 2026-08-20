@@ -7,7 +7,7 @@ class ConsentHistoryLogoAvatar extends StatelessWidget {
   final String? logoUrl;
 
   static const double _size = 24;
-  static const String _fallbackAsset = 'assets/images/Logos - Connectors.svg';
+  static const String _fallbackAsset = 'assets/images/logos_connectors.svg';
 
   @override
   Widget build(BuildContext context) {
