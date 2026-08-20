@@ -232,6 +232,7 @@ GoRouter navigation(Ref ref) {
             state.uri.queryParameters[ShareCredentialRouteParams.request] ?? '',
         clientId:
             state.uri.queryParameters[ShareCredentialRouteParams.clientId],
+        source: state.uri.queryParameters[ShareCredentialRouteParams.source],
       ),
     ),
     GoRoute(
@@ -277,6 +278,8 @@ GoRouter navigation(Ref ref) {
             path: ShareCredentialRoutePath.base,
             queryParameters: {
               ShareCredentialRouteParams.request: jwt,
+              ShareCredentialRouteParams.source:
+                  ShareCredentialRouteSource.deeplink,
               if (hasValidClientId)
                 ShareCredentialRouteParams.clientId: clientId,
             },

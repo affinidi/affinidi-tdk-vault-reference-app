@@ -33,10 +33,12 @@ class ShareCredentialPage extends ConsumerWidget {
     super.key,
     required this.requestJwt,
     this.clientId,
+    this.source,
   });
 
   final String requestJwt;
   final String? clientId;
+  final String? source;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,6 +48,11 @@ class ShareCredentialPage extends ConsumerWidget {
       requestJwt: requestJwt,
       clientId: clientId,
     );
+
+    // Record how the user arrived (deep link vs. manual) so the controller's
+    // dispose logic can decide whether to reset the current vault, instead of
+    // guessing from the navigation stack.
+    ref.read(controllerProvider.notifier).markSource(source);
 
     // Navigate away when submit or reject completes without error.
     // This runs at the page level so it is never unmounted during loading.

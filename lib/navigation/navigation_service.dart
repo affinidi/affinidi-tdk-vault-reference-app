@@ -111,6 +111,7 @@ class NavigationService {
       path: ShareCredentialRoutePath.base,
       queryParameters: {
         ShareCredentialRouteParams.request: requestJwt,
+        ShareCredentialRouteParams.source: ShareCredentialRouteSource.manual,
         if (clientId != null && clientId.isNotEmpty)
           ShareCredentialRouteParams.clientId: clientId,
       },

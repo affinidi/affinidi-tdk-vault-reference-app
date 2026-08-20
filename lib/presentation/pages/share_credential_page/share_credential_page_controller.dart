@@ -12,7 +12,7 @@ import '../../../infrastructure/extensions/matched_credentials_result_extensions
 import '../../../infrastructure/extensions/verifiable_credential_extensions.dart';
 import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import '../../../infrastructure/providers/localizations_provider.dart';
-import '../../../navigation/navigation_provider.dart';
+import '../../../navigation/flows/share_credential/share_credential_route_constants.dart';
 import 'share_credential_page_state.dart';
 
 part 'share_credential_page_controller.g.dart';
@@ -78,7 +78,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       vaultsManagerServiceProvider.select((s) => s.vaultRegistry),
     );
 
-    _isFromDeepLink = !(navigatorKey.currentState?.canPop() ?? false);
     ref.onDispose(() {
       if (_isFromDeepLink) {
         ref.read(vaultServiceProvider.notifier).resetCurrentVault();
@@ -125,6 +124,16 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       vaultRegistry: vaultRegistry,
       selectedVaultId: _selectedVaultId,
     );
+  }
+
+  /// Records how the share flow was entered (see [ShareCredentialRouteSource]).
+  ///
+  /// Called from the page's route builder. When entered via a deep link the
+  /// controller resets the current vault on dispose; a manual push leaves the
+  /// already-open vault untouched. Replaces the previous `Navigator.canPop()`
+  /// heuristic, which misclassified cold starts and hot restarts.
+  void markSource(String? source) {
+    _isFromDeepLink = source == ShareCredentialRouteSource.deeplink;
   }
 
   Future<void> _loadVaultsAndHandleEmpty() async {
