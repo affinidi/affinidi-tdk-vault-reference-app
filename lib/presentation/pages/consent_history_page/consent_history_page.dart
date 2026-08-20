@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../l10n/app_localizations.dart';
+import '../../../infrastructure/formatters/consent_history_formatters.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
 import 'consent_history_details_sheet.dart';
-import 'consent_history_formatters.dart';
 import 'consent_history_logo_avatar.dart';
 import 'consent_history_page_controller.dart';
 
@@ -17,17 +17,13 @@ class ConsentHistoryPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoading = ref.watch(
-      consentHistoryPageControllerProvider.select((state) => state.isLoading),
-    );
-    final error = ref.watch(
-      consentHistoryPageControllerProvider.select((state) => state.error),
-    );
-    final records = ref.watch(
-      consentHistoryPageControllerProvider.select((state) => state.records),
-    );
+    final state = ref.watch(consentHistoryPageControllerProvider);
     final controller = ref.read(consentHistoryPageControllerProvider.notifier);
     final localizations = AppLocalizations.of(context)!;
+
+    final isLoading = state.isLoading;
+    final error = state.error;
+    final records = state.records;
 
     if (isLoading) {
       return const Center(child: CircularProgressIndicator());
