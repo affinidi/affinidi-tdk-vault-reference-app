@@ -506,10 +506,16 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     }
   }
 
-  void selectCredentialForGroup(List<String> groupVcIds, String selectedId) {
-    final updated = Set<String>.from(state.selectedCredentialIds);
-    updated.removeAll(groupVcIds);
-    updated.add(selectedId);
+  /// Replaces the selected credentials for a single group.
+  ///
+  /// Clears every candidate id in [groupVcIds] from the current selection and
+  /// adds [selectedIds], leaving other groups untouched. The picker enforces
+  /// the group's `minimumVCsCountToShare`, so the resulting set stays valid
+  /// for submission even when a group requires more than one credential.
+  void setGroupSelection(List<String> groupVcIds, Set<String> selectedIds) {
+    final updated = Set<String>.from(state.selectedCredentialIds)
+      ..removeAll(groupVcIds)
+      ..addAll(selectedIds);
     state = state.copyWith(selectedCredentialIds: updated);
   }
 
