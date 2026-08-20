@@ -179,9 +179,13 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
   /// Loads profiles for the currently open vault without requiring passphrase.
   Future<void> _loadProfilesForCurrentVault() async {
+    final vaultId = state.selectedVaultId;
     try {
       final vault = ref.read(vaultServiceProvider).currentVault;
       final profiles = vault != null ? await vault.listProfiles() : <Profile>[];
+      if (state.selectedVaultId != vaultId) {
+        return;
+      }
 
       state = state.copyWith(
         selectedVaultId: _selectedVaultId,
@@ -196,6 +200,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         Future.microtask(() => matchCredentials(profiles.first.id));
       }
     } catch (e, st) {
+      if (state.selectedVaultId != vaultId) return;
       ErrorLoggingHandler.instance
           .logError(e, st, reason: '_loadProfilesForCurrentVault failed');
 
@@ -302,6 +307,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
       final vault = ref.read(vaultServiceProvider).currentVault;
       final profiles = vault != null ? await vault.listProfiles() : <Profile>[];
+      if (state.selectedVaultId != vaultId) {
+        return;
+      }
 
       state = state.copyWith(
         profiles: profiles,
@@ -313,6 +321,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         Future.microtask(() => matchCredentials(profiles.first.id));
       }
     } catch (e, st) {
+      if (state.selectedVaultId != vaultId) return;
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'verifyPassphrase failed');
 
@@ -353,6 +362,16 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     final vaultId = state.selectedVaultId;
     if (vaultId == null) return;
 
+    // Identity captured at start; a newer vault/profile selection supersedes
+    // this run, so its writes are discarded.
+    bool isStale() =>
+        state.selectedVaultId != vaultId ||
+        state.selectedProfileId != profileId;
+
+    if (isStale()) {
+      return;
+    }
+
     state = state.copyWith(
       stage: const StageMatchingCredentials(),
       matchResult: null,
@@ -361,6 +380,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     try {
       final vault = ref.read(vaultServiceProvider).currentVault;
       if (vault == null) {
+        if (isStale()) return;
         state = state.copyWith(
           stage: StageMatchFailed(
             ref.read(localizationsProvider).shareFlowFailedToLoadCredentials,
@@ -370,6 +390,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       }
 
       final profile = await vault.getProfileById(profileId);
+      if (isStale()) {
+        return;
+      }
       final storage = profile.defaultCredentialStorage;
       if (storage == null) {
         state = state.copyWith(
@@ -380,12 +403,18 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       }
 
       final listResult = await _fetchAllCredentials(storage);
+      if (isStale()) {
+        return;
+      }
       final allVCs = listResult
           .map((credential) => credential.verifiableCredential)
           .toList();
 
       final matcher = ref.read(iotaCredentialMatcherServiceProvider);
       final matchResult = await matcher.match(shareRequest, allVCs);
+      if (isStale()) {
+        return;
+      }
 
       state = state.copyWith(
         matchResult: matchResult,
@@ -402,6 +431,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         shareRequest: shareRequest,
         matchResult: matchResult,
       );
+      if (isStale()) return;
 
       // Auto-consent may have already dismissed the flow (StageDismissed).
       // Only make the UI interactive if it did not.
@@ -409,6 +439,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         state = state.copyWith(stage: const StageReadyToShare());
       }
     } catch (e, st) {
+      if (isStale()) return;
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'matchCredentials failed');
       state = state.copyWith(
