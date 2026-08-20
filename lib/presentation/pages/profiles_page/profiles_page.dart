@@ -281,12 +281,7 @@ class _ProfilesTabContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            localizations.profilesEmptyStateDescription
-                                .substring(
-                                    0,
-                                    localizations.profilesEmptyStateDescription
-                                        .indexOf(localizations
-                                            .targetKeywordProfiles)),
+                            localizations.profilesEmptyStatePrefix,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
@@ -297,16 +292,14 @@ class _ProfilesTabContent extends StatelessWidget {
                             textStyle: Theme.of(context).textTheme.bodyMedium,
                           ),
                           Text(
-                            ' yet.',
+                            localizations.profilesEmptyStateSuffix,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ],
                       )),
                       Text(
-                        localizations.profilesEmptyStateDescription.substring(
-                            localizations.profilesEmptyStateDescription
-                                .indexOf('Start')),
+                        localizations.profilesEmptyStateCallToAction,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),

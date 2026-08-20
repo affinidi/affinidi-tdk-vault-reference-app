@@ -647,8 +647,16 @@
   "@errorLoadingCodeSnippetsMessage": {
     "type": "text"
   },
-  "profilesEmptyStateDescription": "You don't have any profiles yet. Start by creating one.",
-  "@profilesEmptyStateDescription": {
+  "profilesEmptyStatePrefix": "You don't have any ",
+  "@profilesEmptyStatePrefix": {
+    "type": "text"
+  },
+  "profilesEmptyStateSuffix": " yet.",
+  "@profilesEmptyStateSuffix": {
+    "type": "text"
+  },
+  "profilesEmptyStateCallToAction": "Start by creating one.",
+  "@profilesEmptyStateCallToAction": {
     "type": "text"
   },
   "folderNotDeletedTitle": "Folder Not Deleted",

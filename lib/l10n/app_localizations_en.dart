@@ -538,8 +538,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorLoadingCodeSnippetsMessage => 'Error loading code snippets';
 
   @override
-  String get profilesEmptyStateDescription =>
-      'You don\'t have any profiles yet. Start by creating one.';
+  String get profilesEmptyStatePrefix => 'You don\'t have any ';
+
+  @override
+  String get profilesEmptyStateSuffix => ' yet.';
+
+  @override
+  String get profilesEmptyStateCallToAction => 'Start by creating one.';
 
   @override
   String get folderNotDeletedTitle => 'Folder Not Deleted';

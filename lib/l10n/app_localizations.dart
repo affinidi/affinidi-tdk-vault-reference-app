@@ -988,11 +988,23 @@ abstract class AppLocalizations {
   /// **'Error loading code snippets'**
   String get errorLoadingCodeSnippetsMessage;
 
-  /// No description provided for @profilesEmptyStateDescription.
+  /// No description provided for @profilesEmptyStatePrefix.
   ///
   /// In en, this message translates to:
-  /// **'You don\'t have any profiles yet. Start by creating one.'**
-  String get profilesEmptyStateDescription;
+  /// **'You don\'t have any '**
+  String get profilesEmptyStatePrefix;
+
+  /// No description provided for @profilesEmptyStateSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **' yet.'**
+  String get profilesEmptyStateSuffix;
+
+  /// No description provided for @profilesEmptyStateCallToAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Start by creating one.'**
+  String get profilesEmptyStateCallToAction;
 
   /// No description provided for @folderNotDeletedTitle.
   ///
