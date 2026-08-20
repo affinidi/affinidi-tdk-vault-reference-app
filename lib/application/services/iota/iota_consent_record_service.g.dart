@@ -6,30 +6,8 @@ part of 'iota_consent_record_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$consentStorageHash() => r'f35ffd738bae99ccf7ba310b6daee59951b24203';
-
-/// Application-wide [ConsentStorage] backed by Flutter secure storage.
-///
-/// Held as a singleton so that every consent-record service writes to the
-/// same backing keychain namespace.
-///
-/// Copied from [consentStorage].
-@ProviderFor(consentStorage)
-final consentStorageProvider = Provider<ConsentStorage>.internal(
-  consentStorage,
-  name: r'consentStorageProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$consentStorageHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ConsentStorageRef = ProviderRef<ConsentStorage>;
 String _$iotaConsentRecordServiceHash() =>
-    r'7fed88f324d201e76452a8d807ba291b7f2818bb';
+    r'9067634c656950384a86eb007cc61106b5c679da';
 
 /// Copied from Dart SDK
 class _SystemHash {
