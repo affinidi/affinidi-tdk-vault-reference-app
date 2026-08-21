@@ -28,21 +28,13 @@ import '../presentation/pages/shared_files_page/shared_files_page.dart';
 import '../presentation/pages/shared_profile_details_page/shared_profile_details_page.dart';
 
 import 'flows/app_routes.dart';
+import 'flows/share_credential/share_link_parser.dart';
 import 'navigation_service.dart';
 
 part 'navigation_provider.g.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 String? returnUrl;
-
-// Upper bounds and format for tdkref:// deep-link parameters. A compact OID4VP
-// request JWT is well under 10 KB; larger or malformed input is rejected here
-// to avoid processing attacker-controlled junk. Cryptographic validation of the
-// JWT still happens downstream in ShareCredentialPageController.validateRequest.
-const _maxDeepLinkJwtLength = 10000;
-const _maxDeepLinkClientIdLength = 1000;
-final _deepLinkJwtFormat =
-    RegExp(r'^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$');
 
 String? _guard(
   Ref ref,
@@ -265,25 +257,15 @@ GoRouter navigation(Ref ref) {
       if (state.uri.scheme == AppConfig.deepLinkScheme) {
         final jwt =
             state.uri.queryParameters[ShareCredentialRouteParams.request];
-        if (jwt != null &&
-            jwt.isNotEmpty &&
-            jwt.length <= _maxDeepLinkJwtLength &&
-            _deepLinkJwtFormat.hasMatch(jwt)) {
+        if (ShareRequestUrlRules.isValidJwt(jwt)) {
           final clientId =
               state.uri.queryParameters[ShareCredentialRouteParams.clientId];
-          final hasValidClientId = clientId != null &&
-              clientId.isNotEmpty &&
-              clientId.length <= _maxDeepLinkClientIdLength;
-          return Uri(
-            path: ShareCredentialRoutePath.base,
-            queryParameters: {
-              ShareCredentialRouteParams.request: jwt,
-              ShareCredentialRouteParams.source:
-                  ShareCredentialRouteSource.deeplink,
-              if (hasValidClientId)
-                ShareCredentialRouteParams.clientId: clientId,
-            },
-          ).toString();
+          return ShareLinkParser.buildPath(
+            requestJwt: jwt!,
+            clientId:
+                ShareRequestUrlRules.isValidClientId(clientId) ? clientId : null,
+            source: ShareCredentialRouteSource.deeplink,
+          );
         }
         return VaultsRoutePath.base;
       }

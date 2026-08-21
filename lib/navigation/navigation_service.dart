@@ -75,50 +75,6 @@ class NavigationService {
     }
   }
 
-  /// Parses a raw OID4VP share URL, extracting the `request` JWT and optional `client_id`.
-  ///
-  /// Parameters:
-  /// * [rawUrl] - The raw URL string entered by the user (e.g. a vault deep-link).
-  ///
-  /// Returns a record `(requestJwt, clientId)` on success, or `null` if [rawUrl]
-  /// cannot be parsed or the `request` query parameter is absent or empty.
-  ({String requestJwt, String? clientId})? parseShareUrl(String rawUrl) {
-    final uri = Uri.tryParse(rawUrl.trim());
-    final requestJwt = uri?.queryParameters[ShareCredentialRouteParams.request];
-    if (requestJwt == null || requestJwt.isEmpty) return null;
-    final clientId = uri?.queryParameters[ShareCredentialRouteParams.clientId];
-    return (requestJwt: requestJwt, clientId: clientId);
-  }
-
-  /// Pushes the share credential page for the given [requestJwt].
-  ///
-  /// Parameters:
-  /// * [requestJwt] - The JWT extracted from the OID4VP request URL.
-  /// * [clientId] - Optional verifier client identifier.
-  void pushShareCredential({required String requestJwt, String? clientId}) {
-    final path = _buildShareCredentialPath(
-      requestJwt: requestJwt,
-      clientId: clientId,
-    );
-    push(path);
-  }
-
-  String _buildShareCredentialPath({
-    required String requestJwt,
-    String? clientId,
-  }) {
-    final path = Uri(
-      path: ShareCredentialRoutePath.base,
-      queryParameters: {
-        ShareCredentialRouteParams.request: requestJwt,
-        ShareCredentialRouteParams.source: ShareCredentialRouteSource.manual,
-        if (clientId != null && clientId.isNotEmpty)
-          ShareCredentialRouteParams.clientId: clientId,
-      },
-    ).toString();
-    return path;
-  }
-
   /// Pops the current route if possible; otherwise navigates to the vaults home screen.
   void popOrGoHome() {
     try {
