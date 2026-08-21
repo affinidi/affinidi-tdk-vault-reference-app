@@ -6,7 +6,7 @@ part of 'profile_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$profileTypeHash() => r'9c55b76ee9b33451a3a64d10122ee02f709eb8f0';
+String _$profileTypeHash() => r'c1ea5bd883cc43a1bc0f68f6e54833353e73e8be';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,22 +29,22 @@ class _SystemHash {
   }
 }
 
-/// Provider that returns the profile type for a given profile ID.
+/// Provider that returns the profile type for a given profile repository id.
 ///
 /// Copied from [profileType].
 @ProviderFor(profileType)
 const profileTypeProvider = ProfileTypeFamily();
 
-/// Provider that returns the profile type for a given profile ID.
+/// Provider that returns the profile type for a given profile repository id.
 ///
 /// Copied from [profileType].
 class ProfileTypeFamily extends Family<ProfileType> {
-  /// Provider that returns the profile type for a given profile ID.
+  /// Provider that returns the profile type for a given profile repository id.
   ///
   /// Copied from [profileType].
   const ProfileTypeFamily();
 
-  /// Provider that returns the profile type for a given profile ID.
+  /// Provider that returns the profile type for a given profile repository id.
   ///
   /// Copied from [profileType].
   ProfileTypeProvider call(
@@ -79,11 +79,11 @@ class ProfileTypeFamily extends Family<ProfileType> {
   String? get name => r'profileTypeProvider';
 }
 
-/// Provider that returns the profile type for a given profile ID.
+/// Provider that returns the profile type for a given profile repository id.
 ///
 /// Copied from [profileType].
 class ProfileTypeProvider extends AutoDisposeProvider<ProfileType> {
-  /// Provider that returns the profile type for a given profile ID.
+  /// Provider that returns the profile type for a given profile repository id.
   ///
   /// Copied from [profileType].
   ProfileTypeProvider(

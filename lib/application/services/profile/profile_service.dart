@@ -65,7 +65,7 @@ class ProfileService extends _$ProfileService {
       await _validateProfileCreation(vault, name, profileType);
 
       final repositoryId =
-          '${_getCurrentVaultId()}_${profileType.value}_repository';
+          profileType == ProfileType.edge ? edgeRepositoryId : cloudRepositoryId;
       final profileRepository = await _getProfileRepository(
           vault, repositoryId, profileType,
           profileName: name);
@@ -382,10 +382,10 @@ class ProfileService extends _$ProfileService {
 /// Provider that returns the profile type for a given profile repository id.
 @riverpod
 ProfileType profileType(Ref ref, String profileId) {
-  // [profileId] is the profile's repositoryId, whose suffix encodes the storage
-  // type. The concrete repository type cannot be used here because the vault
-  // wraps repositories in a cache-invalidating decorator.
-  if (profileId.endsWith('_${ProfileType.edge.value}_repository')) {
+  // [profileId] is the profile's repositoryId. The concrete repository type
+  // cannot be used here because the vault wraps repositories in a
+  // cache-invalidating decorator.
+  if (profileId == edgeRepositoryId) {
     return ProfileType.edge;
   }
   return ProfileType.affinidiCloud;
