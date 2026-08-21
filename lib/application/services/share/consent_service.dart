@@ -75,8 +75,8 @@ class ConsentService {
 
 final consentServiceProvider = Provider<ConsentService>(
   (ref) => ConsentService(
-    consentRecordFactory: ({required String vaultId, required int accountIndex}) =>
-        ref.read(
+    consentRecordFactory:
+        ({required String vaultId, required int accountIndex}) => ref.read(
       iotaConsentRecordServiceProvider(
         vaultId: vaultId,
         accountIndex: accountIndex,

@@ -600,12 +600,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         );
       }
 
-      final redirectUri =
-          await ref.read(shareSubmissionServiceProvider).reject(
-                vaultId: vaultId,
-                profile: _resolveSelectedProfile(),
-                shareRequest: shareRequest,
-              );
+      final redirectUri = await ref.read(shareSubmissionServiceProvider).reject(
+            vaultId: vaultId,
+            profile: _resolveSelectedProfile(),
+            shareRequest: shareRequest,
+          );
       if (redirectUri != null) {
         final launched =
             await ref.read(externalRedirectServiceProvider).open(redirectUri);
