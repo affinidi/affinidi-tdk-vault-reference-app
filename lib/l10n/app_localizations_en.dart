@@ -21,9 +21,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get credentials => 'Credentials';
 
   @override
-  String get driveTitle => 'Storage';
-
-  @override
   String get filesEmptyStateDescription =>
       'You don\'t have any files yet.\nThe Home folder is your root directory.';
 
@@ -126,9 +123,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteFolderActionText => 'Delete';
 
   @override
-  String get deleteFolderLoadingMessage => 'Deleting folder...';
-
-  @override
   String get deleteFileTitle => 'Delete file';
 
   @override
@@ -171,9 +165,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get expiryDate => 'Expiry date';
 
   @override
-  String get credentialValidationLoadingMessage => 'Validating...';
-
-  @override
   String get neverExpires => 'None';
 
   @override
@@ -205,9 +196,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get claimCredentialsSaving => 'Saving...';
 
   @override
-  String get claimCredentialsTxCode => ' Transaction code';
-
-  @override
   String get saveActionText => 'Save';
 
   @override
@@ -227,16 +215,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home => 'Home';
 
   @override
-  String get createVaultTitle => 'Create your Vault';
-
-  @override
-  String get createVaultDescription =>
-      'Use this option to create a brand new Vault.';
-
-  @override
-  String get createVaultActionLabel => 'Create';
-
-  @override
   String get vaultExistsErrorMessage =>
       'A vault with this seed already exists on this device';
 
@@ -247,34 +225,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createVaultErrorMessage => 'Failed to create new vault ';
 
   @override
-  String get openVaultTitle => 'Open an existing Vault';
-
-  @override
-  String get accessVaultTitle => 'Access your Affinidi Vault';
-
-  @override
   String get login => 'Login';
 
   @override
-  String get openVaultDescription =>
-      'Use this option to open a Vault you have already used on this device.';
-
-  @override
   String get accessVaultActionLabel => 'Access';
-
-  @override
-  String get transferVaultTitle => 'Complete a Vault transfer';
-
-  @override
-  String get transferVaultDescription =>
-      'Use this option to start scanning the QR code you received and complete a transfer.';
-
-  @override
-  String get transferVaultActionLabel => 'Start';
-
-  @override
-  String get scanQrCodeInstructions =>
-      'Position the QR code within the frame to scan';
 
   @override
   String get vaultName => 'Vault Name';
@@ -295,15 +249,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterSeed => 'Enter Seed';
 
   @override
-  String get transferVaultLoadingMessage => 'Transferring vault...';
-
-  @override
-  String get transferVaultProceedActionLabel => 'Transfer vault';
-
-  @override
-  String get transferVaultScanActionLabel => 'Start scanning';
-
-  @override
   String get creatingNewVault => 'Creating a new Vault';
 
   @override
@@ -320,32 +265,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get createProfileLoadingMessage => 'Creating new profile...';
-
-  @override
-  String get createProfileDescription => 'Enter the details for a new profile';
-
-  @override
-  String get shareProfileTitle => 'Profile Sharing';
-
-  @override
-  String get shareProfileSuccessMessage => 'Profile shared successfully';
-
-  @override
-  String shareProfileErrorMessage(Object errorMessage) {
-    return 'Error sharing profile: $errorMessage';
-  }
-
-  @override
-  String get shareProfileAcceptSuccessMessage =>
-      'Shared profile accepted successfully!';
-
-  @override
-  String shareProfileAcceptErrorMessage(Object errorMessage) {
-    return 'Error accepting shared profile: $errorMessage';
-  }
-
-  @override
-  String get shareProfileAcceptActionText => 'Accept Shared Profile';
 
   @override
   String get profileName => 'Name';
@@ -366,12 +285,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteActionText => 'Delete';
-
-  @override
-  String get deleteProfileLoadingMessage => 'Deleting profile...';
-
-  @override
-  String get vaultsTitle => 'Vaults';
 
   @override
   String get copy => 'Copy';
@@ -398,37 +311,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recipientDidLabel => 'Recipient DID';
 
   @override
-  String get pasteSharedProfileDtoJsonTitle => 'Paste SharedProfileDto JSON';
-
-  @override
-  String get selectYourProfileLabel => 'Select Your Profile';
-
-  @override
   String get sharedProfileDetails => 'Shared Profile Detail';
-
-  @override
-  String get sharedProfileDtoJsonFieldLabel => 'SharedProfileDto JSON';
-
-  @override
-  String folderLabel(Object name) {
-    return 'Folder: $name';
-  }
-
-  @override
-  String fileLabel(Object name) {
-    return 'File: $name';
-  }
-
-  @override
-  String idLabel(Object id) {
-    return 'ID: $id';
-  }
-
-  @override
-  String get unknownItemType => 'Unknown item type';
-
-  @override
-  String get noFilesOrFoldersFound => 'No files or folders found';
 
   @override
   String sharedFromLabel(Object storageId) {
@@ -449,12 +332,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noSharedContentAvailable => 'No shared content available.';
 
   @override
-  String get tdkReferenceAppbarTitle => 'TDK Reference';
-
-  @override
-  String get useQrData => 'Use QR Data';
-
-  @override
   String get unknownError => 'Unknown error';
 
   @override
@@ -466,9 +343,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get incorrectPassphrase => 'Wrong passphrase.';
-
-  @override
-  String get profileTypeLabel => 'Profile Type';
 
   @override
   String get profileDescriptionPlaceholder => 'Add your profile description...';
@@ -485,9 +359,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get profileNotice =>
       'Profiles created using local storage cannot be shared.';
-
-  @override
-  String get profileTypeChooseYourOwn => 'Choose your own';
 
   @override
   String get paginationPreviousPage => 'Previous Page';
@@ -581,16 +452,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String profileIdLabel(Object profileId) {
-    return 'Profile ID: $profileId';
-  }
-
-  @override
-  String accessLevelLabel(Object accessLevel) {
-    return 'Access: $accessLevel';
-  }
-
-  @override
   String get revokeAccessTooltip => 'Revoke access';
 
   @override
@@ -613,9 +474,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setFilePermissions => 'Set File Permissions';
 
   @override
-  String get filePermissions => 'File Permissions';
-
-  @override
   String get fileFormatOptions => 'File Format Options';
 
   @override
@@ -625,13 +483,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get specifyAllowedFormats => 'Specify allowed formats';
 
   @override
-  String get typeFileFormatHere => 'Type file format here';
-
-  @override
   String get fileSizeLimit => 'File size limit';
-
-  @override
-  String get enterMaxFileSize => 'Enter max file size in bytes';
 
   @override
   String get settingsSaved => 'Settings saved!';
@@ -673,10 +525,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createProfile => 'Create Profile';
 
   @override
-  String get seedGenerationMessage =>
-      'A secure 32-byte seed will be generated. It\'s needed to create your Vault.';
-
-  @override
   String get existingSeedMessage =>
       'Provide an existing seed to create your Vault.';
 
@@ -700,9 +548,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get inputAllowedFileFormats => 'Input allowed file formats';
-
-  @override
-  String get fileFormat => 'File format';
 
   @override
   String get inputFileSizeInMb => 'Enter file size in MB';
@@ -810,9 +655,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lblCSCreateProfile => 'Create Vault Profile Snippets';
 
   @override
-  String get infoCSCopiedToClipboard => 'Code snippets copied to clipboard.';
-
-  @override
   String get lblCSShareProfile => 'Share Profile Snippets';
 
   @override
@@ -836,9 +678,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get snippetDescCreateVault => 'Create Vault';
-
-  @override
-  String get snippetDescGenRandSeed => 'Generate Random Seed';
 
   @override
   String get snippetDescOpenVault => 'Open Vault Instance';
@@ -934,9 +773,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get referenceApp => 'Affinidi TDK Vault Reference App';
 
   @override
-  String get clientInfoTitle => 'Info';
-
-  @override
   String get domainVerifiedByAffinidi => 'Domain verified by Affinidi';
 
   @override
@@ -968,19 +804,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shareReject => 'Cancel';
 
   @override
-  String get shareSubmitResponse => 'Submit Response';
-
-  @override
-  String get shareRequestedCredentials => 'Requested credentials';
-
-  @override
   String get consentHistoryEmpty => 'No consent history yet.';
 
   @override
   String get consentHistoryDetails => 'Consent Details';
-
-  @override
-  String get consentHistorySharedTypes => 'Shared credential types';
 
   @override
   String get consentHistoryNotAvailable => 'Not available';
