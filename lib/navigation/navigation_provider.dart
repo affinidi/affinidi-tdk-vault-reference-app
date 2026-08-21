@@ -262,8 +262,9 @@ GoRouter navigation(Ref ref) {
               state.uri.queryParameters[ShareCredentialRouteParams.clientId];
           return ShareLinkParser.buildPath(
             requestJwt: jwt!,
-            clientId:
-                ShareRequestUrlRules.isValidClientId(clientId) ? clientId : null,
+            clientId: ShareRequestUrlRules.isValidClientId(clientId)
+                ? clientId
+                : null,
             source: ShareCredentialRouteSource.deeplink,
           );
         }

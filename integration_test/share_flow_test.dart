@@ -250,7 +250,6 @@ Future<void> _openVaultToProfiles(
   );
 }
 
-
 List<ParsedVerifiableCredential<dynamic>> _capturedSubmittedCredentials(
   _MockShareResponseService mock,
 ) {

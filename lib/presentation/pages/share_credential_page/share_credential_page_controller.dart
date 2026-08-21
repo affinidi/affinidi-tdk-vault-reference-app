@@ -373,10 +373,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         return;
       }
 
-      final matchResult = await ref.read(credentialMatchingServiceProvider).match(
-        shareRequest: shareRequest,
-        storage: storage,
-      );
+      final matchResult =
+          await ref.read(credentialMatchingServiceProvider).match(
+                shareRequest: shareRequest,
+                storage: storage,
+              );
       if (isStale()) {
         return;
       }
@@ -448,22 +449,22 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   }) async {
     try {
       final profile = _resolveSelectedProfile();
-      final result =
-          await ref.read(consentServiceProvider).tryAutomaticConsent(
-        vaultId: vaultId,
-        accountIndex: profile.accountIndex,
-        shareRequest: shareRequest,
-        matchResult: matchResult,
-        verifierMetadata:
-            state.verifierMetadata ?? const VerifierClientMetadata(),
-      );
+      final result = await ref.read(consentServiceProvider).tryAutomaticConsent(
+            vaultId: vaultId,
+            accountIndex: profile.accountIndex,
+            shareRequest: shareRequest,
+            matchResult: matchResult,
+            verifierMetadata:
+                state.verifierMetadata ?? const VerifierClientMetadata(),
+          );
 
       switch (result) {
         case AutoConsentApproved(:final redirectUri):
           var showToast = redirectUri == null;
           if (redirectUri != null) {
-            final launched =
-                await ref.read(externalRedirectServiceProvider).open(redirectUri);
+            final launched = await ref
+                .read(externalRedirectServiceProvider)
+                .open(redirectUri);
             if (!launched) showToast = true;
           }
           state = state.copyWith(
@@ -515,15 +516,15 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   }) async {
     try {
       await ref.read(consentServiceProvider).saveConsent(
-        vaultId: vaultId,
-        profile: _resolveSelectedProfile(),
-        shareRequest: shareRequest,
-        verifierMetadata:
-            state.verifierMetadata ?? const VerifierClientMetadata(),
-        sharedVcs: selectedCredentials,
-        isAutoShareEnabled: state.autoAllowConsent,
-        isConsentManagementEnabled: state.isConsentManagementEnabled,
-      );
+            vaultId: vaultId,
+            profile: _resolveSelectedProfile(),
+            shareRequest: shareRequest,
+            verifierMetadata:
+                state.verifierMetadata ?? const VerifierClientMetadata(),
+            sharedVcs: selectedCredentials,
+            isAutoShareEnabled: state.autoAllowConsent,
+            isConsentManagementEnabled: state.isConsentManagementEnabled,
+          );
     } catch (e, st) {
       ErrorLoggingHandler.instance.logError(
         e,
@@ -595,11 +596,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
       final redirectUri =
           await ref.read(shareResponseServiceProvider).submitShareRequest(
-        vaultId: vaultId,
-        accountIndex: _resolveSelectedProfile().accountIndex,
-        shareRequest: shareRequest,
-        selectedCredentials: selectedCredentials,
-      );
+                vaultId: vaultId,
+                accountIndex: _resolveSelectedProfile().accountIndex,
+                shareRequest: shareRequest,
+                selectedCredentials: selectedCredentials,
+              );
 
       await _persistConsentRecord(
         vaultId: vaultId,
@@ -656,10 +657,10 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
       final redirectUri =
           await ref.read(shareResponseServiceProvider).rejectShareRequest(
-        vaultId: vaultId,
-        accountIndex: _resolveSelectedProfile().accountIndex,
-        shareRequest: shareRequest,
-      );
+                vaultId: vaultId,
+                accountIndex: _resolveSelectedProfile().accountIndex,
+                shareRequest: shareRequest,
+              );
       if (redirectUri != null) {
         final launched =
             await ref.read(externalRedirectServiceProvider).open(redirectUri);
