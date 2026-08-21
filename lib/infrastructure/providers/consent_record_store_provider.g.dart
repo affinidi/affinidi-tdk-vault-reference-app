@@ -7,7 +7,7 @@ part of 'consent_record_store_provider.dart';
 // **************************************************************************
 
 String _$consentRecordStoreHash() =>
-    r'1da54faff82be17a7507d87f3f64cf364104790b';
+    r'1304c381fcd9eef1136e7c4477082c7db28d55cf';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,7 +30,7 @@ class _SystemHash {
   }
 }
 
-/// Provides a per-vault [FlutterSecureConsentRecordStore] backed by Flutter
+/// Provides a per-vault [FlutterSecureConsentStorage] backed by Flutter
 /// secure storage.
 ///
 /// Keeps alive for the lifetime of the app — consent records are written
@@ -43,7 +43,7 @@ class _SystemHash {
 @ProviderFor(consentRecordStore)
 const consentRecordStoreProvider = ConsentRecordStoreFamily();
 
-/// Provides a per-vault [FlutterSecureConsentRecordStore] backed by Flutter
+/// Provides a per-vault [FlutterSecureConsentStorage] backed by Flutter
 /// secure storage.
 ///
 /// Keeps alive for the lifetime of the app — consent records are written
@@ -53,8 +53,8 @@ const consentRecordStoreProvider = ConsentRecordStoreFamily();
 /// Returns the concrete type so callers can use extended API (e.g. [listAll]).
 ///
 /// Copied from [consentRecordStore].
-class ConsentRecordStoreFamily extends Family<FlutterSecureConsentRecordStore> {
-  /// Provides a per-vault [FlutterSecureConsentRecordStore] backed by Flutter
+class ConsentRecordStoreFamily extends Family<FlutterSecureConsentStorage> {
+  /// Provides a per-vault [FlutterSecureConsentStorage] backed by Flutter
   /// secure storage.
   ///
   /// Keeps alive for the lifetime of the app — consent records are written
@@ -66,7 +66,7 @@ class ConsentRecordStoreFamily extends Family<FlutterSecureConsentRecordStore> {
   /// Copied from [consentRecordStore].
   const ConsentRecordStoreFamily();
 
-  /// Provides a per-vault [FlutterSecureConsentRecordStore] backed by Flutter
+  /// Provides a per-vault [FlutterSecureConsentStorage] backed by Flutter
   /// secure storage.
   ///
   /// Keeps alive for the lifetime of the app — consent records are written
@@ -108,7 +108,7 @@ class ConsentRecordStoreFamily extends Family<FlutterSecureConsentRecordStore> {
   String? get name => r'consentRecordStoreProvider';
 }
 
-/// Provides a per-vault [FlutterSecureConsentRecordStore] backed by Flutter
+/// Provides a per-vault [FlutterSecureConsentStorage] backed by Flutter
 /// secure storage.
 ///
 /// Keeps alive for the lifetime of the app — consent records are written
@@ -118,9 +118,8 @@ class ConsentRecordStoreFamily extends Family<FlutterSecureConsentRecordStore> {
 /// Returns the concrete type so callers can use extended API (e.g. [listAll]).
 ///
 /// Copied from [consentRecordStore].
-class ConsentRecordStoreProvider
-    extends Provider<FlutterSecureConsentRecordStore> {
-  /// Provides a per-vault [FlutterSecureConsentRecordStore] backed by Flutter
+class ConsentRecordStoreProvider extends Provider<FlutterSecureConsentStorage> {
+  /// Provides a per-vault [FlutterSecureConsentStorage] backed by Flutter
   /// secure storage.
   ///
   /// Keeps alive for the lifetime of the app — consent records are written
@@ -163,8 +162,7 @@ class ConsentRecordStoreProvider
 
   @override
   Override overrideWith(
-    FlutterSecureConsentRecordStore Function(ConsentRecordStoreRef provider)
-        create,
+    FlutterSecureConsentStorage Function(ConsentRecordStoreRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -181,7 +179,7 @@ class ConsentRecordStoreProvider
   }
 
   @override
-  ProviderElement<FlutterSecureConsentRecordStore> createElement() {
+  ProviderElement<FlutterSecureConsentStorage> createElement() {
     return _ConsentRecordStoreProviderElement(this);
   }
 
@@ -201,13 +199,13 @@ class ConsentRecordStoreProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin ConsentRecordStoreRef on ProviderRef<FlutterSecureConsentRecordStore> {
+mixin ConsentRecordStoreRef on ProviderRef<FlutterSecureConsentStorage> {
   /// The parameter `vaultId` of this provider.
   String get vaultId;
 }
 
 class _ConsentRecordStoreProviderElement
-    extends ProviderElement<FlutterSecureConsentRecordStore>
+    extends ProviderElement<FlutterSecureConsentStorage>
     with ConsentRecordStoreRef {
   _ConsentRecordStoreProviderElement(super.provider);
 

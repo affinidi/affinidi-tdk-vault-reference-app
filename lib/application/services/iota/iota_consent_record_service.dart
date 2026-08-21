@@ -3,18 +3,10 @@ import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../infrastructure/db/flutter_secure_consent_record_store.dart';
+import '../../../infrastructure/providers/consent_record_store_provider.dart';
 import 'iota_share_flow_service.dart';
 
 part 'iota_consent_record_service.g.dart';
-
-/// Per-vault [ConsentStorage] backed by Flutter secure storage.
-///
-/// Namespaced by [vaultId] so each vault keeps its own consent history and a
-/// backup captures only that vault's records.
-@Riverpod(keepAlive: true)
-ConsentStorage consentStorage(Ref ref, {required String vaultId}) =>
-    FlutterSecureConsentRecordStore.forVault(vaultId);
 
 /// Per-vault [IotaConsentRecordService] used to persist a consent record
 /// after a successful share submission.
@@ -37,7 +29,7 @@ IotaConsentRecordServiceInterface iotaConsentRecordService(
     ),
   );
   return IotaConsentRecordService(
-    store: ref.watch(consentStorageProvider(vaultId: vaultId)),
+    store: ref.watch(consentRecordStoreProvider(vaultId: vaultId)),
     cryptography: CryptographyService(),
     shareResponseService: responseService,
   );

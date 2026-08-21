@@ -78,10 +78,12 @@ dependency_overrides:
     path: ../affinidi-tdk-dart/packages/common
   affinidi_tdk_vault:
     path: ../affinidi-tdk-dart/packages/vault
-  affinidi_tdk_vault_edge_provider:
-    path: ../affinidi-tdk-dart/packages/vault_edge_provider
   affinidi_tdk_vault_edge_drift_provider:
     path: ../affinidi-tdk-dart/packages/vault_edge_drift_provider
+  affinidi_tdk_vault_edge_provider:
+    path: ../affinidi-tdk-dart/packages/vault_edge_provider
+  affinidi_tdk_vault_flutter_utils:
+    path: ../affinidi-tdk-dart/packages/vault_flutter_utils
   affinidi_tdk_vault_iota:
     path: ../affinidi-tdk-dart/packages/vault_iota
 
