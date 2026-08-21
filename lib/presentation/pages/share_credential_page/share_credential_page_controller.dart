@@ -2,12 +2,14 @@ import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ssi/ssi.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../application/services/iota/iota_consent_record_service.dart';
 import '../../../application/services/iota/iota_share_flow_service.dart';
+import '../../../application/services/share/credential_matching_service.dart';
+import '../../../application/services/share/share_request_validation_service.dart';
 import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
+import '../../../infrastructure/external_link/external_redirect_service.dart';
 import '../../../infrastructure/extensions/matched_credentials_result_extensions.dart';
 import '../../../infrastructure/extensions/verifiable_credential_extensions.dart';
 import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
@@ -228,28 +230,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     }
 
     try {
-      final service = ref.read(iotaShareFlowServiceProvider);
-      final uri = Uri(queryParameters: {'request': jwt});
-      final result = await service.validateOid4vpRequest(uri);
-
-      VerifierClientMetadata? verifierMetadata;
-      try {
-        final metadataService = ref.read(iotaVerifierMetadataServiceProvider);
-        verifierMetadata = await metadataService.fetchVerifierMetadata(
-          clientId: result.request.clientId,
-          clientMetadata: result.request.clientMetadata,
-          clientMetadataUri: result.request.clientMetadataUri,
-        );
-      } on TdkException catch (e, st) {
-        if (e.code != TdkExceptionType.failedToFetchVerifierMetadata.code) {
-          rethrow;
-        }
-        ErrorLoggingHandler.instance.logError(
-          e,
-          st,
-          reason: 'fetchVerifierMetadata failed; continuing without metadata',
-        );
-      }
+      final validated =
+          await ref.read(shareRequestValidationServiceProvider).validate(jwt);
+      final result = validated.request;
 
       final currentVaultId = ref.read(vaultServiceProvider).currentVaultId;
       final shouldLoadProfilesWithoutPassphrase =
@@ -257,7 +240,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
       state = state.copyWith(
         shareRequest: result,
-        verifierMetadata: verifierMetadata,
+        verifierMetadata: validated.verifierMetadata,
         stage: shouldLoadProfilesWithoutPassphrase
             ? const StageVerifyingPassphrase()
             : const StageAwaitingPassphrase(),
@@ -402,16 +385,10 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         return;
       }
 
-      final listResult = await _fetchAllCredentials(storage);
-      if (isStale()) {
-        return;
-      }
-      final allVCs = listResult
-          .map((credential) => credential.verifiableCredential)
-          .toList();
-
-      final matcher = ref.read(iotaCredentialMatcherServiceProvider);
-      final matchResult = await matcher.match(shareRequest, allVCs);
+      final matchResult = await ref.read(credentialMatchingServiceProvider).match(
+        shareRequest: shareRequest,
+        storage: storage,
+      );
       if (isStale()) {
         return;
       }
@@ -448,26 +425,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         ),
       );
     }
-  }
-
-  /// Fetches every credential in [storage] by walking the pagination cursor
-  /// until the underlying API reports no more pages.
-  ///
-  /// Returns the full flattened list of [DigitalCredential]s. The presentation
-  /// definition matcher needs to evaluate against the entire credential set;
-  /// capping at a fixed page size would silently exclude credentials beyond
-  /// that page.
-  Future<List<DigitalCredential>> _fetchAllCredentials(
-    CredentialStorage storage,
-  ) async {
-    final all = <DigitalCredential>[];
-    String? cursor;
-    do {
-      final page = await storage.listCredentials(exclusiveStartItemId: cursor);
-      all.addAll(page.items);
-      cursor = page.lastEvaluatedItemId;
-    } while (cursor != null);
-    return all;
   }
 
   void toggleCredentialSelection(String id, {required bool selected}) {
@@ -522,10 +479,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         case AutoConsentApproved(:final redirectUri):
           var showToast = redirectUri == null;
           if (redirectUri != null) {
-            final launched = await launchUrl(
-              redirectUri,
-              mode: LaunchMode.externalApplication,
-            );
+            final launched =
+                await ref.read(externalRedirectServiceProvider).open(redirectUri);
             if (!launched) showToast = true;
           }
           state = state.copyWith(
@@ -686,7 +641,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       var showToast = redirectUri == null;
       if (redirectUri != null) {
         final launched =
-            await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
+            await ref.read(externalRedirectServiceProvider).open(redirectUri);
         if (!launched) showToast = true;
       }
       state = state.copyWith(
@@ -736,10 +691,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         rejectResponseUri: shareRequest.request.rejectResponseUri,
       );
       if (redirectUri != null) {
-        final launched = await launchUrl(
-          redirectUri,
-          mode: LaunchMode.externalApplication,
-        );
+        final launched =
+            await ref.read(externalRedirectServiceProvider).open(redirectUri);
         if (!launched) {
           throw AppException(
             message: l.shareFlowCouldNotOpenRedirect,
