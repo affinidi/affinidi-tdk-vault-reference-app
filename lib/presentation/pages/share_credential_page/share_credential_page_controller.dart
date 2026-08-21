@@ -2,10 +2,10 @@ import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ssi/ssi.dart';
-import '../../../application/services/iota/iota_consent_record_service.dart';
-import '../../../application/services/iota/iota_share_flow_service.dart';
+import '../../../application/services/share/consent_service.dart';
 import '../../../application/services/share/credential_matching_service.dart';
 import '../../../application/services/share/share_request_validation_service.dart';
+import '../../../application/services/share/share_response_service.dart';
 import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
@@ -56,18 +56,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       (profile) => profile.id == profileId,
       orElse: () =>
           _missingProfile('Selected profile was not found in current vault.'),
-    );
-  }
-
-  int _resolveSelectedAccountIndex() => _resolveSelectedProfile().accountIndex;
-
-  IotaShareResponseServiceInterface _readResponseService(String vaultId) {
-    final accountIndex = _resolveSelectedAccountIndex();
-    return ref.read(
-      iotaShareResponseServiceProvider(
-        vaultId: vaultId,
-        accountIndex: accountIndex,
-      ),
     );
   }
 
@@ -403,7 +391,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         stage: const StageMatchingCredentials(),
       );
 
-      await _tryAutoConsent(
+      await _tryAutomaticConsent(
         vaultId: vaultId,
         shareRequest: shareRequest,
         matchResult: matchResult,
@@ -453,26 +441,21 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   /// * [vaultId] - Vault that will sign the VP.
   /// * [shareRequest] - The validated OID4VP request.
   /// * [matchResult] - Credentials already matched against the request.
-  Future<void> _tryAutoConsent({
+  Future<void> _tryAutomaticConsent({
     required String vaultId,
     required Oid4vpShareRequest shareRequest,
     required MatchedCredentialsResult matchResult,
   }) async {
     try {
       final profile = _resolveSelectedProfile();
-      final consentService = ref.read(
-        iotaConsentRecordServiceProvider(
-          vaultId: vaultId,
-          accountIndex: profile.accountIndex,
-        ),
-      );
-
-      final result = await consentService.tryAutomaticConsent(
+      final result =
+          await ref.read(consentServiceProvider).tryAutomaticConsent(
+        vaultId: vaultId,
+        accountIndex: profile.accountIndex,
         shareRequest: shareRequest,
-        matchedCredentials: matchResult,
+        matchResult: matchResult,
         verifierMetadata:
             state.verifierMetadata ?? const VerifierClientMetadata(),
-        vaultId: vaultId,
       );
 
       switch (result) {
@@ -495,7 +478,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       ErrorLoggingHandler.instance.logError(
         e,
         st,
-        reason: 'tryAutoConsent failed; falling back to interactive share',
+        reason: 'tryAutomaticConsent failed; falling back to interactive share',
       );
       // Non-fatal: the page stays at StageReadyToShare.
     }
@@ -531,27 +514,13 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     required List<ParsedVerifiableCredential<dynamic>> selectedCredentials,
   }) async {
     try {
-      final profile = _resolveSelectedProfile();
-      final consentService = ref.read(
-        iotaConsentRecordServiceProvider(
-          vaultId: vaultId,
-          accountIndex: profile.accountIndex,
-        ),
-      );
-
-      final claimedVcTypes =
-          (selectedCredentials.expand((vc) => vc.type).toSet().toList()..sort())
-              .join(',');
-
-      await consentService.saveConsentRecord(
+      await ref.read(consentServiceProvider).saveConsent(
+        vaultId: vaultId,
+        profile: _resolveSelectedProfile(),
         shareRequest: shareRequest,
         verifierMetadata:
             state.verifierMetadata ?? const VerifierClientMetadata(),
-        profileId: profile.id,
-        profileName: profile.name,
-        vaultId: vaultId,
         sharedVcs: selectedCredentials,
-        claimedVcTypesCsv: claimedVcTypes,
         isAutoShareEnabled: state.autoAllowConsent,
         isConsentManagementEnabled: state.isConsentManagementEnabled,
       );
@@ -602,8 +571,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         );
       }
 
-      final responseService = _readResponseService(vaultId);
-
       final selectedIds = selectedCredentialIds.toSet();
       final selectedCredentials = <ParsedVerifiableCredential<dynamic>>[];
 
@@ -626,10 +593,12 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         }
       }
 
-      final redirectUri = await responseService.submitShareResponse(
+      final redirectUri =
+          await ref.read(shareResponseServiceProvider).submitShareRequest(
+        vaultId: vaultId,
+        accountIndex: _resolveSelectedProfile().accountIndex,
         shareRequest: shareRequest,
         selectedCredentials: selectedCredentials,
-        acceptResponseUri: shareRequest.request.acceptResponseUri,
       );
 
       await _persistConsentRecord(
@@ -685,10 +654,11 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         );
       }
 
-      final responseService = _readResponseService(vaultId);
-      final redirectUri = await responseService.rejectShareResponse(
+      final redirectUri =
+          await ref.read(shareResponseServiceProvider).rejectShareRequest(
+        vaultId: vaultId,
+        accountIndex: _resolveSelectedProfile().accountIndex,
         shareRequest: shareRequest,
-        rejectResponseUri: shareRequest.request.rejectResponseUri,
       );
       if (redirectUri != null) {
         final launched =
