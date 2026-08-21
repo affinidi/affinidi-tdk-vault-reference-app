@@ -253,22 +253,10 @@ GoRouter navigation(Ref ref) {
     redirect: (BuildContext context, GoRouterState state) {
       // GoRouter receives tdkref:// deep links via the platform channel.
       // Their path is empty, which normalises to '/' and would match SplashPage.
-      // Extract the JWT and redirect directly to the share credential route.
+      // Delegate JWT/client_id validation and path building to the share flow.
       if (state.uri.scheme == AppConfig.deepLinkScheme) {
-        final jwt =
-            state.uri.queryParameters[ShareCredentialRouteParams.request];
-        if (ShareRequestUrlRules.isValidJwt(jwt)) {
-          final clientId =
-              state.uri.queryParameters[ShareCredentialRouteParams.clientId];
-          return ShareLinkParser.buildPath(
-            requestJwt: jwt!,
-            clientId: ShareRequestUrlRules.isValidClientId(clientId)
-                ? clientId
-                : null,
-            source: ShareCredentialRouteSource.deeplink,
-          );
-        }
-        return VaultsRoutePath.base;
+        return ShareLinkParser.resolveDeepLinkPath(state.uri) ??
+            VaultsRoutePath.base;
       }
       return _guard(ref, context, state, defaultPath);
     },

@@ -67,4 +67,20 @@ abstract final class ShareLinkParser {
             ShareCredentialRouteParams.clientId: clientId,
         },
       ).toString();
+
+  /// Resolves a deep-link [uri] to the in-app share route.
+  ///
+  /// Returns the share path when the link carries a valid request JWT, or
+  /// `null` when it does not; the caller decides where to send invalid links.
+  static String? resolveDeepLinkPath(Uri uri) {
+    final jwt = uri.queryParameters[ShareCredentialRouteParams.request];
+    if (!ShareRequestUrlRules.isValidJwt(jwt)) return null;
+    final clientId = uri.queryParameters[ShareCredentialRouteParams.clientId];
+    return buildPath(
+      requestJwt: jwt!,
+      clientId:
+          ShareRequestUrlRules.isValidClientId(clientId) ? clientId : null,
+      source: ShareCredentialRouteSource.deeplink,
+    );
+  }
 }
