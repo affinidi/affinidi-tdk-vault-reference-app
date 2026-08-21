@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../l10n/app_localizations.dart';
-import '../../../infrastructure/formatters/consent_history_formatters.dart';
+import '../../formatters/consent_history_formatters.dart';
 import '../../themes/app_color_scheme.dart';
 import '../../themes/app_sizing.dart';
 import 'consent_history_details_sheet.dart';
