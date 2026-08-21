@@ -44,14 +44,22 @@ class BackupVaultPage extends HookConsumerWidget {
       errorText.value = null;
       isProcessing.value = true;
       try {
-        final backupData = await ref
+        final backupBytes = await ref
             .read(vaultServiceProvider.notifier)
             .createBackup(passphrase: passphrase);
 
         // Store the vault name alongside the encrypted payload so restore can
         // show which vault it recreates.
+        final rawJson = jsonDecode(
+          utf8.decode(
+            backupBytes.buffer.asUint8List(
+              backupBytes.offsetInBytes,
+              backupBytes.lengthInBytes,
+            ),
+          ),
+        ) as Map<String, dynamic>;
         final fileContent = {
-          ...backupData.toJson(),
+          ...rawJson,
           'vaultName': entry?.vaultName,
         };
         final bytes = Uint8List.fromList(

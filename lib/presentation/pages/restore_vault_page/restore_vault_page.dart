@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
-import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,7 +21,7 @@ class RestoreVaultPage extends HookConsumerWidget {
     final passphraseController = useTextEditingController();
     final vaultNameController =
         useTextEditingController(text: 'Restored vault');
-    final backupData = useState<BackupData?>(null);
+    final backupBytes = useState<Uint8List?>(null);
     final pickedFileName = useState<String?>(null);
     final restoredVaultId = useState<String?>(null);
     final isProcessing = useState(false);
@@ -38,7 +38,10 @@ class RestoreVaultPage extends HookConsumerWidget {
       if (bytes == null) return;
       try {
         final json = jsonDecode(utf8.decode(bytes)) as Map<String, dynamic>;
-        backupData.value = BackupData.fromJson(json);
+        if (json['encryptedBackup'] is! String || json['salt'] is! String) {
+          throw const FormatException('Not a recognised backup file.');
+        }
+        backupBytes.value = bytes;
         pickedFileName.value = result!.files.single.name;
         final name = json['vaultName'];
         if (name is String && name.isNotEmpty) {
@@ -51,14 +54,14 @@ class RestoreVaultPage extends HookConsumerWidget {
     }
 
     Future<void> restore() async {
-      final data = backupData.value;
+      final data = backupBytes.value;
       if (data == null) return;
       errorText.value = null;
       isProcessing.value = true;
       try {
         final vaultId =
             await ref.read(vaultServiceProvider.notifier).restoreFromBackupData(
-                  backupData: data,
+                  backupData: ByteData.sublistView(data),
                   passphrase: passphraseController.text,
                   vaultName: vaultNameController.text.trim().isEmpty
                       ? 'Restored vault'
@@ -86,7 +89,7 @@ class RestoreVaultPage extends HookConsumerWidget {
       body = _SuccessView(
         onOpen: () => context.go(ProfilesRoutePath.base),
       );
-    } else if (backupData.value == null) {
+    } else if (backupBytes.value == null) {
       body = Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
