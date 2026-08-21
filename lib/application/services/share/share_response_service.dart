@@ -9,20 +9,11 @@ import '../iota/iota_share_flow_service.dart';
 ///
 /// The verifier may return a redirect [Uri]; the caller decides how to open it.
 class ShareResponseService {
-  ShareResponseService(this._ref);
+  ShareResponseService({
+    required IotaShareResponseServiceFactory responseServiceFactory,
+  }) : _responseServiceFactory = responseServiceFactory;
 
-  final Ref _ref;
-
-  IotaShareResponseServiceInterface _responseService(
-    String vaultId,
-    int accountIndex,
-  ) =>
-      _ref.read(
-        iotaShareResponseServiceProvider(
-          vaultId: vaultId,
-          accountIndex: accountIndex,
-        ),
-      );
+  final IotaShareResponseServiceFactory _responseServiceFactory;
 
   /// Submits [selectedCredentials] as a Verifiable Presentation.
   Future<Uri?> submitShareRequest({
@@ -31,7 +22,8 @@ class ShareResponseService {
     required Oid4vpShareRequest shareRequest,
     required List<ParsedVerifiableCredential<dynamic>> selectedCredentials,
   }) =>
-      _responseService(vaultId, accountIndex).submitShareResponse(
+      _responseServiceFactory(vaultId: vaultId, accountIndex: accountIndex)
+          .submitShareResponse(
         shareRequest: shareRequest,
         selectedCredentials: selectedCredentials,
         acceptResponseUri: shareRequest.request.acceptResponseUri,
@@ -43,11 +35,15 @@ class ShareResponseService {
     required int accountIndex,
     required Oid4vpShareRequest shareRequest,
   }) =>
-      _responseService(vaultId, accountIndex).rejectShareResponse(
+      _responseServiceFactory(vaultId: vaultId, accountIndex: accountIndex)
+          .rejectShareResponse(
         shareRequest: shareRequest,
         rejectResponseUri: shareRequest.request.rejectResponseUri,
       );
 }
 
-final shareResponseServiceProvider =
-    Provider<ShareResponseService>((ref) => ShareResponseService(ref));
+final shareResponseServiceProvider = Provider<ShareResponseService>(
+  (ref) => ShareResponseService(
+    responseServiceFactory: ref.read(iotaShareResponseServiceFactoryProvider),
+  ),
+);

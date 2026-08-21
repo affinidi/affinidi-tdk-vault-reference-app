@@ -8,21 +8,21 @@ import '../iota/iota_consent_record_service.dart';
 /// Coordinates consent-record operations for the share flow: deciding whether
 /// a share request can be auto-approved from a previously stored consent, and
 /// persisting a new consent record after a completed share.
-class ConsentService {
-  ConsentService(this._ref);
+/// Creates a per-(vault, account) [IotaConsentRecordServiceInterface].
+typedef ConsentRecordServiceFactory = IotaConsentRecordServiceInterface
+    Function({required String vaultId, required int accountIndex});
 
-  final Ref _ref;
+class ConsentService {
+  ConsentService({required ConsentRecordServiceFactory consentRecordFactory})
+      : _consentRecordFactory = consentRecordFactory;
+
+  final ConsentRecordServiceFactory _consentRecordFactory;
 
   IotaConsentRecordServiceInterface _consentRecordService(
     String vaultId,
     int accountIndex,
   ) =>
-      _ref.read(
-        iotaConsentRecordServiceProvider(
-          vaultId: vaultId,
-          accountIndex: accountIndex,
-        ),
-      );
+      _consentRecordFactory(vaultId: vaultId, accountIndex: accountIndex);
 
   /// Decides whether a share request can be auto-approved from a previously
   /// stored consent, submitting the VP on the caller's behalf when it can.
@@ -73,5 +73,14 @@ class ConsentService {
   }
 }
 
-final consentServiceProvider =
-    Provider<ConsentService>((ref) => ConsentService(ref));
+final consentServiceProvider = Provider<ConsentService>(
+  (ref) => ConsentService(
+    consentRecordFactory: ({required String vaultId, required int accountIndex}) =>
+        ref.read(
+      iotaConsentRecordServiceProvider(
+        vaultId: vaultId,
+        accountIndex: accountIndex,
+      ),
+    ),
+  ),
+);
