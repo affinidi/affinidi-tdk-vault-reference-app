@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../l10n/app_localizations.dart';
@@ -21,6 +22,9 @@ class SplashPage extends ConsumerWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Timer(const Duration(seconds: 2), () {
         if (context.mounted) {
+          final currentPath =
+              GoRouter.of(context).routeInformationProvider.value.uri.path;
+          if (currentPath != '/') return;
           navigationService.go(VaultsRoutePath.base);
         }
       });

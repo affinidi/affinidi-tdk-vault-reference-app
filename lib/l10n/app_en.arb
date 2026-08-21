@@ -16,10 +16,6 @@
   "@credentials": {
     "type": "text"
   },
-  "driveTitle": "Storage",
-  "@driveTitle": {
-    "type": "text"
-  },
   "filesEmptyStateDescription": "You don't have any files yet.\nThe Home folder is your root directory.",
   "@filesEmptyStateDescription": {
     "type": "text"
@@ -69,7 +65,7 @@
       }
     }
   },
-  "errorMessage": "{errorType, select, credential_offer_expired{Credential offer is expired} credential_offer_claimed_error{Credential offer is already claimed} failed_to_load_credentialOffer{Failed to load credentials} invalid_proof{The proof in the Credential Request is invalid} unmatched_tx_code{Transaction code does not match} folderNotEmpty{We cannot delete this folder because it's not empty. Please delete the files and try again.} nameAlreadyInUse{This name is already in use. Please choose a different one.} invalidPassword{Invalid password} emptyPassword{Password cannot be empty} invalidTransferData{Invalid transfer data} emptyTransferData{Missing transfer data} missingProfileName{Please enter a valid profile name} invalidUrl{Please enter a valid URL} getCredentialFailed{Failed to get credential data}other{Something went wrong}}",
+  "errorMessage": "{errorType, select, credential_offer_expired{Credential offer is expired} credential_offer_claimed_error{Credential offer is already claimed} failed_to_load_credentialOffer{Failed to load credentials} invalid_proof{The proof in the Credential Request is invalid} unmatched_tx_code{Transaction code does not match} folderNotEmpty{We cannot delete this folder because it's not empty. Please delete the files and try again.} nameAlreadyInUse{This name is already in use. Please choose a different one.} invalidPassword{Invalid password} emptyPassword{Password cannot be empty} invalidTransferData{Invalid transfer data} emptyTransferData{Missing transfer data} missingProfileName{Please enter a valid profile name} invalidUrl{Please enter a valid URL} getCredentialFailed{Failed to get credential data} noShareableCredentials{This profile does not contain any credentials that match the data request.} other{Something went wrong}}",
   "@errorMessage": {
     "type": "text",
     "placeholders": {
@@ -108,10 +104,6 @@
   },
   "deleteFolderActionText": "Delete",
   "@deleteFolderActionText": {
-    "type": "text"
-  },
-  "deleteFolderLoadingMessage": "Deleting folder...",
-  "@deleteFolderLoadingMessage": {
     "type": "text"
   },
   "deleteFileTitle": "Delete file",
@@ -169,10 +161,6 @@
   "@expiryDate": {
     "type": "text"
   },
-  "credentialValidationLoadingMessage": "Validating...",
-  "@credentialValidationLoadingMessage": {
-    "type": "text"
-  },
   "neverExpires": "None",
   "@neverExpires": {
     "type": "text"
@@ -213,10 +201,6 @@
   "@claimCredentialsSaving": {
     "type": "text"
   },
-  "claimCredentialsTxCode": " Transaction code",
-  "@claimCredentialsTxCode": {
-    "type": "text"
-  },
   "saveActionText": "Save",
   "@saveActionText": {
     "type": "text"
@@ -241,18 +225,6 @@
   "@home": {
     "type": "text"
   },
-  "createVaultTitle": "Create your Vault",
-  "@createVaultTitle": {
-    "type": "text"
-  },
-  "createVaultDescription": "Use this option to create a brand new Vault.",
-  "@createVaultDescription": {
-    "type": "text"
-  },
-  "createVaultActionLabel": "Create",
-  "@createVaultActionLabel": {
-    "type": "text"
-  },
   "vaultExistsErrorMessage": "A vault with this seed already exists on this device",
   "@vaultExistsErrorMessage": {
     "type": "text"
@@ -265,40 +237,12 @@
   "@createVaultErrorMessage": {
     "type": "text"
   },
-  "openVaultTitle": "Open an existing Vault",
-  "@openVaultTitle": {
-    "type": "text"
-  },
-  "accessVaultTitle": "Access your Affinidi Vault",
-  "@accessVaultTitle": {
-    "type": "text"
-  },
   "login": "Login",
   "@login": {
     "type": "text"
   },
-  "openVaultDescription": "Use this option to open a Vault you have already used on this device.",
-  "@openVaultDescription": {
-    "type": "text"
-  },
   "accessVaultActionLabel": "Access",
   "@accessVaultActionLabel": {
-    "type": "text"
-  },
-  "transferVaultTitle": "Complete a Vault transfer",
-  "@transferVaultTitle": {
-    "type": "text"
-  },
-  "transferVaultDescription": "Use this option to start scanning the QR code you received and complete a transfer.",
-  "@transferVaultDescription": {
-    "type": "text"
-  },
-  "transferVaultActionLabel": "Start",
-  "@transferVaultActionLabel": {
-    "type": "text"
-  },
-  "scanQrCodeInstructions": "Position the QR code within the frame to scan",
-  "@scanQrCodeInstructions": {
     "type": "text"
   },
   "vaultName": "Vault Name",
@@ -325,18 +269,6 @@
   "@enterSeed": {
     "type": "text"
   },
-  "transferVaultLoadingMessage": "Transferring vault...",
-  "@transferVaultLoadingMessage": {
-    "type": "text"
-  },
-  "transferVaultProceedActionLabel": "Transfer vault",
-  "@transferVaultProceedActionLabel": {
-    "type": "text"
-  },
-  "transferVaultScanActionLabel": "Start scanning",
-  "@transferVaultScanActionLabel": {
-    "type": "text"
-  },
   "creatingNewVault": "Creating a new Vault",
   "@creatingNewVault": {
     "type": "text"
@@ -359,40 +291,6 @@
   },
   "createProfileLoadingMessage": "Creating new profile...",
   "@createProfileLoadingMessage": {
-    "type": "text"
-  },
-  "createProfileDescription": "Enter the details for a new profile",
-  "@createProfileDescription": {
-    "type": "text"
-  },
-  "shareProfileTitle": "Profile Sharing",
-  "@shareProfileTitle": {
-    "type": "text"
-  },
-  "shareProfileSuccessMessage": "Profile shared successfully",
-  "@shareProfileSuccessMessage": {
-    "type": "text"
-  },
-  "shareProfileErrorMessage": "Error sharing profile: {errorMessage}",
-  "@shareProfileErrorMessage": {
-    "type": "text",
-    "placeholders": {
-      "errorMessage": {}
-    }
-  },
-  "shareProfileAcceptSuccessMessage": "Shared profile accepted successfully!",
-  "@shareProfileAcceptSuccessMessage": {
-    "type": "text"
-  },
-  "shareProfileAcceptErrorMessage": "Error accepting shared profile: {errorMessage}",
-  "@shareProfileAcceptErrorMessage": {
-    "type": "text",
-    "placeholders": {
-      "errorMessage": {}
-    }
-  },
-  "shareProfileAcceptActionText": "Accept Shared Profile",
-  "@shareProfileAcceptActionText": {
     "type": "text"
   },
   "profileName": "Name",
@@ -420,14 +318,6 @@
   },
   "deleteActionText": "Delete",
   "@deleteActionText": {
-    "type": "text"
-  },
-  "deleteProfileLoadingMessage": "Deleting profile...",
-  "@deleteProfileLoadingMessage": {
-    "type": "text"
-  },
-  "vaultsTitle": "Vaults",
-  "@vaultsTitle": {
     "type": "text"
   },
   "copy": "Copy",
@@ -462,49 +352,8 @@
   "@recipientDidLabel": {
     "type": "text"
   },
-  "pasteSharedProfileDtoJsonTitle": "Paste SharedProfileDto JSON",
-  "@pasteSharedProfileDtoJsonTitle": {
-    "type": "text"
-  },
-  "selectYourProfileLabel": "Select Your Profile",
-  "@selectYourProfileLabel": {
-    "type": "text"
-  },
   "sharedProfileDetails": "Shared Profile Detail",
   "@sharedProfileDetails": {
-    "type": "text"
-  },
-  "sharedProfileDtoJsonFieldLabel": "SharedProfileDto JSON",
-  "@sharedProfileDtoJsonFieldLabel": {
-    "type": "text"
-  },
-  "folderLabel": "Folder: {name}",
-  "@folderLabel": {
-    "type": "text",
-    "placeholders": {
-      "name": {}
-    }
-  },
-  "fileLabel": "File: {name}",
-  "@fileLabel": {
-    "type": "text",
-    "placeholders": {
-      "name": {}
-    }
-  },
-  "idLabel": "ID: {id}",
-  "@idLabel": {
-    "type": "text",
-    "placeholders": {
-      "id": {}
-    }
-  },
-  "unknownItemType": "Unknown item type",
-  "@unknownItemType": {
-    "type": "text"
-  },
-  "noFilesOrFoldersFound": "No files or folders found",
-  "@noFilesOrFoldersFound": {
     "type": "text"
   },
   "sharedFromLabel": "Shared from: {storageId}",
@@ -532,14 +381,6 @@
   "@noSharedContentAvailable": {
     "type": "text"
   },
-  "tdkReferenceAppbarTitle": "TDK Reference",
-  "@tdkReferenceAppbarTitle": {
-    "type": "text"
-  },
-  "useQrData": "Use QR Data",
-  "@useQrData": {
-    "type": "text"
-  },
   "unknownError": "Unknown error",
   "@unknownError": {
     "type": "text"
@@ -554,10 +395,6 @@
   },
   "incorrectPassphrase": "Wrong passphrase.",
   "@incorrectPassphrase": {
-    "type": "text"
-  },
-  "profileTypeLabel": "Profile Type",
-  "@profileTypeLabel": {
     "type": "text"
   },
   "profileDescriptionPlaceholder": "Add your profile description...",
@@ -578,10 +415,6 @@
   },
   "profileNotice": "Profiles created using local storage cannot be shared.",
   "@profileNotice": {
-    "type": "text"
-  },
-  "profileTypeChooseYourOwn": "Choose your own",
-  "@profileTypeChooseYourOwn": {
     "type": "text"
   },
   "paginationPreviousPage": "Previous Page",
@@ -647,8 +480,16 @@
   "@errorLoadingCodeSnippetsMessage": {
     "type": "text"
   },
-  "profilesEmptyStateDescription": "You don't have any profiles yet. Start by creating one.",
-  "@profilesEmptyStateDescription": {
+  "profilesEmptyStatePrefix": "You don't have any ",
+  "@profilesEmptyStatePrefix": {
+    "type": "text"
+  },
+  "profilesEmptyStateSuffix": " yet.",
+  "@profilesEmptyStateSuffix": {
+    "type": "text"
+  },
+  "profilesEmptyStateCallToAction": "Start by creating one.",
+  "@profilesEmptyStateCallToAction": {
     "type": "text"
   },
   "folderNotDeletedTitle": "Folder Not Deleted",
@@ -665,21 +506,16 @@
   "accessManagementLabel": "Access Management",
   "noSharedDidsForProfile": "No shared DIDs for this profile.",
   "didLabel": "DID: {did}",
-  "profileIdLabel": "Profile ID: {profileId}",
-  "accessLevelLabel": "Access: {accessLevel}",
   "revokeAccessTooltip": "Revoke access",
   "profileSharedMessage": "Profile has been shared",
   "sharedProfileJsonGeneratedMessage": "Shared profile JSON generated",
   "autoAcceptingMessage": "Auto-accepting the shared profile. This may take a few seconds.",
   "genericError": "An error occurred: {error}",
   "setFilePermissions": "Set File Permissions",
-  "filePermissions": "File Permissions",
   "fileFormatOptions": "File Format Options",
   "acceptAllFormats": "Accept all formats",
   "specifyAllowedFormats": "Specify allowed formats",
-  "typeFileFormatHere": "Type file format here",
   "fileSizeLimit": "File Size Limit",
-  "enterMaxFileSize": "Enter max file size in bytes",
   "settingsSaved": "Settings saved!",
   "invalidFormat": "Invalid format",
   "fileTooLarge": "File too large",
@@ -723,10 +559,6 @@
   "@createProfile": {
     "type": "text"
   },
-  "seedGenerationMessage": "A secure 32-byte seed will be generated. It's needed to create your Vault.",
-  "@seedGenerationMessage": {
-    "type": "text"
-  },
   "existingSeedMessage": "Provide an existing seed to create your Vault.",
   "@existingSeedMessage": {
     "type": "text"
@@ -765,10 +597,6 @@
   },
   "fileSizeLimit": "File size limit",
   "@fileSizeLimit": {
-    "type": "text"
-  },
-  "fileFormat": "File format",
-  "@fileFormat": {
     "type": "text"
   },
   "inputFileSizeInMb": "Enter file size in MB",
@@ -892,10 +720,6 @@
   "@lblCSCreateProfile": {
     "type": "text"
   },
-  "infoCSCopiedToClipboard": "Code snippets copied to clipboard.",
-  "@infoCSCopiedToClipboard": {
-    "type": "text"
-  },
   "lblCSShareProfile": "Share Profile Snippets",
   "@lblCSShareProfile": {
     "type": "text"
@@ -925,7 +749,6 @@
     "type": "text"
   },
   "snippetDescCreateVault": "Create Vault",
-  "snippetDescGenRandSeed": "Generate Random Seed",
   "snippetDescOpenVault": "Open Vault Instance",
   "snippetDescCreateVaultProf": "Create Profile (Abstract)",
   "snippetDescCreateVaultProfVFS": "Create Vault Profile (Cloud)",
@@ -951,5 +774,166 @@
   "selectTimeLabel": "Select time",
   "accessRevokedMessage": "Access revoked successfully",
   "errorRevokingAccess": "Error revoking access",
-  "noSharedAccessesForNode": "No shared accesses for this file/folder."
+  "noSharedAccessesForNode": "No shared accesses for this file/folder.",
+  "consentHistoryTitle": "Consent History",
+  "@consentHistoryTitle": {
+    "type": "text"
+  },
+  "shareYourData": "Share your data",
+  "@shareYourData": {
+    "type": "text"
+  },
+  "referenceApp": "Affinidi TDK Vault Reference App",
+  "@referenceApp": {
+    "type": "text"
+  },
+  "domainVerifiedByAffinidi": "Domain verified by Affinidi",
+  "@domainVerifiedByAffinidi": {
+    "type": "text"
+  },
+  "unknownOrigin": "Unknown",
+  "@unknownOrigin": {
+    "type": "text"
+  },
+  "vault": "Vault",
+  "@vault": {
+    "type": "text"
+  },
+  "selectVault": "Select vault",
+  "@selectVault": {
+    "type": "text"
+  },
+  "vaultPassphraseEnter": "Enter passphrase",
+  "@vaultPassphraseEnter": {
+    "type": "text"
+  },
+  "selectProfile": "Select profile",
+  "@selectProfile": {
+    "type": "text"
+  },
+  "profile": "Profile",
+  "@profile": {
+    "type": "text"
+  },
+  "vaultNoProfiles": "No profiles found for this vault. Create a profile or select a different vault.",
+  "@vaultNoProfiles": {
+    "type": "text"
+  },
+  "shareSubmit": "Share",
+  "@shareSubmit": {
+    "type": "text"
+  },
+  "shareReject": "Cancel",
+  "@shareReject": {
+    "type": "text"
+  },
+  "consentHistoryEmpty": "No consent history yet.",
+  "@consentHistoryEmpty": {
+    "type": "text"
+  },
+  "consentHistoryDetails": "Consent Details",
+  "@consentHistoryDetails": {
+    "type": "text"
+  },
+  "consentHistoryNotAvailable": "Not available",
+  "@consentHistoryNotAvailable": {
+    "type": "text"
+  },
+  "consentHistoryWebsiteLabel": "WEBSITE",
+  "@consentHistoryWebsiteLabel": {
+    "type": "text"
+  },
+  "consentHistoryProfileLabel": "PROFILE",
+  "@consentHistoryProfileLabel": {
+    "type": "text"
+  },
+  "consentHistoryDataSharedLabel": "DATA SHARED",
+  "@consentHistoryDataSharedLabel": {
+    "type": "text"
+  },
+  "consentHistoryLastConsentedLabel": "LAST CONSENTED",
+  "@consentHistoryLastConsentedLabel": {
+    "type": "text"
+  },
+  "consentHistoryDidLabel": "DID",
+  "@consentHistoryDidLabel": {
+    "type": "text"
+  },
+  "consentHistoryRememberMyChoice": "Remember my choice",
+  "@consentHistoryRememberMyChoice": {
+    "type": "text"
+  },
+  "automaticallyAllowConsent": "Allow consent automatically next time",
+  "@automaticallyAllowConsent": {
+    "type": "text"
+  },
+  "shareVc": "Share VC",
+  "@shareVc": {
+    "type": "text"
+  },
+  "shareCredentialDialogTitle": "Share Credential",
+  "@shareCredentialDialogTitle": {
+    "type": "text"
+  },
+  "shareCredentialDialogHint": "Paste request URL",
+  "@shareCredentialDialogHint": {
+    "type": "text"
+  },
+  "shareCredentialDialogError": "No request JWT found in the URL.",
+  "@shareCredentialDialogError": {
+    "type": "text"
+  },
+  "continueActionText": "Continue",
+  "@continueActionText": {
+    "type": "text"
+  },
+  "shareCredentialsSuccessMessage": "Credentials shared successfully.",
+  "@shareCredentialsSuccessMessage": {
+    "type": "text"
+  },
+  "shareFlowErrorOccurred": "An error occurred.",
+  "@shareFlowErrorOccurred": {
+    "type": "text"
+  },
+  "shareFlowFailedToLoadCredentials": "Failed to load credentials. Please try again.",
+  "@shareFlowFailedToLoadCredentials": {
+    "type": "text"
+  },
+  "shareFlowRequestExpiredOrInvalid": "The share request has expired or is invalid. Please ask the verifier to generate a new request.",
+  "@shareFlowRequestExpiredOrInvalid": {
+    "type": "text"
+  },
+  "shareFlowValidationFailed": "Failed to validate the share request.",
+  "@shareFlowValidationFailed": {
+    "type": "text"
+  },
+  "shareFlowValidationFailedDetails": "Failed to validate the share request: {details}",
+  "@shareFlowValidationFailedDetails": {
+    "type": "text",
+    "placeholders": {
+      "details": {
+        "type": "String"
+      }
+    }
+  },
+  "shareFlowGenericError": "Something went wrong. Please try again.",
+  "@shareFlowGenericError": {
+    "type": "text"
+  },
+  "shareFlowNoVaultError": "Please create a vault first to start the share flow.",
+  "@shareFlowNoVaultError": {
+    "type": "text"
+  },
+  "shareFlowNotEnoughMatchingCredentials": "Your profile does not contain enough credentials to satisfy this data request.",
+  "@shareFlowNotEnoughMatchingCredentials": {
+    "type": "text"
+  },
+  "shareFlowSelectAtLeastOneCredential": "Please select at least one credential to share.",
+  "@shareFlowSelectAtLeastOneCredential": {
+    "type": "text"
+  },
+  "shareFlowCouldNotOpenRedirect": "Could not open the link. Please try again.",
+  "@shareFlowCouldNotOpenRedirect": {
+    "type": "text"
+  }
 }

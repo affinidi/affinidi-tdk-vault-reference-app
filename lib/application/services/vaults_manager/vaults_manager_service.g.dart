@@ -7,7 +7,7 @@ part of 'vaults_manager_service.dart';
 // **************************************************************************
 
 String _$vaultsManagerServiceHash() =>
-    r'651f2e8b273bc6aba67f4460d1590d52aaffd33d';
+    r'9508d92159173d6d10043c3171229918202662af';
 
 /// See also [VaultsManagerService].
 @ProviderFor(VaultsManagerService)

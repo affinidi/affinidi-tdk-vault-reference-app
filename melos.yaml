@@ -2,6 +2,12 @@ name: tdk-vault-reference-app
 packages:
   - .
 scripts:
+  analyze:
+    name: analyze
+    description: "analyze source (lib + integration_test)"
+    run: flutter analyze lib integration_test
+    exec:
+      concurrency: 1
   test:
     name: test
     description: "unit test with coverage"

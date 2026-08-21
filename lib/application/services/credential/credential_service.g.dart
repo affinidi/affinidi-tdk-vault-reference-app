@@ -6,7 +6,7 @@ part of 'credential_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$credentialServiceHash() => r'd7e57a9a210bf411be7d45eb783168d6c0baf5bd';
+String _$credentialServiceHash() => r'4ca86feb4e7eacb9b97bf633a4279e73d97d4d8b';
 
 /// Copied from Dart SDK
 class _SystemHash {

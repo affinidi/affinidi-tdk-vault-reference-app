@@ -27,19 +27,22 @@ The reference app guides you through the implementation of the Affinidi TDK - Va
 
 The reference app implements the following key features of Affinidi TDK - Vault to manage digital identities, verifiable credentials, and data sharing.
 
-- **Vault + Multi-profile** - create a personal vault to create multiple profiles representing your digital identities based on context. For example, you can have a profile for personal banking or work.
-
-- **Secure Storage** - choose between cloud storage or use your device's local storage to securely store your credentials and personal files related to your identity.
-
-- **Profile Sharing** - share your profile with other users, delegating them access to your credentials and personal files. You can provide read-only or write access to your profile and revoke it later.
-
-- **Manage Files and Folders** - upload documents related to your identity into your profiles and share them with other users.
-
-- **Claim Credentials** - claim Verifiable Credentials (VCs) and store them in your vault's profile. The claim credential flow follows the OID4VCI standard.
+| Feature | Description |
+|---------|-------------|
+| **Vault + Multi-profile** | Create a personal vault with multiple profiles representing your digital identities based on context. For example, a profile for personal banking or work. |
+| **Secure Storage** | Choose between cloud storage or your device's local storage to securely store credentials and personal files related to your identity. |
+| **Profile Sharing** | Share your profile with other users, delegating access to your credentials and personal files. Provide read-only or write access, and revoke it later. |
+| **Manage Files and Folders** | Upload documents related to your identity into your profiles and share them with other users. |
+| **Claim Credentials** | Claim Verifiable Credentials (VCs) and store them in your vault's profile. The claim credential flow follows the OID4VCI standard. |
+| **Sharing Credentials** | Respond to a verifier's data request using the OID4VP share flow: open a share request, review the requested data, choose which credentials to share when multiple match, and submit. |
 
 The reference application provides in-app documentation and code snippets to help you quickly onboard into Affinidi TDK - Vault to implement on your Flutter application.
 
 Refer to [the documentation](https://docs.affinidi.com/dev-tools/affinidi-tdk/dart/libraries/vault/) to learn more about Affinidi TDK - Vault available methods and features.
+
+<h2 id="feature-demos">Feature Demonstrations</h2>
+
+Step-by-step walkthroughs of each interactive feature — with screenshots — are documented separately in **[Feature Demonstrations](docs/feature-demos.md)**.
 
 ## Requirements
 
