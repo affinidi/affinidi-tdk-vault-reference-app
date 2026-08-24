@@ -418,6 +418,30 @@ abstract class AppLocalizations {
   /// **'Failed to create new vault '**
   String get createVaultErrorMessage;
 
+  /// No description provided for @passphraseTooShortMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Passphrase must be at least {minLength} characters long.'**
+  String passphraseTooShortMessage(Object minLength);
+
+  /// No description provided for @passphraseMissingUppercaseMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Passphrase must contain at least one uppercase letter.'**
+  String get passphraseMissingUppercaseMessage;
+
+  /// No description provided for @passphraseMissingNumberMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Passphrase must contain at least one number.'**
+  String get passphraseMissingNumberMessage;
+
+  /// No description provided for @passphraseMissingSpecialCharacterMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Passphrase must contain at least one special character.'**
+  String get passphraseMissingSpecialCharacterMessage;
+
   /// No description provided for @login.
   ///
   /// In en, this message translates to:
@@ -519,6 +543,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profiles'**
   String get profilesTitle;
+
+  /// No description provided for @backUpVault.
+  ///
+  /// In en, this message translates to:
+  /// **'Back up vault'**
+  String get backUpVault;
 
   /// No description provided for @deleteProfileTitle.
   ///

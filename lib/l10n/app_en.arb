@@ -237,6 +237,22 @@
   "@createVaultErrorMessage": {
     "type": "text"
   },
+  "passphraseTooShortMessage": "Passphrase must be at least {minLength} characters long.",
+  "@passphraseTooShortMessage": {
+    "type": "text"
+  },
+  "passphraseMissingUppercaseMessage": "Passphrase must contain at least one uppercase letter.",
+  "@passphraseMissingUppercaseMessage": {
+    "type": "text"
+  },
+  "passphraseMissingNumberMessage": "Passphrase must contain at least one number.",
+  "@passphraseMissingNumberMessage": {
+    "type": "text"
+  },
+  "passphraseMissingSpecialCharacterMessage": "Passphrase must contain at least one special character.",
+  "@passphraseMissingSpecialCharacterMessage": {
+    "type": "text"
+  },
   "login": "Login",
   "@login": {
     "type": "text"
@@ -303,6 +319,10 @@
   },
   "profilesTitle": "Profiles",
   "@profilesTitle": {
+    "type": "text"
+  },
+  "backUpVault": "Back up vault",
+  "@backUpVault": {
     "type": "text"
   },
   "deleteProfileTitle": "Delete Profile",

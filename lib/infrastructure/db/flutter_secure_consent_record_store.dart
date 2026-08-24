@@ -64,6 +64,14 @@ class FlutterSecureConsentRecordStore implements ConsentStorage {
     ];
   }
 
+  @override
+  Future<bool> deleteByHash(String hash) async {
+    final key = _key(hash);
+    if (!await _secureStorage.containsKey(key: key)) return false;
+    await _secureStorage.delete(key: key);
+    return true;
+  }
+
   Future<List<IotaConsentRecord>> _readAll() async {
     final all = await _secureStorage.readAll();
     final prefix = '${_namespace}_';

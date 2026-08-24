@@ -55,7 +55,7 @@ class CreateVaultPage extends HookConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                policyViolation,
+                _passphraseViolationMessage(localizations, policyViolation),
                 style: const TextStyle(color: Colors.white),
               ),
               backgroundColor: AppColorScheme.backgroundDark,
@@ -389,6 +389,25 @@ class CreateVaultPage extends HookConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+/// Maps a [PassphraseViolation] to a localized, human-readable message.
+String _passphraseViolationMessage(
+  AppLocalizations localizations,
+  PassphraseViolation violation,
+) {
+  switch (violation) {
+    case PassphraseViolation.tooShort:
+      return localizations.passphraseTooShortMessage(
+        PassphrasePolicy.standard.minLength,
+      );
+    case PassphraseViolation.missingUppercase:
+      return localizations.passphraseMissingUppercaseMessage;
+    case PassphraseViolation.missingNumber:
+      return localizations.passphraseMissingNumberMessage;
+    case PassphraseViolation.missingSpecialCharacter:
+      return localizations.passphraseMissingSpecialCharacterMessage;
   }
 }
 

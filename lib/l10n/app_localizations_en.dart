@@ -225,6 +225,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createVaultErrorMessage => 'Failed to create new vault ';
 
   @override
+  String passphraseTooShortMessage(Object minLength) {
+    return 'Passphrase must be at least $minLength characters long.';
+  }
+
+  @override
+  String get passphraseMissingUppercaseMessage =>
+      'Passphrase must contain at least one uppercase letter.';
+
+  @override
+  String get passphraseMissingNumberMessage =>
+      'Passphrase must contain at least one number.';
+
+  @override
+  String get passphraseMissingSpecialCharacterMessage =>
+      'Passphrase must contain at least one special character.';
+
+  @override
   String get login => 'Login';
 
   @override
@@ -274,6 +291,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profilesTitle => 'Profiles';
+
+  @override
+  String get backUpVault => 'Back up vault';
 
   @override
   String get deleteProfileTitle => 'Delete Profile';
