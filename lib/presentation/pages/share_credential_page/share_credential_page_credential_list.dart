@@ -47,9 +47,6 @@ class _MatchedCredentialList extends ConsumerWidget {
 
     final matchedVCs = matchResult?.requiredMatchedVcs;
     final hasEnoughVCs = matchResult?.hasEnoughVCsAvailableToShare ?? false;
-    final selectedVcByGroup =
-        matchResult?.selectedVcFor(selectedCredentialIds) ??
-            <String, VerifiableCredential>{};
     final credentialError = matchError ??
         (matchedVCs != null && (matchedVCs.isEmpty || !hasEnoughVCs)
             ? (matchedVCs.isEmpty
@@ -73,32 +70,49 @@ class _MatchedCredentialList extends ConsumerWidget {
             final groupVcIds = group.availableCredentials
                 .map((vc) => vc.id.toString())
                 .toList(growable: false);
+            final requiredCount = group.minimumVCsCountToShare;
 
-            final selected =
-                selectedVcByGroup[group.id] ?? group.availableCredentials.first;
+            final selectedInGroup = group.availableCredentials
+                .where((vc) => selectedCredentialIds.contains(vc.id.toString()))
+                .toList(growable: false);
+            final displayVCs = selectedInGroup.isNotEmpty
+                ? selectedInGroup
+                : group.availableCredentials.take(requiredCount).toList();
 
-            return Padding(
-              padding: const EdgeInsets.only(bottom: AppSizing.paddingMedium),
-              child: ShareCredentialItem(
-                verifiableCredential: selected,
-                onTap: group.availableCredentials.length > 1
-                    ? () => showModalBottomSheet<void>(
-                          context: context,
-                          useRootNavigator: true,
-                          isScrollControlled: true,
-                          builder: (_) => _CredentialPickerSheet(
-                            title: _toTitleCase(group.label),
-                            candidates: group.availableCredentials,
-                            selectedVcId: selected.id.toString(),
-                            onSelect: (newId) {
-                              Navigator.of(context).pop();
-                              controller.selectCredentialForGroup(
-                                  groupVcIds, newId);
-                            },
-                          ),
-                        )
-                    : null,
-              ),
+            // Only offer the picker when there are more candidates than the
+            // group requires; otherwise the selection is fixed and valid.
+            final canPick = group.availableCredentials.length > requiredCount;
+
+            void openPicker() => showModalBottomSheet<void>(
+                  context: context,
+                  useRootNavigator: true,
+                  isScrollControlled: true,
+                  builder: (_) => _CredentialPickerSheet(
+                    title: _toTitleCase(group.label),
+                    candidates: group.availableCredentials,
+                    initialSelectedIds:
+                        displayVCs.map((vc) => vc.id.toString()).toSet(),
+                    requiredCount: requiredCount,
+                    onConfirm: (ids) {
+                      Navigator.of(context).pop();
+                      controller.setGroupSelection(groupVcIds, ids);
+                    },
+                  ),
+                );
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (final vc in displayVCs)
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: AppSizing.paddingMedium),
+                    child: ShareCredentialItem(
+                      verifiableCredential: vc,
+                      onTap: canPick ? openPicker : null,
+                    ),
+                  ),
+              ],
             );
           }),
         ] else if (credentialError != null) ...[
@@ -113,28 +127,64 @@ class _MatchedCredentialList extends ConsumerWidget {
   }
 }
 
-class _CredentialPickerSheet extends StatelessWidget {
+class _CredentialPickerSheet extends StatefulWidget {
   const _CredentialPickerSheet({
     required this.title,
     required this.candidates,
-    required this.selectedVcId,
-    required this.onSelect,
+    required this.initialSelectedIds,
+    required this.requiredCount,
+    required this.onConfirm,
   });
 
   final String title;
   final List<VerifiableCredential> candidates;
-  final String selectedVcId;
-  final void Function(String vcId) onSelect;
+  final Set<String> initialSelectedIds;
+  final int requiredCount;
+  final void Function(Set<String> vcIds) onConfirm;
+
+  @override
+  State<_CredentialPickerSheet> createState() => _CredentialPickerSheetState();
+}
+
+class _CredentialPickerSheetState extends State<_CredentialPickerSheet> {
+  late final Set<String> _selected = {...widget.initialSelectedIds};
+
+  bool get _isMultiSelect => widget.requiredCount > 1;
+
+  void _onTap(String vcId) {
+    // Single-credential groups apply immediately (radio-like); multi-credential
+    // groups toggle until exactly `requiredCount` are chosen, then confirm.
+    if (!_isMultiSelect) {
+      widget.onConfirm({vcId});
+      return;
+    }
+    setState(() {
+      if (_selected.contains(vcId)) {
+        _selected.remove(vcId);
+      } else if (_selected.length < widget.requiredCount) {
+        _selected.add(vcId);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    final canConfirm = _selected.length == widget.requiredCount;
 
     return SafeArea(
       child: BottomSheetDialog(
-        title: title,
-        actions: const [],
+        title: widget.title,
+        actions: _isMultiSelect
+            ? [
+                FilledButton(
+                  onPressed:
+                      canConfirm ? () => widget.onConfirm(_selected) : null,
+                  child: Text(localizations.continueActionText),
+                ),
+              ]
+            : const [],
         onCancel: () {
           if (!context.mounted) return;
           Navigator.of(context).pop();
@@ -142,9 +192,12 @@ class _CredentialPickerSheet extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
-          children: candidates.map((vc) {
+          children: widget.candidates.map((vc) {
             final vcId = vc.id.toString();
-            final isSelected = vcId == selectedVcId;
+            final isSelected = _selected.contains(vcId);
+            final atCap =
+                _isMultiSelect && _selected.length >= widget.requiredCount;
+            final canToggle = isSelected || !atCap;
             final displayName = vc.displayName;
             final issuanceDate =
                 vc.formattedIssuanceDate(localizations.localeName);
@@ -155,13 +208,13 @@ class _CredentialPickerSheet extends StatelessWidget {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: () => onSelect(vcId),
+                      onTap: canToggle ? () => _onTap(vcId) : null,
                       behavior: HitTestBehavior.opaque,
                       child: Row(
                         children: [
                           Checkbox(
                             value: isSelected,
-                            onChanged: (_) => onSelect(vcId),
+                            onChanged: canToggle ? (_) => _onTap(vcId) : null,
                           ),
                           const SizedBox(width: AppSizing.paddingSmall),
                           Expanded(

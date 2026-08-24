@@ -145,7 +145,7 @@ class _RequesterLogo extends StatelessWidget {
   final double size;
   final String? logoUrl;
 
-  static const String _fallbackAsset = 'assets/images/Logos - Connectors.svg';
+  static const String _fallbackAsset = 'assets/images/logos_connectors.svg';
 
   @override
   Widget build(BuildContext context) {

@@ -13,24 +13,6 @@ extension MatchedCredentialsResultExtension on MatchedCredentialsResult {
     }
     return List.unmodifiable(result);
   }
-
-  /// Returns the currently selected credential per group, keyed by group id.
-  ///
-  /// Parameters:
-  /// * [selectedIds] - the set of currently selected credential IDs.
-  ///
-  /// Falls back to the first available VC for any group where none of the
-  /// [selectedIds] match.
-  Map<String, VerifiableCredential> selectedVcFor(Set<String> selectedIds) {
-    return {
-      for (final group in groups)
-        if (group.availableCredentials.isNotEmpty)
-          group.id: group.availableCredentials.firstWhere(
-            (vc) => selectedIds.contains(vc.id.toString()),
-            orElse: () => group.availableCredentials.first,
-          ),
-    };
-  }
 }
 
 extension MatchedCredentialGroupExtension on MatchedCredentialGroup {

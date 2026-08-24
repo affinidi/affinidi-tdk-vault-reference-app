@@ -78,17 +78,25 @@ class _StubCryptography extends Fake implements CryptographyServiceInterface {
 ///
 /// The [proof] field is required by [LdVcDm1Suite.tryParse]; its cryptographic
 /// content is irrelevant because [parsedCredentialFromVc] never re-verifies it.
-ParsedVerifiableCredential<dynamic> buildFixtureVc() {
-  const vcJson = '''
+///
+/// Parameters let callers mint distinct credentials (unique [id]/[type]) so
+/// multi-group and multi-credential fixtures don't collapse into one entry.
+ParsedVerifiableCredential<dynamic> buildFixtureVc({
+  String id = 'urn:test:vc:email:1',
+  String type = 'EmailCredential',
+  String subjectKey = 'email',
+  String subjectValue = 'test@example.com',
+}) {
+  final vcJson = '''
 {
   "@context": ["https://www.w3.org/2018/credentials/v1"],
-  "id": "urn:test:vc:email:1",
-  "type": ["VerifiableCredential", "EmailCredential"],
+  "id": "$id",
+  "type": ["VerifiableCredential", "$type"],
   "issuer": "did:key:z6MktestIssuer",
   "issuanceDate": "2025-01-01T00:00:00Z",
   "credentialSubject": {
     "id": "did:key:z6MktestHolder",
-    "email": "test@example.com"
+    "$subjectKey": "$subjectValue"
   },
   "proof": {
     "type": "Ed25519Signature2018",
@@ -113,6 +121,38 @@ ClaimedCredentialsResult buildMatchResult(
           data: const {'id': 'test-descriptor-id', 'name': 'Email'},
         ): VCsGroupByType(
           matchedVCs: [VcAvailable(vc: vc)],
+        ),
+      },
+    );
+
+/// A match result with two independent descriptor groups, each satisfied by a
+/// single credential. Used to verify both groups are shown and submitted.
+ClaimedCredentialsResult buildMultiGroupMatchResult({
+  required ParsedVerifiableCredential<dynamic> firstVc,
+  required ParsedVerifiableCredential<dynamic> secondVc,
+}) =>
+    ClaimedCredentialsResult(
+      vcsGroups: {
+        PDDescriptor(data: const {'id': 'group-email', 'name': 'Email'}):
+            VCsGroupByType(matchedVCs: [VcAvailable(vc: firstVc)]),
+        PDDescriptor(data: const {'id': 'group-phone', 'name': 'Phone'}):
+            VCsGroupByType(matchedVCs: [VcAvailable(vc: secondVc)]),
+      },
+    );
+
+/// A match result with a single group that requires [minimum] credentials.
+/// [vcs] must contain at least [minimum] available credentials for the group
+/// to be shareable.
+ClaimedCredentialsResult buildMinCountMatchResult({
+  required List<ParsedVerifiableCredential<dynamic>> vcs,
+  required int minimum,
+}) =>
+    ClaimedCredentialsResult(
+      vcsGroups: {
+        PDDescriptor(data: const {'id': 'group-email', 'name': 'Email'}):
+            VCsGroupByType(
+          minimumVCsCountToShare: minimum,
+          matchedVCs: [for (final vc in vcs) VcAvailable(vc: vc)],
         ),
       },
     );

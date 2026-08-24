@@ -7,7 +7,7 @@ part of 'iota_consent_record_service.dart';
 // **************************************************************************
 
 String _$iotaConsentRecordServiceHash() =>
-    r'e85df2773c6517b39944181908951003a8da909a';
+    r'9067634c656950384a86eb007cc61106b5c679da';
 
 /// Copied from Dart SDK
 class _SystemHash {

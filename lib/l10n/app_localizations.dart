@@ -118,12 +118,6 @@ abstract class AppLocalizations {
   /// **'Credentials'**
   String get credentials;
 
-  /// No description provided for @driveTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Storage'**
-  String get driveTitle;
-
   /// No description provided for @filesEmptyStateDescription.
   ///
   /// In en, this message translates to:
@@ -244,12 +238,6 @@ abstract class AppLocalizations {
   /// **'Delete'**
   String get deleteFolderActionText;
 
-  /// No description provided for @deleteFolderLoadingMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Deleting folder...'**
-  String get deleteFolderLoadingMessage;
-
   /// No description provided for @deleteFileTitle.
   ///
   /// In en, this message translates to:
@@ -316,12 +304,6 @@ abstract class AppLocalizations {
   /// **'Expiry date'**
   String get expiryDate;
 
-  /// No description provided for @credentialValidationLoadingMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Validating...'**
-  String get credentialValidationLoadingMessage;
-
   /// No description provided for @neverExpires.
   ///
   /// In en, this message translates to:
@@ -382,12 +364,6 @@ abstract class AppLocalizations {
   /// **'Saving...'**
   String get claimCredentialsSaving;
 
-  /// No description provided for @claimCredentialsTxCode.
-  ///
-  /// In en, this message translates to:
-  /// **' Transaction code'**
-  String get claimCredentialsTxCode;
-
   /// No description provided for @saveActionText.
   ///
   /// In en, this message translates to:
@@ -424,24 +400,6 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get home;
 
-  /// No description provided for @createVaultTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Create your Vault'**
-  String get createVaultTitle;
-
-  /// No description provided for @createVaultDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Use this option to create a brand new Vault.'**
-  String get createVaultDescription;
-
-  /// No description provided for @createVaultActionLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Create'**
-  String get createVaultActionLabel;
-
   /// No description provided for @vaultExistsErrorMessage.
   ///
   /// In en, this message translates to:
@@ -460,59 +418,17 @@ abstract class AppLocalizations {
   /// **'Failed to create new vault '**
   String get createVaultErrorMessage;
 
-  /// No description provided for @openVaultTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Open an existing Vault'**
-  String get openVaultTitle;
-
-  /// No description provided for @accessVaultTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Access your Affinidi Vault'**
-  String get accessVaultTitle;
-
   /// No description provided for @login.
   ///
   /// In en, this message translates to:
   /// **'Login'**
   String get login;
 
-  /// No description provided for @openVaultDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Use this option to open a Vault you have already used on this device.'**
-  String get openVaultDescription;
-
   /// No description provided for @accessVaultActionLabel.
   ///
   /// In en, this message translates to:
   /// **'Access'**
   String get accessVaultActionLabel;
-
-  /// No description provided for @transferVaultTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Complete a Vault transfer'**
-  String get transferVaultTitle;
-
-  /// No description provided for @transferVaultDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Use this option to start scanning the QR code you received and complete a transfer.'**
-  String get transferVaultDescription;
-
-  /// No description provided for @transferVaultActionLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Start'**
-  String get transferVaultActionLabel;
-
-  /// No description provided for @scanQrCodeInstructions.
-  ///
-  /// In en, this message translates to:
-  /// **'Position the QR code within the frame to scan'**
-  String get scanQrCodeInstructions;
 
   /// No description provided for @vaultName.
   ///
@@ -550,24 +466,6 @@ abstract class AppLocalizations {
   /// **'Enter Seed'**
   String get enterSeed;
 
-  /// No description provided for @transferVaultLoadingMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Transferring vault...'**
-  String get transferVaultLoadingMessage;
-
-  /// No description provided for @transferVaultProceedActionLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Transfer vault'**
-  String get transferVaultProceedActionLabel;
-
-  /// No description provided for @transferVaultScanActionLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Start scanning'**
-  String get transferVaultScanActionLabel;
-
   /// No description provided for @creatingNewVault.
   ///
   /// In en, this message translates to:
@@ -604,48 +502,6 @@ abstract class AppLocalizations {
   /// **'Creating new profile...'**
   String get createProfileLoadingMessage;
 
-  /// No description provided for @createProfileDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter the details for a new profile'**
-  String get createProfileDescription;
-
-  /// No description provided for @shareProfileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Profile Sharing'**
-  String get shareProfileTitle;
-
-  /// No description provided for @shareProfileSuccessMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Profile shared successfully'**
-  String get shareProfileSuccessMessage;
-
-  /// No description provided for @shareProfileErrorMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Error sharing profile: {errorMessage}'**
-  String shareProfileErrorMessage(Object errorMessage);
-
-  /// No description provided for @shareProfileAcceptSuccessMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Shared profile accepted successfully!'**
-  String get shareProfileAcceptSuccessMessage;
-
-  /// No description provided for @shareProfileAcceptErrorMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Error accepting shared profile: {errorMessage}'**
-  String shareProfileAcceptErrorMessage(Object errorMessage);
-
-  /// No description provided for @shareProfileAcceptActionText.
-  ///
-  /// In en, this message translates to:
-  /// **'Accept Shared Profile'**
-  String get shareProfileAcceptActionText;
-
   /// No description provided for @profileName.
   ///
   /// In en, this message translates to:
@@ -681,18 +537,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete'**
   String get deleteActionText;
-
-  /// No description provided for @deleteProfileLoadingMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Deleting profile...'**
-  String get deleteProfileLoadingMessage;
-
-  /// No description provided for @vaultsTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Vaults'**
-  String get vaultsTitle;
 
   /// No description provided for @copy.
   ///
@@ -742,59 +586,11 @@ abstract class AppLocalizations {
   /// **'Recipient DID'**
   String get recipientDidLabel;
 
-  /// No description provided for @pasteSharedProfileDtoJsonTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Paste SharedProfileDto JSON'**
-  String get pasteSharedProfileDtoJsonTitle;
-
-  /// No description provided for @selectYourProfileLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Select Your Profile'**
-  String get selectYourProfileLabel;
-
   /// No description provided for @sharedProfileDetails.
   ///
   /// In en, this message translates to:
   /// **'Shared Profile Detail'**
   String get sharedProfileDetails;
-
-  /// No description provided for @sharedProfileDtoJsonFieldLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'SharedProfileDto JSON'**
-  String get sharedProfileDtoJsonFieldLabel;
-
-  /// No description provided for @folderLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Folder: {name}'**
-  String folderLabel(Object name);
-
-  /// No description provided for @fileLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'File: {name}'**
-  String fileLabel(Object name);
-
-  /// No description provided for @idLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'ID: {id}'**
-  String idLabel(Object id);
-
-  /// No description provided for @unknownItemType.
-  ///
-  /// In en, this message translates to:
-  /// **'Unknown item type'**
-  String get unknownItemType;
-
-  /// No description provided for @noFilesOrFoldersFound.
-  ///
-  /// In en, this message translates to:
-  /// **'No files or folders found'**
-  String get noFilesOrFoldersFound;
 
   /// No description provided for @sharedFromLabel.
   ///
@@ -820,18 +616,6 @@ abstract class AppLocalizations {
   /// **'No shared content available.'**
   String get noSharedContentAvailable;
 
-  /// No description provided for @tdkReferenceAppbarTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'TDK Reference'**
-  String get tdkReferenceAppbarTitle;
-
-  /// No description provided for @useQrData.
-  ///
-  /// In en, this message translates to:
-  /// **'Use QR Data'**
-  String get useQrData;
-
   /// No description provided for @unknownError.
   ///
   /// In en, this message translates to:
@@ -855,12 +639,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Wrong passphrase.'**
   String get incorrectPassphrase;
-
-  /// No description provided for @profileTypeLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Profile Type'**
-  String get profileTypeLabel;
 
   /// No description provided for @profileDescriptionPlaceholder.
   ///
@@ -891,12 +669,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profiles created using local storage cannot be shared.'**
   String get profileNotice;
-
-  /// No description provided for @profileTypeChooseYourOwn.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose your own'**
-  String get profileTypeChooseYourOwn;
 
   /// No description provided for @paginationPreviousPage.
   ///
@@ -988,11 +760,23 @@ abstract class AppLocalizations {
   /// **'Error loading code snippets'**
   String get errorLoadingCodeSnippetsMessage;
 
-  /// No description provided for @profilesEmptyStateDescription.
+  /// No description provided for @profilesEmptyStatePrefix.
   ///
   /// In en, this message translates to:
-  /// **'You don\'t have any profiles yet. Start by creating one.'**
-  String get profilesEmptyStateDescription;
+  /// **'You don\'t have any '**
+  String get profilesEmptyStatePrefix;
+
+  /// No description provided for @profilesEmptyStateSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **' yet.'**
+  String get profilesEmptyStateSuffix;
+
+  /// No description provided for @profilesEmptyStateCallToAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Start by creating one.'**
+  String get profilesEmptyStateCallToAction;
 
   /// No description provided for @folderNotDeletedTitle.
   ///
@@ -1054,18 +838,6 @@ abstract class AppLocalizations {
   /// **'DID: {did}'**
   String didLabel(Object did);
 
-  /// No description provided for @profileIdLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Profile ID: {profileId}'**
-  String profileIdLabel(Object profileId);
-
-  /// No description provided for @accessLevelLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Access: {accessLevel}'**
-  String accessLevelLabel(Object accessLevel);
-
   /// No description provided for @revokeAccessTooltip.
   ///
   /// In en, this message translates to:
@@ -1102,12 +874,6 @@ abstract class AppLocalizations {
   /// **'Set File Permissions'**
   String get setFilePermissions;
 
-  /// No description provided for @filePermissions.
-  ///
-  /// In en, this message translates to:
-  /// **'File Permissions'**
-  String get filePermissions;
-
   /// No description provided for @fileFormatOptions.
   ///
   /// In en, this message translates to:
@@ -1126,23 +892,11 @@ abstract class AppLocalizations {
   /// **'Specify allowed formats'**
   String get specifyAllowedFormats;
 
-  /// No description provided for @typeFileFormatHere.
-  ///
-  /// In en, this message translates to:
-  /// **'Type file format here'**
-  String get typeFileFormatHere;
-
   /// No description provided for @fileSizeLimit.
   ///
   /// In en, this message translates to:
   /// **'File size limit'**
   String get fileSizeLimit;
-
-  /// No description provided for @enterMaxFileSize.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter max file size in bytes'**
-  String get enterMaxFileSize;
 
   /// No description provided for @settingsSaved.
   ///
@@ -1192,18 +946,6 @@ abstract class AppLocalizations {
   /// **'Create Vault'**
   String get addVault;
 
-  /// No description provided for @restoreVault.
-  ///
-  /// In en, this message translates to:
-  /// **'Restore Vault'**
-  String get restoreVault;
-
-  /// No description provided for @backUpVault.
-  ///
-  /// In en, this message translates to:
-  /// **'Back up vault'**
-  String get backUpVault;
-
   /// No description provided for @giveYourVaultAName.
   ///
   /// In en, this message translates to:
@@ -1233,12 +975,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create Profile'**
   String get createProfile;
-
-  /// No description provided for @seedGenerationMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'A secure 32-byte seed will be generated. It\'s needed to create your Vault.'**
-  String get seedGenerationMessage;
 
   /// No description provided for @existingSeedMessage.
   ///
@@ -1287,12 +1023,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Input allowed file formats'**
   String get inputAllowedFileFormats;
-
-  /// No description provided for @fileFormat.
-  ///
-  /// In en, this message translates to:
-  /// **'File format'**
-  String get fileFormat;
 
   /// No description provided for @inputFileSizeInMb.
   ///
@@ -1480,12 +1210,6 @@ abstract class AppLocalizations {
   /// **'Create Vault Profile Snippets'**
   String get lblCSCreateProfile;
 
-  /// No description provided for @infoCSCopiedToClipboard.
-  ///
-  /// In en, this message translates to:
-  /// **'Code snippets copied to clipboard.'**
-  String get infoCSCopiedToClipboard;
-
   /// No description provided for @lblCSShareProfile.
   ///
   /// In en, this message translates to:
@@ -1533,12 +1257,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create Vault'**
   String get snippetDescCreateVault;
-
-  /// No description provided for @snippetDescGenRandSeed.
-  ///
-  /// In en, this message translates to:
-  /// **'Generate Random Seed'**
-  String get snippetDescGenRandSeed;
 
   /// No description provided for @snippetDescOpenVault.
   ///
@@ -1714,12 +1432,6 @@ abstract class AppLocalizations {
   /// **'Affinidi TDK Vault Reference App'**
   String get referenceApp;
 
-  /// No description provided for @clientInfoTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Info'**
-  String get clientInfoTitle;
-
   /// No description provided for @domainVerifiedByAffinidi.
   ///
   /// In en, this message translates to:
@@ -1780,18 +1492,6 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get shareReject;
 
-  /// No description provided for @shareSubmitResponse.
-  ///
-  /// In en, this message translates to:
-  /// **'Submit Response'**
-  String get shareSubmitResponse;
-
-  /// No description provided for @shareRequestedCredentials.
-  ///
-  /// In en, this message translates to:
-  /// **'Requested credentials'**
-  String get shareRequestedCredentials;
-
   /// No description provided for @consentHistoryEmpty.
   ///
   /// In en, this message translates to:
@@ -1803,12 +1503,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Consent Details'**
   String get consentHistoryDetails;
-
-  /// No description provided for @consentHistorySharedTypes.
-  ///
-  /// In en, this message translates to:
-  /// **'Shared credential types'**
-  String get consentHistorySharedTypes;
 
   /// No description provided for @consentHistoryNotAvailable.
   ///

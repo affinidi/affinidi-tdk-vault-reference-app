@@ -1,18 +1,18 @@
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:ssi/ssi.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../../application/services/iota/iota_consent_record_service.dart';
-import '../../../application/services/iota/iota_share_flow_service.dart';
+import '../../../application/services/share/consent_service.dart';
+import '../../../application/services/share/credential_matching_service.dart';
+import '../../../application/services/share/share_request_validation_service.dart';
+import '../../../application/services/share/share_submission_service.dart';
 import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
+import '../../../infrastructure/external_link/external_redirect_service.dart';
 import '../../../infrastructure/extensions/matched_credentials_result_extensions.dart';
-import '../../../infrastructure/extensions/verifiable_credential_extensions.dart';
 import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import '../../../infrastructure/providers/localizations_provider.dart';
-import '../../../navigation/navigation_provider.dart';
+import '../../../navigation/flows/share_credential/share_credential_route_constants.dart';
 import 'share_credential_page_state.dart';
 
 part 'share_credential_page_controller.g.dart';
@@ -57,18 +57,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     );
   }
 
-  int _resolveSelectedAccountIndex() => _resolveSelectedProfile().accountIndex;
-
-  IotaShareResponseServiceInterface _readResponseService(String vaultId) {
-    final accountIndex = _resolveSelectedAccountIndex();
-    return ref.read(
-      iotaShareResponseServiceProvider(
-        vaultId: vaultId,
-        accountIndex: accountIndex,
-      ),
-    );
-  }
-
   @override
   ShareCredentialPageState build({
     required String requestJwt,
@@ -78,7 +66,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       vaultsManagerServiceProvider.select((s) => s.vaultRegistry),
     );
 
-    _isFromDeepLink = !(navigatorKey.currentState?.canPop() ?? false);
     ref.onDispose(() {
       if (_isFromDeepLink) {
         ref.read(vaultServiceProvider.notifier).resetCurrentVault();
@@ -127,6 +114,16 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     );
   }
 
+  /// Records how the share flow was entered (see [ShareCredentialRouteSource]).
+  ///
+  /// Called from the page's route builder. When entered via a deep link the
+  /// controller resets the current vault on dispose; a manual push leaves the
+  /// already-open vault untouched. Replaces the previous `Navigator.canPop()`
+  /// heuristic, which misclassified cold starts and hot restarts.
+  void markSource(String? source) {
+    _isFromDeepLink = source == ShareCredentialRouteSource.deeplink;
+  }
+
   Future<void> _loadVaultsAndHandleEmpty() async {
     await ref.read(vaultsManagerServiceProvider.notifier).loadVaults();
     final registry = ref.read(
@@ -170,9 +167,13 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
   /// Loads profiles for the currently open vault without requiring passphrase.
   Future<void> _loadProfilesForCurrentVault() async {
+    final vaultId = state.selectedVaultId;
     try {
       final vault = ref.read(vaultServiceProvider).currentVault;
       final profiles = vault != null ? await vault.listProfiles() : <Profile>[];
+      if (state.selectedVaultId != vaultId) {
+        return;
+      }
 
       state = state.copyWith(
         selectedVaultId: _selectedVaultId,
@@ -187,6 +188,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         Future.microtask(() => matchCredentials(profiles.first.id));
       }
     } catch (e, st) {
+      if (state.selectedVaultId != vaultId) return;
       ErrorLoggingHandler.instance
           .logError(e, st, reason: '_loadProfilesForCurrentVault failed');
 
@@ -214,28 +216,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     }
 
     try {
-      final service = ref.read(iotaShareFlowServiceProvider);
-      final uri = Uri(queryParameters: {'request': jwt});
-      final result = await service.validateOid4vpRequest(uri);
-
-      VerifierClientMetadata? verifierMetadata;
-      try {
-        final metadataService = ref.read(iotaVerifierMetadataServiceProvider);
-        verifierMetadata = await metadataService.fetchVerifierMetadata(
-          clientId: result.request.clientId,
-          clientMetadata: result.request.clientMetadata,
-          clientMetadataUri: result.request.clientMetadataUri,
-        );
-      } on TdkException catch (e, st) {
-        if (e.code != TdkExceptionType.failedToFetchVerifierMetadata.code) {
-          rethrow;
-        }
-        ErrorLoggingHandler.instance.logError(
-          e,
-          st,
-          reason: 'fetchVerifierMetadata failed; continuing without metadata',
-        );
-      }
+      final validated =
+          await ref.read(shareRequestValidationServiceProvider).validate(jwt);
+      final result = validated.request;
 
       final currentVaultId = ref.read(vaultServiceProvider).currentVaultId;
       final shouldLoadProfilesWithoutPassphrase =
@@ -243,7 +226,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
       state = state.copyWith(
         shareRequest: result,
-        verifierMetadata: verifierMetadata,
+        verifierMetadata: validated.verifierMetadata,
         stage: shouldLoadProfilesWithoutPassphrase
             ? const StageVerifyingPassphrase()
             : const StageAwaitingPassphrase(),
@@ -293,6 +276,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
       final vault = ref.read(vaultServiceProvider).currentVault;
       final profiles = vault != null ? await vault.listProfiles() : <Profile>[];
+      if (state.selectedVaultId != vaultId) {
+        return;
+      }
 
       state = state.copyWith(
         profiles: profiles,
@@ -304,6 +290,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         Future.microtask(() => matchCredentials(profiles.first.id));
       }
     } catch (e, st) {
+      if (state.selectedVaultId != vaultId) return;
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'verifyPassphrase failed');
 
@@ -344,6 +331,16 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     final vaultId = state.selectedVaultId;
     if (vaultId == null) return;
 
+    // Identity captured at start; a newer vault/profile selection supersedes
+    // this run, so its writes are discarded.
+    bool isStale() =>
+        state.selectedVaultId != vaultId ||
+        state.selectedProfileId != profileId;
+
+    if (isStale()) {
+      return;
+    }
+
     state = state.copyWith(
       stage: const StageMatchingCredentials(),
       matchResult: null,
@@ -352,6 +349,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     try {
       final vault = ref.read(vaultServiceProvider).currentVault;
       if (vault == null) {
+        if (isStale()) return;
         state = state.copyWith(
           stage: StageMatchFailed(
             ref.read(localizationsProvider).shareFlowFailedToLoadCredentials,
@@ -361,6 +359,9 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       }
 
       final profile = await vault.getProfileById(profileId);
+      if (isStale()) {
+        return;
+      }
       final storage = profile.defaultCredentialStorage;
       if (storage == null) {
         state = state.copyWith(
@@ -370,13 +371,14 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         return;
       }
 
-      final listResult = await _fetchAllCredentials(storage);
-      final allVCs = listResult
-          .map((credential) => credential.verifiableCredential)
-          .toList();
-
-      final matcher = ref.read(iotaCredentialMatcherServiceProvider);
-      final matchResult = await matcher.match(shareRequest, allVCs);
+      final matchResult =
+          await ref.read(credentialMatchingServiceProvider).match(
+                shareRequest: shareRequest,
+                storage: storage,
+              );
+      if (isStale()) {
+        return;
+      }
 
       state = state.copyWith(
         matchResult: matchResult,
@@ -388,11 +390,12 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         stage: const StageMatchingCredentials(),
       );
 
-      await _tryAutoConsent(
+      await _tryAutomaticConsent(
         vaultId: vaultId,
         shareRequest: shareRequest,
         matchResult: matchResult,
       );
+      if (isStale()) return;
 
       // Auto-consent may have already dismissed the flow (StageDismissed).
       // Only make the UI interactive if it did not.
@@ -400,6 +403,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         state = state.copyWith(stage: const StageReadyToShare());
       }
     } catch (e, st) {
+      if (isStale()) return;
       ErrorLoggingHandler.instance
           .logError(e, st, reason: 'matchCredentials failed');
       state = state.copyWith(
@@ -408,26 +412,6 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         ),
       );
     }
-  }
-
-  /// Fetches every credential in [storage] by walking the pagination cursor
-  /// until the underlying API reports no more pages.
-  ///
-  /// Returns the full flattened list of [DigitalCredential]s. The presentation
-  /// definition matcher needs to evaluate against the entire credential set;
-  /// capping at a fixed page size would silently exclude credentials beyond
-  /// that page.
-  Future<List<DigitalCredential>> _fetchAllCredentials(
-    CredentialStorage storage,
-  ) async {
-    final all = <DigitalCredential>[];
-    String? cursor;
-    do {
-      final page = await storage.listCredentials(exclusiveStartItemId: cursor);
-      all.addAll(page.items);
-      cursor = page.lastEvaluatedItemId;
-    } while (cursor != null);
-    return all;
   }
 
   void toggleCredentialSelection(String id, {required bool selected}) {
@@ -456,41 +440,25 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
   /// * [vaultId] - Vault that will sign the VP.
   /// * [shareRequest] - The validated OID4VP request.
   /// * [matchResult] - Credentials already matched against the request.
-  Future<void> _tryAutoConsent({
+  Future<void> _tryAutomaticConsent({
     required String vaultId,
     required Oid4vpShareRequest shareRequest,
     required MatchedCredentialsResult matchResult,
   }) async {
     try {
       final profile = _resolveSelectedProfile();
-      final consentService = ref.read(
-        iotaConsentRecordServiceProvider(
-          vaultId: vaultId,
-          accountIndex: profile.accountIndex,
-        ),
-      );
-
-      final result = await consentService.tryAutomaticConsent(
-        shareRequest: shareRequest,
-        matchedCredentials: matchResult,
-        verifierMetadata:
-            state.verifierMetadata ?? const VerifierClientMetadata(),
-        vaultId: vaultId,
-      );
+      final result = await ref.read(consentServiceProvider).tryAutomaticConsent(
+            vaultId: vaultId,
+            accountIndex: profile.accountIndex,
+            shareRequest: shareRequest,
+            matchResult: matchResult,
+            verifierMetadata:
+                state.verifierMetadata ?? const VerifierClientMetadata(),
+          );
 
       switch (result) {
         case AutoConsentApproved(:final redirectUri):
-          var showToast = redirectUri == null;
-          if (redirectUri != null) {
-            final launched = await launchUrl(
-              redirectUri,
-              mode: LaunchMode.externalApplication,
-            );
-            if (!launched) showToast = true;
-          }
-          state = state.copyWith(
-            stage: StageDismissed(showShareSuccessToast: showToast),
-          );
+          await _dismissWithRedirect(redirectUri);
         case AutoConsentDeclined():
           // No prior record qualifies — keep StageReadyToShare for
           // the user to confirm interactively.
@@ -500,67 +468,38 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       ErrorLoggingHandler.instance.logError(
         e,
         st,
-        reason: 'tryAutoConsent failed; falling back to interactive share',
+        reason: 'tryAutomaticConsent failed; falling back to interactive share',
       );
       // Non-fatal: the page stays at StageReadyToShare.
     }
   }
 
-  void selectCredentialForGroup(List<String> groupVcIds, String selectedId) {
-    final updated = Set<String>.from(state.selectedCredentialIds);
-    updated.removeAll(groupVcIds);
-    updated.add(selectedId);
+  /// Replaces the selected credentials for a single group.
+  ///
+  /// Clears every candidate id in [groupVcIds] from the current selection and
+  /// adds [selectedIds], leaving other groups untouched. The picker enforces
+  /// the group's `minimumVCsCountToShare`, so the resulting set stays valid
+  /// for submission even when a group requires more than one credential.
+  void setGroupSelection(List<String> groupVcIds, Set<String> selectedIds) {
+    final updated = Set<String>.from(state.selectedCredentialIds)
+      ..removeAll(groupVcIds)
+      ..addAll(selectedIds);
     state = state.copyWith(selectedCredentialIds: updated);
   }
 
-  /// Persists the consent record for a successful share submission.
-  ///
-  /// Called after [submitSelectedCredentials] receives a successful response
-  /// from the verifier. The `isAutoShareEnabled` flag mirrors the
-  /// "auto-allow consent" checkbox; the `requestHash` is computed from
-  /// `clientId|vaultId|groupIds` so a future request with the same shape can
-  /// be looked up by [IotaConsentRecordService.tryAutomaticConsent].
-  ///
-  /// Persistence failures are logged but never re-thrown — the share itself
-  /// has already succeeded, and a missing consent record only degrades the
-  /// auto-allow optimisation on subsequent requests.
-  Future<void> _persistConsentRecord({
-    required String vaultId,
-    required Oid4vpShareRequest shareRequest,
-    required List<ParsedVerifiableCredential<dynamic>> selectedCredentials,
-  }) async {
-    try {
-      final profile = _resolveSelectedProfile();
-      final consentService = ref.read(
-        iotaConsentRecordServiceProvider(
-          vaultId: vaultId,
-          accountIndex: profile.accountIndex,
-        ),
-      );
-
-      final claimedVcTypes =
-          (selectedCredentials.expand((vc) => vc.type).toSet().toList()..sort())
-              .join(',');
-
-      await consentService.saveConsentRecord(
-        shareRequest: shareRequest,
-        verifierMetadata:
-            state.verifierMetadata ?? const VerifierClientMetadata(),
-        profileId: profile.id,
-        profileName: profile.name,
-        vaultId: vaultId,
-        sharedVcs: selectedCredentials,
-        claimedVcTypesCsv: claimedVcTypes,
-        isAutoShareEnabled: state.autoAllowConsent,
-        isConsentManagementEnabled: state.isConsentManagementEnabled,
-      );
-    } catch (e, st) {
-      ErrorLoggingHandler.instance.logError(
-        e,
-        st,
-        reason: 'Failed to persist consent record after share',
-      );
+  /// Dismisses the flow after a successful share: launches the verifier
+  /// redirect when present and shows the success toast only when no external
+  /// redirect took the user away.
+  Future<void> _dismissWithRedirect(Uri? redirectUri) async {
+    var showToast = redirectUri == null;
+    if (redirectUri != null) {
+      final launched =
+          await ref.read(externalRedirectServiceProvider).open(redirectUri);
+      if (!launched) showToast = true;
     }
+    state = state.copyWith(
+      stage: StageDismissed(showShareSuccessToast: showToast),
+    );
   }
 
   /// Submits the user-selected credentials as a Verifiable Presentation to
@@ -584,9 +523,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         );
       }
 
-      final selectedCredentialIds =
-          state.selectedCredentialIds.toList(growable: false);
-      if (selectedCredentialIds.isEmpty) {
+      if (state.selectedCredentialIds.isEmpty) {
         throw AppException(
           message: l.shareFlowSelectAtLeastOneCredential,
           type: AppExceptionType.missingVerifiableCredentials,
@@ -601,51 +538,30 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         );
       }
 
-      final responseService = _readResponseService(vaultId);
-
-      final selectedIds = selectedCredentialIds.toSet();
-      final selectedCredentials = <ParsedVerifiableCredential<dynamic>>[];
-
-      for (final group in matchResult.groups) {
-        final requiredCount = group.minimumVCsCountToShare;
-        final selectedForGroup = group.availableCredentials
-            .where((vc) => selectedIds.contains(vc.id.toString()))
-            .take(requiredCount)
-            .toList(growable: false);
-
-        if (selectedForGroup.length < requiredCount) {
-          throw AppException(
-            message: l.shareFlowNotEnoughMatchingCredentials,
-            type: AppExceptionType.missingVerifiableCredentials,
-          );
-        }
-
-        for (final vc in selectedForGroup) {
-          selectedCredentials.add(vc.toParsedCredential());
-        }
+      final submissionService = ref.read(shareSubmissionServiceProvider);
+      final selection = submissionService.selectCredentials(
+        matchResult: matchResult,
+        selectedIds: state.selectedCredentialIds,
+      );
+      if (selection is InsufficientCredentials) {
+        throw AppException(
+          message: l.shareFlowNotEnoughMatchingCredentials,
+          type: AppExceptionType.missingVerifiableCredentials,
+        );
       }
 
-      final redirectUri = await responseService.submitShareResponse(
-        shareRequest: shareRequest,
-        selectedCredentials: selectedCredentials,
-        acceptResponseUri: shareRequest.request.acceptResponseUri,
-      );
-
-      await _persistConsentRecord(
+      final redirectUri = await submissionService.submit(
         vaultId: vaultId,
+        profile: _resolveSelectedProfile(),
         shareRequest: shareRequest,
-        selectedCredentials: selectedCredentials,
+        credentials: (selection as CredentialsSelected).credentials,
+        verifierMetadata:
+            state.verifierMetadata ?? const VerifierClientMetadata(),
+        isAutoShareEnabled: state.autoAllowConsent,
+        isConsentManagementEnabled: state.isConsentManagementEnabled,
       );
 
-      var showToast = redirectUri == null;
-      if (redirectUri != null) {
-        final launched =
-            await launchUrl(redirectUri, mode: LaunchMode.externalApplication);
-        if (!launched) showToast = true;
-      }
-      state = state.copyWith(
-        stage: StageDismissed(showShareSuccessToast: showToast),
-      );
+      await _dismissWithRedirect(redirectUri);
       return redirectUri;
     } catch (e, st) {
       ErrorLoggingHandler.instance
@@ -684,16 +600,14 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         );
       }
 
-      final responseService = _readResponseService(vaultId);
-      final redirectUri = await responseService.rejectShareResponse(
-        shareRequest: shareRequest,
-        rejectResponseUri: shareRequest.request.rejectResponseUri,
-      );
+      final redirectUri = await ref.read(shareSubmissionServiceProvider).reject(
+            vaultId: vaultId,
+            profile: _resolveSelectedProfile(),
+            shareRequest: shareRequest,
+          );
       if (redirectUri != null) {
-        final launched = await launchUrl(
-          redirectUri,
-          mode: LaunchMode.externalApplication,
-        );
+        final launched =
+            await ref.read(externalRedirectServiceProvider).open(redirectUri);
         if (!launched) {
           throw AppException(
             message: l.shareFlowCouldNotOpenRedirect,

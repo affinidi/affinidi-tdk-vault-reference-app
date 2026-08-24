@@ -29,7 +29,7 @@ IotaConsentRecordServiceInterface iotaConsentRecordService(
     ),
   );
   return IotaConsentRecordService(
-    store: ref.watch(consentRecordStoreProvider(vaultId: vaultId)),
+    store: ref.watch(consentRecordStoreProvider),
     cryptography: CryptographyService(),
     shareResponseService: responseService,
   );

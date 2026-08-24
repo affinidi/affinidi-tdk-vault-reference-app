@@ -70,8 +70,9 @@ class ProfileService extends _$ProfileService {
           vault, repositoryId, profileType,
           profileName: name);
 
+      final Profile createdProfile;
       try {
-        await profileRepository.createProfile(
+        createdProfile = await profileRepository.createProfile(
           name: name,
           description: description,
         );
@@ -80,7 +81,7 @@ class ProfileService extends _$ProfileService {
       }
       log('Profile created successfully in repository', name: 'ProfileService');
 
-      await getProfiles();
+      _appendProfile(createdProfile);
     } on TdkException catch (e) {
       log('TDK Exception during profile creation: ${e.message}',
           name: 'ProfileService');
@@ -95,6 +96,28 @@ class ProfileService extends _$ProfileService {
         type: AppExceptionType.other,
       );
     }
+  }
+
+  void _appendProfile(Profile profile) {
+    final existingProfiles = state.profiles ?? <Profile>[];
+
+    // Replace if a profile with the same id already exists, otherwise append
+    final updatedProfiles = <Profile>[
+      ...existingProfiles.where((p) => p.id != profile.id),
+      profile,
+    ];
+    state = state.copyWith(profiles: updatedProfiles);
+    log('Profile appended to state: ${profile.name}', name: 'ProfileService');
+  }
+
+  /// Removes a deleted profile from the current state without
+  /// re-fetching the full list from the server.
+  void _removeProfile(Profile profile) {
+    final updatedProfiles = (state.profiles ?? <Profile>[])
+        .where((p) => p.id != profile.id)
+        .toList();
+    state = state.copyWith(profiles: updatedProfiles);
+    log('Profile removed from state: ${profile.name}', name: 'ProfileService');
   }
 
   /// Deletes a profile if it is empty.
@@ -116,7 +139,7 @@ class ProfileService extends _$ProfileService {
     try {
       await _validateProfileIsEmpty(profile);
       await _deleteProfileFromRepository(vault, profile);
-      await getProfiles();
+      _removeProfile(profile);
 
       log('Profile deletion completed successfully', name: 'ProfileService');
     } catch (e, stackTrace) {

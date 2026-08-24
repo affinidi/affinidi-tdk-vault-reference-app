@@ -7,19 +7,17 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../presentation/pages/create_vault_page/create_vault_page.dart';
-import '../presentation/pages/file_preview_page/file_preview_page.dart';
-import '../presentation/pages/my_credentials_page/my_credentials_page.dart';
-import '../presentation/pages/my_files_page/my_files_page.dart';
-import '../presentation/pages/open_vault_page/open_vault_page.dart';
-import '../presentation/pages/profile_page/profile_page.dart';
-import '../presentation/pages/profile_settings_page/profile_settings_page.dart';
-import '../presentation/pages/profiles_page/profiles_page.dart';
-import '../presentation/pages/shared_page/shared_page.dart';
-import '../presentation/pages/splash_page/splash_page.dart';
-import '../presentation/pages/vaults_page/vaults_page.dart';
-import '../presentation/pages/backup_vault_page/backup_vault_page.dart';
-import '../presentation/pages/restore_vault_page/restore_vault_page.dart';
+import '../../presentation/pages/create_vault_page/create_vault_page.dart';
+import '../../presentation/pages/file_preview_page/file_preview_page.dart';
+import '../../presentation/pages/my_credentials_page/my_credentials_page.dart';
+import '../../presentation/pages/my_files_page/my_files_page.dart';
+import '../../presentation/pages/open_vault_page/open_vault_page.dart';
+import '../../presentation/pages/profile_page/profile_page.dart';
+import '../../presentation/pages/profile_settings_page/profile_settings_page.dart';
+import '../../presentation/pages/profiles_page/profiles_page.dart';
+import '../../presentation/pages/shared_page/shared_page.dart';
+import '../../presentation/pages/splash_page/splash_page.dart';
+import '../../presentation/pages/vaults_page/vaults_page.dart';
 import '../application/services/vault/vault_service.dart';
 import '../infrastructure/utils/constants.dart';
 import '../presentation/pages/claim_credentials_page/claim_credentials_page.dart';
@@ -30,21 +28,13 @@ import '../presentation/pages/shared_files_page/shared_files_page.dart';
 import '../presentation/pages/shared_profile_details_page/shared_profile_details_page.dart';
 
 import 'flows/app_routes.dart';
+import 'flows/share_credential/share_link_parser.dart';
 import 'navigation_service.dart';
 
 part 'navigation_provider.g.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 String? returnUrl;
-
-// Upper bounds and format for tdkref:// deep-link parameters. A compact OID4VP
-// request JWT is well under 10 KB; larger or malformed input is rejected here
-// to avoid processing attacker-controlled junk. Cryptographic validation of the
-// JWT still happens downstream in ShareCredentialPageController.validateRequest.
-const _maxDeepLinkJwtLength = 10000;
-const _maxDeepLinkClientIdLength = 1000;
-final _deepLinkJwtFormat =
-    RegExp(r'^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$');
 
 String? _guard(
   Ref ref,
@@ -221,16 +211,6 @@ GoRouter navigation(Ref ref) {
       ),
     ),
     GoRoute(
-      name: VaultsRouteName.backup,
-      path: VaultsRoutePath.backup,
-      builder: (context, state) => const BackupVaultPage(),
-    ),
-    GoRoute(
-      name: VaultsRouteName.restore,
-      path: VaultsRoutePath.restore,
-      builder: (context, state) => const RestoreVaultPage(),
-    ),
-    GoRoute(
       path: '/claim/:${ProfilesRouteParams.profileId}',
       builder: (context, state) => ClaimCredentialsPage(
         profileId: state.pathParameters[ProfilesRouteParams.profileId]!,
@@ -244,6 +224,7 @@ GoRouter navigation(Ref ref) {
             state.uri.queryParameters[ShareCredentialRouteParams.request] ?? '',
         clientId:
             state.uri.queryParameters[ShareCredentialRouteParams.clientId],
+        source: state.uri.queryParameters[ShareCredentialRouteParams.source],
       ),
     ),
     GoRoute(
@@ -272,29 +253,10 @@ GoRouter navigation(Ref ref) {
     redirect: (BuildContext context, GoRouterState state) {
       // GoRouter receives tdkref:// deep links via the platform channel.
       // Their path is empty, which normalises to '/' and would match SplashPage.
-      // Extract the JWT and redirect directly to the share credential route.
+      // Delegate JWT/client_id validation and path building to the share flow.
       if (state.uri.scheme == AppConfig.deepLinkScheme) {
-        final jwt =
-            state.uri.queryParameters[ShareCredentialRouteParams.request];
-        if (jwt != null &&
-            jwt.isNotEmpty &&
-            jwt.length <= _maxDeepLinkJwtLength &&
-            _deepLinkJwtFormat.hasMatch(jwt)) {
-          final clientId =
-              state.uri.queryParameters[ShareCredentialRouteParams.clientId];
-          final hasValidClientId = clientId != null &&
-              clientId.isNotEmpty &&
-              clientId.length <= _maxDeepLinkClientIdLength;
-          return Uri(
-            path: ShareCredentialRoutePath.base,
-            queryParameters: {
-              ShareCredentialRouteParams.request: jwt,
-              if (hasValidClientId)
-                ShareCredentialRouteParams.clientId: clientId,
-            },
-          ).toString();
-        }
-        return VaultsRoutePath.base;
+        return ShareLinkParser.resolveDeepLinkPath(state.uri) ??
+            VaultsRoutePath.base;
       }
       return _guard(ref, context, state, defaultPath);
     },
