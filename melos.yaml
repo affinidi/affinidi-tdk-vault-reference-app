@@ -11,7 +11,7 @@ scripts:
   test:
     name: test
     description: "unit test with coverage"
-    run: echo "Unit Tests not implemented."
+    run: flutter test test/ --coverage
     exec:
       concurrency: 1
   test-integration:
