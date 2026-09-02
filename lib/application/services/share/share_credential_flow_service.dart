@@ -1,7 +1,6 @@
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 
-import '../../ports/external_redirect_launcher.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../profile/profile_service.dart';
 import '../vault/vault_service.dart';
@@ -31,13 +30,9 @@ class MatchAutoConsented extends ShareMatchOutcome {
 
 /// Result of submitting or rejecting a share request.
 class ShareDismissalOutcome {
-  const ShareDismissalOutcome({
-    required this.redirectUri,
-    required this.showShareSuccessToast,
-  });
+  const ShareDismissalOutcome({required this.redirectUri});
 
   final Uri? redirectUri;
-  final bool showShareSuccessToast;
 }
 
 /// Orchestrates the share-credential wizard's business steps: unlocking a
@@ -57,7 +52,6 @@ class ShareCredentialFlowService {
     required CredentialMatchingService matchingService,
     required ConsentService consentService,
     required ShareSubmissionService submissionService,
-    required ExternalRedirectLauncher redirectLauncher,
   })  : _vaultService = vaultService,
         _vaultState = vaultState,
         _loadProfiles = loadProfiles,
@@ -65,8 +59,7 @@ class ShareCredentialFlowService {
         _validationService = validationService,
         _matchingService = matchingService,
         _consentService = consentService,
-        _submissionService = submissionService,
-        _redirectLauncher = redirectLauncher;
+        _submissionService = submissionService;
 
   final VaultService _vaultService;
   final VaultServiceState Function() _vaultState;
@@ -76,7 +69,6 @@ class ShareCredentialFlowService {
   final CredentialMatchingService _matchingService;
   final ConsentService _consentService;
   final ShareSubmissionService _submissionService;
-  final ExternalRedirectLauncher _redirectLauncher;
 
   bool isVaultOpen(String vaultId) => _vaultState().currentVaultId == vaultId;
 
@@ -181,7 +173,7 @@ class ShareCredentialFlowService {
       isConsentManagementEnabled: isConsentManagementEnabled,
     );
 
-    return _resolveDismissal(redirectUri);
+    return ShareDismissalOutcome(redirectUri: redirectUri);
   }
 
   /// Sends an explicit rejection to the verifier.
@@ -200,20 +192,7 @@ class ShareCredentialFlowService {
       shareRequest: shareRequest,
     );
 
-    if (redirectUri != null) {
-      final launched = await _redirectLauncher.open(redirectUri);
-      if (!launched) {
-        throw AppException(
-          message: 'Could not open the verifier redirect link.',
-          type: AppExceptionType.redirectLaunchFailed,
-        );
-      }
-    }
-
-    return ShareDismissalOutcome(
-      redirectUri: redirectUri,
-      showShareSuccessToast: false,
-    );
+    return ShareDismissalOutcome(redirectUri: redirectUri);
   }
 
   Profile _resolveProfile(String profileId) {
@@ -233,18 +212,6 @@ class ShareCredentialFlowService {
     );
   }
 
-  /// Launches [redirectUri] when present and decides whether to show the
-  /// in-app success toast (only when there was no redirect to hand off to,
-  /// or the redirect failed to launch).
-  Future<ShareDismissalOutcome> _resolveDismissal(Uri? redirectUri) async {
-    var showToast = redirectUri == null;
-    if (redirectUri != null) {
-      final launched = await _redirectLauncher.open(redirectUri);
-      if (!launched) showToast = true;
-    }
-    return ShareDismissalOutcome(
-      redirectUri: redirectUri,
-      showShareSuccessToast: showToast,
-    );
-  }
+  ShareDismissalOutcome _resolveDismissal(Uri? redirectUri) =>
+      ShareDismissalOutcome(redirectUri: redirectUri);
 }

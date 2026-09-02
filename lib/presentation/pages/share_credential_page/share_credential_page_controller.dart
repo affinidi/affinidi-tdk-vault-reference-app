@@ -334,7 +334,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
         case MatchAutoConsented(:final dismissal):
           state = state.copyWith(
             stage: StageDismissed(
-              showShareSuccessToast: dismissal.showShareSuccessToast,
+              showShareSuccessToast:
+                  await _shouldShowSuccessToast(dismissal.redirectUri),
             ),
           );
       }
@@ -424,7 +425,8 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
 
       state = state.copyWith(
         stage: StageDismissed(
-          showShareSuccessToast: outcome.showShareSuccessToast,
+          showShareSuccessToast:
+              await _shouldShowSuccessToast(outcome.redirectUri),
         ),
       );
       return outcome.redirectUri;
@@ -463,6 +465,12 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
             shareRequest: shareRequest,
           );
 
+      if (!await _launchRedirect(outcome.redirectUri)) {
+        throw AppException(
+          message: 'Could not open the verifier redirect link.',
+          type: AppExceptionType.redirectLaunchFailed,
+        );
+      }
       state = state.copyWith(
         stage: const StageDismissed(showShareSuccessToast: false),
       );
@@ -473,5 +481,15 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       state = state.copyWith(stage: StageSubmitFailed(_messageFor(e)));
       return null;
     }
+  }
+
+  Future<bool> _shouldShowSuccessToast(Uri? redirectUri) async {
+    if (redirectUri == null) return true;
+    return !await _launchRedirect(redirectUri);
+  }
+
+  Future<bool> _launchRedirect(Uri? redirectUri) async {
+    if (redirectUri == null) return true;
+    return ref.read(externalRedirectLauncherProvider).open(redirectUri);
   }
 }
