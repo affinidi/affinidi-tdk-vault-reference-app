@@ -8,6 +8,7 @@ import '../../../infrastructure/extensions/matched_credentials_result_extensions
 import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import '../../../infrastructure/providers/localizations_provider.dart';
 import '../../../navigation/flows/share_credential/share_credential_route_constants.dart';
+import 'share_credential_page_dependencies.dart';
 import 'share_credential_page_state.dart';
 
 part 'share_credential_page_controller.g.dart';

@@ -1,9 +1,8 @@
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../ports/external_redirect_launcher.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
-import '../../../infrastructure/external_link/external_redirect_service.dart';
 import '../profile/profile_service.dart';
 import '../vault/vault_service.dart';
 import '../vault/vault_service_state.dart';
@@ -58,7 +57,7 @@ class ShareCredentialFlowService {
     required CredentialMatchingService matchingService,
     required ConsentService consentService,
     required ShareSubmissionService submissionService,
-    required ExternalRedirectService redirectService,
+    required ExternalRedirectLauncher redirectLauncher,
   })  : _vaultService = vaultService,
         _vaultState = vaultState,
         _loadProfiles = loadProfiles,
@@ -67,7 +66,7 @@ class ShareCredentialFlowService {
         _matchingService = matchingService,
         _consentService = consentService,
         _submissionService = submissionService,
-        _redirectService = redirectService;
+        _redirectLauncher = redirectLauncher;
 
   final VaultService _vaultService;
   final VaultServiceState Function() _vaultState;
@@ -77,7 +76,7 @@ class ShareCredentialFlowService {
   final CredentialMatchingService _matchingService;
   final ConsentService _consentService;
   final ShareSubmissionService _submissionService;
-  final ExternalRedirectService _redirectService;
+  final ExternalRedirectLauncher _redirectLauncher;
 
   bool isVaultOpen(String vaultId) => _vaultState().currentVaultId == vaultId;
 
@@ -202,7 +201,7 @@ class ShareCredentialFlowService {
     );
 
     if (redirectUri != null) {
-      final launched = await _redirectService.open(redirectUri);
+      final launched = await _redirectLauncher.open(redirectUri);
       if (!launched) {
         throw AppException(
           message: 'Could not open the verifier redirect link.',
@@ -240,7 +239,7 @@ class ShareCredentialFlowService {
   Future<ShareDismissalOutcome> _resolveDismissal(Uri? redirectUri) async {
     var showToast = redirectUri == null;
     if (redirectUri != null) {
-      final launched = await _redirectService.open(redirectUri);
+      final launched = await _redirectLauncher.open(redirectUri);
       if (!launched) showToast = true;
     }
     return ShareDismissalOutcome(
@@ -249,18 +248,3 @@ class ShareCredentialFlowService {
     );
   }
 }
-
-final shareCredentialFlowServiceProvider = Provider<ShareCredentialFlowService>(
-  (ref) => ShareCredentialFlowService(
-    vaultService: ref.read(vaultServiceProvider.notifier),
-    vaultState: () => ref.read(vaultServiceProvider),
-    loadProfiles: () => ref.read(profileServiceProvider.notifier).getProfiles(),
-    currentProfiles: () =>
-        ref.read(profileServiceProvider).profiles ?? const [],
-    validationService: ref.read(shareRequestValidationServiceProvider),
-    matchingService: ref.read(credentialMatchingServiceProvider),
-    consentService: ref.read(consentServiceProvider),
-    submissionService: ref.read(shareSubmissionServiceProvider),
-    redirectService: ref.read(externalRedirectServiceProvider),
-  ),
-);

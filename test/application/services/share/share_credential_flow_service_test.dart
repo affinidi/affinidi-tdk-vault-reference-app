@@ -10,6 +10,7 @@ import 'package:tdk_reference_app/application/services/share/share_request_valid
 import 'package:tdk_reference_app/application/services/share/share_submission_service.dart';
 import 'package:tdk_reference_app/application/services/vault/vault_service.dart';
 import 'package:tdk_reference_app/application/services/vault/vault_service_state.dart';
+import 'package:tdk_reference_app/application/ports/external_redirect_launcher.dart';
 import 'package:tdk_reference_app/infrastructure/exceptions/app_exception.dart';
 import 'package:tdk_reference_app/infrastructure/external_link/external_redirect_service.dart';
 
@@ -28,8 +29,8 @@ class _MockConsentService extends Mock implements ConsentService {}
 class _MockShareSubmissionService extends Mock
     implements ShareSubmissionService {}
 
-class _MockExternalRedirectService extends Mock
-    implements ExternalRedirectService {}
+class _MockExternalRedirectLauncher extends Mock
+  implements ExternalRedirectLauncher {}
 
 class _MockCredentialStorage extends Mock implements CredentialStorage {}
 
@@ -55,7 +56,7 @@ void main() {
   late _MockCredentialMatchingService matchingService;
   late _MockConsentService consentService;
   late _MockShareSubmissionService submissionService;
-  late _MockExternalRedirectService redirectService;
+  late _MockExternalRedirectLauncher redirectLauncher;
   late VaultServiceState vaultState;
   late List<Profile> profiles;
   late ShareCredentialFlowService shareFlowService;
@@ -73,7 +74,7 @@ void main() {
     matchingService = _MockCredentialMatchingService();
     consentService = _MockConsentService();
     submissionService = _MockShareSubmissionService();
-    redirectService = _MockExternalRedirectService();
+    redirectLauncher = _MockExternalRedirectLauncher();
     vaultState = VaultServiceState();
     profiles = [];
 
@@ -86,7 +87,7 @@ void main() {
       matchingService: matchingService,
       consentService: consentService,
       submissionService: submissionService,
-      redirectService: redirectService,
+      redirectLauncher: redirectLauncher,
     );
   });
 
@@ -288,7 +289,7 @@ void main() {
               ))
           .thenAnswer(
               (_) async => AutoConsentApproved(redirectUri: redirectUri));
-      when(() => redirectService.open(redirectUri))
+      when(() => redirectLauncher.open(redirectUri))
           .thenAnswer((_) async => true);
 
       final outcome = await shareFlowService.matchCredentials(
@@ -400,7 +401,7 @@ void main() {
             profile: profile,
             shareRequest: shareRequest,
           )).thenAnswer((_) async => redirectUri);
-      when(() => redirectService.open(redirectUri))
+      when(() => redirectLauncher.open(redirectUri))
           .thenAnswer((_) async => false);
 
       expect(
