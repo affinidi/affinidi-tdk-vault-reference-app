@@ -33,13 +33,7 @@ class ShareDismissalOutcome {
   final Uri? redirectUri;
 }
 
-/// Orchestrates the share-credential wizard's business steps: unlocking a
-/// vault and loading its profiles, validating and matching an OID4VP
-/// request, and submitting or rejecting it.
-///
-/// Composes the existing share/vault/profile services so the page controller
-/// only has to call one step at a time and translate the result into UI
-/// state, instead of sequencing these services itself.
+/// Runs the share-credential workflow.
 class ShareCredentialFlowService {
   ShareCredentialFlowService({
     required ShareVaultSession vaultSession,
