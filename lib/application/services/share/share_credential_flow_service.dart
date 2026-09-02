@@ -3,6 +3,7 @@ import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 
 import '../../ports/share_vault_session.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
+import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import 'consent_service.dart';
 import 'credential_matching_service.dart';
 import 'share_request_validation_service.dart';
@@ -101,19 +102,28 @@ class ShareCredentialFlowService {
       storage: storage,
     );
 
-    final consentResult = await _consentService.tryAutomaticConsent(
-      vaultId: vaultId,
-      accountIndex: profile.accountIndex,
-      shareRequest: shareRequest,
-      matchResult: matchResult,
-      verifierMetadata: verifierMetadata,
-    );
+    try {
+      final consentResult = await _consentService.tryAutomaticConsent(
+        vaultId: vaultId,
+        accountIndex: profile.accountIndex,
+        shareRequest: shareRequest,
+        matchResult: matchResult,
+        verifierMetadata: verifierMetadata,
+      );
 
-    switch (consentResult) {
-      case AutoConsentApproved(:final redirectUri):
-        return MatchAutoConsented(_resolveDismissal(redirectUri));
-      case AutoConsentDeclined():
-        return MatchReadyToShare(matchResult);
+      switch (consentResult) {
+        case AutoConsentApproved(:final redirectUri):
+          return MatchAutoConsented(_resolveDismissal(redirectUri));
+        case AutoConsentDeclined():
+          return MatchReadyToShare(matchResult);
+      }
+    } catch (error, stackTrace) {
+      ErrorLoggingHandler.instance.logError(
+        error,
+        stackTrace,
+        reason: 'Automatic consent failed; continuing with manual share',
+      );
+      return MatchReadyToShare(matchResult);
     }
   }
 

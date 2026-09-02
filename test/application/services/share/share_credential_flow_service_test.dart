@@ -245,6 +245,35 @@ void main() {
       expect(outcome, isA<MatchReadyToShare>());
     });
 
+    test('returns MatchReadyToShare when auto-consent fails', () async {
+      _openVault(vaultSession);
+      final profile = _buildProfile();
+      vaultSession.loadedProfiles = [profile];
+      final shareRequest = await buildCannedShareRequest();
+      const matchResult = ClaimedCredentialsResult(vcsGroups: {});
+      when(() => matchingService.match(
+            shareRequest: shareRequest,
+            storage: any(named: 'storage'),
+          )).thenAnswer((_) async => matchResult);
+      when(() => consentService.tryAutomaticConsent(
+            vaultId: _vaultId,
+            accountIndex: profile.accountIndex,
+            shareRequest: shareRequest,
+            matchResult: matchResult,
+            verifierMetadata: const VerifierClientMetadata(),
+          )).thenThrow(StateError('Consent storage is unavailable'));
+
+      final outcome = await shareFlowService.matchCredentials(
+        vaultId: _vaultId,
+        profileId: _profileId,
+        shareRequest: shareRequest,
+        verifierMetadata: const VerifierClientMetadata(),
+      );
+
+      expect(outcome, isA<MatchReadyToShare>());
+      expect((outcome as MatchReadyToShare).matchResult, same(matchResult));
+    });
+
     test(
         'returns MatchAutoConsented and shows a toast when there is no redirect',
         () async {
