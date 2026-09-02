@@ -1,10 +1,8 @@
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 
+import '../../ports/share_vault_session.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
-import '../profile/profile_service.dart';
-import '../vault/vault_service.dart';
-import '../vault/vault_service_state.dart';
 import 'consent_service.dart';
 import 'credential_matching_service.dart';
 import 'share_request_validation_service.dart';
@@ -44,47 +42,36 @@ class ShareDismissalOutcome {
 /// state, instead of sequencing these services itself.
 class ShareCredentialFlowService {
   ShareCredentialFlowService({
-    required VaultService vaultService,
-    required VaultServiceState Function() vaultState,
-    required Future<List<Profile>> Function() loadProfiles,
-    required List<Profile> Function() currentProfiles,
+    required ShareVaultSession vaultSession,
     required ShareRequestValidationService validationService,
     required CredentialMatchingService matchingService,
     required ConsentService consentService,
     required ShareSubmissionService submissionService,
-  })  : _vaultService = vaultService,
-        _vaultState = vaultState,
-        _loadProfiles = loadProfiles,
-        _currentProfiles = currentProfiles,
+  })  : _vaultSession = vaultSession,
         _validationService = validationService,
         _matchingService = matchingService,
         _consentService = consentService,
         _submissionService = submissionService;
 
-  final VaultService _vaultService;
-  final VaultServiceState Function() _vaultState;
-  final Future<List<Profile>> Function() _loadProfiles;
-  final List<Profile> Function() _currentProfiles;
+  final ShareVaultSession _vaultSession;
   final ShareRequestValidationService _validationService;
   final CredentialMatchingService _matchingService;
   final ConsentService _consentService;
   final ShareSubmissionService _submissionService;
 
-  bool isVaultOpen(String vaultId) => _vaultState().currentVaultId == vaultId;
+  bool isVaultOpen(String vaultId) => _vaultSession.isOpen(vaultId);
 
-  /// Unlocks [vaultId]. Throws [AppException] (type [AppExceptionType.invalidPassword]
-  /// on a wrong passphrase) via [VaultService.open].
+  /// Unlocks [vaultId] with [password].
   Future<void> unlockVault({
     required String vaultId,
     required String password,
   }) =>
-      _vaultService.open(vaultId: vaultId, password: password);
+      _vaultSession.unlock(vaultId: vaultId, password: password);
 
-  /// Loads profiles for the currently open vault, via [ProfileService].
-  /// Returns an empty list when no vault is open.
+  /// Loads profiles for the currently open vault.
   Future<List<Profile>> loadProfilesForOpenVault() async {
-    if (_vaultState().currentVault == null) return [];
-    return _loadProfiles();
+    if (!_vaultSession.hasOpenVault) return [];
+    return _vaultSession.loadProfiles();
   }
 
   /// Validates [requestJwt] and resolves the verifier metadata.
@@ -102,7 +89,7 @@ class ShareCredentialFlowService {
     required Oid4vpShareRequest shareRequest,
     required VerifierClientMetadata verifierMetadata,
   }) async {
-    if (_vaultState().currentVault == null) {
+    if (!_vaultSession.isOpen(vaultId)) {
       throw AppException(
         message: 'Vault is not open.',
         type: AppExceptionType.vaultNotInitialized,
@@ -130,7 +117,7 @@ class ShareCredentialFlowService {
 
     switch (consentResult) {
       case AutoConsentApproved(:final redirectUri):
-        return MatchAutoConsented(await _resolveDismissal(redirectUri));
+        return MatchAutoConsented(_resolveDismissal(redirectUri));
       case AutoConsentDeclined():
         return MatchReadyToShare(matchResult);
     }
@@ -196,7 +183,7 @@ class ShareCredentialFlowService {
   }
 
   Profile _resolveProfile(String profileId) {
-    final profiles = _currentProfiles();
+    final profiles = _vaultSession.profiles;
     if (profiles.isEmpty) {
       throw AppException(
         message: 'Profiles are not loaded.',

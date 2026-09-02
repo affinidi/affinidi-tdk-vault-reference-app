@@ -8,13 +8,10 @@ import 'package:tdk_reference_app/application/services/share/credential_matching
 import 'package:tdk_reference_app/application/services/share/share_credential_flow_service.dart';
 import 'package:tdk_reference_app/application/services/share/share_request_validation_service.dart';
 import 'package:tdk_reference_app/application/services/share/share_submission_service.dart';
-import 'package:tdk_reference_app/application/services/vault/vault_service.dart';
-import 'package:tdk_reference_app/application/services/vault/vault_service_state.dart';
+import 'package:tdk_reference_app/application/ports/share_vault_session.dart';
 import 'package:tdk_reference_app/infrastructure/exceptions/app_exception.dart';
 
 import '../../../helpers/share_flow_fixtures.dart';
-
-class _MockVaultService extends Mock implements VaultService {}
 
 class _MockShareRequestValidationService extends Mock
     implements ShareRequestValidationService {}
@@ -32,6 +29,39 @@ class _MockCredentialStorage extends Mock implements CredentialStorage {}
 const _vaultId = 'vault-1';
 const _profileId = 'profile-1';
 
+class _TestShareVaultSession implements ShareVaultSession {
+  bool open = false;
+  String? openVaultId;
+  List<Profile> loadedProfiles = [];
+  String? unlockedVaultId;
+  String? unlockedPassword;
+
+  @override
+  bool get hasOpenVault => open;
+
+  @override
+  bool isOpen(String vaultId) => openVaultId == vaultId;
+
+  @override
+  Future<List<Profile>> loadProfiles() async => loadedProfiles;
+
+  @override
+  List<Profile> get profiles => loadedProfiles;
+
+  @override
+  Future<void> unlock(
+      {required String vaultId, required String password}) async {
+    unlockedVaultId = vaultId;
+    unlockedPassword = password;
+  }
+}
+
+void _openVault(_TestShareVaultSession vaultSession) {
+  vaultSession
+    ..open = true
+    ..openVaultId = _vaultId;
+}
+
 Profile _buildProfile({bool withCredentialStorage = true}) => Profile(
       id: _profileId,
       accountIndex: 0,
@@ -46,13 +76,11 @@ Profile _buildProfile({bool withCredentialStorage = true}) => Profile(
     );
 
 void main() {
-  late _MockVaultService vaultService;
+  late _TestShareVaultSession vaultSession;
   late _MockShareRequestValidationService validationService;
   late _MockCredentialMatchingService matchingService;
   late _MockConsentService consentService;
   late _MockShareSubmissionService submissionService;
-  late VaultServiceState vaultState;
-  late List<Profile> profiles;
   late ShareCredentialFlowService shareFlowService;
 
   setUpAll(() {
@@ -63,19 +91,13 @@ void main() {
   });
 
   setUp(() {
-    vaultService = _MockVaultService();
+    vaultSession = _TestShareVaultSession();
     validationService = _MockShareRequestValidationService();
     matchingService = _MockCredentialMatchingService();
     consentService = _MockConsentService();
     submissionService = _MockShareSubmissionService();
-    vaultState = VaultServiceState();
-    profiles = [];
-
     shareFlowService = ShareCredentialFlowService(
-      vaultService: vaultService,
-      vaultState: () => vaultState,
-      loadProfiles: () async => profiles,
-      currentProfiles: () => profiles,
+      vaultSession: vaultSession,
       validationService: validationService,
       matchingService: matchingService,
       consentService: consentService,
@@ -85,26 +107,23 @@ void main() {
 
   group('isVaultOpen', () {
     test('is true when the currently open vault matches', () {
-      vaultState = vaultState.copyWith(currentVaultId: _vaultId);
+      _openVault(vaultSession);
       expect(shareFlowService.isVaultOpen(_vaultId), isTrue);
     });
 
     test('is false when no vault or a different vault is open', () {
       expect(shareFlowService.isVaultOpen(_vaultId), isFalse);
-      vaultState = vaultState.copyWith(currentVaultId: 'other-vault');
+      vaultSession.openVaultId = 'other-vault';
       expect(shareFlowService.isVaultOpen(_vaultId), isFalse);
     });
   });
 
   group('unlockVault', () {
-    test('delegates to VaultService.open', () async {
-      when(() => vaultService.open(vaultId: _vaultId, password: 'pw'))
-          .thenAnswer((_) async {});
-
+    test('delegates to the vault session', () async {
       await shareFlowService.unlockVault(vaultId: _vaultId, password: 'pw');
 
-      verify(() => vaultService.open(vaultId: _vaultId, password: 'pw'))
-          .called(1);
+      expect(vaultSession.unlockedVaultId, _vaultId);
+      expect(vaultSession.unlockedPassword, 'pw');
     });
   });
 
@@ -115,12 +134,12 @@ void main() {
     });
 
     test('delegates to ProfileService when a vault is open', () async {
-      vaultState = vaultState.copyWith(currentVault: _FakeVault());
-      profiles = [_buildProfile()];
+      _openVault(vaultSession);
+      vaultSession.loadedProfiles = [_buildProfile()];
 
       final result = await shareFlowService.loadProfilesForOpenVault();
 
-      expect(result, profiles);
+      expect(result, vaultSession.loadedProfiles);
     });
   });
 
@@ -157,7 +176,7 @@ void main() {
     });
 
     test('throws when the profile is not loaded', () async {
-      vaultState = vaultState.copyWith(currentVault: _FakeVault());
+      _openVault(vaultSession);
       final shareRequest = await buildCannedShareRequest();
 
       expect(
@@ -178,8 +197,10 @@ void main() {
     test(
         'returns an empty ready-to-share result when there is no credential storage',
         () async {
-      vaultState = vaultState.copyWith(currentVault: _FakeVault());
-      profiles = [_buildProfile(withCredentialStorage: false)];
+      _openVault(vaultSession);
+      vaultSession.loadedProfiles = [
+        _buildProfile(withCredentialStorage: false)
+      ];
       final shareRequest = await buildCannedShareRequest();
 
       final outcome = await shareFlowService.matchCredentials(
@@ -197,9 +218,9 @@ void main() {
     });
 
     test('returns MatchReadyToShare when auto-consent declines', () async {
-      vaultState = vaultState.copyWith(currentVault: _FakeVault());
+      _openVault(vaultSession);
       final profile = _buildProfile();
-      profiles = [profile];
+      vaultSession.loadedProfiles = [profile];
       final shareRequest = await buildCannedShareRequest();
       const matchResult = ClaimedCredentialsResult(vcsGroups: {});
       when(() => matchingService.match(
@@ -227,9 +248,9 @@ void main() {
     test(
         'returns MatchAutoConsented and shows a toast when there is no redirect',
         () async {
-      vaultState = vaultState.copyWith(currentVault: _FakeVault());
+      _openVault(vaultSession);
       final profile = _buildProfile();
-      profiles = [profile];
+      vaultSession.loadedProfiles = [profile];
       final shareRequest = await buildCannedShareRequest();
       const matchResult = ClaimedCredentialsResult(vcsGroups: {});
       when(() => matchingService.match(
@@ -258,12 +279,10 @@ void main() {
       expect(dismissal.redirectUri, isNull);
     });
 
-    test(
-        'returns MatchAutoConsented with the verifier redirect',
-        () async {
-      vaultState = vaultState.copyWith(currentVault: _FakeVault());
+    test('returns MatchAutoConsented with the verifier redirect', () async {
+      _openVault(vaultSession);
       final profile = _buildProfile();
-      profiles = [profile];
+      vaultSession.loadedProfiles = [profile];
       final shareRequest = await buildCannedShareRequest();
       const matchResult = ClaimedCredentialsResult(vcsGroups: {});
       final redirectUri = Uri.parse('https://verifier.test/callback');
@@ -295,7 +314,7 @@ void main() {
   group('submit', () {
     test('throws when the group selection is insufficient', () async {
       final profile = _buildProfile();
-      profiles = [profile];
+      vaultSession.loadedProfiles = [profile];
       final shareRequest = await buildCannedShareRequest();
       const matchResult = ClaimedCredentialsResult(vcsGroups: {});
       when(() => submissionService.selectCredentials(
@@ -324,7 +343,7 @@ void main() {
 
     test('submits with no redirect when the verifier returns none', () async {
       final profile = _buildProfile();
-      profiles = [profile];
+      vaultSession.loadedProfiles = [profile];
       final shareRequest = await buildCannedShareRequest();
       const matchResult = ClaimedCredentialsResult(vcsGroups: {});
       when(() => submissionService.selectCredentials(
@@ -359,7 +378,7 @@ void main() {
   group('reject', () {
     test('dismisses when there is no redirect', () async {
       final profile = _buildProfile();
-      profiles = [profile];
+      vaultSession.loadedProfiles = [profile];
       final shareRequest = await buildCannedShareRequest();
       when(() => submissionService.reject(
             vaultId: _vaultId,
@@ -377,5 +396,3 @@ void main() {
     });
   });
 }
-
-class _FakeVault extends Fake implements Vault {}
