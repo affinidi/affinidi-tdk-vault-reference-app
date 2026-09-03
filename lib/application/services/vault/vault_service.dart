@@ -180,6 +180,7 @@ class VaultService extends _$VaultService {
     required Uint8List passphrase,
     required String vaultName,
   }) async {
+    final password = utf8.decode(passphrase);
     final vaultId = const Uuid().v4();
     final store = FlutterSecureVaultStore(vaultId);
     final database = await VaultService._createPlatformDatabase(vaultId);
@@ -221,7 +222,7 @@ class VaultService extends _$VaultService {
             vaultId: vaultId,
             base64Seed: base64Seed,
             vaultName: vaultName,
-            password: utf8.decode(passphrase),
+            password: password,
           ),
         );
     await ref
