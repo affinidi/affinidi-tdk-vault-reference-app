@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../presentation/pages/backup_vault_page/backup_vault_page.dart';
 import '../../presentation/pages/create_vault_page/create_vault_page.dart';
 import '../../presentation/pages/file_preview_page/file_preview_page.dart';
 import '../../presentation/pages/my_credentials_page/my_credentials_page.dart';
@@ -15,6 +16,7 @@ import '../../presentation/pages/open_vault_page/open_vault_page.dart';
 import '../../presentation/pages/profile_page/profile_page.dart';
 import '../../presentation/pages/profile_settings_page/profile_settings_page.dart';
 import '../../presentation/pages/profiles_page/profiles_page.dart';
+import '../../presentation/pages/restore_vault_page/restore_vault_page.dart';
 import '../../presentation/pages/shared_page/shared_page.dart';
 import '../../presentation/pages/splash_page/splash_page.dart';
 import '../../presentation/pages/vaults_page/vaults_page.dart';
@@ -209,6 +211,16 @@ GoRouter navigation(Ref ref) {
       builder: (context, state) => OpenVaultPage(
         vaultId: state.pathParameters[ProfilesRouteParams.vaultId]!,
       ),
+    ),
+    GoRoute(
+      name: VaultsRouteName.backup,
+      path: VaultsRoutePath.backup,
+      builder: (context, state) => const BackupVaultPage(),
+    ),
+    GoRoute(
+      name: VaultsRouteName.restore,
+      path: VaultsRoutePath.restore,
+      builder: (context, state) => const RestoreVaultPage(),
     ),
     GoRoute(
       path: '/claim/:${ProfilesRouteParams.profileId}',

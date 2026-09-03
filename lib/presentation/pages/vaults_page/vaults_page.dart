@@ -156,6 +156,30 @@ class VaultsPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FloatingActionButton.extended(
+              heroTag: 'restoreVaultFab',
+              onPressed: () {
+                if (!context.mounted) return;
+                context.push(VaultsRoutePath.restore);
+              },
+              backgroundColor: theme.colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
+              ),
+              elevation: 8,
+              highlightElevation: 12,
+              extendedPadding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingMedium,
+                  vertical: AppSizing.paddingMedium),
+              label: Text(
+                'Restore Vault',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: AppColorScheme.backgroundWhite,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            const SizedBox(height: AppSizing.paddingSmall),
+            FloatingActionButton.extended(
               heroTag: 'createVaultFab',
               onPressed: () {
                 if (!context.mounted) return;
@@ -173,7 +197,7 @@ class VaultsPage extends ConsumerWidget {
               label: Text(
                 localizations.addVault,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: AppColorScheme.backgroundBlack,
+                      color: AppColorScheme.backgroundWhite,
                       fontWeight: FontWeight.bold,
                     ),
               ),
