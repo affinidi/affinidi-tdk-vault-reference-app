@@ -8,7 +8,7 @@ import 'package:tdk_reference_app/application/services/share/credential_matching
 import 'package:tdk_reference_app/application/services/share/share_credential_flow_service.dart';
 import 'package:tdk_reference_app/application/services/share/share_request_validation_service.dart';
 import 'package:tdk_reference_app/application/services/share/share_submission_service.dart';
-import 'package:tdk_reference_app/application/ports/share_vault_session.dart';
+import 'package:tdk_reference_app/application/services/share/share_vault_session.dart';
 import 'package:tdk_reference_app/infrastructure/exceptions/app_exception.dart';
 
 import '../../../helpers/share_flow_fixtures.dart';

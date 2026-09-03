@@ -1,13 +1,13 @@
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 
-import '../../ports/share_vault_session.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import 'consent_service.dart';
 import 'credential_matching_service.dart';
 import 'share_request_validation_service.dart';
 import 'share_submission_service.dart';
+import 'share_vault_session.dart';
 
 /// Outcome of [ShareCredentialFlowService.matchCredentials].
 sealed class ShareMatchOutcome {
@@ -168,9 +168,6 @@ class ShareCredentialFlowService {
   }
 
   /// Sends an explicit rejection to the verifier.
-  ///
-  /// Throws [AppException] (type [AppExceptionType.redirectLaunchFailed]) if
-  /// the verifier's redirect URI fails to launch.
   Future<ShareDismissalOutcome> reject({
     required String vaultId,
     required String profileId,
