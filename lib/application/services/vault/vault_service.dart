@@ -155,7 +155,7 @@ class VaultService extends _$VaultService {
   /// history into a single encrypted, file-ready payload derived from
   /// [passphrase]. The vault already carries its named restorables (consent
   /// history) from construction, so the live [Vault] is all this needs.
-  Future<ByteData> createBackup({required String passphrase}) async {
+  Future<ByteData> createBackup({required Uint8List passphrase}) async {
     final vault = state.currentVault;
     if (vault == null) {
       throw AppException(
@@ -177,7 +177,7 @@ class VaultService extends _$VaultService {
   /// start completely empty, so there's no way to merge into an existing one.
   Future<String> restoreFromBackupData({
     required ByteData backupData,
-    required String passphrase,
+    required Uint8List passphrase,
     required String vaultName,
   }) async {
     final vaultId = const Uuid().v4();
@@ -221,7 +221,7 @@ class VaultService extends _$VaultService {
             vaultId: vaultId,
             base64Seed: base64Seed,
             vaultName: vaultName,
-            password: passphrase,
+            password: utf8.decode(passphrase),
           ),
         );
     await ref

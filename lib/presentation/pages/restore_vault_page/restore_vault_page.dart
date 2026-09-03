@@ -58,11 +58,14 @@ class RestoreVaultPage extends HookConsumerWidget {
       if (data == null) return;
       errorText.value = null;
       isProcessing.value = true;
+      final passphraseBytes = Uint8List.fromList(
+        utf8.encode(passphraseController.text),
+      );
       try {
         final vaultId =
             await ref.read(vaultServiceProvider.notifier).restoreFromBackupData(
                   backupData: ByteData.sublistView(data),
-                  passphrase: passphraseController.text,
+                  passphrase: passphraseBytes,
                   vaultName: vaultNameController.text.trim().isEmpty
                       ? 'Restored vault'
                       : vaultNameController.text.trim(),
@@ -80,6 +83,7 @@ class RestoreVaultPage extends HookConsumerWidget {
             'Restore failed. The passphrase may be incorrect or the backup is '
             'invalid.';
       } finally {
+        passphraseBytes.fillRange(0, passphraseBytes.length, 0);
         if (context.mounted) isProcessing.value = false;
       }
     }

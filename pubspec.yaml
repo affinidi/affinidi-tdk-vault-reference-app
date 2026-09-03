@@ -76,6 +76,8 @@ dev_dependencies:
 dependency_overrides:
   affinidi_tdk_common:
     path: ../affinidi-tdk-dart/packages/common
+  affinidi_tdk_cryptography:
+    path: ../affinidi-tdk-dart/packages/cryptography
   affinidi_tdk_vault:
     path: ../affinidi-tdk-dart/packages/vault
   affinidi_tdk_vault_edge_drift_provider:

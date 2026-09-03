@@ -64,8 +64,9 @@ class ProfileService extends _$ProfileService {
 
       await _validateProfileCreation(vault, name, profileType);
 
-      final repositoryId =
-          profileType == ProfileType.edge ? edgeRepositoryId : cloudRepositoryId;
+      final repositoryId = profileType == ProfileType.edge
+          ? edgeRepositoryId
+          : cloudRepositoryId;
       final profileRepository = await _getProfileRepository(
           vault, repositoryId, profileType,
           profileName: name);

@@ -43,10 +43,11 @@ class BackupVaultPage extends HookConsumerWidget {
 
       errorText.value = null;
       isProcessing.value = true;
+      final passphraseBytes = Uint8List.fromList(utf8.encode(passphrase));
       try {
         final backupBytes = await ref
             .read(vaultServiceProvider.notifier)
-            .createBackup(passphrase: passphrase);
+            .createBackup(passphrase: passphraseBytes);
 
         // Store the vault name alongside the encrypted payload so restore can
         // show which vault it recreates.
@@ -85,6 +86,7 @@ class BackupVaultPage extends HookConsumerWidget {
       } catch (error) {
         errorText.value = 'Backup failed: $error';
       } finally {
+        passphraseBytes.fillRange(0, passphraseBytes.length, 0);
         if (context.mounted) isProcessing.value = false;
       }
     }

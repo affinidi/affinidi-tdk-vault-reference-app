@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
@@ -48,9 +51,13 @@ class CreateVaultPage extends HookConsumerWidget {
       if (passwordController.text.trim().isNotEmpty &&
           vaultNameController.text.trim().isNotEmpty) {
         // Reuse the toolkit passphrase policy so the rule stays in one place.
-        final policyViolation = PassphrasePolicy.standard.validate(
-          passwordController.text,
+        final passphraseBytes = Uint8List.fromList(
+          utf8.encode(passwordController.text),
         );
+        final policyViolation = PassphrasePolicy.standard.validate(
+          passphraseBytes,
+        );
+        passphraseBytes.fillRange(0, passphraseBytes.length, 0);
         if (policyViolation != null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
