@@ -16,6 +16,7 @@ import 'package:affinidi_tdk_vault_flutter_utils/affinidi_tdk_vault_flutter_util
 import 'package:uuid/uuid.dart';
 
 import '../../../infrastructure/exceptions/app_exception.dart';
+import '../../../infrastructure/db/flutter_secure_consent_record_store.dart';
 import '../vaults_manager/vaults_manager_service.dart';
 import 'open_vault_params.dart';
 import 'vault_service_state.dart';
@@ -216,7 +217,7 @@ class VaultService extends _$VaultService {
       },
       namedRestorableFactories: {
         _consentHistoryRestorableId: () => FlutterSecureConsentStorage(
-              namespace: 'iota_consent_$vaultId',
+                namespace: consentRecordNamespace(vaultId),
             ),
       },
     );
@@ -496,7 +497,7 @@ class VaultService extends _$VaultService {
 /// restores independently of every other vault's.
 Map<String, Restorable> _namedRestorables(String vaultId) => {
       _consentHistoryRestorableId: FlutterSecureConsentStorage(
-        namespace: 'iota_consent_$vaultId',
+        namespace: consentRecordNamespace(vaultId),
       ),
     };
 

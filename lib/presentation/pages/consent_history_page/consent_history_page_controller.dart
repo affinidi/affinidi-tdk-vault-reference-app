@@ -19,7 +19,8 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
 
   Future<void> _loadRecords() async {
     final vault = ref.read(vaultServiceProvider).currentVault;
-    if (vault == null) {
+    final vaultId = ref.read(vaultServiceProvider).currentVaultId;
+    if (vault == null || vaultId == null) {
       state = state.copyWith(isLoading: false);
       return;
     }
@@ -29,7 +30,7 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
       final profileDidById = {
         for (final profile in profiles) profile.id: profile.did,
       };
-      final store = ref.read(consentRecordStoreProvider);
+      final store = ref.read(consentRecordStoreProvider(vaultId));
       final allRecords = await store.listAll();
       final filtered = allRecords
           .where((record) => profileIds.contains(record.profileId))
@@ -68,7 +69,9 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
     state = state.copyWith(records: [...records]..[idx] = updated);
 
     try {
-      await ref.read(consentRecordStoreProvider).saveOrUpdate(updated);
+      final vaultId = ref.read(vaultServiceProvider).currentVaultId;
+      if (vaultId == null) return;
+      await ref.read(consentRecordStoreProvider(vaultId)).saveOrUpdate(updated);
     } catch (_) {
       state = state.copyWith(records: [...state.records]..[idx] = previous);
     }
