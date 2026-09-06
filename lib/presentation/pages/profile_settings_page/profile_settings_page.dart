@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../infrastructure/utils/constants.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../navigation/flows/profiles/profiles_route_constants.dart';
-import '../../../navigation/flows/vaults/vaults_route_constants.dart';
 import '../../../navigation/navigation_provider.dart';
 import '../../dialogs/delete_profile_confirmation/delete_profile_confirmation.dart';
 import '../../themes/app_color_scheme.dart';
@@ -117,14 +115,6 @@ class ProfileSettingsPage extends HookConsumerWidget {
                   },
                 ),
                 const SizedBox(height: AppSizing.paddingSmall),
-
-                // Back up Vault Section
-                _SettingsTile(
-                  icon: Icons.backup,
-                  title: localizations.backUpVault,
-                  onTap: () => context.push(VaultsRoutePath.backup),
-                ),
-                const SizedBox(height: AppSizing.paddingLarge),
 
                 // Delete Profile Section
                 _SettingsTile(
