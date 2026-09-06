@@ -453,6 +453,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'This profile contains files/folders. Please delete them before trying again.';
 
   @override
+  String get profileNotDeletedFilesMessage =>
+      'This profile contains files or folders. Please delete them before trying again.';
+
+  @override
+  String get profileNotDeletedCredentialsMessage =>
+      'This profile contains credentials. Please delete them before trying again.';
+
+  @override
   String get gotItActionText => 'Got it';
 
   @override

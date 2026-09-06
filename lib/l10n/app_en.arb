@@ -527,6 +527,14 @@
   "@profileNotDeletedMessage": {
     "type": "text"
   },
+  "profileNotDeletedFilesMessage": "This profile contains files or folders. Please delete them before trying again.",
+  "@profileNotDeletedFilesMessage": {
+    "type": "text"
+  },
+  "profileNotDeletedCredentialsMessage": "This profile contains credentials. Please delete them before trying again.",
+  "@profileNotDeletedCredentialsMessage": {
+    "type": "text"
+  },
   "gotItActionText": "Got it",
   "@gotItActionText": {
     "type": "text"

@@ -145,10 +145,11 @@ class ProfileService extends _$ProfileService {
 
       log('Profile deletion completed successfully', name: 'ProfileService');
     } catch (e, stackTrace) {
-      log('Error deleting profile: $e', name: 'ProfileService');
+      log('Error deleting profile: ${e.runtimeType}', name: 'ProfileService');
       log('Stack trace: $stackTrace', name: 'ProfileService');
+      if (e is AppException) rethrow;
       throw AppException(
-        message: 'Failed to delete profile: ${e.toString()}',
+        message: 'Failed to delete profile.',
         type: AppExceptionType.other,
       );
     }
@@ -344,7 +345,7 @@ class ProfileService extends _$ProfileService {
       throw AppException(
         message:
             'Cannot delete profile "${profile.name}" - it contains ${folderItems.length} items. Please remove all files and folders before deleting the profile.',
-        type: AppExceptionType.other,
+        type: AppExceptionType.profileContainsFiles,
       );
     }
 
@@ -354,7 +355,7 @@ class ProfileService extends _$ProfileService {
       throw AppException(
         message:
             'Cannot delete profile "${profile.name}" - it contains ${credentials.length} credentials. Please remove all credentials before deleting the profile.',
-        type: AppExceptionType.other,
+        type: AppExceptionType.profileContainsCredentials,
       );
     }
 

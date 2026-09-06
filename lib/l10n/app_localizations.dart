@@ -826,6 +826,18 @@ abstract class AppLocalizations {
   /// **'This profile contains files/folders. Please delete them before trying again.'**
   String get profileNotDeletedMessage;
 
+  /// No description provided for @profileNotDeletedFilesMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This profile contains files or folders. Please delete them before trying again.'**
+  String get profileNotDeletedFilesMessage;
+
+  /// No description provided for @profileNotDeletedCredentialsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This profile contains credentials. Please delete them before trying again.'**
+  String get profileNotDeletedCredentialsMessage;
+
   /// No description provided for @gotItActionText.
   ///
   /// In en, this message translates to:

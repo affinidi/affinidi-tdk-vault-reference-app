@@ -51,7 +51,8 @@ class DeleteProfileConfirmationController
           name: 'DeleteProfileConfirmationController');
       state = state.copyWith(
           isLoading: false,
-          errorMessage: 'Profile Not Deleted',
+        errorMessage: e is AppException ? e.message : null,
+        errorType: e is AppException ? e.type : AppExceptionType.other,
           success: false);
     }
   }
