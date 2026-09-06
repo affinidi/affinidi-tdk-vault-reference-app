@@ -150,7 +150,9 @@ class VaultService extends _$VaultService {
     log('Finished resetting current vault', name: 'VaultService');
   }
 
-  void selectVault({required String vaultId, required Vault vault}) {
+  Future<void> selectVault(
+      {required String vaultId, required Vault vault}) async {
+    await vault.ensureInitialized();
     state = state.copyWith(
       currentVault: vault,
       currentVaultId: vaultId,
@@ -217,7 +219,7 @@ class VaultService extends _$VaultService {
       },
       namedRestorableFactories: {
         _consentHistoryRestorableId: () => FlutterSecureConsentStorage(
-                namespace: consentRecordNamespace(vaultId),
+              namespace: consentRecordNamespace(vaultId),
             ),
       },
     );

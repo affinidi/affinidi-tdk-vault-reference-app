@@ -131,10 +131,12 @@ class VaultsPage extends ConsumerWidget {
                                 child: _VaultCard(
                                   vaultName: vaultName ?? '',
                                   vault: vault,
-                                  onBackUp: () {
-                                    ref
+                                  onBackUp: () async {
+                                    await ref
                                         .read(vaultServiceProvider.notifier)
-                                        .selectVault(vaultId: seed, vault: vault);
+                                        .selectVault(
+                                            vaultId: seed, vault: vault);
+                                    if (!context.mounted) return;
                                     context.push(VaultsRoutePath.backup);
                                   },
                                   onSelected: (vault) async {
