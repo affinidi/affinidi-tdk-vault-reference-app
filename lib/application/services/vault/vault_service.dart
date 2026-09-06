@@ -179,9 +179,8 @@ class VaultService extends _$VaultService {
 
   /// Restores a backup into a new vault entry and returns its id.
   ///
-  /// Always creates a fresh local vault, even if a vault with the same
-  /// wallet seed already exists on this device — the destination store must
-  /// start completely empty, so there's no way to merge into an existing one.
+  /// Always creates a fresh local vault. A backup cannot be restored when its
+  /// wallet seed already exists on this device.
   Future<String> restoreFromBackupData({
     required ByteData backupData,
     required Uint8List passphrase,
@@ -196,7 +195,7 @@ class VaultService extends _$VaultService {
     final service = VaultBackupService(
       cryptographyService: CryptographyService(),
     );
-    await service.restoreBackup(
+    final restoredVault = await service.restoreBackup(
       backupData: backupData,
       passphrase: passphrase,
       vaultStoreFactory: () => store,
@@ -224,6 +223,14 @@ class VaultService extends _$VaultService {
 
     final seed = await store.getSeed();
     final base64Seed = base64Encode(seed!);
+    if (_doesVaultWithSeedExist(base64Seed: base64Seed)) {
+      await restoredVault.clearAllData();
+      await disposeVaultDatabase(vaultId);
+      throw AppException(
+        message: 'Vault already exists on this device.',
+        type: AppExceptionType.vaultAlreadyExists,
+      );
+    }
     await ref.read(vaultsManagerServiceProvider.notifier).addVault(
           OpenVaultParams(
             vaultId: vaultId,
