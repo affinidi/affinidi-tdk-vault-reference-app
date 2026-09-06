@@ -583,7 +583,8 @@ final _createVaultProvider =
         defaultProfileRepositoryId: cloudRepositoryId,
       );
     } catch (e, st) {
-      log('Error creating vault [$param.vaultId]: $e', name: 'VaultService');
+      log('Error creating vault [${param.vaultId}]: ${e.runtimeType}',
+          name: 'VaultService');
       log('Stack trace: $st', name: 'VaultService');
       rethrow;
     }

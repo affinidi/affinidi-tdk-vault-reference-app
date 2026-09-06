@@ -5,6 +5,8 @@ part 'open_vault_params.g.dart';
 
 @Freezed(toJson: true, fromJson: true)
 class OpenVaultParams with _$OpenVaultParams {
+  const OpenVaultParams._();
+
   const factory OpenVaultParams({
     required String vaultId,
     required String base64Seed,
@@ -14,4 +16,8 @@ class OpenVaultParams with _$OpenVaultParams {
 
   factory OpenVaultParams.fromJson(Map<String, dynamic> json) =>
       _$OpenVaultParamsFromJson(json);
+
+    @override
+    String toString() =>
+      'OpenVaultParams(vaultId: $vaultId, vaultName: $vaultName)';
 }
