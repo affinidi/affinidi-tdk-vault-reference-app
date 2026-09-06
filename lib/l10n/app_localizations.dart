@@ -550,6 +550,72 @@ abstract class AppLocalizations {
   /// **'Back up vault'**
   String get backUpVault;
 
+  /// No description provided for @restoreVaultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Vault'**
+  String get restoreVaultTitle;
+
+  /// No description provided for @restoreVaultInvalidFile.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected file is not a valid backup.'**
+  String get restoreVaultInvalidFile;
+
+  /// No description provided for @restoreVaultAlreadyExists.
+  ///
+  /// In en, this message translates to:
+  /// **'This vault is already present on this device.'**
+  String get restoreVaultAlreadyExists;
+
+  /// No description provided for @restoreVaultFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore failed. The passphrase may be incorrect or the backup is invalid.'**
+  String get restoreVaultFailed;
+
+  /// No description provided for @restoreVaultFileInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a vault backup (.json) file to restore.'**
+  String get restoreVaultFileInstruction;
+
+  /// No description provided for @chooseBackupFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose backup file'**
+  String get chooseBackupFile;
+
+  /// No description provided for @selectedBackupFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected file: {fileName}'**
+  String selectedBackupFile(Object fileName);
+
+  /// No description provided for @vaultNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Vault name'**
+  String get vaultNameLabel;
+
+  /// No description provided for @restoreVaultAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Vault'**
+  String get restoreVaultAction;
+
+  /// No description provided for @restoreVaultSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Your vault was restored successfully.'**
+  String get restoreVaultSuccess;
+
+  /// No description provided for @openRestoredVault.
+  ///
+  /// In en, this message translates to:
+  /// **'Open restored vault'**
+  String get openRestoredVault;
+
   /// No description provided for @deleteProfileTitle.
   ///
   /// In en, this message translates to:

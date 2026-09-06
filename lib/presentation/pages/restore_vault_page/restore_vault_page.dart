@@ -7,6 +7,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../infrastructure/exceptions/app_exception.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../application/services/vault/vault_service.dart';
 import '../../../navigation/flows/app_routes.dart';
 import '../../widgets/passphrase_text_field.dart';
@@ -18,6 +20,7 @@ class RestoreVaultPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localizations = AppLocalizations.of(context)!;
     final passphraseController = useTextEditingController();
     final vaultNameController =
         useTextEditingController(text: 'Restored vault');
@@ -49,7 +52,7 @@ class RestoreVaultPage extends HookConsumerWidget {
         }
         errorText.value = null;
       } catch (_) {
-        errorText.value = 'The selected file is not a valid backup.';
+        errorText.value = localizations.restoreVaultInvalidFile;
       }
     }
 
@@ -78,10 +81,11 @@ class RestoreVaultPage extends HookConsumerWidget {
               .addVault(vaultId, vault);
         }
         restoredVaultId.value = vaultId;
-      } catch (_) {
-        errorText.value =
-            'Restore failed. The passphrase may be incorrect or the backup is '
-            'invalid.';
+      } catch (error) {
+        errorText.value = error is AppException &&
+                error.type == AppExceptionType.vaultAlreadyExists
+            ? localizations.restoreVaultAlreadyExists
+            : localizations.restoreVaultFailed;
       } finally {
         passphraseBytes.fillRange(0, passphraseBytes.length, 0);
         if (context.mounted) isProcessing.value = false;
@@ -97,18 +101,19 @@ class RestoreVaultPage extends HookConsumerWidget {
       body = Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('Pick a vault backup (.json) file to restore.'),
+          Text(localizations.restoreVaultFileInstruction),
           if (errorText.value != null) ...[
             const SizedBox(height: 12),
             Text(
               errorText.value!,
+              softWrap: true,
               style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
           ],
           const SizedBox(height: 24),
           FilledButton(
             onPressed: pickFile,
-            child: const Text('Choose backup file'),
+            child: Text(localizations.chooseBackupFile),
           ),
         ],
       );
@@ -116,11 +121,13 @@ class RestoreVaultPage extends HookConsumerWidget {
       body = Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('Selected file: ${pickedFileName.value}'),
+          Text(
+            localizations.selectedBackupFile(pickedFileName.value ?? ''),
+          ),
           const SizedBox(height: 24),
           TextField(
             controller: vaultNameController,
-            decoration: const InputDecoration(labelText: 'Vault name'),
+            decoration: InputDecoration(labelText: localizations.vaultNameLabel),
           ),
           const SizedBox(height: 16),
           PassphraseTextField(
@@ -137,14 +144,14 @@ class RestoreVaultPage extends HookConsumerWidget {
                     width: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Text('Restore vault'),
+                : Text(localizations.restoreVaultAction),
           ),
         ],
       );
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Restore vault from backup')),
+      appBar: AppBar(title: Text(localizations.restoreVaultTitle)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -168,14 +175,14 @@ class _SuccessView extends StatelessWidget {
       children: [
         const Icon(Icons.check_circle_outline, size: 64),
         const SizedBox(height: 16),
-        const Text(
-          'Your vault was restored successfully.',
+        Text(
+          AppLocalizations.of(context)!.restoreVaultSuccess,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 24),
         FilledButton(
           onPressed: onOpen,
-          child: const Text('Open restored vault'),
+          child: Text(AppLocalizations.of(context)!.openRestoredVault),
         ),
       ],
     );

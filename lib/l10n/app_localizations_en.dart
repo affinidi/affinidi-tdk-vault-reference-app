@@ -296,6 +296,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backUpVault => 'Back up vault';
 
   @override
+  String get restoreVaultTitle => 'Restore Vault';
+
+  @override
+  String get restoreVaultInvalidFile =>
+      'The selected file is not a valid backup.';
+
+  @override
+  String get restoreVaultAlreadyExists =>
+      'This vault is already present on this device.';
+
+  @override
+  String get restoreVaultFailed =>
+      'Restore failed. The passphrase may be incorrect or the backup is invalid.';
+
+  @override
+  String get restoreVaultFileInstruction =>
+      'Pick a vault backup (.json) file to restore.';
+
+  @override
+  String get chooseBackupFile => 'Choose backup file';
+
+  @override
+  String selectedBackupFile(Object fileName) {
+    return 'Selected file: $fileName';
+  }
+
+  @override
+  String get vaultNameLabel => 'Vault name';
+
+  @override
+  String get restoreVaultAction => 'Restore Vault';
+
+  @override
+  String get restoreVaultSuccess => 'Your vault was restored successfully.';
+
+  @override
+  String get openRestoredVault => 'Open restored vault';
+
+  @override
   String get deleteProfileTitle => 'Delete Profile';
 
   @override
