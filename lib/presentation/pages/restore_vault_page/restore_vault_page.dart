@@ -127,7 +127,8 @@ class RestoreVaultPage extends HookConsumerWidget {
           const SizedBox(height: 24),
           TextField(
             controller: vaultNameController,
-            decoration: InputDecoration(labelText: localizations.vaultNameLabel),
+            decoration:
+                InputDecoration(labelText: localizations.vaultNameLabel),
           ),
           const SizedBox(height: 16),
           PassphraseTextField(

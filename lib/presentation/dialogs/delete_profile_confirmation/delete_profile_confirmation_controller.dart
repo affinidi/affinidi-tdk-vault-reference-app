@@ -51,8 +51,8 @@ class DeleteProfileConfirmationController
           name: 'DeleteProfileConfirmationController');
       state = state.copyWith(
           isLoading: false,
-        errorMessage: e is AppException ? e.message : null,
-        errorType: e is AppException ? e.type : AppExceptionType.other,
+          errorMessage: e is AppException ? e.message : null,
+          errorType: e is AppException ? e.type : AppExceptionType.other,
           success: false);
     }
   }

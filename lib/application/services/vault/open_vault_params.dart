@@ -17,7 +17,7 @@ class OpenVaultParams with _$OpenVaultParams {
   factory OpenVaultParams.fromJson(Map<String, dynamic> json) =>
       _$OpenVaultParamsFromJson(json);
 
-    @override
-    String toString() =>
+  @override
+  String toString() =>
       'OpenVaultParams(vaultId: $vaultId, vaultName: $vaultName)';
 }
