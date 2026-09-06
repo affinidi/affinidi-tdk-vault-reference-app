@@ -149,6 +149,13 @@ class VaultService extends _$VaultService {
     log('Finished resetting current vault', name: 'VaultService');
   }
 
+  void selectVault({required String vaultId, required Vault vault}) {
+    state = state.copyWith(
+      currentVault: vault,
+      currentVaultId: vaultId,
+    );
+  }
+
   /// Creates an encrypted backup of the current vault.
   ///
   /// Bundles wallet material, profiles, credentials, files and consent

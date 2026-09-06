@@ -131,6 +131,12 @@ class VaultsPage extends ConsumerWidget {
                                 child: _VaultCard(
                                   vaultName: vaultName ?? '',
                                   vault: vault,
+                                  onBackUp: () {
+                                    ref
+                                        .read(vaultServiceProvider.notifier)
+                                        .selectVault(vaultId: seed, vault: vault);
+                                    context.push(VaultsRoutePath.backup);
+                                  },
                                   onSelected: (vault) async {
                                     await ref
                                         .read(vaultsPageControllerProvider
@@ -212,11 +218,13 @@ class VaultsPage extends ConsumerWidget {
 class _VaultCard extends StatelessWidget {
   final Vault vault;
   final String vaultName;
+  final VoidCallback onBackUp;
   final void Function(Vault vault) onSelected;
 
   const _VaultCard({
     required this.vault,
     required this.vaultName,
+    required this.onBackUp,
     required this.onSelected,
   });
 
@@ -273,6 +281,11 @@ class _VaultCard extends StatelessWidget {
                         .bodyMedium
                         ?.copyWith(letterSpacing: 0.2),
                   ),
+                ),
+                IconButton(
+                  onPressed: onBackUp,
+                  tooltip: AppLocalizations.of(context)!.backUpVault,
+                  icon: const Icon(Icons.backup_outlined),
                 ),
 
                 Padding(
