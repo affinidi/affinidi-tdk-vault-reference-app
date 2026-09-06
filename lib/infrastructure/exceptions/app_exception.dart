@@ -23,6 +23,7 @@ enum AppExceptionType {
   consentStorageError,
   vaultAlreadyExists,
   seedNotFound,
+  redirectLaunchFailed,
   other,
   ;
 }

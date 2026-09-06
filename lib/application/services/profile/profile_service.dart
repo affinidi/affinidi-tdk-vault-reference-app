@@ -33,10 +33,11 @@ class ProfileService extends _$ProfileService {
   /// Retrieves all profiles from the current vault.
   ///
   /// Throws [AppException] if no vault is currently open.
-  Future<void> getProfiles() async {
+  Future<List<Profile>> getProfiles() async {
     final vault = _getCurrentVault();
     final profiles = await vault.listProfiles();
     state = state.copyWith(profiles: profiles);
+    return profiles;
   }
 
   /// Creates a new profile in the vault.
