@@ -141,8 +141,15 @@ class _MyCredentialsContent extends ConsumerWidget {
           CredentialOption.delete,
           CredentialOption.share,
         ],
-        itemLeadingBuilder: (option) => SvgPicture.asset(option.svgAssetName,
-            width: AppSizing.iconMedium, height: AppSizing.iconMedium),
+        itemLeadingBuilder: (option) => SvgPicture.asset(
+          option.svgAssetName,
+          width: AppSizing.iconMedium,
+          height: AppSizing.iconMedium,
+          colorFilter: const ColorFilter.mode(
+            Colors.white,
+            BlendMode.srcIn,
+          ),
+        ),
         itemTitleBuilder: (option) => Text(localizations.option(option.name)),
       );
 
