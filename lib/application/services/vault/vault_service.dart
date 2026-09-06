@@ -466,7 +466,7 @@ class VaultService extends _$VaultService {
       _edgeDatabases[vaultId] = database;
       return database;
     } catch (e, stackTrace) {
-      log('Error creating database: $e', name: 'VaultService');
+      log('Error creating database: ${e.runtimeType}', name: 'VaultService');
       log('Stack trace: $stackTrace', name: 'VaultService');
       rethrow;
     }
@@ -526,7 +526,8 @@ Future<Map<String, ProfileRepository>> _createProfileRepositories(
         name: 'VaultService');
     return profileRepositories;
   } catch (e, stackTrace) {
-    log('Error in _createProfileRepositories: $e', name: 'VaultService');
+    log('Error in _createProfileRepositories: ${e.runtimeType}',
+        name: 'VaultService');
     log('Stack trace: $stackTrace', name: 'VaultService');
     rethrow;
   }
@@ -637,7 +638,8 @@ final _openVaultProvider = AutoDisposeFutureProvider.family<Vault, String>(
         defaultProfileRepositoryId: cloudRepositoryId,
       );
     } catch (e, st) {
-      log('Error opening vault for vaultId: $e', name: 'VaultService');
+      log('Error opening vault for vaultId: ${e.runtimeType}',
+          name: 'VaultService');
       log('Stack trace: $st', name: 'VaultService');
       rethrow;
     }
