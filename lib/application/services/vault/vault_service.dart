@@ -49,7 +49,6 @@ class VaultService extends _$VaultService {
   }
 
   /// Creates and opens a Vault instance.
-  ///
   /// If [existingSeed] is provided, it will be used to initialize the vault's seed.
   /// Otherwise, a new random 32-byte seed will be generated.
   ///
@@ -225,7 +224,13 @@ class VaultService extends _$VaultService {
     );
 
     final seed = await store.getSeed();
-    final base64Seed = base64Encode(seed!);
+    if (seed == null) {
+      throw AppException(
+        message: 'Seed not found after restoring backup.',
+        type: AppExceptionType.seedNotFound,
+      );
+    }
+    final base64Seed = base64Encode(seed);
     if (_doesVaultWithSeedExist(base64Seed: base64Seed)) {
       await restoredVault.clearAllData();
       await disposeVaultDatabase(vaultId);
