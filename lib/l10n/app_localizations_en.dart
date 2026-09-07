@@ -296,6 +296,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backUpVault => 'Back up vault';
 
   @override
+  String get backupVaultDescription =>
+      'Enter your vault passphrase to export an encrypted backup file of your profiles, credentials, files and consent history.';
+
+  @override
+  String get backupVaultNoOpenVault => 'No vault is currently open.';
+
+  @override
+  String get backupVaultDetailsUnavailable =>
+      'Vault details are unavailable. Please reopen the vault.';
+
+  @override
+  String get backupVaultIncorrectPassphrase =>
+      'Incorrect passphrase for this vault.';
+
+  @override
+  String get backupVaultFailed => 'Backup failed. Please try again.';
+
+  @override
+  String get saveVaultBackup => 'Save vault backup';
+
+  @override
+  String get backupSaved => 'Backup saved.';
+
+  @override
+  String get selectBackupFile => 'Select a backup file';
+
+  @override
+  String get restoredVaultDefaultName => 'Restored vault';
+
+  @override
   String get restoreVaultTitle => 'Restore Vault';
 
   @override

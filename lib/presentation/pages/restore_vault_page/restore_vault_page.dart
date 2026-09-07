@@ -23,7 +23,7 @@ class RestoreVaultPage extends HookConsumerWidget {
     final localizations = AppLocalizations.of(context)!;
     final passphraseController = useTextEditingController();
     final vaultNameController =
-        useTextEditingController(text: 'Restored vault');
+        useTextEditingController(text: localizations.restoredVaultDefaultName);
     final backupBytes = useState<Uint8List?>(null);
     final pickedFileName = useState<String?>(null);
     final restoredVaultId = useState<String?>(null);
@@ -32,7 +32,7 @@ class RestoreVaultPage extends HookConsumerWidget {
 
     Future<void> pickFile() async {
       final result = await FilePicker.platform.pickFiles(
-        dialogTitle: 'Select a backup file',
+        dialogTitle: localizations.selectBackupFile,
         type: FileType.custom,
         allowedExtensions: const ['json'],
         withData: true,
@@ -70,7 +70,7 @@ class RestoreVaultPage extends HookConsumerWidget {
                   backupData: ByteData.sublistView(data),
                   passphrase: passphraseBytes,
                   vaultName: vaultNameController.text.trim().isEmpty
-                      ? 'Restored vault'
+                      ? localizations.restoredVaultDefaultName
                       : vaultNameController.text.trim(),
                 );
         // Add the restored vault to the list so it shows without a restart.

@@ -179,7 +179,7 @@ class VaultsPage extends ConsumerWidget {
                   horizontal: AppSizing.paddingMedium,
                   vertical: AppSizing.paddingMedium),
               label: Text(
-                'Restore Vault',
+                localizations.restoreVaultAction,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: AppColorScheme.backgroundWhite,
                       fontWeight: FontWeight.bold,

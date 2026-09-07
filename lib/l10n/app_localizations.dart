@@ -550,6 +550,60 @@ abstract class AppLocalizations {
   /// **'Back up vault'**
   String get backUpVault;
 
+  /// No description provided for @backupVaultDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your vault passphrase to export an encrypted backup file of your profiles, credentials, files and consent history.'**
+  String get backupVaultDescription;
+
+  /// No description provided for @backupVaultNoOpenVault.
+  ///
+  /// In en, this message translates to:
+  /// **'No vault is currently open.'**
+  String get backupVaultNoOpenVault;
+
+  /// No description provided for @backupVaultDetailsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Vault details are unavailable. Please reopen the vault.'**
+  String get backupVaultDetailsUnavailable;
+
+  /// No description provided for @backupVaultIncorrectPassphrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect passphrase for this vault.'**
+  String get backupVaultIncorrectPassphrase;
+
+  /// No description provided for @backupVaultFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup failed. Please try again.'**
+  String get backupVaultFailed;
+
+  /// No description provided for @saveVaultBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Save vault backup'**
+  String get saveVaultBackup;
+
+  /// No description provided for @backupSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup saved.'**
+  String get backupSaved;
+
+  /// No description provided for @selectBackupFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a backup file'**
+  String get selectBackupFile;
+
+  /// No description provided for @restoredVaultDefaultName.
+  ///
+  /// In en, this message translates to:
+  /// **'Restored vault'**
+  String get restoredVaultDefaultName;
+
   /// No description provided for @restoreVaultTitle.
   ///
   /// In en, this message translates to:

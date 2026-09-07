@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/services/vault/vault_service.dart';
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../widgets/passphrase_text_field.dart';
 
 /// Lets the user export the current vault as an encrypted `.json` backup file.
@@ -16,6 +17,7 @@ class BackupVaultPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localizations = AppLocalizations.of(context)!;
     final passphraseController = useTextEditingController();
     final isProcessing = useState(false);
     final errorText = useState<String?>(null);
@@ -24,20 +26,19 @@ class BackupVaultPage extends HookConsumerWidget {
       final passphrase = passphraseController.text;
       final vaultId = ref.read(vaultServiceProvider).currentVaultId;
       if (vaultId == null) {
-        errorText.value = 'No vault is currently open.';
+        errorText.value = localizations.backupVaultNoOpenVault;
         return;
       }
       final entry =
           ref.read(vaultsManagerServiceProvider).vaultRegistry[vaultId];
       final storedPassword = entry?.password;
       if (storedPassword == null) {
-        errorText.value =
-            'Vault details are unavailable. Please reopen the vault.';
+        errorText.value = localizations.backupVaultDetailsUnavailable;
         return;
       }
 
       if (passphrase != storedPassword) {
-        errorText.value = 'Incorrect passphrase for this vault.';
+        errorText.value = localizations.backupVaultIncorrectPassphrase;
         return;
       }
 
@@ -70,7 +71,7 @@ class BackupVaultPage extends HookConsumerWidget {
         final safeName = (entry?.vaultName ?? 'vault')
             .replaceAll(RegExp(r'[^A-Za-z0-9._-]'), '_');
         final savedPath = await FilePicker.platform.saveFile(
-          dialogTitle: 'Save vault backup',
+          dialogTitle: localizations.saveVaultBackup,
           fileName:
               '$safeName-vault-backup-${DateTime.now().millisecondsSinceEpoch}.json',
           bytes: bytes,
@@ -79,12 +80,12 @@ class BackupVaultPage extends HookConsumerWidget {
         if (!context.mounted) return;
         if (savedPath != null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Backup saved.')),
+            SnackBar(content: Text(localizations.backupSaved)),
           );
           Navigator.of(context).pop();
         }
-      } catch (error) {
-        errorText.value = 'Backup failed: $error';
+      } catch (_) {
+        errorText.value = localizations.backupVaultFailed;
       } finally {
         passphraseBytes.fillRange(0, passphraseBytes.length, 0);
         if (context.mounted) isProcessing.value = false;
@@ -92,17 +93,14 @@ class BackupVaultPage extends HookConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Back up vault')),
+      appBar: AppBar(title: Text(localizations.backUpVault)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                'Enter your vault passphrase to export an encrypted backup '
-                'file of your profiles, credentials, files and consent history.',
-              ),
+              Text(localizations.backupVaultDescription),
               const SizedBox(height: 24),
               PassphraseTextField(
                 controller: passphraseController,
@@ -118,7 +116,7 @@ class BackupVaultPage extends HookConsumerWidget {
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Back up vault'),
+                    : Text(localizations.backUpVault),
               ),
             ],
           ),
