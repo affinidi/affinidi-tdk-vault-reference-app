@@ -42,6 +42,41 @@ Claim a Verifiable Credential from an issuer using the OID4VCI flow. You share y
 
 </details>
 
+<details open id="panel-vault-backup-restore">
+<summary><strong>Vault Backup and Restore</strong></summary>
+
+Export an encrypted JSON backup from the vault list and restore it on the same or another device. The backup includes wallet data, local profiles, credentials, files, and consent history. Cloud profile data is excluded from this local backup flow.
+
+### Back up a vault
+
+1. Open the vault list.
+2. Tap the backup action on the vault card.
+3. Enter the vault passphrase.
+4. Save the encrypted JSON backup file.
+
+### Restore a vault
+
+1. Open the vault list.
+2. Tap **Restore Vault**.
+3. Choose the JSON backup file.
+4. Enter the vault passphrase.
+5. Confirm or edit the restored vault name.
+6. Open the restored vault and verify its local profiles, credentials, files, and consent history.
+
+The app rejects invalid backup files, incorrect passphrases, and backups whose wallet seed is already present on the device.
+
+Screenshots to add later:
+
+- Vault list with the backup action visible on a vault card.
+- Backup page with the passphrase field.
+- Saved backup file confirmation.
+- Restore Vault page with a selected backup file.
+- Successful restore confirmation.
+- Vault list showing the restored vault.
+- Duplicate restore error.
+
+</details>
+
 <details open id="panel-share-credentials">
 <summary><strong>Sharing Credentials</strong></summary>
 
