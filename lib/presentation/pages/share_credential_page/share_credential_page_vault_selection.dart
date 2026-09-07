@@ -65,6 +65,15 @@ class _VaultProfileSection extends HookConsumerWidget {
                 ),
               )
               .toList(),
+          selectedItemBuilder: (context) => vaultRegistry.values
+              .map(
+                (entry) => FittedBox(
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.scaleDown,
+                  child: Text(entry.vaultName, maxLines: 1),
+                ),
+              )
+              .toList(),
           onChanged: (vaultId) {
             if (vaultId != null) {
               passphraseController.clear();
