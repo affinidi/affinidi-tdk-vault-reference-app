@@ -276,12 +276,17 @@ class _VaultCard extends StatelessWidget {
                 const SizedBox(width: AppSizing.paddingMedium),
 
                 Expanded(
-                  child: Text(
-                    vaultName,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(letterSpacing: 0.2),
+                  child: FittedBox(
+                    alignment: Alignment.centerLeft,
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      vaultName,
+                      maxLines: 1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(letterSpacing: 0.2),
+                    ),
                   ),
                 ),
                 IconButton(
