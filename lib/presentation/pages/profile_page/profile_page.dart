@@ -68,9 +68,9 @@ class ProfilePage extends HookConsumerWidget {
       body: Column(
         children: [
           ProfileAppBar(
-            profileName: profile?.name ?? '',
             profileDescription: profile?.description ?? '',
             profileId: profileId,
+            profileRepositoryId: profile?.profileRepositoryId,
             profileDid: profile?.did ?? '',
           ),
           Expanded(child: navigationShell),
