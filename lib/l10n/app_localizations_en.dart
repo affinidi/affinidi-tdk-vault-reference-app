@@ -365,13 +365,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get openRestoredVault => 'Open restored vault';
 
   @override
-  String get deleteConsentRecordTitle => 'Delete consent record';
-
-  @override
-  String get deleteConsentRecordMessage =>
-      'Delete this consent record? Automatic sharing for this request will no longer be used.';
-
-  @override
   String get deleteConsentRecordFailed =>
       'Consent record could not be deleted. Please try again.';
 
