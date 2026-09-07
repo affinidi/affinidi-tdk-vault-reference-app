@@ -31,6 +31,8 @@ class CredentialOfferDetails extends HookConsumerWidget {
     final provider =
         claimCredentialsPageControllerProvider(profileId: profileId);
     final fetchStatus = ref.watch(provider.select((s) => s.fetchStatus));
+    final fetchErrorMessage =
+        ref.watch(provider.select((s) => s.fetchErrorMessage));
 
     final controller = ref.read(provider.notifier);
     final localizations = AppLocalizations.of(context)!;
@@ -79,7 +81,8 @@ class CredentialOfferDetails extends HookConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        localizations.errorMessage('getCredentialFailed'),
+                        fetchErrorMessage ??
+                            localizations.errorMessage('getCredentialFailed'),
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Theme.of(context).colorScheme.error,
