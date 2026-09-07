@@ -408,6 +408,18 @@
   "@openRestoredVault": {
     "type": "text"
   },
+  "deleteConsentRecordTitle": "Delete consent record",
+  "@deleteConsentRecordTitle": {
+    "type": "text"
+  },
+  "deleteConsentRecordMessage": "Delete this consent record? Automatic sharing for this request will no longer be used.",
+  "@deleteConsentRecordMessage": {
+    "type": "text"
+  },
+  "deleteConsentRecordFailed": "Consent record could not be deleted. Please try again.",
+  "@deleteConsentRecordFailed": {
+    "type": "text"
+  },
   "deleteProfileTitle": "Delete Profile",
   "@deleteProfileTitle": {
     "type": "text"

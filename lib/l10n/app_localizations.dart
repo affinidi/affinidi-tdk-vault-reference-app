@@ -670,6 +670,24 @@ abstract class AppLocalizations {
   /// **'Open restored vault'**
   String get openRestoredVault;
 
+  /// No description provided for @deleteConsentRecordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete consent record'**
+  String get deleteConsentRecordTitle;
+
+  /// No description provided for @deleteConsentRecordMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this consent record? Automatic sharing for this request will no longer be used.'**
+  String get deleteConsentRecordMessage;
+
+  /// No description provided for @deleteConsentRecordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Consent record could not be deleted. Please try again.'**
+  String get deleteConsentRecordFailed;
+
   /// No description provided for @deleteProfileTitle.
   ///
   /// In en, this message translates to:

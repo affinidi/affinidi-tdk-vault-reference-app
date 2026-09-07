@@ -2,6 +2,7 @@ import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../application/services/vault/vault_service.dart';
+import '../../../application/services/iota/iota_consent_record_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import '../../../infrastructure/providers/consent_record_store_provider.dart';
@@ -74,6 +75,45 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
       await ref.read(consentRecordStoreProvider(vaultId)).saveOrUpdate(updated);
     } catch (_) {
       state = state.copyWith(records: [...state.records]..[idx] = previous);
+    }
+  }
+
+  Future<void> deleteRecord(IotaConsentRecord record) async {
+    final vaultState = ref.read(vaultServiceProvider);
+    final vault = vaultState.currentVault;
+    final vaultId = vaultState.currentVaultId;
+    if (vault == null || vaultId == null) {
+      throw AppException(
+        message: 'Vault is not open.',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+
+    try {
+      final profile = (await vault.listProfiles()).firstWhere(
+        (profile) => profile.id == record.profileId,
+        orElse: () => throw AppException(
+          message: 'Profile not found.',
+          type: AppExceptionType.missingProfile,
+        ),
+      );
+      await ref
+          .read(iotaConsentRecordServiceProvider(
+            vaultId: vaultId,
+            accountIndex: profile.accountIndex,
+          ))
+          .deleteConsentRecord(hash: record.hash);
+      state = state.copyWith(
+        records:
+            state.records.where((item) => item.hash != record.hash).toList(),
+      );
+    } catch (error, stackTrace) {
+      ErrorLoggingHandler.instance.logError(
+        error,
+        stackTrace,
+        reason: 'deleteConsentRecord failed',
+      );
+      rethrow;
     }
   }
 }
