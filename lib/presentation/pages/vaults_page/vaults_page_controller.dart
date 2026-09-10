@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'dart:developer';
 
-import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../application/services/vault/vault_service.dart';
@@ -21,37 +19,19 @@ class VaultsPageController extends _$VaultsPageController {
   Future<void> _loadVaults() async {
     state = state.copyWith(isLoading: true, errorMessage: null);
 
-    // Load available vaults
     final vaultsManagerService =
         ref.read(vaultsManagerServiceProvider.notifier);
     await vaultsManagerService.loadVaults();
 
-    final vaultService = ref.read(vaultServiceProvider.notifier);
-    final registry = ref.read(vaultsManagerServiceProvider).vaultRegistry;
-
-    final Map<String, Vault> results = {};
-
-    for (final entry in registry.entries) {
-      final base64Seed = entry.value.base64Seed;
-      try {
-        final vaultId = entry.value.vaultId;
-        final vault = await vaultService.getVaultFromSecureStorage(
-          vaultStorageKey: vaultId,
-          seed: base64Decode(base64Seed),
-        );
-        results[vaultId] = vault;
-      } catch (e) {
-        log('Failed to load vault [$entry.value.vaultId]: $e');
-      }
-    }
-    state = state.copyWith(vaultsById: results, isLoading: false);
+    state = state.copyWith(
+      isLoading: false,
+      errorMessage: ref.read(vaultsManagerServiceProvider).errorMessage,
+    );
   }
 
   Future<void> deleteVault(String vaultId) async {
     log('Deleting vault: $vaultId');
-    await ref.read(vaultsManagerServiceProvider.notifier).removeVault(
-          vaultId,
-        );
+    await ref.read(vaultServiceProvider.notifier).deleteVault(vaultId);
     await _loadVaults();
   }
 
@@ -59,11 +39,5 @@ class VaultsPageController extends _$VaultsPageController {
     log('Select vault: $vaultId');
     final vaultService = ref.read(vaultServiceProvider.notifier);
     await vaultService.resetCurrentVault();
-  }
-
-  void addVault(String vaultId, Vault vault) {
-    state = state.copyWith(
-      vaultsById: {...state.vaultsById, vaultId: vault},
-    );
   }
 }

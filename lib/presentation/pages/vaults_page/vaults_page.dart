@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import '../../../application/services/vault/vault_service.dart';
 
 import '../../../application/services/vaults_manager/vaults_manager_service.dart';
 import '../../../l10n/app_localizations.dart';
@@ -31,8 +29,8 @@ class VaultsPage extends ConsumerWidget {
     final theme = Theme.of(context);
     final localizations = AppLocalizations.of(context)!;
     final vaultPageState = ref.watch(vaultsPageControllerProvider);
-    final vaultEntries = vaultPageState.vaultsById.entries.toList();
     final vaultRegistry = ref.watch(vaultsManagerServiceProvider).vaultRegistry;
+    final vaultEntries = vaultRegistry.entries.toList();
     final navigation = ref.read(navigationServiceProvider);
 
     return Scaffold(
@@ -98,10 +96,8 @@ class VaultsPage extends ConsumerWidget {
                           itemCount: vaultEntries.length,
                           itemBuilder: (context, index) {
                             final entry = vaultEntries[index];
-                            final vaultName =
-                                vaultRegistry[entry.key]?.vaultName;
-                            final vault = entry.value;
-                            final seed = entry.key;
+                            final vaultName = entry.value.vaultName;
+                            final vaultId = entry.key;
 
                             return Padding(
                               padding: const EdgeInsets.only(
@@ -114,31 +110,22 @@ class VaultsPage extends ConsumerWidget {
                                 },
                                 background: SwipeToDeleteBackground(),
                                 confirmDismiss: (_) async {
-                                  final currentVaultId = ref
-                                      .read(vaultServiceProvider)
-                                      .currentVaultId;
-                                  if (currentVaultId == seed) {
-                                    await ref
-                                        .read(vaultServiceProvider.notifier)
-                                        .resetCurrentVault();
-                                  }
                                   await ref
                                       .read(
                                           vaultsPageControllerProvider.notifier)
-                                      .deleteVault(seed);
+                                      .deleteVault(vaultId);
                                   return true;
                                 },
                                 child: _VaultCard(
-                                  vaultName: vaultName ?? '',
-                                  vault: vault,
-                                  onSelected: (vault) async {
+                                  vaultName: vaultName,
+                                  onSelected: () async {
                                     await ref
                                         .read(vaultsPageControllerProvider
                                             .notifier)
-                                        .selectVault(seed);
+                                        .selectVault(vaultId);
                                     if (!context.mounted) return;
                                     navigation.push(
-                                      VaultsRoutePath.openVaultWithId(seed),
+                                      VaultsRoutePath.openVaultWithId(vaultId),
                                     );
                                   },
                                 ),
@@ -186,12 +173,10 @@ class VaultsPage extends ConsumerWidget {
 }
 
 class _VaultCard extends StatelessWidget {
-  final Vault vault;
   final String vaultName;
-  final void Function(Vault vault) onSelected;
+  final VoidCallback onSelected;
 
   const _VaultCard({
-    required this.vault,
     required this.vaultName,
     required this.onSelected,
   });
@@ -223,7 +208,7 @@ class _VaultCard extends StatelessWidget {
           ),
         ),
         child: InkWell(
-          onTap: () => onSelected(vault),
+          onTap: onSelected,
           borderRadius: BorderRadius.circular(AppSizing.paddingSmall),
           child: Padding(
             padding: const EdgeInsets.all(AppSizing.paddingMedium),

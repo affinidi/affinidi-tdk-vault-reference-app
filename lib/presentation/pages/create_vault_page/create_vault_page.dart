@@ -18,7 +18,6 @@ import '../../widgets/simple_info_widget.dart';
 
 import 'create_vault_page_controller.dart';
 import 'create_vault_page_state.dart';
-import '../vaults_page/vaults_page_controller.dart';
 
 class CreateVaultPage extends HookConsumerWidget {
   static String get routePath => VaultsRoutePath.create;
@@ -53,9 +52,6 @@ class CreateVaultPage extends HookConsumerWidget {
               ? seedController.text
               : null,
           onSuccess: (vault, vaultId) {
-            ref
-                .read(vaultsPageControllerProvider.notifier)
-                .addVault(vaultId, vault);
             if (!context.mounted) return;
             navigation.go(ProfilesRoutePath.base);
           },
