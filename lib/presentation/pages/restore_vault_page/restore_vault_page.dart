@@ -26,7 +26,8 @@ class RestoreVaultPage extends HookConsumerWidget {
     );
 
     String? errorText() => switch (state.error) {
-          RestoreVaultError.invalidFile => localizations.restoreVaultInvalidFile,
+          RestoreVaultError.invalidFile =>
+            localizations.restoreVaultInvalidFile,
           RestoreVaultError.alreadyExists =>
             localizations.restoreVaultAlreadyExists,
           RestoreVaultError.failed => localizations.restoreVaultFailed,

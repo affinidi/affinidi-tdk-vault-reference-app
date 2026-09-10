@@ -157,8 +157,8 @@ class VaultService extends _$VaultService implements VaultBackupRestoreHost {
 
   Future<ByteData> createBackup({required Uint8List passphrase}) async {
     return VaultBackupRestoreService(ref: ref, host: this).createBackup(
-          passphrase: passphrase,
-        );
+      passphrase: passphrase,
+    );
   }
 
   Future<String> restoreFromBackupData({
@@ -168,10 +168,10 @@ class VaultService extends _$VaultService implements VaultBackupRestoreHost {
   }) async {
     return VaultBackupRestoreService(ref: ref, host: this)
         .restoreFromBackupData(
-          backupData: backupData,
-          passphrase: passphrase,
-          vaultName: vaultName,
-        );
+      backupData: backupData,
+      passphrase: passphrase,
+      vaultName: vaultName,
+    );
   }
 
   /// Creates a Vault instance from a secure seed in storage.

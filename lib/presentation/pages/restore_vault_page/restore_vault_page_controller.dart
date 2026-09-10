@@ -13,8 +13,7 @@ final restoreVaultPageControllerProvider = StateNotifierProvider.autoDispose<
 );
 
 class RestoreVaultPageController extends StateNotifier<RestoreVaultPageState> {
-  RestoreVaultPageController(this._ref)
-      : super(const RestoreVaultPageState());
+  RestoreVaultPageController(this._ref) : super(const RestoreVaultPageState());
 
   final Ref _ref;
 
@@ -59,13 +58,12 @@ class RestoreVaultPageController extends StateNotifier<RestoreVaultPageState> {
     state = state.copyWith(isProcessing: true, clearError: true);
     final passphraseBytes = Uint8List.fromList(utf8.encode(passphrase));
     try {
-      final vaultId = await _ref
-          .read(vaultServiceProvider.notifier)
-          .restoreFromBackupData(
-            backupData: ByteData.sublistView(backupBytes),
-            passphrase: passphraseBytes,
-            vaultName: state.vaultName ?? 'Restored vault',
-          );
+      final vaultId =
+          await _ref.read(vaultServiceProvider.notifier).restoreFromBackupData(
+                backupData: ByteData.sublistView(backupBytes),
+                passphrase: passphraseBytes,
+                vaultName: state.vaultName ?? 'Restored vault',
+              );
       state = state.copyWith(
         isProcessing: false,
         restoredVaultId: vaultId,

@@ -29,7 +29,8 @@ abstract interface class VaultBackupRestoreHost {
 }
 
 class VaultBackupRestoreService {
-  VaultBackupRestoreService({required Ref ref, required VaultBackupRestoreHost host})
+  VaultBackupRestoreService(
+      {required Ref ref, required VaultBackupRestoreHost host})
       : _ref = ref,
         _host = host;
 

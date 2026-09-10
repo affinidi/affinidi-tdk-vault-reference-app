@@ -76,8 +76,8 @@ class BackupVaultPageController extends StateNotifier<BackupVaultPageState> {
         ...rawJson,
         'vaultName': entry.vaultName,
       };
-      final safeName = (entry.vaultName)
-          .replaceAll(RegExp(r'[^A-Za-z0-9._-]'), '_');
+      final safeName =
+          (entry.vaultName).replaceAll(RegExp(r'[^A-Za-z0-9._-]'), '_');
       state = state.copyWith(isProcessing: false);
       return BackupFile(
         bytes: Uint8List.fromList(utf8.encode(jsonEncode(fileContent))),
