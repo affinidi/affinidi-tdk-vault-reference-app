@@ -65,15 +65,78 @@ Export an encrypted JSON backup from the vault list and restore it on the same o
 
 The app rejects invalid backup files, incorrect passphrases, and backups whose wallet seed is already present on the device.
 
-Screenshots to add later:
+### Backup and restore screenshots
 
-- Vault list with the backup action visible on a vault card.
-- Backup page with the passphrase field.
-- Saved backup file confirmation.
-- Restore Vault page with a selected backup file.
-- Successful restore confirmation.
-- Vault list showing the restored vault.
-- Duplicate restore error.
+<table>
+<tr>
+<td align="center" width="33%"><strong>1. Vault list</strong></td>
+<td align="center" width="33%"><strong>2. Enter backup passphrase</strong></td>
+<td align="center" width="33%"><strong>3. Save backup</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/vault-list.png" alt="Vault list with backup action" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/backup-with-passphrase.png" alt="Enter the vault passphrase for backup" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/backup-save.png" alt="Save the vault backup file" /></td>
+</tr>
+<tr>
+<td align="center" width="33%"><strong>4. Backup saved</strong></td>
+<td align="center" width="33%"><strong>5. Start restore</strong></td>
+<td align="center" width="33%"><strong>6. Choose backup</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/backup-save-confirmation.png" alt="Backup saved confirmation" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/restore.png" alt="Start restoring a vault" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/restore-selected-vault.png" alt="Choose a vault backup to restore" /></td>
+</tr>
+<tr>
+<td align="center" width="33%"><strong>7. Restore form</strong></td>
+<td align="center" width="33%"><strong>8. Restore success</strong></td>
+<td align="center" width="33%"><strong>9. Restored vault list</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/choose-vault-to-restore.png" alt="Enter the restore passphrase and vault name" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/vault-restored-successfully.png" alt="Vault restored successfully" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/vault-list-after-restore.png" alt="Vault list after restoring a vault" /></td>
+</tr>
+<tr>
+<td align="center" width="33%"><strong>10. Wrong passphrase</strong></td>
+<td align="center" width="33%"><strong>11. Duplicate restore</strong></td>
+<td align="center" width="33%"></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/restore-with-wrong-passphrase.png" alt="Restore with an incorrect passphrase" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/restore-existing-vault-error.png" alt="Duplicate vault restore error" /></td>
+<td align="center" width="33%"></td>
+</tr>
+</table>
+
+### Vault removal
+
+<table>
+<tr>
+<td align="center" width="50%"><strong>Delete a vault</strong></td>
+<td align="center" width="50%"><strong>Vault list after deletion</strong></td>
+</tr>
+<tr>
+<td align="center" width="50%"><img src="../assets/images/backup-restore/delete-vault.png" alt="Delete a vault" /></td>
+<td align="center" width="50%"><img src="../assets/images/backup-restore/vault-list-after-deletion.png" alt="Vault list after deletion" /></td>
+</tr>
+</table>
+
+### Consent history
+
+<table>
+<tr>
+<td align="center" width="33%"><strong>1. Consent history</strong></td>
+<td align="center" width="33%"><strong>2. Delete consent record</strong></td>
+<td align="center" width="33%"><strong>3. History after deletion</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/consent-history.png" alt="Consent history" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/consent-delete.png" alt="Delete a consent record" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/consent-history-after-deletion.png" alt="Consent history after deletion" /></td>
+</tr>
+</table>
 
 </details>
 
