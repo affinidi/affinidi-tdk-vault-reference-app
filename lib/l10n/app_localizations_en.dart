@@ -389,6 +389,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shareProfile => 'Share';
 
   @override
+  String get settingsAction => 'Settings';
+
+  @override
+  String get storageAffinidiCloud => 'Storage: Affinidi Cloud';
+
+  @override
+  String get storageLocalDrift => 'Storage: Local Drift';
+
+  @override
   String get delete => 'Delete';
 
   @override

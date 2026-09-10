@@ -22,7 +22,6 @@ class _ShareVaultSession implements ShareVaultSession {
   List<Profile> _profiles = const [];
 
   @override
-  @override
   bool isOpen(String vaultId) =>
       _ref.read(vaultServiceProvider).currentVaultId == vaultId;
 

@@ -712,6 +712,24 @@ abstract class AppLocalizations {
   /// **'Share'**
   String get shareProfile;
 
+  /// No description provided for @settingsAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsAction;
+
+  /// No description provided for @storageAffinidiCloud.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage: Affinidi Cloud'**
+  String get storageAffinidiCloud;
+
+  /// No description provided for @storageLocalDrift.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage: Local Drift'**
+  String get storageLocalDrift;
+
   /// No description provided for @delete.
   ///
   /// In en, this message translates to:

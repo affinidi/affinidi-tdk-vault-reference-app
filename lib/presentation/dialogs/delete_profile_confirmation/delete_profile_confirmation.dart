@@ -105,7 +105,7 @@ class _DeleteProfileConfirmationState
         localizations.profileNotDeletedCredentialsMessage,
       AppExceptionType.profileContainsFiles =>
         localizations.profileNotDeletedFilesMessage,
-      _ => localizations.profileNotDeletedMessage,
+      _ => state.errorMessage ?? localizations.profileNotDeletedMessage,
     };
 
     return Container(

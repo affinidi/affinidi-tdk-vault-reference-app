@@ -39,6 +39,7 @@ class BackupVaultPage extends HookConsumerWidget {
           fileName: backup.fileName,
           bytes: backup.bytes,
         );
+        if (!context.mounted) return;
 
         if (savedPath != null) {
           ScaffoldMessenger.of(context).showSnackBar(

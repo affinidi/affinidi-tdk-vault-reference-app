@@ -66,65 +66,72 @@ class VaultBackupRestoreService {
     final service = VaultBackupService(
       cryptographyService: CryptographyService(),
     );
-    final restoredVault = await service.restoreBackup(
-      backupData: backupData,
-      passphrase: passphrase,
-      vaultStoreFactory: () => store,
-      repositoryFactories: {
-        cloudRepositoryId: ProfileRepositoryRegistration.withoutBackupData(
-          id: cloudRepositoryId,
-          factory: (_) => VfsProfileRepository(cloudRepositoryId),
-        ),
-        edgeRepositoryId: ProfileRepositoryRegistration.withBackupData(
-          id: edgeRepositoryId,
-          factory: (vaultStore) => EdgeProfileRepository(
-            edgeRepositoryId,
-            edgeFactory,
-            EdgeEncryptionService(vaultStore: vaultStore),
+
+    try {
+      final restoredVault = await service.restoreBackup(
+        backupData: backupData,
+        passphrase: passphrase,
+        vaultStoreFactory: () => store,
+        repositoryFactories: {
+          cloudRepositoryId: ProfileRepositoryRegistration.withoutBackupData(
+            id: cloudRepositoryId,
+            factory: (_) => VfsProfileRepository(cloudRepositoryId),
           ),
-          asRestorable: restorableIdentity,
-        ),
-      },
-      namedRestorableFactories: {
-        consentHistoryRestorableId: () => FlutterSecureConsentStorage(
-              namespace: consentRecordNamespace(vaultId),
+          edgeRepositoryId: ProfileRepositoryRegistration.withBackupData(
+            id: edgeRepositoryId,
+            factory: (vaultStore) => EdgeProfileRepository(
+              edgeRepositoryId,
+              edgeFactory,
+              EdgeEncryptionService(vaultStore: vaultStore),
             ),
-      },
-    );
-
-    final seed = await store.getSeed();
-    if (seed == null) {
-      throw AppException(
-        message: 'Seed not found after restoring backup.',
-        type: AppExceptionType.seedNotFound,
-      );
-    }
-    final base64Seed = base64Encode(seed);
-    final registry = _ref.read(vaultsManagerServiceProvider).vaultRegistry;
-    if (registry.values.any((entry) => entry.base64Seed == base64Seed)) {
-      await restoredVault.clearAllData();
-      await _host.disposeDatabase(vaultId);
-      throw AppException(
-        message: 'Vault already exists on this device.',
-        type: AppExceptionType.vaultAlreadyExists,
-      );
-    }
-
-    await _ref.read(vaultsManagerServiceProvider.notifier).addVault(
-          OpenVaultParams(
-            vaultId: vaultId,
-            base64Seed: base64Seed,
-            vaultName: vaultName,
-            password: password,
+            asRestorable: restorableIdentity,
           ),
-        );
-    await _ref
-        .read(vaultsManagerServiceProvider.notifier)
-        .loadVaultAvailability();
+        },
+        namedRestorableFactories: {
+          consentHistoryRestorableId: () => FlutterSecureConsentStorage(
+                namespace: consentRecordNamespace(vaultId),
+              ),
+        },
+      );
 
-    await _host.disposeDatabase(vaultId);
-    final openedVault = await _host.openVault(vaultId);
-    _host.setCurrentVault(vaultId, openedVault);
-    return vaultId;
+      final seed = await store.getSeed();
+      if (seed == null) {
+        throw AppException(
+          message: 'Seed not found after restoring backup.',
+          type: AppExceptionType.seedNotFound,
+        );
+      }
+      final base64Seed = base64Encode(seed);
+      final registry = _ref.read(vaultsManagerServiceProvider).vaultRegistry;
+      if (registry.values.any((entry) => entry.base64Seed == base64Seed)) {
+        await restoredVault.clearAllData();
+        throw AppException(
+          message: 'Vault already exists on this device.',
+          type: AppExceptionType.vaultAlreadyExists,
+        );
+      }
+
+      await _ref.read(vaultsManagerServiceProvider.notifier).addVault(
+            OpenVaultParams(
+              vaultId: vaultId,
+              base64Seed: base64Seed,
+              vaultName: vaultName,
+              password: password,
+            ),
+          );
+      await _ref
+          .read(vaultsManagerServiceProvider.notifier)
+          .loadVaultAvailability();
+
+      await _host.disposeDatabase(vaultId);
+      final openedVault = await _host.openVault(vaultId);
+      _host.setCurrentVault(vaultId, openedVault);
+      return vaultId;
+    } catch (_) {
+      // Ensure the temporary per-vault database is never left open on any
+      // restore failure; disposeDatabase is a no-op if already closed.
+      await _host.disposeDatabase(vaultId);
+      rethrow;
+    }
   }
 }

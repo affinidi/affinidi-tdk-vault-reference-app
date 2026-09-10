@@ -92,7 +92,7 @@ class ProfileAppBar extends ConsumerWidget {
                 IconButton(
                   key: Key(KeyConstants.keySettingsButton),
                   icon: const Icon(Icons.settings_outlined),
-                  tooltip: localizations?.shareProfile ?? 'Settings',
+                  tooltip: localizations?.settingsAction ?? 'Settings',
                   onPressed: () {
                     navigation
                         .push(ProfilesRoutePath.profileSettings(profileId));
@@ -132,8 +132,10 @@ class ProfileAppBar extends ConsumerWidget {
                     const SizedBox(width: AppSizing.paddingMedium),
                     Text(
                       profileType == ProfileType.affinidiCloud
-                          ? 'Storage: Affinidi Cloud'
-                          : 'Storage: Local Drift',
+                          ? localizations?.storageAffinidiCloud ??
+                              'Storage: Affinidi Cloud'
+                          : localizations?.storageLocalDrift ??
+                              'Storage: Local Drift',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: AppColorScheme.textSecondary,
                             fontSize: 11,

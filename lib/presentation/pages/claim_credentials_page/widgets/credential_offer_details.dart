@@ -75,27 +75,26 @@ class CredentialOfferDetails extends HookConsumerWidget {
               loadingMessage: localizations.claimCredentialsSaving,
             ),
             if (fetchStatus == CredentialOfferFetchStatus.error) ...[
-              if (fetchStatus == CredentialOfferFetchStatus.error)
-                Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        fetchErrorMessage ??
-                            localizations.errorMessage('getCredentialFailed'),
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                      ),
-                      const SizedBox(height: 12),
-                      FilledButton(
-                        onPressed: () => controller.retry(),
-                        child: Text(localizations.retryActionText),
-                      ),
-                    ],
-                  ),
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      fetchErrorMessage ??
+                          localizations.errorMessage('getCredentialFailed'),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                    ),
+                    const SizedBox(height: 12),
+                    FilledButton(
+                      onPressed: () => controller.retry(),
+                      child: Text(localizations.retryActionText),
+                    ),
+                  ],
                 ),
+              ),
             ] else ...[
               VerifiableCredential(
                 offerUri: offerUri!,

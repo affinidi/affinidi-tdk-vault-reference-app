@@ -439,6 +439,18 @@
   "@shareProfile": {
     "type": "text"
   },
+  "settingsAction": "Settings",
+  "@settingsAction": {
+    "type": "text"
+  },
+  "storageAffinidiCloud": "Storage: Affinidi Cloud",
+  "@storageAffinidiCloud": {
+    "type": "text"
+  },
+  "storageLocalDrift": "Storage: Local Drift",
+  "@storageLocalDrift": {
+    "type": "text"
+  },
   "delete": "Delete",
   "@delete": {
     "type": "text"

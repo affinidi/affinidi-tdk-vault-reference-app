@@ -61,9 +61,6 @@ class ProfileService extends _$ProfileService {
       final vault = _getCurrentVault();
       log('Vault retrieved successfully', name: 'ProfileService');
 
-      final vaultId = _getCurrentVaultId();
-      log('Vault ID: $vaultId', name: 'ProfileService');
-
       await _validateProfileCreation(vault, name, profileType);
 
       final repositoryId = profileType == ProfileType.edge
@@ -73,15 +70,10 @@ class ProfileService extends _$ProfileService {
           vault, repositoryId, profileType,
           profileName: name);
 
-      final Profile createdProfile;
-      try {
-        createdProfile = await profileRepository.createProfile(
-          name: name,
-          description: description,
-        );
-      } catch (e) {
-        rethrow;
-      }
+      final createdProfile = await profileRepository.createProfile(
+        name: name,
+        description: description,
+      );
       log('Profile created successfully in repository', name: 'ProfileService');
 
       _appendProfile(createdProfile);
@@ -260,25 +252,6 @@ class ProfileService extends _$ProfileService {
 
     log('Vault retrieved successfully', name: 'ProfileService');
     return vault;
-  }
-
-  /// Gets the current vault ID, throwing an exception if none is open.
-  String _getCurrentVaultId() {
-    log('Getting current vault ID...', name: 'ProfileService');
-    final vaultServiceState = ref.read(vaultServiceProvider);
-    log('Vault service state retrieved for ID', name: 'ProfileService');
-    final vaultId = vaultServiceState.currentVaultId;
-
-    if (vaultId == null) {
-      log('No vault ID found, throwing exception', name: 'ProfileService');
-      throw AppException(
-        message: 'No vault ID found',
-        type: AppExceptionType.other,
-      );
-    }
-
-    log('Vault ID retrieved: $vaultId', name: 'ProfileService');
-    return vaultId;
   }
 
   /// Validates that a profile can be created with the given parameters.

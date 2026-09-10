@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/services/vault/vault_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
+import '../../../infrastructure/providers/localizations_provider.dart';
 import 'restore_vault_page_state.dart';
 
 final restoreVaultPageControllerProvider = StateNotifierProvider.autoDispose<
@@ -62,7 +63,8 @@ class RestoreVaultPageController extends StateNotifier<RestoreVaultPageState> {
           await _ref.read(vaultServiceProvider.notifier).restoreFromBackupData(
                 backupData: ByteData.sublistView(backupBytes),
                 passphrase: passphraseBytes,
-                vaultName: state.vaultName ?? 'Restored vault',
+                vaultName: state.vaultName ??
+                    _ref.read(localizationsProvider).restoredVaultDefaultName,
               );
       state = state.copyWith(
         isProcessing: false,

@@ -82,7 +82,7 @@ class _ConsentHistoryItem extends StatelessWidget {
                   onDelete();
                 }
               },
-              tooltip: localizations.consentHistoryDetails,
+              tooltip: localizations.deleteActionText,
             ),
           ],
         ),
