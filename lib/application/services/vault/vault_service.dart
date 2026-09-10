@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io' as io;
 import 'dart:math' as math;
 
 import 'package:crypto/crypto.dart';
@@ -362,6 +363,20 @@ class VaultService extends _$VaultService implements VaultBackupRestoreHost {
   Future<void> disposeDatabase(String vaultId) => disposeVaultDatabase(vaultId);
 
   @override
+  Future<void> deleteDatabaseFile(String vaultId) async {
+    await disposeVaultDatabase(vaultId);
+    if (kIsWeb) return;
+    final documentsDir = await getApplicationDocumentsDirectory();
+    final databaseName = _databaseFileName(vaultId);
+    for (final suffix in ['', '-wal', '-shm', '-journal']) {
+      final file = io.File('${documentsDir.path}/$databaseName$suffix');
+      if (await file.exists()) {
+        await file.delete();
+      }
+    }
+  }
+
+  @override
   Future<Vault> openVault(String vaultId) async {
     ref.invalidate(_openVaultProvider(vaultId));
     final vault = await ref.read(_openVaultProvider(vaultId).future);
@@ -383,8 +398,7 @@ class VaultService extends _$VaultService implements VaultBackupRestoreHost {
     if (cached != null) {
       return cached;
     }
-    final cleanVaultId = vaultId.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
-    final databaseName = 'edge_profiles_$cleanVaultId.db';
+    final databaseName = _databaseFileName(vaultId);
 
     try {
       if (kIsWeb) {
@@ -409,6 +423,11 @@ class VaultService extends _$VaultService implements VaultBackupRestoreHost {
       log('Stack trace: $stackTrace', name: 'VaultService');
       rethrow;
     }
+  }
+
+  static String _databaseFileName(String vaultId) {
+    final cleanVaultId = vaultId.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
+    return 'edge_profiles_$cleanVaultId.db';
   }
 
   Future<void> _disposeCurrentVaultResources() async {

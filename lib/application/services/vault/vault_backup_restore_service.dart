@@ -23,6 +23,10 @@ abstract interface class VaultBackupRestoreHost {
 
   Future<void> disposeDatabase(String vaultId);
 
+  /// Closes and permanently deletes the per-vault database file for
+  /// [vaultId], used to clean up after a failed restore.
+  Future<void> deleteDatabaseFile(String vaultId);
+
   Future<Vault> openVault(String vaultId);
 
   void setCurrentVault(String vaultId, Vault vault);
@@ -67,8 +71,9 @@ class VaultBackupRestoreService {
       cryptographyService: CryptographyService(),
     );
 
+    Vault? restoredVault;
     try {
-      final restoredVault = await service.restoreBackup(
+      restoredVault = await service.restoreBackup(
         backupData: backupData,
         passphrase: passphrase,
         vaultStoreFactory: () => store,
@@ -104,7 +109,6 @@ class VaultBackupRestoreService {
       final base64Seed = base64Encode(seed);
       final registry = _ref.read(vaultsManagerServiceProvider).vaultRegistry;
       if (registry.values.any((entry) => entry.base64Seed == base64Seed)) {
-        await restoredVault.clearAllData();
         throw AppException(
           message: 'Vault already exists on this device.',
           type: AppExceptionType.vaultAlreadyExists,
@@ -128,9 +132,17 @@ class VaultBackupRestoreService {
       _host.setCurrentVault(vaultId, openedVault);
       return vaultId;
     } catch (_) {
-      // Ensure the temporary per-vault database is never left open on any
-      // restore failure; disposeDatabase is a no-op if already closed.
-      await _host.disposeDatabase(vaultId);
+      // Any failure past this point leaves a fresh vaultId with a restored
+      // (or partially restored) store and DB file; discard both so repeated
+      // failed restores don't accumulate orphaned per-vault data.
+      if (restoredVault != null) {
+        try {
+          await restoredVault.clearAllData();
+        } catch (_) {
+          // Best-effort; the original failure is what the caller needs to see.
+        }
+      }
+      await _host.deleteDatabaseFile(vaultId);
       rethrow;
     }
   }

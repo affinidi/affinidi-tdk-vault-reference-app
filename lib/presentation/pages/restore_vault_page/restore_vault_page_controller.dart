@@ -43,7 +43,8 @@ class RestoreVaultPageController extends StateNotifier<RestoreVaultPageState> {
       );
       return state.vaultName;
     } catch (_) {
-      state = state.copyWith(error: RestoreVaultError.invalidFile);
+      // Reset fully so a rejected file can't linger as a selectable backup.
+      state = const RestoreVaultPageState(error: RestoreVaultError.invalidFile);
       return null;
     }
   }
