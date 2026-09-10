@@ -14,7 +14,7 @@ dependencies:
   affinidi_tdk_vault_edge_drift_provider: ^3.0.0
   affinidi_tdk_vault_edge_provider: ^3.0.0
   affinidi_tdk_vault_flutter_utils: ^2.0.9
-  affinidi_tdk_vault_iota: ^1.0.0-dev
+  affinidi_tdk_vault_iota: ^1.0.0
   collection: ^1.19.0
   cross_file: ^0.3.4+2
   crypto: ^3.0.6
