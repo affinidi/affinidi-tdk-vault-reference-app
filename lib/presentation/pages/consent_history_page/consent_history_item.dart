@@ -65,7 +65,7 @@ class _ConsentHistoryItem extends StatelessWidget {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.more_horiz,
+              icon: const Icon(Icons.delete_outline,
                   color: AppColorScheme.textSecondary),
               onPressed: () async {
                 final selectedAction = await showModalBottomSheet<String>(
