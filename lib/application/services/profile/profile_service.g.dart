@@ -6,7 +6,7 @@ part of 'profile_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$profileTypeHash() => r'c1ea5bd883cc43a1bc0f68f6e54833353e73e8be';
+String _$profileTypeHash() => r'123038744ecc5d56d82a1d21b73c6f1263ba7001';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -48,10 +48,10 @@ class ProfileTypeFamily extends Family<ProfileType> {
   ///
   /// Copied from [profileType].
   ProfileTypeProvider call(
-    String profileId,
+    String repositoryId,
   ) {
     return ProfileTypeProvider(
-      profileId,
+      repositoryId,
     );
   }
 
@@ -60,7 +60,7 @@ class ProfileTypeFamily extends Family<ProfileType> {
     covariant ProfileTypeProvider provider,
   ) {
     return call(
-      provider.profileId,
+      provider.repositoryId,
     );
   }
 
@@ -87,11 +87,11 @@ class ProfileTypeProvider extends AutoDisposeProvider<ProfileType> {
   ///
   /// Copied from [profileType].
   ProfileTypeProvider(
-    String profileId,
+    String repositoryId,
   ) : this._internal(
           (ref) => profileType(
             ref as ProfileTypeRef,
-            profileId,
+            repositoryId,
           ),
           from: profileTypeProvider,
           name: r'profileTypeProvider',
@@ -102,7 +102,7 @@ class ProfileTypeProvider extends AutoDisposeProvider<ProfileType> {
           dependencies: ProfileTypeFamily._dependencies,
           allTransitiveDependencies:
               ProfileTypeFamily._allTransitiveDependencies,
-          profileId: profileId,
+          repositoryId: repositoryId,
         );
 
   ProfileTypeProvider._internal(
@@ -112,10 +112,10 @@ class ProfileTypeProvider extends AutoDisposeProvider<ProfileType> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.profileId,
+    required this.repositoryId,
   }) : super.internal();
 
-  final String profileId;
+  final String repositoryId;
 
   @override
   Override overrideWith(
@@ -130,7 +130,7 @@ class ProfileTypeProvider extends AutoDisposeProvider<ProfileType> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        profileId: profileId,
+        repositoryId: repositoryId,
       ),
     );
   }
@@ -142,13 +142,13 @@ class ProfileTypeProvider extends AutoDisposeProvider<ProfileType> {
 
   @override
   bool operator ==(Object other) {
-    return other is ProfileTypeProvider && other.profileId == profileId;
+    return other is ProfileTypeProvider && other.repositoryId == repositoryId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, profileId.hashCode);
+    hash = _SystemHash.combine(hash, repositoryId.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -157,8 +157,8 @@ class ProfileTypeProvider extends AutoDisposeProvider<ProfileType> {
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 mixin ProfileTypeRef on AutoDisposeProviderRef<ProfileType> {
-  /// The parameter `profileId` of this provider.
-  String get profileId;
+  /// The parameter `repositoryId` of this provider.
+  String get repositoryId;
 }
 
 class _ProfileTypeProviderElement
@@ -166,10 +166,10 @@ class _ProfileTypeProviderElement
   _ProfileTypeProviderElement(super.provider);
 
   @override
-  String get profileId => (origin as ProfileTypeProvider).profileId;
+  String get repositoryId => (origin as ProfileTypeProvider).repositoryId;
 }
 
-String _$profileServiceHash() => r'0b37908f5ef500b0424a579db02b525ad9da021f';
+String _$profileServiceHash() => r'7643b36291a17c690ce3ceb23962dda6a76384fb';
 
 /// Service responsible for managing profiles within a vault.
 ///

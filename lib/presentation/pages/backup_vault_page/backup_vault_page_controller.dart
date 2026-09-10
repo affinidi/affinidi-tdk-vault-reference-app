@@ -14,8 +14,8 @@ class BackupFile {
   final String fileName;
 }
 
-final backupVaultPageControllerProvider = StateNotifierProvider.autoDispose<
-    BackupVaultPageController, BackupVaultPageState>(
+final backupVaultPageControllerProvider =
+    StateNotifierProvider<BackupVaultPageController, BackupVaultPageState>(
   (ref) => BackupVaultPageController(ref),
 );
 

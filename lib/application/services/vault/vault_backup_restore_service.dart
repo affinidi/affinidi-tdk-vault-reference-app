@@ -150,7 +150,11 @@ class VaultBackupRestoreService {
       } catch (_) {
         // Best-effort; the original failure is what the caller needs to see.
       }
-      await _host.deleteDatabaseFile(vaultId);
+      try {
+        await _host.deleteDatabaseFile(vaultId);
+      } catch (_) {
+        // Best-effort; the original failure is what the caller needs to see.
+      }
       rethrow;
     }
   }

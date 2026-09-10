@@ -381,11 +381,10 @@ class ProfileService extends _$ProfileService {
 
 /// Provider that returns the profile type for a given profile repository id.
 @riverpod
-ProfileType profileType(Ref ref, String profileId) {
-  // [profileId] is the profile's repositoryId. The concrete repository type
-  // cannot be used here because the vault wraps repositories in a
-  // cache-invalidating decorator.
-  if (profileId == edgeRepositoryId) {
+ProfileType profileType(Ref ref, String repositoryId) {
+  // The concrete repository type cannot be used here because the vault
+  // wraps repositories in a cache-invalidating decorator.
+  if (repositoryId == edgeRepositoryId) {
     return ProfileType.edge;
   }
   return ProfileType.affinidiCloud;

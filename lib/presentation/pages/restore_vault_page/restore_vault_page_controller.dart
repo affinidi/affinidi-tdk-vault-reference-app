@@ -8,8 +8,8 @@ import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../infrastructure/providers/localizations_provider.dart';
 import 'restore_vault_page_state.dart';
 
-final restoreVaultPageControllerProvider = StateNotifierProvider.autoDispose<
-    RestoreVaultPageController, RestoreVaultPageState>(
+final restoreVaultPageControllerProvider =
+    StateNotifierProvider<RestoreVaultPageController, RestoreVaultPageState>(
   (ref) => RestoreVaultPageController(ref),
 );
 
