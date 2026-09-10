@@ -6,6 +6,7 @@ import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../domain/models/profile/profile_type.dart';
 import '../vault/vault_service.dart';
+import '../vault/vault_service_constants.dart';
 import 'profile_service_state.dart';
 
 part 'profile_service.g.dart';
