@@ -133,14 +133,22 @@ class VaultBackupRestoreService {
       return vaultId;
     } catch (_) {
       // Any failure past this point leaves a fresh vaultId with a restored
-      // (or partially restored) store and DB file; discard both so repeated
-      // failed restores don't accumulate orphaned per-vault data.
+      // (or partially restored) store, DB file, and possibly a registry
+      // entry; discard all of it so repeated failed restores don't
+      // accumulate orphaned or unopenable vaults.
       if (restoredVault != null) {
         try {
           await restoredVault.clearAllData();
         } catch (_) {
           // Best-effort; the original failure is what the caller needs to see.
         }
+      }
+      try {
+        await _ref
+            .read(vaultsManagerServiceProvider.notifier)
+            .removeVault(vaultId);
+      } catch (_) {
+        // Best-effort; the original failure is what the caller needs to see.
       }
       await _host.deleteDatabaseFile(vaultId);
       rethrow;

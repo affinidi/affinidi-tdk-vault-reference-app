@@ -129,8 +129,8 @@ void main() {
 
   group('loadProfilesForOpenVault', () {
     test('throws when the requested vault is not open', () async {
-      expect(
-        () => shareFlowService.loadProfilesForOpenVault(_vaultId),
+      await expectLater(
+        shareFlowService.loadProfilesForOpenVault(_vaultId),
         throwsA(
           isA<AppException>().having(
             (error) => error.type,

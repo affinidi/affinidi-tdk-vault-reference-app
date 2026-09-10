@@ -52,7 +52,13 @@ class VaultsPageController extends _$VaultsPageController {
     await ref.read(vaultsManagerServiceProvider.notifier).removeVault(
           vaultId,
         );
-    await ref.read(vaultServiceProvider.notifier).deleteDatabaseFile(vaultId);
+    try {
+      await ref.read(vaultServiceProvider.notifier).deleteDatabaseFile(vaultId);
+    } catch (e) {
+      // The registry entry is already gone; don't let a file-cleanup
+      // failure block the rest of the deletion flow.
+      log('Failed to delete database file for vault [$vaultId]: $e');
+    }
     await _loadVaults();
   }
 
