@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$VaultsPageState {
-  Map<String, Vault> get vaultsById => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
@@ -33,8 +32,7 @@ abstract class $VaultsPageStateCopyWith<$Res> {
           VaultsPageState value, $Res Function(VaultsPageState) then) =
       _$VaultsPageStateCopyWithImpl<$Res, VaultsPageState>;
   @useResult
-  $Res call(
-      {Map<String, Vault> vaultsById, bool isLoading, String? errorMessage});
+  $Res call({bool isLoading, String? errorMessage});
 }
 
 /// @nodoc
@@ -52,15 +50,10 @@ class _$VaultsPageStateCopyWithImpl<$Res, $Val extends VaultsPageState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? vaultsById = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
-      vaultsById: null == vaultsById
-          ? _value.vaultsById
-          : vaultsById // ignore: cast_nullable_to_non_nullable
-              as Map<String, Vault>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -81,8 +74,7 @@ abstract class _$$VaultsPageStateImplCopyWith<$Res>
       __$$VaultsPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {Map<String, Vault> vaultsById, bool isLoading, String? errorMessage});
+  $Res call({bool isLoading, String? errorMessage});
 }
 
 /// @nodoc
@@ -98,15 +90,10 @@ class __$$VaultsPageStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? vaultsById = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_$VaultsPageStateImpl(
-      vaultsById: null == vaultsById
-          ? _value._vaultsById
-          : vaultsById // ignore: cast_nullable_to_non_nullable
-              as Map<String, Vault>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -122,20 +109,7 @@ class __$$VaultsPageStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$VaultsPageStateImpl implements _VaultsPageState {
-  const _$VaultsPageStateImpl(
-      {final Map<String, Vault> vaultsById = const {},
-      this.isLoading = false,
-      this.errorMessage})
-      : _vaultsById = vaultsById;
-
-  final Map<String, Vault> _vaultsById;
-  @override
-  @JsonKey()
-  Map<String, Vault> get vaultsById {
-    if (_vaultsById is EqualUnmodifiableMapView) return _vaultsById;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_vaultsById);
-  }
+  const _$VaultsPageStateImpl({this.isLoading = false, this.errorMessage});
 
   @override
   @JsonKey()
@@ -145,7 +119,7 @@ class _$VaultsPageStateImpl implements _VaultsPageState {
 
   @override
   String toString() {
-    return 'VaultsPageState(vaultsById: $vaultsById, isLoading: $isLoading, errorMessage: $errorMessage)';
+    return 'VaultsPageState(isLoading: $isLoading, errorMessage: $errorMessage)';
   }
 
   @override
@@ -153,8 +127,6 @@ class _$VaultsPageStateImpl implements _VaultsPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$VaultsPageStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other._vaultsById, _vaultsById) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -162,11 +134,7 @@ class _$VaultsPageStateImpl implements _VaultsPageState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_vaultsById),
-      isLoading,
-      errorMessage);
+  int get hashCode => Object.hash(runtimeType, isLoading, errorMessage);
 
   /// Create a copy of VaultsPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -180,12 +148,9 @@ class _$VaultsPageStateImpl implements _VaultsPageState {
 
 abstract class _VaultsPageState implements VaultsPageState {
   const factory _VaultsPageState(
-      {final Map<String, Vault> vaultsById,
-      final bool isLoading,
+      {final bool isLoading,
       final String? errorMessage}) = _$VaultsPageStateImpl;
 
-  @override
-  Map<String, Vault> get vaultsById;
   @override
   bool get isLoading;
   @override

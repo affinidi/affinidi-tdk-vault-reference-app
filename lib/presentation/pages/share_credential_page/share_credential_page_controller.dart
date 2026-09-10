@@ -49,9 +49,10 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
       vaultsManagerServiceProvider.select((s) => s.vaultRegistry),
     );
 
-    ref.onDispose(() {
+    final vaultService = ref.read(vaultServiceProvider.notifier);
+    ref.onDispose(() async {
       if (_isFromDeepLink) {
-        ref.read(vaultServiceProvider.notifier).resetCurrentVault();
+        await vaultService.resetCurrentVault();
       }
     });
 

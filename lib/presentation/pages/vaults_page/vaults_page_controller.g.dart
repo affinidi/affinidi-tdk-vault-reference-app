@@ -7,7 +7,7 @@ part of 'vaults_page_controller.dart';
 // **************************************************************************
 
 String _$vaultsPageControllerHash() =>
-    r'4b1e94ebffb3d3d916b16173dac205bdfa8e9a37';
+    r'd77a9a72a102409d6f3352afa056f1ec63b792eb';
 
 /// See also [VaultsPageController].
 @ProviderFor(VaultsPageController)
