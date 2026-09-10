@@ -52,7 +52,7 @@ class VaultsPageController extends _$VaultsPageController {
     await ref.read(vaultsManagerServiceProvider.notifier).removeVault(
           vaultId,
         );
-    await ref.read(vaultServiceProvider.notifier).disposeVaultDatabase(vaultId);
+    await ref.read(vaultServiceProvider.notifier).deleteDatabaseFile(vaultId);
     await _loadVaults();
   }
 
