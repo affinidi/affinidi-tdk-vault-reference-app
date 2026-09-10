@@ -8,8 +8,8 @@ import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../infrastructure/providers/localizations_provider.dart';
 import 'restore_vault_page_state.dart';
 
-final restoreVaultPageControllerProvider =
-    StateNotifierProvider<RestoreVaultPageController, RestoreVaultPageState>(
+final restoreVaultPageControllerProvider = StateNotifierProvider.autoDispose<
+    RestoreVaultPageController, RestoreVaultPageState>(
   (ref) => RestoreVaultPageController(ref),
 );
 
@@ -67,11 +67,13 @@ class RestoreVaultPageController extends StateNotifier<RestoreVaultPageState> {
                 vaultName: state.vaultName ??
                     _ref.read(localizationsProvider).restoredVaultDefaultName,
               );
+      if (!mounted) return;
       state = state.copyWith(
         isProcessing: false,
         restoredVaultId: vaultId,
       );
     } catch (error) {
+      if (!mounted) return;
       state = state.copyWith(
         isProcessing: false,
         error: error is AppException &&

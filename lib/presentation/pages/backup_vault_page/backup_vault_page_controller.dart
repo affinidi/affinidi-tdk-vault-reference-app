@@ -14,8 +14,8 @@ class BackupFile {
   final String fileName;
 }
 
-final backupVaultPageControllerProvider =
-    StateNotifierProvider<BackupVaultPageController, BackupVaultPageState>(
+final backupVaultPageControllerProvider = StateNotifierProvider.autoDispose<
+    BackupVaultPageController, BackupVaultPageState>(
   (ref) => BackupVaultPageController(ref),
 );
 
@@ -64,6 +64,7 @@ class BackupVaultPageController extends StateNotifier<BackupVaultPageState> {
       final backupData = await _ref
           .read(vaultServiceProvider.notifier)
           .createBackup(passphrase: passphraseBytes);
+      if (!mounted) return null;
       final rawJson = jsonDecode(
         utf8.decode(
           backupData.buffer.asUint8List(
@@ -85,6 +86,7 @@ class BackupVaultPageController extends StateNotifier<BackupVaultPageState> {
             '$safeName-vault-backup-${DateTime.now().millisecondsSinceEpoch}.json',
       );
     } catch (_) {
+      if (!mounted) return null;
       state = state.copyWith(
         isProcessing: false,
         error: BackupVaultError.failed,
