@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:crypto/crypto.dart';
-import 'package:affinidi_tdk_cryptography/affinidi_tdk_cryptography.dart';
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:affinidi_tdk_vault_data_manager/affinidi_tdk_vault_data_manager.dart';
 import 'package:affinidi_tdk_vault_edge_provider/affinidi_tdk_vault_edge_provider.dart';
@@ -18,6 +17,8 @@ import 'package:uuid/uuid.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../infrastructure/db/flutter_secure_consent_record_store.dart';
 import '../vaults_manager/vaults_manager_service.dart';
+import 'vault_backup_restore_service.dart';
+import 'vault_service_constants.dart';
 import 'open_vault_params.dart';
 import 'vault_service_state.dart';
 
@@ -33,12 +34,8 @@ part 'vault_service.g.dart';
 ///
 /// Public so [ProfileService] can look up the right repository by
 /// [ProfileType] without re-deriving these strings itself.
-const cloudRepositoryId = 'affinidi_cloud_repository';
-const edgeRepositoryId = 'edge_repository';
-const _consentHistoryRestorableId = 'consentHistory';
-
 @Riverpod(keepAlive: true)
-class VaultService extends _$VaultService {
+class VaultService extends _$VaultService implements VaultBackupRestoreHost {
   VaultService() : super();
 
   static final Map<String, Database> _edgeDatabases = {};
@@ -158,114 +155,23 @@ class VaultService extends _$VaultService {
     );
   }
 
-  /// Creates an encrypted backup of the current vault.
-  ///
-  /// Bundles wallet material, profiles, credentials, files and consent
-  /// history into a single encrypted, file-ready payload derived from
-  /// [passphrase]. The vault already carries its named restorables (consent
-  /// history) from construction, so the live [Vault] is all this needs.
   Future<ByteData> createBackup({required Uint8List passphrase}) async {
-    final vault = state.currentVault;
-    if (vault == null) {
-      throw AppException(
-        message: 'Vault not initialized',
-        type: AppExceptionType.vaultNotInitialized,
-      );
-    }
-
-    final service = VaultBackupService(
-      cryptographyService: CryptographyService(),
-    );
-    return service.createBackup(vault: vault, passphrase: passphrase);
+    return VaultBackupRestoreService(ref: ref, host: this).createBackup(
+          passphrase: passphrase,
+        );
   }
 
-  /// Restores a backup into a new vault entry and returns its id.
-  ///
-  /// Always creates a fresh local vault. A backup cannot be restored when its
-  /// wallet seed already exists on this device.
   Future<String> restoreFromBackupData({
     required ByteData backupData,
     required Uint8List passphrase,
     required String vaultName,
   }) async {
-    final password = utf8.decode(passphrase);
-    final vaultId = const Uuid().v4();
-    final store = FlutterSecureVaultStore(vaultId);
-    final database = await VaultService._createPlatformDatabase(vaultId);
-    final edgeFactory = EdgeDriftRepositoryFactory(database: database);
-
-    final service = VaultBackupService(
-      cryptographyService: CryptographyService(),
-    );
-    final restoredVault = await service.restoreBackup(
-      backupData: backupData,
-      passphrase: passphrase,
-      vaultStoreFactory: () => store,
-      repositoryFactories: {
-        cloudRepositoryId: ProfileRepositoryRegistration.withoutBackupData(
-          id: cloudRepositoryId,
-          factory: (_) => VfsProfileRepository(cloudRepositoryId),
-        ),
-        edgeRepositoryId: ProfileRepositoryRegistration.withBackupData(
-          id: edgeRepositoryId,
-          factory: (vaultStore) => EdgeProfileRepository(
-            edgeRepositoryId,
-            edgeFactory,
-            EdgeEncryptionService(vaultStore: vaultStore),
-          ),
-          asRestorable: restorableIdentity,
-        ),
-      },
-      namedRestorableFactories: {
-        _consentHistoryRestorableId: () => FlutterSecureConsentStorage(
-              namespace: consentRecordNamespace(vaultId),
-            ),
-      },
-    );
-
-    final seed = await store.getSeed();
-    if (seed == null) {
-      throw AppException(
-        message: 'Seed not found after restoring backup.',
-        type: AppExceptionType.seedNotFound,
-      );
-    }
-    final base64Seed = base64Encode(seed);
-    if (_doesVaultWithSeedExist(base64Seed: base64Seed)) {
-      await restoredVault.clearAllData();
-      await disposeVaultDatabase(vaultId);
-      throw AppException(
-        message: 'Vault already exists on this device.',
-        type: AppExceptionType.vaultAlreadyExists,
-      );
-    }
-    await ref.read(vaultsManagerServiceProvider.notifier).addVault(
-          OpenVaultParams(
-            vaultId: vaultId,
-            base64Seed: base64Seed,
-            vaultName: vaultName,
-            password: password,
-          ),
+    return VaultBackupRestoreService(ref: ref, host: this)
+        .restoreFromBackupData(
+          backupData: backupData,
+          passphrase: passphrase,
+          vaultName: vaultName,
         );
-    await ref
-        .read(vaultsManagerServiceProvider.notifier)
-        .loadVaultAvailability();
-
-    // Restore already required and validated the passphrase, so open the vault
-    // directly without prompting again. Close the edge database used for the
-    // import and reopen a fresh connection so the session reads committed data
-    // on a clean connection, like a cold start; reusing the cached write
-    // connection can intermittently leave file listing hanging.
-    await disposeVaultDatabase(vaultId);
-    ref.invalidate(_openVaultProvider(vaultId));
-    final openedVault = await ref.read(_openVaultProvider(vaultId).future);
-    await openedVault.ensureInitialized();
-    state = state.copyWith(
-      currentVault: openedVault,
-      currentVaultId: vaultId,
-    );
-
-    return vaultId;
   }
 
   /// Creates a Vault instance from a secure seed in storage.
@@ -445,6 +351,32 @@ class VaultService extends _$VaultService {
     return vaultRegistry.values.any((entry) => entry.base64Seed == base64Seed);
   }
 
+  @override
+  Vault? get currentVault => state.currentVault;
+
+  @override
+  Future<Database> createDatabase(String vaultId) =>
+      _createPlatformDatabase(vaultId);
+
+  @override
+  Future<void> disposeDatabase(String vaultId) => disposeVaultDatabase(vaultId);
+
+  @override
+  Future<Vault> openVault(String vaultId) async {
+    ref.invalidate(_openVaultProvider(vaultId));
+    final vault = await ref.read(_openVaultProvider(vaultId).future);
+    await vault.ensureInitialized();
+    return vault;
+  }
+
+  @override
+  void setCurrentVault(String vaultId, Vault vault) {
+    state = state.copyWith(
+      currentVault: vault,
+      currentVaultId: vaultId,
+    );
+  }
+
   /// Creates a platform-specific database, one per vault.
   static Future<Database> _createPlatformDatabase(String vaultId) async {
     final cached = _edgeDatabases[vaultId];
@@ -503,7 +435,7 @@ class VaultService extends _$VaultService {
 /// Namespaced by [vaultId] so each vault's consent history backs up and
 /// restores independently of every other vault's.
 Map<String, Restorable> _namedRestorables(String vaultId) => {
-      _consentHistoryRestorableId: FlutterSecureConsentStorage(
+      consentHistoryRestorableId: FlutterSecureConsentStorage(
         namespace: consentRecordNamespace(vaultId),
       ),
     };
