@@ -45,7 +45,7 @@ Claim a Verifiable Credential from an issuer using the OID4VCI flow. You share y
 <details open id="panel-vault-backup-restore">
 <summary><strong>Vault Backup and Restore</strong></summary>
 
-Export an encrypted JSON backup from the vault list and restore it on the same or another device. The backup includes wallet data, local profiles, credentials, files, and consent history. Cloud profile data is excluded from this local backup flow.
+Export an encrypted JSON backup from the vault list and restore it on the same or another device. The backup includes vault data, local profiles, credentials, files, and consent history. Cloud profile data is excluded from this local backup flow.
 
 ### Back up a vault
 
