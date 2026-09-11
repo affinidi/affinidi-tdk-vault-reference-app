@@ -42,6 +42,104 @@ Claim a Verifiable Credential from an issuer using the OID4VCI flow. You share y
 
 </details>
 
+<details open id="panel-vault-backup-restore">
+<summary><strong>Vault Backup and Restore</strong></summary>
+
+Export an encrypted JSON backup from the vault list and restore it on the same or another device. The backup includes vault data, local profiles, credentials, files, and consent history. Cloud profile data is excluded from this local backup flow.
+
+### Back up a vault
+
+1. Open the vault list.
+2. Tap the backup action on the vault card.
+3. Enter the vault passphrase.
+4. Save the encrypted JSON backup file.
+
+### Restore a vault
+
+1. Open the vault list.
+2. Tap **Restore Vault**.
+3. Choose the JSON backup file.
+4. Enter the vault passphrase.
+5. Confirm or edit the restored vault name.
+6. Open the restored vault and verify its local profiles, credentials, files, and consent history.
+
+The app rejects invalid backup files, incorrect passphrases, and backups whose wallet seed is already present on the device.
+
+### Backup and restore screenshots
+
+<table>
+<tr>
+<td align="center" width="33%"><strong>1. Vault list</strong></td>
+<td align="center" width="33%"><strong>2. Enter backup passphrase</strong></td>
+<td align="center" width="33%"><strong>3. Save backup</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/vault-list.png" alt="Vault list with backup action" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/backup-with-passphrase.png" alt="Enter the vault passphrase for backup" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/backup-save.png" alt="Save the vault backup file" /></td>
+</tr>
+<tr>
+<td align="center" width="33%"><strong>4. Backup saved</strong></td>
+<td align="center" width="33%"><strong>5. Start restore</strong></td>
+<td align="center" width="33%"><strong>6. Choose backup</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/backup-save-confirmation.png" alt="Backup saved confirmation" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/restore.png" alt="Start restoring a vault" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/restore-selected-vault.png" alt="Choose a vault backup to restore" /></td>
+</tr>
+<tr>
+<td align="center" width="33%"><strong>7. Restore form</strong></td>
+<td align="center" width="33%"><strong>8. Restore success</strong></td>
+<td align="center" width="33%"><strong>9. Restored vault list</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/choose-vault-to-restore.png" alt="Enter the restore passphrase and vault name" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/vault-restored-successfully.png" alt="Vault restored successfully" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/vault-list-after-restore.png" alt="Vault list after restoring a vault" /></td>
+</tr>
+<tr>
+<td align="center" width="33%"><strong>10. Wrong passphrase</strong></td>
+<td align="center" width="33%"><strong>11. Duplicate restore</strong></td>
+<td align="center" width="33%"></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/restore-with-wrong-passphrase.png" alt="Restore with an incorrect passphrase" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/restore-existing-vault-error.png" alt="Duplicate vault restore error" /></td>
+<td align="center" width="33%"></td>
+</tr>
+</table>
+
+### Vault removal
+
+<table>
+<tr>
+<td align="center" width="50%"><strong>Delete a vault</strong></td>
+<td align="center" width="50%"><strong>Vault list after deletion</strong></td>
+</tr>
+<tr>
+<td align="center" width="50%"><img src="../assets/images/backup-restore/delete-vault.png" alt="Delete a vault" /></td>
+<td align="center" width="50%"><img src="../assets/images/backup-restore/vault-list-after-deletion.png" alt="Vault list after deletion" /></td>
+</tr>
+</table>
+
+### Consent history
+
+<table>
+<tr>
+<td align="center" width="33%"><strong>1. Consent history</strong></td>
+<td align="center" width="33%"><strong>2. Delete consent record</strong></td>
+<td align="center" width="33%"><strong>3. History after deletion</strong></td>
+</tr>
+<tr>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/consent-history.png" alt="Consent history" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/consent-delete.png" alt="Delete a consent record" /></td>
+<td align="center" width="33%"><img src="../assets/images/backup-restore/consent-history-after-deletion.png" alt="Consent history after deletion" /></td>
+</tr>
+</table>
+
+</details>
+
 <details open id="panel-share-credentials">
 <summary><strong>Sharing Credentials</strong></summary>
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io' as io;
 import 'dart:math' as math;
 
 import 'package:crypto/crypto.dart';
@@ -15,14 +16,27 @@ import 'package:affinidi_tdk_vault_flutter_utils/affinidi_tdk_vault_flutter_util
 import 'package:uuid/uuid.dart';
 
 import '../../../infrastructure/exceptions/app_exception.dart';
+import '../../../infrastructure/db/flutter_secure_consent_record_store.dart';
 import '../vaults_manager/vaults_manager_service.dart';
+import 'vault_backup_restore_service.dart';
+import 'vault_service_constants.dart';
 import 'open_vault_params.dart';
 import 'vault_service_state.dart';
 
 part 'vault_service.g.dart';
 
+/// Logical, vaultId-independent profile repository identifiers.
+///
+/// Restoring a backup requires supplying repository registrations keyed by
+/// the exact IDs baked into the encrypted backup, before it's decrypted. A
+/// restoring device can't know the source vault's ID in advance, so these
+/// IDs must not embed it — the local vaultId instead namespaces storage
+/// directly (secure storage keys, database filenames).
+///
+/// Public so [ProfileService] can look up the right repository by
+/// [ProfileType] without re-deriving these strings itself.
 @Riverpod(keepAlive: true)
-class VaultService extends _$VaultService {
+class VaultService extends _$VaultService implements VaultBackupRestoreHost {
   VaultService() : super();
 
   static final Map<String, Database> _edgeDatabases = {};
@@ -33,7 +47,6 @@ class VaultService extends _$VaultService {
   }
 
   /// Creates and opens a Vault instance.
-  ///
   /// If [existingSeed] is provided, it will be used to initialize the vault's seed.
   /// Otherwise, a new random 32-byte seed will be generated.
   ///
@@ -134,6 +147,34 @@ class VaultService extends _$VaultService {
     log('Finished resetting current vault', name: 'VaultService');
   }
 
+  Future<void> selectVault(
+      {required String vaultId, required Vault vault}) async {
+    await vault.ensureInitialized();
+    state = state.copyWith(
+      currentVault: vault,
+      currentVaultId: vaultId,
+    );
+  }
+
+  Future<ByteData> createBackup({required Uint8List passphrase}) async {
+    return VaultBackupRestoreService(ref: ref, host: this).createBackup(
+      passphrase: passphrase,
+    );
+  }
+
+  Future<String> restoreFromBackupData({
+    required ByteData backupData,
+    required Uint8List passphrase,
+    required String vaultName,
+  }) async {
+    return VaultBackupRestoreService(ref: ref, host: this)
+        .restoreFromBackupData(
+      backupData: backupData,
+      passphrase: passphrase,
+      vaultName: vaultName,
+    );
+  }
+
   /// Creates a Vault instance from a secure seed in storage.
   ///
   /// [vaultStorageKey]: Key used to retrieve secure seed from FlutterSecureStorage.
@@ -151,13 +192,11 @@ class VaultService extends _$VaultService {
     final profileRepositories =
         await _createProfileRepositories(vaultStorageKey, keyStore);
 
-    // Set default to VFS
-    final vfsRepositoryId = '${vaultStorageKey}_affinidi_cloud_repository';
-
     final vault = await Vault.fromVaultStore(
       keyStore,
       profileRepositories: profileRepositories,
-      defaultProfileRepositoryId: vfsRepositoryId,
+      namedRestorables: _namedRestorables(vaultStorageKey),
+      defaultProfileRepositoryId: cloudRepositoryId,
     );
 
     log('Vault [$vaultStorageKey] created successfully', name: 'VaultService');
@@ -313,15 +352,53 @@ class VaultService extends _$VaultService {
     return vaultRegistry.values.any((entry) => entry.base64Seed == base64Seed);
   }
 
-  /// Creates a platform-specific database
-  static Future<Database> _createPlatformDatabase(String repositoryId) async {
-    final cached = _edgeDatabases[repositoryId];
+  @override
+  Vault? get currentVault => state.currentVault;
+
+  @override
+  Future<Database> createDatabase(String vaultId) =>
+      _createPlatformDatabase(vaultId);
+
+  @override
+  Future<void> disposeDatabase(String vaultId) => disposeVaultDatabase(vaultId);
+
+  @override
+  Future<void> deleteDatabaseFile(String vaultId) async {
+    await disposeVaultDatabase(vaultId);
+    if (kIsWeb) return;
+    final documentsDir = await getApplicationDocumentsDirectory();
+    final databaseName = _databaseFileName(vaultId);
+    for (final suffix in ['', '-wal', '-shm', '-journal']) {
+      final file = io.File('${documentsDir.path}/$databaseName$suffix');
+      if (await file.exists()) {
+        await file.delete();
+      }
+    }
+  }
+
+  @override
+  Future<Vault> openVault(String vaultId) async {
+    ref.invalidate(_openVaultProvider(vaultId));
+    final vault = await ref.read(_openVaultProvider(vaultId).future);
+    await vault.ensureInitialized();
+    return vault;
+  }
+
+  @override
+  void setCurrentVault(String vaultId, Vault vault) {
+    state = state.copyWith(
+      currentVault: vault,
+      currentVaultId: vaultId,
+    );
+  }
+
+  /// Creates a platform-specific database, one per vault.
+  static Future<Database> _createPlatformDatabase(String vaultId) async {
+    final cached = _edgeDatabases[vaultId];
     if (cached != null) {
       return cached;
     }
-    final cleanRepositoryId =
-        repositoryId.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
-    final databaseName = 'edge_profiles_$cleanRepositoryId.db';
+    final databaseName = _databaseFileName(vaultId);
 
     try {
       if (kIsWeb) {
@@ -329,7 +406,7 @@ class VaultService extends _$VaultService {
         final database = await DatabaseConfig.createDatabase(
           databaseName: databaseName,
         );
-        _edgeDatabases[repositoryId] = database;
+        _edgeDatabases[vaultId] = database;
         return database;
       }
       log('Creating native database', name: 'VaultService');
@@ -339,72 +416,76 @@ class VaultService extends _$VaultService {
         databaseName: databaseName,
         directory: documentsDir.path,
       );
-      _edgeDatabases[repositoryId] = database;
+      _edgeDatabases[vaultId] = database;
       return database;
     } catch (e, stackTrace) {
-      log('Error creating database: $e', name: 'VaultService');
+      log('Error creating database: ${e.runtimeType}', name: 'VaultService');
       log('Stack trace: $stackTrace', name: 'VaultService');
       rethrow;
     }
   }
 
+  static String _databaseFileName(String vaultId) {
+    final cleanVaultId = vaultId.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
+    return 'edge_profiles_$cleanVaultId.db';
+  }
+
   Future<void> _disposeCurrentVaultResources() async {
-    final vaultId = state.currentVaultId;
-    if (vaultId != null) {
-      final edgeRepositoryId = '${vaultId}_edge_repository';
-      final db = _edgeDatabases.remove(edgeRepositoryId);
-      if (db != null) {
-        await db.close();
-      }
-    }
+    // Intentionally does not close the edge database. Repositories and vault
+    // objects may still hold a reference to it, and closing it would leave them
+    // querying a closed connection. Each vault keeps one cached, open
+    // connection to its own database file for the app's lifetime.
+  }
+
+  /// Closes and evicts the cached edge database for [vaultId].
+  ///
+  /// Releases the connection and file handle so the next access opens a fresh
+  /// connection. Callers must ensure the vault's repositories are no longer in
+  /// use (e.g. when the vault is removed, or right after a restore before the
+  /// vault is reopened).
+  Future<void> disposeVaultDatabase(String vaultId) async {
+    final database = _edgeDatabases.remove(vaultId);
+    await database?.close();
   }
 }
+
+/// The named restorables carried by every [Vault] this app builds.
+///
+/// Namespaced by [vaultId] so each vault's consent history backs up and
+/// restores independently of every other vault's.
+Map<String, Restorable> _namedRestorables(String vaultId) => {
+      consentHistoryRestorableId: FlutterSecureConsentStorage(
+        namespace: consentRecordNamespace(vaultId),
+      ),
+    };
 
 /// Creates profile repositories for both VFS and Edge storage
 /// Edge repositories are created with shared database for all Edge profiles
 Future<Map<String, ProfileRepository>> _createProfileRepositories(
     String vaultId, FlutterSecureVaultStore keyStore) async {
-  final profileRepositories = <String, ProfileRepository>{};
-
   try {
-    // Always create VFS repository (cloud-based, no local storage)
-    final vfsRepositoryId = '${vaultId}_affinidi_cloud_repository';
-    log('Creating VFS repository with ID: $vfsRepositoryId',
-        name: 'VaultService');
-    profileRepositories[vfsRepositoryId] =
-        VfsProfileRepository(vfsRepositoryId);
-    log('VFS repository created', name: 'VaultService');
-
-    // Create Edge repository with shared database for all Edge profiles
-    final edgeRepositoryId = '${vaultId}_edge_repository';
-    log('Creating Edge repository with ID: $edgeRepositoryId',
-        name: 'VaultService');
-
-    // Create database using platform-specific method
-    final database =
-        await VaultService._createPlatformDatabase(edgeRepositoryId);
-
-    // Create encryption service
+    // Create database using platform-specific method. Always create VFS
+    // repository (cloud-based, no local storage) and an Edge repository with
+    // a shared database for all Edge profiles.
+    final database = await VaultService._createPlatformDatabase(vaultId);
     final encryptionService = EdgeEncryptionService(vaultStore: keyStore);
+    final edgeFactory = EdgeDriftRepositoryFactory(database: database);
 
-    // Create repository factory
-    final factory = EdgeDriftRepositoryFactory(database: database);
-
-    // Create the edge profile repository
-    final edgeRepository = EdgeProfileRepository(
-      edgeRepositoryId,
-      factory,
-      encryptionService,
-    );
-
-    profileRepositories[edgeRepositoryId] = edgeRepository;
-    log('Edge repository created', name: 'VaultService');
+    final profileRepositories = <String, ProfileRepository>{
+      cloudRepositoryId: VfsProfileRepository(cloudRepositoryId),
+      edgeRepositoryId: EdgeProfileRepository(
+        edgeRepositoryId,
+        edgeFactory,
+        encryptionService,
+      ),
+    };
 
     log('Final repositories: ${profileRepositories.keys}',
         name: 'VaultService');
     return profileRepositories;
   } catch (e, stackTrace) {
-    log('Error in _createProfileRepositories: $e', name: 'VaultService');
+    log('Error in _createProfileRepositories: ${e.runtimeType}',
+        name: 'VaultService');
     log('Stack trace: $stackTrace', name: 'VaultService');
     rethrow;
   }
@@ -458,10 +539,12 @@ final _createVaultProvider =
       return Vault.fromVaultStore(
         keyStore,
         profileRepositories: profileRepositories,
-        defaultProfileRepositoryId: '${vaultId}_affinidi_cloud_repository',
+        namedRestorables: _namedRestorables(vaultId),
+        defaultProfileRepositoryId: cloudRepositoryId,
       );
     } catch (e, st) {
-      log('Error creating vault [$param.vaultId]: $e', name: 'VaultService');
+      log('Error creating vault [${param.vaultId}]: ${e.runtimeType}',
+          name: 'VaultService');
       log('Stack trace: $st', name: 'VaultService');
       rethrow;
     }
@@ -509,10 +592,12 @@ final _openVaultProvider = AutoDisposeFutureProvider.family<Vault, String>(
       return Vault.fromVaultStore(
         keyStore,
         profileRepositories: profileRepositories,
-        defaultProfileRepositoryId: '${vaultId}_affinidi_cloud_repository',
+        namedRestorables: _namedRestorables(vaultId),
+        defaultProfileRepositoryId: cloudRepositoryId,
       );
     } catch (e, st) {
-      log('Error opening vault for vaultId: $e', name: 'VaultService');
+      log('Error opening vault for vaultId: ${e.runtimeType}',
+          name: 'VaultService');
       log('Stack trace: $st', name: 'VaultService');
       rethrow;
     }

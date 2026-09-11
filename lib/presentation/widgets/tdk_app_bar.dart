@@ -43,11 +43,14 @@ class TdkAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: AppColorScheme.textPrimary,
           ),
           Flexible(
-            child: Text(
-              leadingTitle!,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: AppTheme.headingMedium,
+            child: FittedBox(
+              alignment: Alignment.centerLeft,
+              fit: BoxFit.scaleDown,
+              child: Text(
+                leadingTitle!,
+                maxLines: 1,
+                style: AppTheme.headingMedium,
+              ),
             ),
           ),
         ],

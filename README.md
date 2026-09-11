@@ -35,8 +35,13 @@ The reference app implements the following key features of Affinidi TDK - Vault 
 | **Manage Files and Folders** | Upload documents related to your identity into your profiles and share them with other users. |
 | **Claim Credentials** | Claim Verifiable Credentials (VCs) and store them in your vault's profile. The claim credential flow follows the OID4VCI standard. |
 | **Sharing Credentials** | Respond to a verifier's data request using the OID4VP share flow: open a share request, review the requested data, choose which credentials to share when multiple match, and submit. |
+| **Vault Backup and Restore** | Export an encrypted JSON backup containing wallet data, local profiles, credentials, files, and consent history, then restore it as a new local vault entry. |
 
 The reference application provides in-app documentation and code snippets to help you quickly onboard into Affinidi TDK - Vault to implement on your Flutter application.
+
+See the [backup and restore feature demo](docs/feature-demos.md#panel-vault-backup-restore) for the complete workflow and screenshots.
+
+Vault backups are protected by the vault passphrase in this reference app. Store the exported JSON file securely. A backup cannot be restored without its passphrase, and a wallet seed already present on the device cannot be restored a second time. Cloud profile data is not included in the local backup flow.
 
 Refer to [the documentation](https://docs.affinidi.com/dev-tools/affinidi-tdk/dart/libraries/vault/) to learn more about Affinidi TDK - Vault available methods and features.
 

@@ -31,6 +31,8 @@ class CredentialOfferDetails extends HookConsumerWidget {
     final provider =
         claimCredentialsPageControllerProvider(profileId: profileId);
     final fetchStatus = ref.watch(provider.select((s) => s.fetchStatus));
+    final fetchErrorMessage =
+        ref.watch(provider.select((s) => s.fetchErrorMessage));
 
     final controller = ref.read(provider.notifier);
     final localizations = AppLocalizations.of(context)!;
@@ -73,26 +75,26 @@ class CredentialOfferDetails extends HookConsumerWidget {
               loadingMessage: localizations.claimCredentialsSaving,
             ),
             if (fetchStatus == CredentialOfferFetchStatus.error) ...[
-              if (fetchStatus == CredentialOfferFetchStatus.error)
-                Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        localizations.errorMessage('getCredentialFailed'),
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                      ),
-                      const SizedBox(height: 12),
-                      FilledButton(
-                        onPressed: () => controller.retry(),
-                        child: Text(localizations.retryActionText),
-                      ),
-                    ],
-                  ),
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      fetchErrorMessage ??
+                          localizations.errorMessage('getCredentialFailed'),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                    ),
+                    const SizedBox(height: 12),
+                    FilledButton(
+                      onPressed: () => controller.retry(),
+                      child: Text(localizations.retryActionText),
+                    ),
+                  ],
                 ),
+              ),
             ] else ...[
               VerifiableCredential(
                 offerUri: offerUri!,

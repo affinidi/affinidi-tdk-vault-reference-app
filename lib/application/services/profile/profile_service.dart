@@ -2,11 +2,11 @@ import 'dart:developer';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
-import 'package:affinidi_tdk_vault_edge_provider/affinidi_tdk_vault_edge_provider.dart';
 
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../domain/models/profile/profile_type.dart';
 import '../vault/vault_service.dart';
+import '../vault/vault_service_constants.dart';
 import 'profile_service_state.dart';
 
 part 'profile_service.g.dart';
@@ -61,26 +61,19 @@ class ProfileService extends _$ProfileService {
       final vault = _getCurrentVault();
       log('Vault retrieved successfully', name: 'ProfileService');
 
-      final vaultId = _getCurrentVaultId();
-      log('Vault ID: $vaultId', name: 'ProfileService');
-
       await _validateProfileCreation(vault, name, profileType);
 
-      final repositoryId =
-          '${_getCurrentVaultId()}_${profileType.value}_repository';
+      final repositoryId = profileType == ProfileType.edge
+          ? edgeRepositoryId
+          : cloudRepositoryId;
       final profileRepository = await _getProfileRepository(
           vault, repositoryId, profileType,
           profileName: name);
 
-      final Profile createdProfile;
-      try {
-        createdProfile = await profileRepository.createProfile(
-          name: name,
-          description: description,
-        );
-      } catch (e) {
-        rethrow;
-      }
+      final createdProfile = await profileRepository.createProfile(
+        name: name,
+        description: description,
+      );
       log('Profile created successfully in repository', name: 'ProfileService');
 
       _appendProfile(createdProfile);
@@ -145,10 +138,11 @@ class ProfileService extends _$ProfileService {
 
       log('Profile deletion completed successfully', name: 'ProfileService');
     } catch (e, stackTrace) {
-      log('Error deleting profile: $e', name: 'ProfileService');
+      log('Error deleting profile: ${e.runtimeType}', name: 'ProfileService');
       log('Stack trace: $stackTrace', name: 'ProfileService');
+      if (e is AppException) rethrow;
       throw AppException(
-        message: 'Failed to delete profile: ${e.toString()}',
+        message: 'Failed to delete profile.',
         type: AppExceptionType.other,
       );
     }
@@ -260,25 +254,6 @@ class ProfileService extends _$ProfileService {
     return vault;
   }
 
-  /// Gets the current vault ID, throwing an exception if none is open.
-  String _getCurrentVaultId() {
-    log('Getting current vault ID...', name: 'ProfileService');
-    final vaultServiceState = ref.read(vaultServiceProvider);
-    log('Vault service state retrieved for ID', name: 'ProfileService');
-    final vaultId = vaultServiceState.currentVaultId;
-
-    if (vaultId == null) {
-      log('No vault ID found, throwing exception', name: 'ProfileService');
-      throw AppException(
-        message: 'No vault ID found',
-        type: AppExceptionType.other,
-      );
-    }
-
-    log('Vault ID retrieved: $vaultId', name: 'ProfileService');
-    return vaultId;
-  }
-
   /// Validates that a profile can be created with the given parameters.
   Future<void> _validateProfileCreation(
       Vault vault, String name, ProfileType profileType) async {
@@ -344,7 +319,7 @@ class ProfileService extends _$ProfileService {
       throw AppException(
         message:
             'Cannot delete profile "${profile.name}" - it contains ${folderItems.length} items. Please remove all files and folders before deleting the profile.',
-        type: AppExceptionType.other,
+        type: AppExceptionType.profileContainsFiles,
       );
     }
 
@@ -354,7 +329,7 @@ class ProfileService extends _$ProfileService {
       throw AppException(
         message:
             'Cannot delete profile "${profile.name}" - it contains ${credentials.length} credentials. Please remove all credentials before deleting the profile.',
-        type: AppExceptionType.other,
+        type: AppExceptionType.profileContainsCredentials,
       );
     }
 
@@ -404,19 +379,12 @@ class ProfileService extends _$ProfileService {
   }
 }
 
-/// Provider that returns the profile type for a given profile ID.
+/// Provider that returns the profile type for a given profile repository id.
 @riverpod
-ProfileType profileType(Ref ref, String profileId) {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
-
-  if (vault == null) {
-    return ProfileType.affinidiCloud;
-  }
-
-  final repo = vault.profileRepositories[profileId];
-
-  if (repo is EdgeProfileRepository) {
+ProfileType profileType(Ref ref, String repositoryId) {
+  // The concrete repository type cannot be used here because the vault
+  // wraps repositories in a cache-invalidating decorator.
+  if (repositoryId == edgeRepositoryId) {
     return ProfileType.edge;
   }
   return ProfileType.affinidiCloud;

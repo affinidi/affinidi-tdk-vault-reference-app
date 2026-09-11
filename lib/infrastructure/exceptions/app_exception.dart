@@ -22,6 +22,8 @@ enum AppExceptionType {
   databaseError,
   consentStorageError,
   vaultAlreadyExists,
+  profileContainsFiles,
+  profileContainsCredentials,
   seedNotFound,
   redirectLaunchFailed,
   other,

@@ -307,8 +307,11 @@ class StorageService extends _$StorageService {
 /// Provider that creates a FileStorage instance for a given profile.
 final _vaultStorageServiceProvider =
     FutureProvider.family<FileStorage, String>((ref, profileId) async {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
+  // Watch the current vault so a switch/restore invalidates a cached storage
+  // that would otherwise point at the previous vault's (closed) connection.
+  final vault = ref.watch(
+    vaultServiceProvider.select((state) => state.currentVault),
+  );
 
   if (vault == null) {
     throw AppException(
@@ -332,8 +335,9 @@ final _vaultStorageServiceProvider =
 /// Provider that creates a FileStorage instance for a given profile.
 final _vaultSharedStorageServiceProvider =
     FutureProvider.family<SharedStorage, String>((ref, profileId) async {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
+  final vault = ref.watch(
+    vaultServiceProvider.select((state) => state.currentVault),
+  );
 
   if (vault == null) {
     throw AppException(
@@ -357,8 +361,9 @@ final _vaultSharedStorageServiceProvider =
 /// Provider that returns all shared storages for a given profile.
 @riverpod
 Future<List<SharedStorage>> sharedStorages(Ref ref, String profileId) async {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
+  final vault = ref.watch(
+    vaultServiceProvider.select((state) => state.currentVault),
+  );
 
   if (vault == null) {
     throw AppException(
@@ -377,8 +382,9 @@ Future<List<SharedStorage>> sharedStorages(Ref ref, String profileId) async {
 /// Provider that returns a specific shared storage by ID.
 @riverpod
 Future<SharedStorage> sharedStorageById(Ref ref, String storageId) async {
-  final vaultServiceState = ref.read(vaultServiceProvider);
-  final vault = vaultServiceState.currentVault;
+  final vault = ref.watch(
+    vaultServiceProvider.select((state) => state.currentVault),
+  );
 
   if (vault == null) {
     throw AppException(

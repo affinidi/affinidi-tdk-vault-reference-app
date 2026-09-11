@@ -36,6 +36,7 @@ class LabeledTextField extends StatelessWidget {
         labelText: labelText,
         suffix: suffix,
         errorText: errorText,
+        errorMaxLines: 4,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),

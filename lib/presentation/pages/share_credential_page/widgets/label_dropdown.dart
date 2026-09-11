@@ -17,6 +17,7 @@ class LabelDropdown<T> extends HookWidget {
     super.key,
     required this.label,
     required this.items,
+    this.selectedItemBuilder,
     this.value,
     this.hint,
     this.onChanged,
@@ -24,6 +25,7 @@ class LabelDropdown<T> extends HookWidget {
 
   final String label;
   final List<DropdownMenuItem<T>> items;
+  final DropdownButtonBuilder? selectedItemBuilder;
   final T? value;
   final String? hint;
   final void Function(T?)? onChanged;
@@ -79,6 +81,7 @@ class LabelDropdown<T> extends HookWidget {
                                 ),
                           )
                         : null,
+                    selectedItemBuilder: selectedItemBuilder,
                     onTap: () => isOpen.value = true,
                     onChanged: (value) {
                       isOpen.value = false;

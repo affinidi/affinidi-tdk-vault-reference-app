@@ -22,9 +22,6 @@ class _ShareVaultSession implements ShareVaultSession {
   List<Profile> _profiles = const [];
 
   @override
-  bool get hasOpenVault => _ref.read(vaultServiceProvider).currentVault != null;
-
-  @override
   bool isOpen(String vaultId) =>
       _ref.read(vaultServiceProvider).currentVaultId == vaultId;
 
@@ -35,7 +32,11 @@ class _ShareVaultSession implements ShareVaultSession {
           .open(vaultId: vaultId, password: password);
 
   @override
-  Future<List<Profile>> loadProfiles() async {
+  Future<List<Profile>> loadProfiles(String vaultId) async {
+    if (!isOpen(vaultId)) {
+      _profiles = const [];
+      return _profiles;
+    }
     final vault = _ref.read(vaultServiceProvider).currentVault;
     if (vault == null) {
       _profiles = const [];

@@ -225,6 +225,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createVaultErrorMessage => 'Failed to create new vault ';
 
   @override
+  String passphraseTooShortMessage(Object minLength) {
+    return 'Passphrase must be at least $minLength characters long.';
+  }
+
+  @override
+  String get passphraseMissingUppercaseMessage =>
+      'Passphrase must contain at least one uppercase letter.';
+
+  @override
+  String get passphraseMissingNumberMessage =>
+      'Passphrase must contain at least one number.';
+
+  @override
+  String get passphraseMissingSpecialCharacterMessage =>
+      'Passphrase must contain at least one special character.';
+
+  @override
   String get login => 'Login';
 
   @override
@@ -276,6 +293,82 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profilesTitle => 'Profiles';
 
   @override
+  String get backUpVault => 'Back up vault';
+
+  @override
+  String get backupVaultDescription =>
+      'Enter your vault passphrase to export an encrypted backup file of your profiles, credentials, files and consent history.';
+
+  @override
+  String get backupVaultNoOpenVault => 'No vault is currently open.';
+
+  @override
+  String get backupVaultDetailsUnavailable =>
+      'Vault details are unavailable. Please reopen the vault.';
+
+  @override
+  String get backupVaultIncorrectPassphrase =>
+      'Incorrect passphrase for this vault.';
+
+  @override
+  String get backupVaultFailed => 'Backup failed. Please try again.';
+
+  @override
+  String get saveVaultBackup => 'Save vault backup';
+
+  @override
+  String get backupSaved => 'Backup saved.';
+
+  @override
+  String get selectBackupFile => 'Select a backup file';
+
+  @override
+  String get restoredVaultDefaultName => 'Restored vault';
+
+  @override
+  String get restoreVaultTitle => 'Restore Vault';
+
+  @override
+  String get restoreVaultInvalidFile =>
+      'The selected file is not a valid backup.';
+
+  @override
+  String get restoreVaultAlreadyExists =>
+      'This vault is already present on this device.';
+
+  @override
+  String get restoreVaultFailed =>
+      'Restore failed. The passphrase may be incorrect or the backup is invalid.';
+
+  @override
+  String get restoreVaultFileInstruction =>
+      'Pick a vault backup (.json) file to restore.';
+
+  @override
+  String get chooseBackupFile => 'Choose backup file';
+
+  @override
+  String selectedBackupFile(Object fileName) {
+    return 'Selected file: $fileName';
+  }
+
+  @override
+  String get vaultNameLabel => 'Vault name';
+
+  @override
+  String get restoreVaultAction => 'Restore Vault';
+
+  @override
+  String get restoreVaultSuccess => 'Your vault was restored successfully.';
+
+  @override
+  String get openRestoredVault => 'Open restored vault';
+
+  @override
+  String get deleteConsentRecordFailed =>
+      'Consent record could not be deleted. Please try again.';
+
+  @override
   String get deleteProfileTitle => 'Delete Profile';
 
   @override
@@ -294,6 +387,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shareProfile => 'Share';
+
+  @override
+  String get settingsAction => 'Settings';
+
+  @override
+  String get storageAffinidiCloud => 'Storage: Affinidi Cloud';
+
+  @override
+  String get storageLocalDrift => 'Storage: Local Drift';
 
   @override
   String get delete => 'Delete';
@@ -392,6 +494,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get profileNotDeletedMessage =>
       'This profile contains files/folders. Please delete them before trying again.';
+
+  @override
+  String get profileNotDeletedFilesMessage =>
+      'This profile contains files or folders. Please delete them before trying again.';
+
+  @override
+  String get profileNotDeletedCredentialsMessage =>
+      'This profile contains credentials. Please delete them before trying again.';
 
   @override
   String get gotItActionText => 'Got it';

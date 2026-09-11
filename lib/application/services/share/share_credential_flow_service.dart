@@ -63,10 +63,15 @@ class ShareCredentialFlowService {
   }) =>
       _vaultSession.unlock(vaultId: vaultId, password: password);
 
-  /// Loads profiles for the currently open vault.
-  Future<List<Profile>> loadProfilesForOpenVault() async {
-    if (!_vaultSession.hasOpenVault) return [];
-    return _vaultSession.loadProfiles();
+  /// Loads profiles for the requested open vault.
+  Future<List<Profile>> loadProfilesForOpenVault(String vaultId) async {
+    if (!_vaultSession.isOpen(vaultId)) {
+      throw AppException(
+        message: 'Vault is not open.',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+    return _vaultSession.loadProfiles(vaultId);
   }
 
   /// Validates [requestJwt] and resolves the verifier metadata.

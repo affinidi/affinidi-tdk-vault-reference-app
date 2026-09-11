@@ -237,6 +237,22 @@
   "@createVaultErrorMessage": {
     "type": "text"
   },
+  "passphraseTooShortMessage": "Passphrase must be at least {minLength} characters long.",
+  "@passphraseTooShortMessage": {
+    "type": "text"
+  },
+  "passphraseMissingUppercaseMessage": "Passphrase must contain at least one uppercase letter.",
+  "@passphraseMissingUppercaseMessage": {
+    "type": "text"
+  },
+  "passphraseMissingNumberMessage": "Passphrase must contain at least one number.",
+  "@passphraseMissingNumberMessage": {
+    "type": "text"
+  },
+  "passphraseMissingSpecialCharacterMessage": "Passphrase must contain at least one special character.",
+  "@passphraseMissingSpecialCharacterMessage": {
+    "type": "text"
+  },
   "login": "Login",
   "@login": {
     "type": "text"
@@ -305,6 +321,97 @@
   "@profilesTitle": {
     "type": "text"
   },
+  "backUpVault": "Back up vault",
+  "@backUpVault": {
+    "type": "text"
+  },
+  "backupVaultDescription": "Enter your vault passphrase to export an encrypted backup file of your profiles, credentials, files and consent history.",
+  "@backupVaultDescription": {
+    "type": "text"
+  },
+  "backupVaultNoOpenVault": "No vault is currently open.",
+  "@backupVaultNoOpenVault": {
+    "type": "text"
+  },
+  "backupVaultDetailsUnavailable": "Vault details are unavailable. Please reopen the vault.",
+  "@backupVaultDetailsUnavailable": {
+    "type": "text"
+  },
+  "backupVaultIncorrectPassphrase": "Incorrect passphrase for this vault.",
+  "@backupVaultIncorrectPassphrase": {
+    "type": "text"
+  },
+  "backupVaultFailed": "Backup failed. Please try again.",
+  "@backupVaultFailed": {
+    "type": "text"
+  },
+  "saveVaultBackup": "Save vault backup",
+  "@saveVaultBackup": {
+    "type": "text"
+  },
+  "backupSaved": "Backup saved.",
+  "@backupSaved": {
+    "type": "text"
+  },
+  "selectBackupFile": "Select a backup file",
+  "@selectBackupFile": {
+    "type": "text"
+  },
+  "restoredVaultDefaultName": "Restored vault",
+  "@restoredVaultDefaultName": {
+    "type": "text"
+  },
+  "restoreVaultTitle": "Restore Vault",
+  "@restoreVaultTitle": {
+    "type": "text"
+  },
+  "restoreVaultInvalidFile": "The selected file is not a valid backup.",
+  "@restoreVaultInvalidFile": {
+    "type": "text"
+  },
+  "restoreVaultAlreadyExists": "This vault is already present on this device.",
+  "@restoreVaultAlreadyExists": {
+    "type": "text"
+  },
+  "restoreVaultFailed": "Restore failed. The passphrase may be incorrect or the backup is invalid.",
+  "@restoreVaultFailed": {
+    "type": "text"
+  },
+  "restoreVaultFileInstruction": "Pick a vault backup (.json) file to restore.",
+  "@restoreVaultFileInstruction": {
+    "type": "text"
+  },
+  "chooseBackupFile": "Choose backup file",
+  "@chooseBackupFile": {
+    "type": "text"
+  },
+  "selectedBackupFile": "Selected file: {fileName}",
+  "@selectedBackupFile": {
+    "type": "text",
+    "placeholders": {
+      "fileName": {}
+    }
+  },
+  "vaultNameLabel": "Vault name",
+  "@vaultNameLabel": {
+    "type": "text"
+  },
+  "restoreVaultAction": "Restore Vault",
+  "@restoreVaultAction": {
+    "type": "text"
+  },
+  "restoreVaultSuccess": "Your vault was restored successfully.",
+  "@restoreVaultSuccess": {
+    "type": "text"
+  },
+  "openRestoredVault": "Open restored vault",
+  "@openRestoredVault": {
+    "type": "text"
+  },
+  "deleteConsentRecordFailed": "Consent record could not be deleted. Please try again.",
+  "@deleteConsentRecordFailed": {
+    "type": "text"
+  },
   "deleteProfileTitle": "Delete Profile",
   "@deleteProfileTitle": {
     "type": "text"
@@ -330,6 +437,18 @@
   },
   "shareProfile": "Share",
   "@shareProfile": {
+    "type": "text"
+  },
+  "settingsAction": "Settings",
+  "@settingsAction": {
+    "type": "text"
+  },
+  "storageAffinidiCloud": "Storage: Affinidi Cloud",
+  "@storageAffinidiCloud": {
+    "type": "text"
+  },
+  "storageLocalDrift": "Storage: Local Drift",
+  "@storageLocalDrift": {
     "type": "text"
   },
   "delete": "Delete",
@@ -458,6 +577,14 @@
   },
   "profileNotDeletedMessage": "This profile contains files/folders. Please delete them before trying again.",
   "@profileNotDeletedMessage": {
+    "type": "text"
+  },
+  "profileNotDeletedFilesMessage": "This profile contains files or folders. Please delete them before trying again.",
+  "@profileNotDeletedFilesMessage": {
+    "type": "text"
+  },
+  "profileNotDeletedCredentialsMessage": "This profile contains credentials. Please delete them before trying again.",
+  "@profileNotDeletedCredentialsMessage": {
     "type": "text"
   },
   "gotItActionText": "Got it",

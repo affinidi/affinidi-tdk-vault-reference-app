@@ -82,9 +82,29 @@ class ConsentHistoryPage extends ConsumerWidget {
           height: 1,
           color: AppColorScheme.divider,
         ),
-        itemBuilder: (context, index) =>
-            _ConsentHistoryItem(record: records[index]),
+        itemBuilder: (context, index) => _ConsentHistoryItem(
+          record: records[index],
+          onDelete: () => _deleteRecord(context, ref, records[index]),
+        ),
       ),
     );
+  }
+
+  Future<void> _deleteRecord(
+    BuildContext context,
+    WidgetRef ref,
+    IotaConsentRecord record,
+  ) async {
+    final localizations = AppLocalizations.of(context)!;
+    try {
+      await ref
+          .read(consentHistoryPageControllerProvider.notifier)
+          .deleteRecord(record);
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(localizations.deleteConsentRecordFailed)),
+      );
+    }
   }
 }

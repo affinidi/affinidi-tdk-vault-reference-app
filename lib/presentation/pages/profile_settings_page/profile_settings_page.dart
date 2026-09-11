@@ -114,7 +114,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
                     );
                   },
                 ),
-                const SizedBox(height: AppSizing.paddingLarge),
+                const SizedBox(height: AppSizing.paddingSmall),
 
                 // Delete Profile Section
                 _SettingsTile(

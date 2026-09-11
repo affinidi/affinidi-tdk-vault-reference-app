@@ -54,10 +54,23 @@ class _VaultProfileSection extends HookConsumerWidget {
               .map(
                 (entry) => DropdownMenuItem<String>(
                   value: entry.key,
-                  child: Text(
-                    entry.value.vaultName,
-                    overflow: TextOverflow.ellipsis,
+                  child: FittedBox(
+                    alignment: Alignment.centerLeft,
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      entry.value.vaultName,
+                      maxLines: 1,
+                    ),
                   ),
+                ),
+              )
+              .toList(),
+          selectedItemBuilder: (context) => vaultRegistry.values
+              .map(
+                (entry) => FittedBox(
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.scaleDown,
+                  child: Text(entry.vaultName, maxLines: 1),
                 ),
               )
               .toList(),

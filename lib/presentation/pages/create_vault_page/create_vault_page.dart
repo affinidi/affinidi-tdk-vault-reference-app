@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
+import 'package:affinidi_tdk_vault/affinidi_tdk_vault.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -46,6 +50,27 @@ class CreateVaultPage extends HookConsumerWidget {
     void proceed() async {
       if (passwordController.text.trim().isNotEmpty &&
           vaultNameController.text.trim().isNotEmpty) {
+        // Reuse the toolkit passphrase policy so the rule stays in one place.
+        final passphraseBytes = Uint8List.fromList(
+          utf8.encode(passwordController.text),
+        );
+        final policyViolation = PassphrasePolicy.standard.validate(
+          passphraseBytes,
+        );
+        passphraseBytes.fillRange(0, passphraseBytes.length, 0);
+        if (policyViolation != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                _passphraseViolationMessage(localizations, policyViolation),
+                style: const TextStyle(color: Colors.white),
+              ),
+              backgroundColor: AppColorScheme.backgroundDark,
+              behavior: SnackBarBehavior.fixed,
+            ),
+          );
+          return;
+        }
         await controller.createVault(
           vaultName: vaultNameController.text,
           password: passwordController.text,
@@ -371,6 +396,25 @@ class CreateVaultPage extends HookConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+/// Maps a [PassphraseViolation] to a localized, human-readable message.
+String _passphraseViolationMessage(
+  AppLocalizations localizations,
+  PassphraseViolation violation,
+) {
+  switch (violation) {
+    case PassphraseViolation.tooShort:
+      return localizations.passphraseTooShortMessage(
+        PassphrasePolicy.standard.minLength,
+      );
+    case PassphraseViolation.missingUppercase:
+      return localizations.passphraseMissingUppercaseMessage;
+    case PassphraseViolation.missingNumber:
+      return localizations.passphraseMissingNumberMessage;
+    case PassphraseViolation.missingSpecialCharacter:
+      return localizations.passphraseMissingSpecialCharacterMessage;
   }
 }
 

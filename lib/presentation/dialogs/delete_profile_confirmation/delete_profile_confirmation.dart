@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../infrastructure/exceptions/app_exception.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../navigation/navigation_provider.dart';
@@ -97,8 +98,15 @@ class _DeleteProfileConfirmationState
     final localizations = AppLocalizations.of(context)!;
     final state = ref.watch(deleteProfileConfirmationControllerProvider);
 
-    final isError = state.errorMessage != null;
+    final isError = state.errorType != null || state.errorMessage != null;
     final isLoading = state.isLoading;
+    final errorMessage = switch (state.errorType) {
+      AppExceptionType.profileContainsCredentials =>
+        localizations.profileNotDeletedCredentialsMessage,
+      AppExceptionType.profileContainsFiles =>
+        localizations.profileNotDeletedFilesMessage,
+      _ => state.errorMessage ?? localizations.profileNotDeletedMessage,
+    };
 
     return Container(
       decoration: const BoxDecoration(
@@ -138,7 +146,7 @@ class _DeleteProfileConfirmationState
             padding: const EdgeInsets.all(AppSizing.paddingMedium),
             child: Text(
               isError
-                  ? localizations.profileNotDeletedMessage
+                  ? errorMessage
                   : localizations
                       .deleteProfileConfirmationMessage(widget.profileName),
               style: Theme.of(context).textTheme.bodySmall,
