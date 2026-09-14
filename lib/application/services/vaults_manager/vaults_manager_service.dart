@@ -41,8 +41,8 @@ class VaultsManagerService extends _$VaultsManagerService {
         isLoading: false,
       );
     } catch (e, stack) {
-      log('Failed to load vaults: $e',
-          name: 'VaultsManagerService', error: e, stackTrace: stack);
+      log('Failed to load vaults: ${e.runtimeType}',
+          name: 'VaultsManagerService', stackTrace: stack);
       state = state.copyWith(
         isLoading: false,
         errorMessage: 'Failed to load vaults: $e',

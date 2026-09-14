@@ -1,9 +1,10 @@
 part of 'consent_history_page.dart';
 
 class _ConsentHistoryItem extends StatelessWidget {
-  const _ConsentHistoryItem({required this.record});
+  const _ConsentHistoryItem({required this.record, required this.onDelete});
 
   final IotaConsentRecord record;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +65,24 @@ class _ConsentHistoryItem extends StatelessWidget {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.more_horiz,
+              icon: const Icon(Icons.delete_outline,
                   color: AppColorScheme.textSecondary),
-              onPressed: () => ConsentHistoryDetailsSheet.show(
-                  context: context, record: record),
-              tooltip: localizations.consentHistoryDetails,
+              onPressed: () async {
+                final selectedAction = await showModalBottomSheet<String>(
+                  context: context,
+                  builder: (context) => SafeArea(
+                    child: ListTile(
+                      leading: const Icon(Icons.delete_outline),
+                      title: Text(localizations.deleteActionText),
+                      onTap: () => Navigator.of(context).pop('delete'),
+                    ),
+                  ),
+                );
+                if (selectedAction == 'delete' && context.mounted) {
+                  onDelete();
+                }
+              },
+              tooltip: localizations.deleteActionText,
             ),
           ],
         ),

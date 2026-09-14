@@ -14,7 +14,6 @@ import 'widgets/claim_uri_form.dart';
 import 'widgets/credential_offer_details.dart';
 
 import '../../themes/app_sizing.dart';
-import '../../themes/app_theme.dart';
 import '../../widgets/tdk_app_bar.dart';
 import '../../widgets/code_snippet/code_snippet_widget.dart';
 import '../../widgets/code_snippet/code_snippet_locations.dart';
@@ -72,17 +71,6 @@ class ClaimCredentialsPage extends HookConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 1.0,
-                    left: 1.0,
-                    right: 1.0,
-                    bottom: AppSizing.paddingRegular),
-                child: Text(
-                  localizations.claimCredentialsTitle,
-                  style: AppTheme.headingXLarge,
-                ),
-              ),
               if (fetchStatus == CredentialOfferFetchStatus.loading) ...[
                 const Center(child: CircularProgressIndicator()),
               ] else if (fetchStatus == CredentialOfferFetchStatus.success ||

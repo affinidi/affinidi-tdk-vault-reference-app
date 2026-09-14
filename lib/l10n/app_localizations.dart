@@ -418,6 +418,30 @@ abstract class AppLocalizations {
   /// **'Failed to create new vault '**
   String get createVaultErrorMessage;
 
+  /// No description provided for @passphraseTooShortMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Passphrase must be at least {minLength} characters long.'**
+  String passphraseTooShortMessage(Object minLength);
+
+  /// No description provided for @passphraseMissingUppercaseMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Passphrase must contain at least one uppercase letter.'**
+  String get passphraseMissingUppercaseMessage;
+
+  /// No description provided for @passphraseMissingNumberMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Passphrase must contain at least one number.'**
+  String get passphraseMissingNumberMessage;
+
+  /// No description provided for @passphraseMissingSpecialCharacterMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Passphrase must contain at least one special character.'**
+  String get passphraseMissingSpecialCharacterMessage;
+
   /// No description provided for @login.
   ///
   /// In en, this message translates to:
@@ -520,6 +544,138 @@ abstract class AppLocalizations {
   /// **'Profiles'**
   String get profilesTitle;
 
+  /// No description provided for @backUpVault.
+  ///
+  /// In en, this message translates to:
+  /// **'Back up vault'**
+  String get backUpVault;
+
+  /// No description provided for @backupVaultDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your vault passphrase to export an encrypted backup file of your profiles, credentials, files and consent history.'**
+  String get backupVaultDescription;
+
+  /// No description provided for @backupVaultNoOpenVault.
+  ///
+  /// In en, this message translates to:
+  /// **'No vault is currently open.'**
+  String get backupVaultNoOpenVault;
+
+  /// No description provided for @backupVaultDetailsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Vault details are unavailable. Please reopen the vault.'**
+  String get backupVaultDetailsUnavailable;
+
+  /// No description provided for @backupVaultIncorrectPassphrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect passphrase for this vault.'**
+  String get backupVaultIncorrectPassphrase;
+
+  /// No description provided for @backupVaultFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup failed. Please try again.'**
+  String get backupVaultFailed;
+
+  /// No description provided for @saveVaultBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Save vault backup'**
+  String get saveVaultBackup;
+
+  /// No description provided for @backupSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup saved.'**
+  String get backupSaved;
+
+  /// No description provided for @selectBackupFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a backup file'**
+  String get selectBackupFile;
+
+  /// No description provided for @restoredVaultDefaultName.
+  ///
+  /// In en, this message translates to:
+  /// **'Restored vault'**
+  String get restoredVaultDefaultName;
+
+  /// No description provided for @restoreVaultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Vault'**
+  String get restoreVaultTitle;
+
+  /// No description provided for @restoreVaultInvalidFile.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected file is not a valid backup.'**
+  String get restoreVaultInvalidFile;
+
+  /// No description provided for @restoreVaultAlreadyExists.
+  ///
+  /// In en, this message translates to:
+  /// **'This vault is already present on this device.'**
+  String get restoreVaultAlreadyExists;
+
+  /// No description provided for @restoreVaultFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore failed. The passphrase may be incorrect or the backup is invalid.'**
+  String get restoreVaultFailed;
+
+  /// No description provided for @restoreVaultFileInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a vault backup (.json) file to restore.'**
+  String get restoreVaultFileInstruction;
+
+  /// No description provided for @chooseBackupFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose backup file'**
+  String get chooseBackupFile;
+
+  /// No description provided for @selectedBackupFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected file: {fileName}'**
+  String selectedBackupFile(Object fileName);
+
+  /// No description provided for @vaultNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Vault name'**
+  String get vaultNameLabel;
+
+  /// No description provided for @restoreVaultAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Vault'**
+  String get restoreVaultAction;
+
+  /// No description provided for @restoreVaultSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Your vault was restored successfully.'**
+  String get restoreVaultSuccess;
+
+  /// No description provided for @openRestoredVault.
+  ///
+  /// In en, this message translates to:
+  /// **'Open restored vault'**
+  String get openRestoredVault;
+
+  /// No description provided for @deleteConsentRecordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Consent record could not be deleted. Please try again.'**
+  String get deleteConsentRecordFailed;
+
   /// No description provided for @deleteProfileTitle.
   ///
   /// In en, this message translates to:
@@ -555,6 +711,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Share'**
   String get shareProfile;
+
+  /// No description provided for @settingsAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsAction;
+
+  /// No description provided for @storageAffinidiCloud.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage: Affinidi Cloud'**
+  String get storageAffinidiCloud;
+
+  /// No description provided for @storageLocalDrift.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage: Local Drift'**
+  String get storageLocalDrift;
 
   /// No description provided for @delete.
   ///
@@ -729,6 +903,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This profile contains files/folders. Please delete them before trying again.'**
   String get profileNotDeletedMessage;
+
+  /// No description provided for @profileNotDeletedFilesMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This profile contains files or folders. Please delete them before trying again.'**
+  String get profileNotDeletedFilesMessage;
+
+  /// No description provided for @profileNotDeletedCredentialsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This profile contains credentials. Please delete them before trying again.'**
+  String get profileNotDeletedCredentialsMessage;
 
   /// No description provided for @gotItActionText.
   ///

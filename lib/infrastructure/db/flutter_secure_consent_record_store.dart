@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+String consentRecordNamespace(String vaultId) => 'iota_consent_$vaultId';
+
 /// Implementation of [ConsentStorage] backed by Flutter's secure storage.
 ///
 /// Each record is stored as a JSON string keyed by its [IotaConsentRecord.hash],
@@ -62,6 +64,14 @@ class FlutterSecureConsentRecordStore implements ConsentStorage {
       for (final record in all)
         if (record.requestHash == requestHash) record,
     ];
+  }
+
+  @override
+  Future<bool> deleteByHash(String hash) async {
+    final key = _key(hash);
+    if (!await _secureStorage.containsKey(key: key)) return false;
+    await _secureStorage.delete(key: key);
+    return true;
   }
 
   Future<List<IotaConsentRecord>> _readAll() async {

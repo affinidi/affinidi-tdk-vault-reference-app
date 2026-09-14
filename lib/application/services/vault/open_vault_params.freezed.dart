@@ -139,12 +139,13 @@ class __$$OpenVaultParamsImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OpenVaultParamsImpl implements _OpenVaultParams {
+class _$OpenVaultParamsImpl extends _OpenVaultParams {
   const _$OpenVaultParamsImpl(
       {required this.vaultId,
       required this.base64Seed,
       required this.vaultName,
-      required this.password});
+      required this.password})
+      : super._();
 
   factory _$OpenVaultParamsImpl.fromJson(Map<String, dynamic> json) =>
       _$$OpenVaultParamsImplFromJson(json);
@@ -157,11 +158,6 @@ class _$OpenVaultParamsImpl implements _OpenVaultParams {
   final String vaultName;
   @override
   final String password;
-
-  @override
-  String toString() {
-    return 'OpenVaultParams(vaultId: $vaultId, base64Seed: $base64Seed, vaultName: $vaultName, password: $password)';
-  }
 
   @override
   bool operator ==(Object other) {
@@ -199,12 +195,13 @@ class _$OpenVaultParamsImpl implements _OpenVaultParams {
   }
 }
 
-abstract class _OpenVaultParams implements OpenVaultParams {
+abstract class _OpenVaultParams extends OpenVaultParams {
   const factory _OpenVaultParams(
       {required final String vaultId,
       required final String base64Seed,
       required final String vaultName,
       required final String password}) = _$OpenVaultParamsImpl;
+  const _OpenVaultParams._() : super._();
 
   factory _OpenVaultParams.fromJson(Map<String, dynamic> json) =
       _$OpenVaultParamsImpl.fromJson;

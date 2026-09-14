@@ -25,21 +25,23 @@ import 'did_display.dart';
 class ProfileAppBar extends ConsumerWidget {
   const ProfileAppBar({
     super.key,
-    required this.profileName,
     this.profileDescription = '',
     required this.profileId,
+    this.profileRepositoryId,
     this.profileDid = '',
   });
 
   final String profileId;
-  final String profileName;
   final String profileDescription;
   final String profileDid;
+  final String? profileRepositoryId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context);
-    final profileType = ref.watch(profileTypeProvider(profileId));
+    final profileType = ref.watch(
+      profileTypeProvider(profileRepositoryId ?? profileId),
+    );
     final navigation = ref.read(navigationServiceProvider);
 
     return Container(
@@ -90,7 +92,7 @@ class ProfileAppBar extends ConsumerWidget {
                 IconButton(
                   key: Key(KeyConstants.keySettingsButton),
                   icon: const Icon(Icons.settings_outlined),
-                  tooltip: localizations?.shareProfile ?? 'Settings',
+                  tooltip: localizations?.settingsAction ?? 'Settings',
                   onPressed: () {
                     navigation
                         .push(ProfilesRoutePath.profileSettings(profileId));
@@ -129,8 +131,15 @@ class ProfileAppBar extends ConsumerWidget {
                     ),
                     const SizedBox(width: AppSizing.paddingMedium),
                     Text(
-                      profileName,
-                      style: AppTheme.headingMedium,
+                      profileType == ProfileType.affinidiCloud
+                          ? localizations?.storageAffinidiCloud ??
+                              'Storage: Affinidi Cloud'
+                          : localizations?.storageLocalDrift ??
+                              'Storage: Local Drift',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppColorScheme.textSecondary,
+                            fontSize: 11,
+                          ),
                     ),
                   ],
                 ),

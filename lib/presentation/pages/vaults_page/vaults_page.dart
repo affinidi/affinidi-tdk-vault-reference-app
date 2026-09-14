@@ -131,6 +131,14 @@ class VaultsPage extends ConsumerWidget {
                                 child: _VaultCard(
                                   vaultName: vaultName ?? '',
                                   vault: vault,
+                                  onBackUp: () async {
+                                    await ref
+                                        .read(vaultServiceProvider.notifier)
+                                        .selectVault(
+                                            vaultId: seed, vault: vault);
+                                    if (!context.mounted) return;
+                                    context.push(VaultsRoutePath.backup);
+                                  },
                                   onSelected: (vault) async {
                                     await ref
                                         .read(vaultsPageControllerProvider
@@ -156,6 +164,30 @@ class VaultsPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FloatingActionButton.extended(
+              heroTag: 'restoreVaultFab',
+              onPressed: () {
+                if (!context.mounted) return;
+                context.push(VaultsRoutePath.restore);
+              },
+              backgroundColor: theme.colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppSizing.paddingXXLarge),
+              ),
+              elevation: 8,
+              highlightElevation: 12,
+              extendedPadding: const EdgeInsets.symmetric(
+                  horizontal: AppSizing.paddingMedium,
+                  vertical: AppSizing.paddingMedium),
+              label: Text(
+                localizations.restoreVaultAction,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: AppColorScheme.backgroundWhite,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            const SizedBox(height: AppSizing.paddingSmall),
+            FloatingActionButton.extended(
               heroTag: 'createVaultFab',
               onPressed: () {
                 if (!context.mounted) return;
@@ -173,7 +205,7 @@ class VaultsPage extends ConsumerWidget {
               label: Text(
                 localizations.addVault,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: AppColorScheme.backgroundBlack,
+                      color: AppColorScheme.backgroundWhite,
                       fontWeight: FontWeight.bold,
                     ),
               ),
@@ -188,11 +220,13 @@ class VaultsPage extends ConsumerWidget {
 class _VaultCard extends StatelessWidget {
   final Vault vault;
   final String vaultName;
+  final VoidCallback onBackUp;
   final void Function(Vault vault) onSelected;
 
   const _VaultCard({
     required this.vault,
     required this.vaultName,
+    required this.onBackUp,
     required this.onSelected,
   });
 
@@ -242,13 +276,23 @@ class _VaultCard extends StatelessWidget {
                 const SizedBox(width: AppSizing.paddingMedium),
 
                 Expanded(
-                  child: Text(
-                    vaultName,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(letterSpacing: 0.2),
+                  child: FittedBox(
+                    alignment: Alignment.centerLeft,
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      vaultName,
+                      maxLines: 1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(letterSpacing: 0.2),
+                    ),
                   ),
+                ),
+                IconButton(
+                  onPressed: onBackUp,
+                  tooltip: AppLocalizations.of(context)!.backUpVault,
+                  icon: const Icon(Icons.backup_outlined),
                 ),
 
                 Padding(

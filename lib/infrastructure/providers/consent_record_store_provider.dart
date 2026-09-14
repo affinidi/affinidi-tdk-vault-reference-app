@@ -12,6 +12,8 @@ part 'consent_record_store_provider.g.dart';
 ///
 /// Returns the concrete type so callers can use extended API (e.g. [listAll]).
 @Riverpod(keepAlive: true)
-FlutterSecureConsentRecordStore consentRecordStore(Ref ref) {
-  return FlutterSecureConsentRecordStore();
+FlutterSecureConsentRecordStore consentRecordStore(Ref ref, String vaultId) {
+  return FlutterSecureConsentRecordStore(
+    namespace: consentRecordNamespace(vaultId),
+  );
 }

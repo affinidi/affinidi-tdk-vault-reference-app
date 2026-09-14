@@ -2,6 +2,7 @@ import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../application/services/vault/vault_service.dart';
+import '../../../application/services/iota/iota_consent_record_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
 import '../../../infrastructure/loggers/error_logger/error_logging_handler.dart';
 import '../../../infrastructure/providers/consent_record_store_provider.dart';
@@ -19,7 +20,8 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
 
   Future<void> _loadRecords() async {
     final vault = ref.read(vaultServiceProvider).currentVault;
-    if (vault == null) {
+    final vaultId = ref.read(vaultServiceProvider).currentVaultId;
+    if (vault == null || vaultId == null) {
       state = state.copyWith(isLoading: false);
       return;
     }
@@ -29,7 +31,7 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
       final profileDidById = {
         for (final profile in profiles) profile.id: profile.did,
       };
-      final store = ref.read(consentRecordStoreProvider);
+      final store = ref.read(consentRecordStoreProvider(vaultId));
       final allRecords = await store.listAll();
       final filtered = allRecords
           .where((record) => profileIds.contains(record.profileId))
@@ -68,9 +70,50 @@ class ConsentHistoryPageController extends _$ConsentHistoryPageController {
     state = state.copyWith(records: [...records]..[idx] = updated);
 
     try {
-      await ref.read(consentRecordStoreProvider).saveOrUpdate(updated);
+      final vaultId = ref.read(vaultServiceProvider).currentVaultId;
+      if (vaultId == null) return;
+      await ref.read(consentRecordStoreProvider(vaultId)).saveOrUpdate(updated);
     } catch (_) {
       state = state.copyWith(records: [...state.records]..[idx] = previous);
+    }
+  }
+
+  Future<void> deleteRecord(IotaConsentRecord record) async {
+    final vaultState = ref.read(vaultServiceProvider);
+    final vault = vaultState.currentVault;
+    final vaultId = vaultState.currentVaultId;
+    if (vault == null || vaultId == null) {
+      throw AppException(
+        message: 'Vault is not open.',
+        type: AppExceptionType.vaultNotInitialized,
+      );
+    }
+
+    try {
+      final profile = (await vault.listProfiles()).firstWhere(
+        (profile) => profile.id == record.profileId,
+        orElse: () => throw AppException(
+          message: 'Profile not found.',
+          type: AppExceptionType.missingProfile,
+        ),
+      );
+      await ref
+          .read(iotaConsentRecordServiceProvider(
+            vaultId: vaultId,
+            accountIndex: profile.accountIndex,
+          ))
+          .deleteConsentRecord(hash: record.hash);
+      state = state.copyWith(
+        records:
+            state.records.where((item) => item.hash != record.hash).toList(),
+      );
+    } catch (error, stackTrace) {
+      ErrorLoggingHandler.instance.logError(
+        error,
+        stackTrace,
+        reason: 'deleteConsentRecord failed',
+      );
+      rethrow;
     }
   }
 }

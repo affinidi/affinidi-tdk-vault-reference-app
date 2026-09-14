@@ -149,7 +149,7 @@ class ShareCredentialPageController extends _$ShareCredentialPageController {
     try {
       final profiles = await ref
           .read(shareCredentialFlowServiceProvider)
-          .loadProfilesForOpenVault();
+          .loadProfilesForOpenVault(vaultId);
       if (state.selectedVaultId != vaultId) {
         return;
       }

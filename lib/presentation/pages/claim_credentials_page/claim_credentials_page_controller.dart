@@ -7,6 +7,7 @@ import '../../../application/services/credential/claim_credential_service.dart';
 import '../../../application/services/credential/credential_service.dart';
 import '../../../application/services/vault/vault_service.dart';
 import '../../../infrastructure/exceptions/app_exception.dart';
+import '../../../infrastructure/providers/localizations_provider.dart';
 import '../../../navigation/flows/profiles/profiles_route_constants.dart';
 import '../../../navigation/flows/vaults/vaults_route_constants.dart';
 import '../../../navigation/navigation_provider.dart';
@@ -50,22 +51,21 @@ class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
   }
 
   Future<void> fetchCredentialOffer(Uri uri) async {
-    final vault = _getCurrentVault();
-
-    final profiles = await vault.listProfiles();
-    final profile = profiles.firstWhere(
-      (p) => p.id == profileId,
-      orElse: () => throw AppException(
-        message: 'Selected profile was not found in current vault.',
-        type: AppExceptionType.missingProfile,
-      ),
-    );
-
     state = state.copyWith(
       offerUri: uri,
       fetchStatus: CredentialOfferFetchStatus.loading,
+      fetchErrorMessage: null,
     );
     try {
+      final vault = _getCurrentVault();
+      final profiles = await vault.listProfiles();
+      final profile = profiles.firstWhere(
+        (p) => p.id == profileId,
+        orElse: () => throw AppException(
+          message: 'Selected profile was not found in current vault.',
+          type: AppExceptionType.missingProfile,
+        ),
+      );
       await ref
           .read(claimCredentialServiceProvider.notifier)
           .getCredentialOffer(
@@ -75,12 +75,23 @@ class ClaimCredentialsPageController extends _$ClaimCredentialsPageController {
 
       state = state.copyWith(
         fetchStatus: CredentialOfferFetchStatus.success,
+        fetchErrorMessage: null,
       );
-    } catch (e) {
+    } catch (e, stackTrace) {
+      log('Failed to fetch credential offer: ${e.runtimeType}',
+          name: 'ClaimCredentialsPageController', stackTrace: stackTrace);
       state = state.copyWith(
         fetchStatus: CredentialOfferFetchStatus.error,
+        fetchErrorMessage: _messageForCredentialFetchError(e),
       );
     }
+  }
+
+  String _messageForCredentialFetchError(Object error) {
+    final localizations = ref.read(localizationsProvider);
+    if (error is TdkException) return error.message;
+    if (error is AppException) return error.message;
+    return localizations.errorMessage('getCredentialFailed');
   }
 
   Future<void> saveCredential({

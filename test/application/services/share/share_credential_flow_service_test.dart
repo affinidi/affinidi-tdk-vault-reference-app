@@ -37,13 +37,13 @@ class _TestShareVaultSession implements ShareVaultSession {
   String? unlockedPassword;
 
   @override
-  bool get hasOpenVault => open;
-
-  @override
   bool isOpen(String vaultId) => openVaultId == vaultId;
 
   @override
-  Future<List<Profile>> loadProfiles() async => loadedProfiles;
+  Future<List<Profile>> loadProfiles(String vaultId) async {
+    if (!isOpen(vaultId)) return [];
+    return loadedProfiles;
+  }
 
   @override
   List<Profile> get profiles => loadedProfiles;
@@ -128,16 +128,24 @@ void main() {
   });
 
   group('loadProfilesForOpenVault', () {
-    test('returns an empty list when no vault is open', () async {
-      final result = await shareFlowService.loadProfilesForOpenVault();
-      expect(result, isEmpty);
+    test('throws when the requested vault is not open', () async {
+      await expectLater(
+        shareFlowService.loadProfilesForOpenVault(_vaultId),
+        throwsA(
+          isA<AppException>().having(
+            (error) => error.type,
+            'type',
+            AppExceptionType.vaultNotInitialized,
+          ),
+        ),
+      );
     });
 
     test('delegates to ProfileService when a vault is open', () async {
       _openVault(vaultSession);
       vaultSession.loadedProfiles = [_buildProfile()];
 
-      final result = await shareFlowService.loadProfilesForOpenVault();
+      final result = await shareFlowService.loadProfilesForOpenVault(_vaultId);
 
       expect(result, vaultSession.loadedProfiles);
     });

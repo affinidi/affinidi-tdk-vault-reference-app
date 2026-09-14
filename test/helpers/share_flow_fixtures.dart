@@ -1,6 +1,4 @@
 import 'package:affinidi_tdk_cryptography/affinidi_tdk_cryptography.dart';
-// ignore: implementation_imports
-import 'package:affinidi_tdk_cryptography/src/models/verify_jwt_result.dart';
 import 'package:affinidi_tdk_vault_iota/affinidi_tdk_vault_iota.dart';
 import 'package:mocktail/mocktail.dart';
 
